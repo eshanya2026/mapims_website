@@ -44,6 +44,5 @@ export const interventionalRadiologyService: InternationalServiceData = {
   ],
   closing:
     "Experience the future of medical care with our Interventional Radiology team. Contact us today to learn more about how we can help you achieve optimal health through innovative, minimally invasive techniques.",
-  image:
-    "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=2070&auto=format&fit=crop",
+  image: "/images/international/radiologyu.png",
 };

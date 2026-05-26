@@ -6,8 +6,8 @@ export const spinalSurgeriesService: InternationalServiceData = {
   slug: "spinal-surgeries",
   path: spinalSurgeriesPath,
   sectionLabel: "Spine Care",
-  title: "Spine Institute &",
-  titleHighlight: "Spinal Surgery",
+  title: "Spinal",
+  titleHighlight: "Surgery",
   seoTitle: "Spine Surgery hospitals in chennai",
   breadcrumbLabel: "Spinal Surgeries",
   heroBadge: "Comprehensive Spine Care",
@@ -47,6 +47,5 @@ export const spinalSurgeriesService: InternationalServiceData = {
   ],
   closing:
     "Choose Adhiparasakthi Hospitals for expert spine surgery in Chennai and Kanchipuram — where advanced technology, skilled surgeons, and personalized rehabilitation support help you return to an active, pain-free life.",
-  image:
-    "https://images.unsplash.com/photo-1559757175-08eb37c6afcb?q=80&w=2070&auto=format&fit=crop",
+  image: "/images/international/spiral.png",
 };

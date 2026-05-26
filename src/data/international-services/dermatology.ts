@@ -51,6 +51,5 @@ export const dermatologyService: InternationalServiceData = {
   ],
   closing:
     "Experience the best in dermatological care at Adhiparasakthi Hospitals. Schedule your appointment today and take the first step toward healthier, radiant skin!",
-  image:
-    "https://images.unsplash.com/photo-1629909613654-28e377b8d9e0?q=80&w=2070&auto=format&fit=crop",
+  image: "/images/international/derma.png",
 };

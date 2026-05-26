@@ -29,9 +29,9 @@ export default function InternationalWelcome() {
           </div>
           <div className="rounded-2xl overflow-hidden shadow-xl border border-slate-100">
             <img
-              src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop"
-              alt="Global healthcare"
-              className="w-full aspect-[4/3] object-cover"
+              src="/images/international/global-healthcare.png"
+              alt="Global healthcare — stethoscope and world globe representing international patient care"
+              className="w-full aspect-[4/3] object-cover object-center"
             />
           </div>
         </div>

@@ -9,7 +9,10 @@ import { internationalHero } from "@/data/international-patients";
 export default function InternationalHero() {
   return (
     <section className="relative min-h-[50vh] md:min-h-[55vh] flex items-center overflow-hidden">
-      <HeroBackground imageSrc="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2070&auto=format&fit=crop" />
+      <HeroBackground
+        imageSrc={internationalHero.image}
+        imageClassName="object-cover object-[center_35%]"
+      />
 
       <div className="absolute bottom-0 left-0 w-full h-24 z-10 opacity-20 pointer-events-none overflow-hidden">
         <svg

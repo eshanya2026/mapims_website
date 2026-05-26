@@ -92,13 +92,13 @@ export default function InternationalServiceArticle({
 
       <p className="text-slate-600 leading-relaxed mb-10">{service.closing}</p>
 
-      <div className="rounded-3xl overflow-hidden shadow-2xl border border-slate-100">
+      {/* <div className="rounded-3xl overflow-hidden shadow-2xl border border-slate-100">
         <img
           src={service.footerImage ?? service.image}
           alt={`${service.breadcrumbLabel} at Adhiparasakthi Hospitals`}
-          className="w-full aspect-[16/7] object-cover object-center"
+          className="w-full aspect-[16/7] object-cover object-[center_bottom]"
         />
-      </div>
+      </div> */}
 
       <p className="mt-8 text-sm text-slate-500">
         <Link

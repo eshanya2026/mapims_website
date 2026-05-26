@@ -100,6 +100,7 @@ export const internationalHero = {
   subtitle:
     "Seamless international patient care — from arrival to recovery, with dedicated support for travel, treatment, and follow-up.",
   cta: "Book Consultation",
+  image: "/images/international/international-hero.png",
 };
 
 export const internationalFeatures = [
@@ -319,7 +320,7 @@ export const internationalFaqs = [
 export const internationalGallery = [
   "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=800&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=800&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop",
+  "/images/international/casualty.png",
   "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=800&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1631217868264-e5b1b5d261b9?q=80&w=800&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1527613426441-4da17471b66d?q=80&w=800&auto=format&fit=crop",

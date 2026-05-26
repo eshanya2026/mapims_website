@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import { healthPackages } from "@/data/health-packages";
+import { mapimsHealthCheckupUrl } from "@/data/site-links";
 import { cn } from "@/lib/utils";
 
 export default function HealthPackages() {
@@ -24,7 +25,10 @@ export default function HealthPackages() {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-b from-red-50/40 via-white to-red-50/30">
+    <section
+      id="health-packages"
+      className="py-24 bg-gradient-to-b from-red-50/40 via-white to-red-50/30"
+    >
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="flex items-center justify-center gap-2 mb-4">
@@ -39,7 +43,16 @@ export default function HealthPackages() {
           </h2>
           <p className="text-lg text-slate-600">
             Choose from our affordable preventive health packages at Adhiparasakthi
-            Hospitals, Melmaruvathur.
+            Hospitals, Melmaruvathur.{" "}
+            <a
+              href={mapimsHealthCheckupUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-red-600 hover:text-red-700 hover:underline"
+            >
+              Start your free MAPIMS AI health assessment
+            </a>{" "}
+            for master health checkup recommendations.
           </p>
         </div>
 
@@ -123,12 +136,20 @@ export default function HealthPackages() {
           })}
         </div>
 
-        <div className="text-center mt-12">
-          <Link
-            href="/#book-appointment"
+        <div className="text-center mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href={mapimsHealthCheckupUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center justify-center rounded-full bg-red-600 hover:bg-red-700 text-white px-8 h-12 font-medium shadow-lg shadow-red-600/20 transition-all"
           >
-            Book Selected Package
+            MAPIMS AI Health Assessment
+          </a>
+          <Link
+            href="/#book-appointment"
+            className="inline-flex items-center justify-center rounded-full border-2 border-red-600 text-red-600 hover:bg-red-50 px-8 h-12 font-medium transition-all"
+          >
+            Book at Hospital
           </Link>
         </div>
       </div>

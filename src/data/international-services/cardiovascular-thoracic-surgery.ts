@@ -34,6 +34,5 @@ export const cardiovascularThoracicService: InternationalServiceData = {
   ],
   closing:
     "Our comprehensive approach combines expert care with innovative techniques to ensure the best outcomes. Trust Adhiparasakthi Hospitals for your cardiovascular and thoracic health, where advanced care meets compassionate service.",
-  image:
-    "https://images.unsplash.com/photo-1530497610247-94d17445316a?q=80&w=2070&auto=format&fit=crop",
+  image: "/images/international/cardio.png",
 };

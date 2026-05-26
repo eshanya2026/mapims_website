@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MapPin, Phone, Mail, ExternalLink } from "lucide-react";
+import { mapimsHealthCheckupUrl } from "@/data/site-links";
 import FooterNewsletter from "@/components/layout/FooterNewsletter";
 import {
   FacebookIcon,
@@ -27,19 +28,37 @@ const departments = [
   "Urology",
 ];
 
+const healthCheckupLinks = [
+  "Master Health Check Up Package",
+  "Cardio Health Check Up Package",
+  "Well Women Checkup Executive Package",
+] as const;
+
 const quickLinks = [
   "Mission & Vision",
   "Charity Initiatives",
   "International Patients",
-  "Well Women Check Executive",
-  "Cardio Health Check",
-  "Master Health Check Basic",
+  ...healthCheckupLinks,
   "Blog",
   "Appointment",
   "Patient Feedback",
   "Value Added Services",
   "Contact",
 ];
+
+function quickLinkHref(item: string): string {
+  if (item === "Appointment") return "#book-appointment";
+  if (item === "International Patients") return "/international";
+  if (item === "Contact") return "/contact";
+  if (item === "Value Added Services") return "/about#value-added-services";
+  if (item === "Blog") return "/blog/health-insights";
+  if (
+    healthCheckupLinks.includes(item as (typeof healthCheckupLinks)[number])
+  ) {
+    return mapimsHealthCheckupUrl;
+  }
+  return "#";
+}
 
 const socialLinks = [
   {
@@ -136,28 +155,30 @@ export default function Footer() {
           <div>
             <FooterHeading>Quick Links</FooterHeading>
             <ul className="space-y-2">
-              {quickLinks.map((item) => (
-                <li key={item}>
-                  <Link
-                    href={
-                      item === "Appointment"
-                        ? "#book-appointment"
-                        : item === "International Patients"
-                          ? "/international"
-                          : item === "Contact"
-                            ? "/contact"
-                            : item === "Value Added Services"
-                              ? "/about#value-added-services"
-                              : item === "Blog"
-                                ? "/blog/health-insights"
-                                : "#"
-                    }
-                    className="text-sm text-slate-400 hover:text-white transition-colors"
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
+              {quickLinks.map((item) => {
+                const href = quickLinkHref(item);
+                const isExternal = href.startsWith("http");
+                const className =
+                  "text-sm text-slate-400 hover:text-white transition-colors";
+                return (
+                  <li key={item}>
+                    {isExternal ? (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={className}
+                      >
+                        {item}
+                      </a>
+                    ) : (
+                      <Link href={href} className={className}>
+                        {item}
+                      </Link>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
 

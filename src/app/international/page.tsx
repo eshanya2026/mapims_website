@@ -7,7 +7,6 @@ import InternationalWhyIndiaUs from "@/components/international/InternationalWhy
 import InternationalExpertDoctors from "@/components/international/InternationalExpertDoctors";
 import CertificationSection from "@/components/about/CertificationSection";
 import InternationalGallery from "@/components/international/InternationalGallery";
-import InternationalFAQ from "@/components/international/InternationalFAQ";
 import InternationalCTA from "@/components/international/InternationalCTA";
 
 export const metadata: Metadata = {
@@ -27,7 +26,6 @@ export default function InternationalPatientsPage() {
       <InternationalExpertDoctors />
       <CertificationSection />
       <InternationalGallery />
-      <InternationalFAQ />
       <InternationalCTA />
     </main>
   );

@@ -24,9 +24,10 @@ export default function InternationalServiceHero({
   breadcrumbs,
 }: InternationalServiceHeroProps) {
   return (
-    <section className="relative min-h-[45vh] md:min-h-[50vh] flex items-center overflow-hidden">
+    <section  className="relative min-h-[45vh] md:min-h-[50vh] flex items-center overflow-hidden">
       <HeroBackground
         imageSrc={image}
+        imageClassName={`object-cover ${image.includes("casualty") ? "object-[center_bottom]" : `"object-center"`}`}
         overlayClassName="bg-gradient-to-r from-slate-900/95 via-slate-900/75 to-slate-800/40"
       />
 

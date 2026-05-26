@@ -50,5 +50,5 @@ export const accidentEmergencyService: InternationalServiceData = {
   closing:
     "At Adhiparasakthi Hospitals, we are committed to delivering exceptional care during the most critical moments. Our Accident Emergency Services are designed to provide swift, effective, and compassionate treatment to every patient. For emergencies, trust us to be there when you need us the most. For immediate assistance, call 94990 59966 or visit our emergency department at Adhiparasakthi Hospitals, Melmaruvathur, Kancheepuram, Tamil Nadu 603319.",
   image:
-    "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop",
+    "/images/international/casualty.png",
 };

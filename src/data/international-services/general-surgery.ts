@@ -52,6 +52,5 @@ export const generalSurgeryService: InternationalServiceData = {
   ],
   closing:
     "For complex general surgery in Chennai and beyond, trust Adhiparasakthi Hospitals — where skilled surgeons, modern facilities, and patient-centred care come together. Contact us to schedule a surgical consultation or seek emergency surgical assistance.",
-  image:
-    "https://images.unsplash.com/photo-1559757175-08eb37c6afcb?q=80&w=2070&auto=format&fit=crop",
+  image: "/images/international/general sur.png",
 };

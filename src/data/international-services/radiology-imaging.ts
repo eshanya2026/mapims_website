@@ -48,6 +48,5 @@ export const radiologyImagingService: InternationalServiceData = {
   ],
   closing:
     "Choose Adhiparasakthi Hospitals for your radiology and imaging needs, where advanced technology meets compassionate care.",
-  image:
-    "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop",
+  image: "/images/international/imaging science.png",
 };

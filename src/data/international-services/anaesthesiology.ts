@@ -54,6 +54,5 @@ export const anaesthesiologyService: InternationalServiceData = {
   ],
   closing:
     "Discover unparalleled care and expertise at Adhiparasakthi Hospitals, where we combine innovation with compassion to ensure the best outcomes for our patients.",
-  image:
-    "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=2070&auto=format&fit=crop",
+  image: "/images/international/anaesthesiology.png",
 };

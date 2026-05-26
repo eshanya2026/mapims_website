@@ -39,8 +39,8 @@ export const surgicalOncologyService: InternationalServiceData = {
   ],
   closing:
     "At Adhiparasakthi Hospitals, we're committed to offering the highest standards of care with a focus on innovative solutions and compassionate support. Discover the difference of expert surgical oncology care with us today. For more information or to schedule a consultation, contact us or visit our website.",
-  image: "/images/international/surgical-oncology-surgery.png",
-  heroImage: "/images/international/surgical-oncology-surgery.png",
+  image: "/images/international/spinal oncology.png",
+  heroImage: "/images/international/spinal oncology.png",
   bannerLabel: "Surgical Oncology",
-  footerImage: "/images/international/surgical-oncology-surgery.png",
+  footerImage: "/images/international/spinal oncology.png",
 };
