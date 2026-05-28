@@ -16,6 +16,8 @@
 # next.js
 /.next/
 /out/
+# Turbopack on WSL/cross-mount can create a bogus Windows-path folder
+/C:*/
 
 # production
 /build
