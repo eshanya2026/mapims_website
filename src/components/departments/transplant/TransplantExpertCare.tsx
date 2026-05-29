@@ -14,7 +14,7 @@ export default function TransplantExpertCare() {
   return (
     <section className="py-12 md:py-16 bg-white border-t border-slate-100">
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start max-w-6xl mx-auto">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-14">
           <div className="relative rounded-2xl overflow-hidden shadow-lg border border-slate-100 aspect-[4/5] lg:aspect-auto lg:min-h-[520px] bg-slate-100">
             <img
               src="https://images.unsplash.com/photo-1631217868264-e5b1b5d261b9?q=80&w=1200&auto=format&fit=crop"

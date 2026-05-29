@@ -29,16 +29,16 @@ export default function HealthPackages() {
       id="health-packages"
       className="section-padding bg-gradient-to-b from-red-50/40 via-white to-red-50/30"
     >
-      <div className="page-container">
-        <div className="section-header-center">
-          <div className="section-eyebrow-center">
+      <div className="container mx-auto px-4">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="flex items-center justify-center gap-2 mb-4">
             <div className="w-12 h-[2px] bg-red-600" />
             <span className="text-red-600 font-semibold uppercase tracking-wider text-sm">
               Professional Healthcare Excellence
             </span>
             <div className="w-12 h-[2px] bg-red-600" />
           </div>
-          <h2 className="section-title">
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
             Health Checkup <span className="text-red-600">Packages</span>
           </h2>
           <p className="text-lg text-slate-600">
@@ -56,7 +56,7 @@ export default function HealthPackages() {
           </p>
         </div>
 
-        <div className="section-grid mx-auto max-w-7xl grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {healthPackages.map((pkg, index) => {
             const isSelected = selectedId === pkg.id;
             const isExpanded = expandedIds.has(pkg.id);
@@ -81,7 +81,7 @@ export default function HealthPackages() {
                 )}
               >
                 <div className="mb-5">
-                  <h3 className="mb-3 text-base font-bold leading-snug text-red-600 sm:text-lg sm:min-h-[3.5rem]">
+                  <h3 className="text-lg font-bold text-red-600 leading-snug mb-3 min-h-[3.5rem]">
                     {pkg.name}
                   </h3>
                   <p className="text-4xl font-bold text-red-600 mb-2">{pkg.priceLabel}</p>
@@ -136,7 +136,7 @@ export default function HealthPackages() {
           })}
         </div>
 
-        <div className="mt-8 flex flex-col items-center justify-center gap-3 text-center sm:mt-10 sm:flex-row sm:gap-4 md:mt-12">
+        <div className="text-center mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
             href={mapimsHealthCheckupUrl}
             target="_blank"

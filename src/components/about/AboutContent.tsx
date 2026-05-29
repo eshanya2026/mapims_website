@@ -19,10 +19,10 @@ export default function AboutContent() {
   return (
     <>
       <section id="about" className="section-padding bg-white">
-        <div className="page-container">
+        <div className="container mx-auto px-4">
           <div className="flex flex-col gap-8 lg:flex-row lg:gap-14">
             {/* Sidebar */}
-            <aside className="w-full shrink-0 lg:w-72">
+            <aside className="w-full lg:w-72 shrink-0">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -30,14 +30,14 @@ export default function AboutContent() {
                 transition={{ duration: 0.5 }}
                 className="lg:sticky lg:top-28 space-y-5"
               >
-                <nav className="flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] lg:block lg:overflow-visible lg:rounded-2xl lg:border lg:border-slate-100 lg:bg-white lg:shadow-lg lg:shadow-slate-200/40 [&::-webkit-scrollbar]:hidden">
+                <nav className="bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-200/40 overflow-hidden">
                   {sidebarLinks.map((link) => (
                     <a
                       key={link.id}
                       href={`#${link.id}`}
                       onClick={() => setActiveSection(link.id)}
                       className={cn(
-                        "flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-semibold transition-all duration-200 lg:gap-3 lg:rounded-none lg:border-0 lg:border-b lg:border-slate-50 lg:px-5 lg:py-4 lg:last:border-0",
+                        "flex items-center gap-3 px-5 py-4 text-sm font-semibold border-b border-slate-50 last:border-0 transition-all duration-200",
                         activeSection === link.id
                           ? "bg-red-600 text-white shadow-inner"
                           : "text-slate-700 hover:bg-red-50 hover:text-red-600"

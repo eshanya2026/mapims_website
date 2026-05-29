@@ -13,8 +13,8 @@ export default function BlogGrid({ section }: BlogGridProps) {
   const posts = getPostsForSection(section);
 
   return (
-    <section className="section-padding bg-slate-50">
-      <div className="page-container">
+    <section className="bg-slate-50 py-10 sm:py-16 md:py-24">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
           {posts.map((post, index) => (
             <motion.article

@@ -13,7 +13,7 @@ import EmergencyCTA from "@/components/home/EmergencyCTA";
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-x-hidden">
+    <main className="min-h-screen">
       <Hero />
       <QuickActions />
       <AboutSection />

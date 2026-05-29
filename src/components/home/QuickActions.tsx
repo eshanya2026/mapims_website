@@ -16,23 +16,23 @@ const actions = [
 
 export default function QuickActions() {
   return (
-    <section className="relative z-40 -mt-8 px-4 pb-2 sm:-mt-12 sm:pb-0 md:-mt-16">
-      <div className="page-container">
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-6">
+    <section className="relative z-40 -mt-4 px-3 pb-2 sm:-mt-10 sm:px-4 md:-mt-14 lg:-mt-16">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 lg:grid-cols-6">
           {actions.map((action, index) => {
             const cardClass =
-              "bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 md:p-6 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center cursor-pointer group min-h-[108px] sm:min-h-0";
+              "flex h-full min-h-[108px] cursor-pointer flex-col items-center justify-center rounded-xl border border-slate-100 bg-white p-3 text-center shadow-lg shadow-slate-200/40 transition-shadow group sm:min-h-0 sm:rounded-2xl sm:p-5 sm:shadow-xl";
             const content = (
               <>
                 <div
-                  className={`mb-2 sm:mb-4 flex h-10 w-10 sm:h-14 sm:w-14 items-center justify-center rounded-full transition-transform group-hover:scale-110 ${action.color}`}
+                  className={`mb-2 flex h-10 w-10 items-center justify-center rounded-full transition-transform group-hover:scale-110 sm:mb-3 sm:h-14 sm:w-14 ${action.color}`}
                 >
                   <action.icon className="h-5 w-5 sm:h-7 sm:w-7" />
                 </div>
-                <h3 className="mb-0.5 text-xs font-semibold text-slate-900 sm:mb-1 sm:text-sm md:text-base">
+                <h3 className="text-[11px] font-semibold leading-tight text-slate-900 sm:text-sm md:text-base">
                   {action.title}
                 </h3>
-                <p className="text-xs text-slate-500 hidden md:block">{action.desc}</p>
+                <p className="mt-1 hidden text-xs text-slate-500 md:block">{action.desc}</p>
               </>
             );
             return (
@@ -41,7 +41,7 @@ export default function QuickActions() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
               >
                 {"external" in action && action.external ? (

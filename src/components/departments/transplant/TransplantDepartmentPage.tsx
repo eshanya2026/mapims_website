@@ -52,9 +52,9 @@ export default function TransplantDepartmentPage() {
   return (
     <main className="min-h-screen">
       {/* Hero */}
-      <section className="relative min-h-[38vh] sm:min-h-[45vh] md:min-h-[55vh] flex items-center overflow-hidden">
+      <section className="relative min-h-[50vh] md:min-h-[55vh] flex items-center overflow-hidden">
         <HeroBackground imageSrc="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070&auto=format&fit=crop" />
-        <div className="page-container relative z-20 py-10 sm:py-14 md:py-16">
+        <div className="container mx-auto px-4 z-20 relative section-padding">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -106,7 +106,7 @@ export default function TransplantDepartmentPage() {
       {/* Overview */}
       <section className="py-12 md:py-16 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-10">
             <div>
               <SectionLabel>Department</SectionLabel>
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
@@ -124,7 +124,7 @@ export default function TransplantDepartmentPage() {
               />
             </div>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
+          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
             {whyChooseTransplant.map((item) => (
               <div
                 key={item.title}
@@ -148,7 +148,7 @@ export default function TransplantDepartmentPage() {
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
             Services <span className="text-red-600">Offered</span>
           </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
             {transplantServices.map((service) => (
               <div
                 key={service.title}
@@ -190,7 +190,7 @@ export default function TransplantDepartmentPage() {
               Our Vision & <span className="text-red-600">Mission</span>
             </h2>
           </div>
-          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
             <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
               <div className="bg-red-600 px-6 py-4 flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
@@ -246,7 +246,7 @@ export default function TransplantDepartmentPage() {
           <div className="absolute inset-0 bg-slate-900/85" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-white/20">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-white/20">
             {transplantStats.map((stat) => (
               <div
                 key={stat.label}
@@ -271,7 +271,7 @@ export default function TransplantDepartmentPage() {
       <section className="py-12 md:py-16 bg-red-600 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-start">
+          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-10">
             <div className="text-white space-y-8">
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-2">
@@ -449,7 +449,7 @@ export default function TransplantDepartmentPage() {
               Transplant <span className="text-red-600">Gallery</span>
             </h2>
           </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 md:grid-cols-3">
             {transplantGallery.map((src, i) => (
               <div
                 key={src}

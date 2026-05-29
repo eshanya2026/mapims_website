@@ -82,7 +82,7 @@ export default function AboutStats() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-white rounded-3xl shadow-2xl shadow-slate-200/60 border border-slate-100 grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-slate-100"
+          className="grid grid-cols-1 divide-y divide-slate-100 rounded-3xl border border-slate-100 bg-white shadow-2xl shadow-slate-200/60 sm:grid-cols-2 sm:divide-x sm:divide-y-0 md:grid-cols-4"
         >
           {stats.map((stat, i) => (
             <StatItem key={stat.label} {...stat} delay={i * 0.1} />

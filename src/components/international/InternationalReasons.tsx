@@ -5,7 +5,7 @@ export default function InternationalReasons() {
   return (
     <section className="py-12 md:py-16 bg-slate-50 border-t border-slate-100">
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-10">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-8 leading-tight">
               The reasons to choose{" "}

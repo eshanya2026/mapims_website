@@ -150,12 +150,6 @@ function NavDropdownGrouped({
   );
 }
 
-const mobileLinkClass =
-  "flex w-full items-center px-4 py-3.5 text-[15px] font-medium text-slate-800 transition-colors hover:bg-slate-50 hover:text-red-600";
-
-const mobileSubLinkClass =
-  "block w-full px-4 py-2.5 pl-6 text-sm text-slate-600 transition-colors hover:bg-slate-50 hover:text-red-600";
-
 function MobileNavSection({
   label,
   href,
@@ -170,32 +164,36 @@ function MobileNavSection({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border-b border-slate-100">
-      <div className="flex items-stretch">
-        <Link href={href} className={cn(mobileLinkClass, "min-w-0 flex-1")} onClick={onNavigate}>
+    <div className="rounded-md border border-slate-100 overflow-hidden">
+      <div className="flex items-center">
+        <Link
+          href={href}
+          className="flex-1 px-4 py-3 text-base font-medium text-slate-700 hover:text-red-600 hover:bg-slate-50"
+          onClick={onNavigate}
+        >
           {label}
         </Link>
         <button
           type="button"
-          className="flex w-12 shrink-0 items-center justify-center border-l border-slate-100 text-slate-500 hover:bg-slate-50 hover:text-red-600"
+          className="px-4 py-3 text-slate-500 hover:text-red-600 hover:bg-slate-50 border-l border-slate-100"
           onClick={() => setOpen((prev) => !prev)}
           aria-expanded={open}
-          aria-label={`Expand ${label}`}
+          aria-label={`Toggle ${label} menu`}
         >
-          <ChevronDown
-            className={cn("h-5 w-5 transition-transform duration-200", open && "rotate-180")}
-          />
+          <ChevronDown className={cn("w-5 h-5 transition-transform", open && "rotate-180")} />
         </button>
       </div>
-      {open ? (
-        <div className="max-h-56 overflow-y-auto border-t border-slate-100 bg-slate-50/80 py-1">
+      {open && (
+        <div className="bg-slate-50 border-t border-slate-100 max-h-64 overflow-y-auto">
           {items.map((item) => (
             <Link
               key={item.href + item.name}
               href={item.href}
               className={cn(
-                mobileSubLinkClass,
-                item.highlight && "font-semibold text-red-600"
+                "block px-6 py-2.5 text-sm transition-colors",
+                item.highlight
+                  ? "font-semibold text-red-600"
+                  : "text-slate-600 hover:text-red-600"
               )}
               onClick={onNavigate}
             >
@@ -203,7 +201,7 @@ function MobileNavSection({
             </Link>
           ))}
         </div>
-      ) : null}
+      )}
     </div>
   );
 }
@@ -222,35 +220,37 @@ function MobileNavGroupedSection({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border-b border-slate-100">
-      <div className="flex items-stretch">
-        <Link href={href} className={cn(mobileLinkClass, "min-w-0 flex-1")} onClick={onNavigate}>
+    <div className="rounded-md border border-slate-100 overflow-hidden">
+      <div className="flex items-center">
+        <Link
+          href={href}
+          className="flex-1 px-4 py-3 text-base font-medium text-slate-700 hover:text-red-600 hover:bg-slate-50"
+          onClick={onNavigate}
+        >
           {label}
         </Link>
         <button
           type="button"
-          className="flex w-12 shrink-0 items-center justify-center border-l border-slate-100 text-slate-500 hover:bg-slate-50 hover:text-red-600"
+          className="px-4 py-3 text-slate-500 hover:text-red-600 hover:bg-slate-50 border-l border-slate-100"
           onClick={() => setOpen((prev) => !prev)}
           aria-expanded={open}
-          aria-label={`Expand ${label}`}
+          aria-label={`Toggle ${label} menu`}
         >
-          <ChevronDown
-            className={cn("h-5 w-5 transition-transform duration-200", open && "rotate-180")}
-          />
+          <ChevronDown className={cn("w-5 h-5 transition-transform", open && "rotate-180")} />
         </button>
       </div>
-      {open ? (
-        <div className="max-h-72 overflow-y-auto border-t border-slate-100 bg-slate-50/80 py-2">
+      {open && (
+        <div className="bg-slate-50 border-t border-slate-100 max-h-72 overflow-y-auto">
           {groups.map((group) => (
-            <div key={group.title} className="mb-2 last:mb-0">
-              <p className="px-4 py-1.5 pl-6 text-[11px] font-bold uppercase tracking-wider text-red-600">
+            <div key={group.title}>
+              <p className="px-6 py-2 text-xs font-bold uppercase tracking-wider text-red-600">
                 {group.title}
               </p>
               {group.items.map((item) => (
                 <Link
                   key={item.href + item.name}
                   href={item.href}
-                  className={mobileSubLinkClass}
+                  className="block px-8 py-2.5 text-sm text-slate-600 hover:text-red-600"
                   onClick={onNavigate}
                 >
                   {item.name}
@@ -259,7 +259,7 @@ function MobileNavGroupedSection({
             </div>
           ))}
         </div>
-      ) : null}
+      )}
     </div>
   );
 }
@@ -276,15 +276,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (!mobileMenuOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [mobileMenuOpen]);
-
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
@@ -296,23 +287,24 @@ export default function Navbar() {
           : "bg-white"
       )}
     >
-      <div className="page-container">
-        <div className="flex h-[var(--site-navbar-height)] items-center justify-between gap-3">
-          <Link href="/" className="flex min-w-0 flex-1 items-center gap-1.5 pr-1 sm:gap-2.5 sm:pr-2">
-            <img
-              src="/images/adhiparasakthi-hospitals-emblem.png"
-              alt=""
-              aria-hidden
-              className="h-9 w-auto shrink-0 object-contain sm:h-11 md:h-12"
-            />
-            <span className="min-w-0 flex-1 text-[10px] font-bold leading-[1.2] text-slate-900 sm:text-sm md:text-base lg:text-lg">
-              <span className="block sm:inline">Adhiparasakthi</span>{" "}
-              <span className="block sm:inline">Hospital</span>
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-20">
+          <Link href="/" className="flex items-center gap-3 sm:gap-4 shrink-0 min-w-0">
+            <span className="flex items-center gap-1 sm:gap-1.5 shrink-0 min-w-0">
+              <img
+                src="/images/adhiparasakthi-hospitals-emblem.png"
+                alt=""
+                aria-hidden
+                className="h-10 sm:h-12 w-auto object-contain shrink-0"
+              />
+              <span className="text-sm sm:text-lg font-bold leading-tight text-slate-900 whitespace-nowrap">
+                Adhiparasakthi Hospital
+              </span>
             </span>
             <img
               src="/images/nabh-nabl-certifications.png"
               alt="NABH and NABL certified"
-              className="h-8 w-auto max-w-[56px] shrink-0 border-l border-slate-200 object-contain pl-1.5 sm:h-9 sm:max-w-[80px] sm:pl-2 md:h-11 md:max-w-[120px] lg:max-w-[130px]"
+              className="h-9 sm:h-11 md:h-12 w-auto max-w-[100px] sm:max-w-[130px] object-contain shrink-0 border-l border-slate-200 pl-2 sm:pl-3 ml-0.5"
             />
           </Link>
 
@@ -373,86 +365,82 @@ export default function Navbar() {
           </div>
 
           <button
-            type="button"
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 shadow-sm transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-600 lg:hidden"
+            className="lg:hidden p-2 text-slate-600"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-expanded={mobileMenuOpen}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
 
-      {mobileMenuOpen ? (
-        <>
-          <button
-            type="button"
-            className="fixed inset-x-0 bottom-0 z-40 bg-slate-900/40 lg:hidden"
-            style={{ top: "calc(var(--site-topbar-height) + var(--site-navbar-height))" }}
-            aria-label="Close menu"
+      {mobileMenuOpen && (
+        <div className="lg:hidden absolute top-20 left-0 w-full bg-white border-b shadow-lg py-4 px-4 flex flex-col space-y-3 max-h-[calc(100vh-5rem)] overflow-y-auto">
+          <Link
+            href="/"
+            className="px-4 py-2 text-base font-medium text-slate-700 hover:text-red-600 hover:bg-slate-50 rounded-md"
             onClick={closeMobileMenu}
-          />
-          <nav
-            className="fixed inset-x-0 z-50 flex flex-col overflow-hidden border-b border-slate-200 bg-white shadow-xl lg:hidden"
-            style={{
-              top: "calc(var(--site-topbar-height) + var(--site-navbar-height))",
-              maxHeight:
-                "calc(100dvh - var(--site-topbar-height) - var(--site-navbar-height))",
-            }}
-            aria-label="Mobile navigation"
           >
-            <div className="flex-1 overflow-y-auto overscroll-contain">
-              <Link href="/" className={cn(mobileLinkClass, "border-b border-slate-100")} onClick={closeMobileMenu}>
-                Home
-              </Link>
-              <Link href="/about" className={cn(mobileLinkClass, "border-b border-slate-100")} onClick={closeMobileMenu}>
-                About
-              </Link>
+            Home
+          </Link>
+          <Link
+            href="/about"
+            className="px-4 py-2 text-base font-medium text-slate-700 hover:text-red-600 hover:bg-slate-50 rounded-md"
+            onClick={closeMobileMenu}
+          >
+            About
+          </Link>
 
-              <MobileNavSection
-                label="Departments"
-                href="/departments"
-                items={departmentDropdownItems}
-                onNavigate={closeMobileMenu}
-              />
+          <MobileNavSection
+            label="Departments"
+            href="/departments"
+            items={departmentDropdownItems}
+            onNavigate={closeMobileMenu}
+          />
 
-              <Link href="/doctors" className={cn(mobileLinkClass, "border-b border-slate-100")} onClick={closeMobileMenu}>
-                Doctors
-              </Link>
+          <Link
+            href="/doctors"
+            className="px-4 py-2 text-base font-medium text-slate-700 hover:text-red-600 hover:bg-slate-50 rounded-md"
+            onClick={closeMobileMenu}
+          >
+            Doctors
+          </Link>
 
-              <MobileNavGroupedSection
-                label="International Patients"
-                href="/international"
-                groups={internationalNavGroups}
-                onNavigate={closeMobileMenu}
-              />
+          <MobileNavGroupedSection
+            label="International Patients"
+            href="/international"
+            groups={internationalNavGroups}
+            onNavigate={closeMobileMenu}
+          />
 
-              <MobileNavSection
-                label="Blog"
-                href="/blog/health-insights"
-                items={blogDropdownItems}
-                onNavigate={closeMobileMenu}
-              />
+          <MobileNavSection
+            label="Blog"
+            href="/blog/health-insights"
+            items={blogDropdownItems}
+            onNavigate={closeMobileMenu}
+          />
 
-              <Link href="/careers" className={cn(mobileLinkClass, "border-b border-slate-100")} onClick={closeMobileMenu}>
-                Careers
-              </Link>
-              <Link href="/contact" className={cn(mobileLinkClass, "border-b border-slate-100")} onClick={closeMobileMenu}>
-                Contact
-              </Link>
-            </div>
+          <Link
+            href="/careers"
+            className="px-4 py-2 text-base font-medium text-slate-700 hover:text-red-600 hover:bg-slate-50 rounded-md"
+            onClick={closeMobileMenu}
+          >
+            Careers
+          </Link>
+          <Link
+            href="/contact"
+            className="px-4 py-2 text-base font-medium text-slate-700 hover:text-red-600 hover:bg-slate-50 rounded-md"
+            onClick={closeMobileMenu}
+          >
+            Contact
+          </Link>
 
-            <div className="shrink-0 border-t border-slate-100 bg-white p-4">
-              <Link href="/#book-appointment" onClick={closeMobileMenu} className="block">
-                <Button className="h-12 w-full rounded-full bg-red-600 text-white hover:bg-red-700">
-                  Book Appointment
-                </Button>
-              </Link>
-            </div>
-          </nav>
-        </>
-      ) : null}
+          <div className="pt-4 border-t flex flex-col space-y-4">
+            <Button className="w-full bg-red-600 hover:bg-red-700 text-white rounded-full">
+              Book Appointment
+            </Button>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

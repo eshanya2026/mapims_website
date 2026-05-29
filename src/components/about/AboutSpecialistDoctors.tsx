@@ -55,7 +55,7 @@ export default function AboutSpecialistDoctors() {
   return (
     <section className="py-20 md:py-28 bg-slate-50">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-14 gap-6">
+        <div className="mb-10 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end md:gap-6">
           <div className="max-w-xl">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-12 h-0.5 bg-red-600" />

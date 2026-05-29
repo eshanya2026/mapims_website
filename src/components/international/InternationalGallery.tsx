@@ -4,7 +4,7 @@ export default function InternationalGallery() {
   return (
     <section className="py-12 md:py-16 bg-slate-50 border-t border-slate-100">
       <div className="container mx-auto px-4">
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 md:grid-cols-3">
           {internationalGallery.map((src, i) => (
             <div
               key={src}

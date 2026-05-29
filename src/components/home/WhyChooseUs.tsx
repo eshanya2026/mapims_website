@@ -19,17 +19,17 @@ export default function WhyChooseUs() {
       <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 -skew-x-12 transform origin-top" />
       
       <div className="page-container relative z-10">
-        <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-16">
+        <div className="flex flex-col items-center gap-10 lg:flex-row lg:gap-16">
           <div className="w-full lg:w-1/3">
-            <div className="section-eyebrow">
-              <div className="h-0.5 w-10 bg-red-600 sm:w-12" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-red-600 sm:text-sm">Why Choose Us</span>
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-12 h-[2px] bg-red-600"></div>
+              <span className="text-red-600 font-semibold uppercase tracking-wider text-sm">Why Choose Us</span>
             </div>
-            <h2 className="section-title">
+            <h2 className="mb-6 text-3xl font-bold leading-tight text-slate-900 sm:text-4xl md:text-5xl">
               Excellence in <br />
               <span className="text-red-600">Healthcare</span>
             </h2>
-            <p className="section-desc mb-6 sm:mb-8">
+            <p className="text-lg text-slate-600 mb-8">
               We are committed to providing compassionate, high-quality, and affordable healthcare to all. Our patient-centric approach ensures you receive the best possible treatment.
             </p>
             
@@ -44,7 +44,7 @@ export default function WhyChooseUs() {
           </div>
 
           <div className="w-full lg:w-2/3">
-            <div className="section-grid grid-cols-1 md:grid-cols-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {features.map((feature, index) => (
                 <motion.div
                   key={index}

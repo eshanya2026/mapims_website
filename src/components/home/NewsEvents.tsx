@@ -11,7 +11,7 @@ export default function NewsEvents() {
   return (
     <section className="section-padding bg-slate-50">
       <div className="page-container">
-        <div className="mb-8 flex flex-col gap-4 sm:mb-10 md:mb-12 md:flex-row md:items-end md:justify-between md:gap-6">
+        <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:mb-12 md:flex-row md:items-end md:gap-6">
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-12 h-[2px] bg-red-600"></div>
@@ -19,7 +19,7 @@ export default function NewsEvents() {
                 Health Insights
               </span>
             </div>
-            <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl md:text-4xl lg:text-5xl">
+            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl md:text-5xl">
               Expert <span className="text-red-600">Health Tips</span>
             </h2>
           </div>
@@ -31,7 +31,7 @@ export default function NewsEvents() {
           </Link>
         </div>
 
-        <div className="section-grid grid-cols-1 md:grid-cols-3 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {featured.map((item, index) => (
             <motion.div
               key={item.slug}

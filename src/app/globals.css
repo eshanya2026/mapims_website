@@ -51,8 +51,6 @@
 }
 
 :root {
-  --site-topbar-height: 3.5rem;
-  --site-navbar-height: 4rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -160,41 +158,12 @@
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
   }
-  .section-padding {
-    @apply py-10 sm:py-14 md:py-20 lg:py-24;
-  }
-  .section-padding-sm {
-    @apply py-8 sm:py-12 md:py-16;
-  }
-  .page-container {
-    @apply container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
-  }
-  .section-header {
-    @apply mx-auto mb-8 max-w-3xl sm:mb-10 md:mb-12;
-  }
-  .section-header-center {
-    @apply mx-auto mb-8 max-w-3xl text-center sm:mb-10 md:mb-12;
-  }
-  .section-eyebrow {
-    @apply mb-3 flex items-center gap-2 sm:mb-4;
-  }
-  .section-eyebrow-center {
-    @apply mb-3 flex items-center justify-center gap-2 sm:mb-4;
-  }
-  .section-title {
-    @apply mb-3 text-2xl font-bold leading-tight text-slate-900 sm:mb-4 sm:text-3xl md:text-4xl lg:text-5xl;
-  }
-  .section-desc {
-    @apply text-sm leading-relaxed text-slate-600 sm:text-base md:text-lg;
-  }
-  .section-grid {
-    @apply grid gap-4 sm:gap-5 md:gap-6;
-  }
-}
 
-@media (min-width: 640px) {
-  :root {
-    --site-topbar-height: 2.5rem;
-    --site-navbar-height: 5rem;
+  .section-padding {
+    @apply py-10 sm:py-14 md:py-16 lg:py-20;
+  }
+
+  .page-container {
+    @apply container mx-auto w-full max-w-7xl px-4 sm:px-6;
   }
 }

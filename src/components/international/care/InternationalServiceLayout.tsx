@@ -7,7 +7,7 @@ export default function InternationalServiceLayout({
 }) {
   return (
     <section className="section-padding bg-white">
-      <div className="page-container">
+      <div className="container mx-auto px-4">
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-14">
           <InternationalServicesSidebar />
           <div className="flex-1 min-w-0">{children}</div>

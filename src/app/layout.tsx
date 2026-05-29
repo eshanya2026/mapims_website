@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} antialiased text-slate-900 bg-white overflow-x-hidden`}>
+      <body className={`${inter.className} overflow-x-hidden antialiased bg-white text-slate-900`}>
         <TopHeader />
         <Navbar />
         {children}

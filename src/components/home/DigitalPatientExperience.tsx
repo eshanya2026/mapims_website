@@ -21,21 +21,21 @@ export default function DigitalPatientExperience() {
       </div>
 
       <div className="page-container relative z-10">
-        <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-16">
+        <div className="flex flex-col items-center gap-10 lg:flex-row lg:gap-16">
           <div className="w-full lg:w-1/2">
-            <div className="section-eyebrow">
-              <div className="h-0.5 w-10 bg-red-600 sm:w-12" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-red-600 sm:text-sm">Smart Healthcare</span>
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-12 h-[2px] bg-red-600"></div>
+              <span className="text-red-600 font-semibold uppercase tracking-wider text-sm">Smart Healthcare</span>
             </div>
-            <h2 className="section-title text-white">
+            <h2 className="mb-6 text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
               Digital Patient <br />
               <span className="text-slate-400">Experience</span>
             </h2>
-            <p className="section-desc mb-6 text-slate-400 sm:mb-8">
+            <p className="text-lg text-slate-400 mb-8">
               Experience seamless healthcare with our integrated digital platform. From booking appointments to accessing medical records, everything is just a click away.
             </p>
 
-            <div className="space-y-4 sm:space-y-6">
+            <div className="space-y-6">
               {features.slice(0, 3).map((feature, index) => (
                 <motion.div 
                   key={index}
@@ -75,7 +75,7 @@ export default function DigitalPatientExperience() {
               <motion.div 
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -left-8 top-1/4 bg-slate-900 p-4 rounded-2xl border border-slate-800 shadow-2xl flex items-center gap-3"
+                className="absolute -left-2 top-1/4 hidden items-center gap-3 rounded-2xl border border-slate-800 bg-slate-900 p-4 shadow-2xl sm:flex md:-left-8"
               >
                 <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">
                   <MessageSquare className="w-5 h-5" />
@@ -89,7 +89,7 @@ export default function DigitalPatientExperience() {
               <motion.div 
                 animate={{ y: [0, 10, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -right-8 bottom-1/4 bg-slate-900 p-4 rounded-2xl border border-slate-800 shadow-2xl flex items-center gap-3"
+                className="absolute -right-2 bottom-1/4 hidden items-center gap-3 rounded-2xl border border-slate-800 bg-slate-900 p-4 shadow-2xl sm:flex md:-right-8"
               >
                 <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500">
                   <Video className="w-5 h-5" />

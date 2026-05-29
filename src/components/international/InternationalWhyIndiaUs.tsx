@@ -32,7 +32,7 @@ function WhyColumn({
           ? "Discover why patients worldwide choose India for trusted, high-quality medical care."
           : "See why international patients choose Adhiparasakthi Hospitals for treatment and recovery."}
       </p>
-      <div className="grid sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {points.map((point, index) => (
           <motion.div
             key={point.title}
@@ -82,7 +82,7 @@ export default function InternationalWhyIndiaUs() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 max-w-6xl mx-auto">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
           <WhyColumn
             label="Why India"
             title="Healthcare in"

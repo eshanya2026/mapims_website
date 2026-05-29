@@ -8,7 +8,7 @@ import { internationalHero } from "@/data/international-patients";
 
 export default function InternationalHero() {
   return (
-    <section className="relative min-h-[38vh] sm:min-h-[45vh] md:min-h-[55vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[50vh] md:min-h-[55vh] flex items-center overflow-hidden">
       <HeroBackground
         imageSrc={internationalHero.image}
         imageClassName="object-cover object-[center_35%]"
@@ -29,14 +29,14 @@ export default function InternationalHero() {
         </svg>
       </div>
 
-      <div className="page-container relative z-20 py-10 sm:py-14 md:py-16">
+      <div className="container mx-auto px-4 z-20 relative section-padding">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="max-w-3xl"
         >
-          <nav className="mb-4 flex flex-wrap items-center gap-1.5 text-xs text-white/70 sm:mb-6 sm:gap-2 sm:text-sm">
+          <nav className="flex items-center gap-2 text-sm text-white/70 mb-6">
             <Link href="/" className="hover:text-white transition-colors">
               Home
             </Link>
@@ -49,11 +49,11 @@ export default function InternationalHero() {
             International Patient Care
           </span>
 
-          <h1 className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight">
             Airport To Airport{" "}
             <span className="text-red-500">Service</span>
           </h1>
-          <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-300 sm:mt-4 sm:text-lg">
+          <p className="text-lg text-slate-300 mt-4 max-w-2xl leading-relaxed">
             {internationalHero.subtitle}
           </p>
           <Link

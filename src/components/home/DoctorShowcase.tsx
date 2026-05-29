@@ -71,14 +71,14 @@ export default function DoctorShowcase() {
 
   return (
     <section className="section-padding bg-slate-50">
-      <div className="page-container">
-        <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:mb-10 md:mb-12 md:flex-row md:items-end md:gap-6">
+      <div className="container mx-auto px-4">
+        <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:mb-12 md:flex-row md:items-end md:gap-6">
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-12 h-[2px] bg-red-600"></div>
               <span className="text-red-600 font-semibold uppercase tracking-wider text-sm">Our Experts</span>
             </div>
-            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl md:text-5xl">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900">
               Meet Our <span className="text-red-600">Specialists</span>
             </h2>
           </div>
@@ -104,13 +104,9 @@ export default function DoctorShowcase() {
             style={{ transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)` }}
           >
             {doctors.map((doctor) => (
-              <div
-                key={doctor.id}
-                className="w-full flex-shrink-0 px-2 sm:px-4"
-                style={{ width: `${100 / itemsPerView}%` }}
-              >
-                <div className="group overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-shadow hover:shadow-xl sm:rounded-3xl">
-                  <div className="relative h-56 overflow-hidden bg-slate-100 sm:h-72 md:h-80">
+              <div key={doctor.id} className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
+                <div className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow border border-slate-100 group">
+                  <div className="relative h-80 overflow-hidden bg-slate-100">
                     <img 
                       src={doctor.image} 
                       alt={doctor.name} 
@@ -121,17 +117,17 @@ export default function DoctorShowcase() {
                       {doctor.rating}
                     </div>
                   </div>
-                  <div className="p-4 sm:p-6">
-                    <div className="mb-2 text-sm font-medium text-red-600">{doctor.specialty}</div>
-                    <h3 className="mb-1 text-xl font-bold text-slate-900 sm:text-2xl">{doctor.name}</h3>
-                    <p className="mb-4 text-sm text-slate-500">{doctor.qualification}</p>
+                  <div className="p-6">
+                    <div className="text-red-600 font-medium text-sm mb-2">{doctor.specialty}</div>
+                    <h3 className="text-2xl font-bold text-slate-900 mb-1">{doctor.name}</h3>
+                    <p className="text-slate-500 text-sm mb-4">{doctor.qualification}</p>
                     
-                    <div className="flex flex-col gap-3 border-t border-slate-100 pt-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-center justify-between pt-4 border-t border-slate-100">
                       <div className="text-sm">
-                        <span className="block text-slate-400">Experience</span>
+                        <span className="text-slate-400 block">Experience</span>
                         <span className="font-bold text-slate-900">{doctor.experience}</span>
                       </div>
-                      <Button className="w-full rounded-full bg-slate-900 text-white hover:bg-red-600 sm:w-auto">
+                      <Button className="bg-slate-900 hover:bg-red-600 text-white rounded-full">
                         Book Consult
                       </Button>
                     </div>

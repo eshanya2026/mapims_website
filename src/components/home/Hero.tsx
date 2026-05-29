@@ -2,14 +2,13 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Calendar, Search, Activity, Users, Clock } from "lucide-react";
 
 import HeroBackground from "@/components/layout/HeroBackground";
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-[72vh] items-center overflow-hidden bg-slate-50 py-10 sm:min-h-[80vh] sm:py-12 md:min-h-[85vh] lg:min-h-[90vh] lg:py-16">
+    <section className="relative overflow-hidden bg-slate-50 py-8 sm:flex sm:min-h-[90vh] sm:items-center sm:py-12 lg:py-16">
       <HeroBackground
         imageSrc="/images/mapims-hospital-campus.png"
         overlayClassName="bg-gradient-to-r from-slate-900/92 via-slate-800/80 to-slate-900/25"
@@ -28,17 +27,17 @@ export default function Hero() {
         </svg>
       </div>
 
-      <div className="page-container relative z-20">
+      <div className="container mx-auto px-4 z-20 relative">
         <div className="max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-block py-1 px-3 rounded-full bg-red-600/20 text-red-600 font-semibold text-sm mb-6 backdrop-blur-md border border-red-600/30">
+            <span className="mb-4 inline-block rounded-full border border-red-600/30 bg-red-600/20 px-3 py-1 text-xs font-semibold text-red-400 backdrop-blur-md sm:mb-6 sm:text-sm">
               World-Class Healthcare
             </span>
-            <h1 className="mb-5 text-3xl font-bold leading-tight text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+            <h1 className="mb-4 text-2xl font-bold leading-tight text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
               Advanced Healthcare <br />
               <span className="text-red-600">With Compassion</span>
             </h1>
@@ -46,36 +45,39 @@ export default function Hero() {
               Providing exceptional medical care with state-of-the-art technology and a team of dedicated experts committed to your well-being.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
               <Link
                 href="#book-appointment"
-                className="inline-flex h-12 w-full items-center justify-center rounded-full bg-red-600 px-6 text-base font-medium text-white shadow-lg shadow-red-600/30 transition-all hover:bg-red-700 sm:h-14 sm:w-auto sm:px-8 sm:text-lg"
+                className="inline-flex h-12 items-center justify-center rounded-full bg-red-600 px-6 text-base font-medium text-white shadow-lg shadow-red-600/30 transition-all hover:bg-red-700 sm:h-14 sm:px-8 sm:text-lg"
               >
-                <Calendar className="mr-2 w-5 h-5" />
+                <Calendar className="mr-2 h-5 w-5" />
                 Book Appointment
               </Link>
-              <Button size="lg" variant="outline" className="h-12 w-full rounded-full border-white/20 bg-white/10 px-6 text-base text-white backdrop-blur-md hover:bg-white/20 sm:h-14 sm:w-auto sm:px-8 sm:text-lg">
-                <Search className="mr-2 w-5 h-5" />
+              <Link
+                href="/departments"
+                className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 bg-white/10 px-6 text-base font-medium text-white backdrop-blur-md transition-all hover:bg-white/20 sm:h-14 sm:px-8 sm:text-lg"
+              >
+                <Search className="mr-2 h-5 w-5" />
                 Find a Doctor
-              </Button>
+              </Link>
             </div>
           </motion.div>
         </div>
 
-        {/* Floating Status Cards */}
-        <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4 lg:mt-12">
+        {/* Status cards — 2-col grid on mobile, row on tablet+ */}
+        <div className="mt-6 grid grid-cols-2 gap-2.5 sm:mt-10 sm:flex sm:flex-wrap sm:gap-4 lg:mt-12">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex w-full items-center gap-3 rounded-2xl border border-white/20 bg-white/90 p-4 shadow-2xl backdrop-blur-xl sm:gap-4 sm:p-5 sm:min-w-[240px] sm:w-auto"
+            className="col-span-2 flex items-center gap-3 rounded-xl border border-white/20 bg-white/90 p-3.5 shadow-xl backdrop-blur-xl sm:col-span-1 sm:min-w-[240px] sm:gap-4 sm:rounded-2xl sm:p-5"
           >
-            <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 shrink-0">
-              <Activity className="w-6 h-6" />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600 sm:h-12 sm:w-12">
+              <Activity className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
-            <div>
-              <p className="text-sm text-slate-500 font-medium">Live OP Status</p>
-              <p className="text-lg font-bold text-slate-900">Accepting Patients</p>
+            <div className="min-w-0">
+              <p className="text-xs font-medium text-slate-500 sm:text-sm">Live OP Status</p>
+              <p className="text-sm font-bold text-slate-900 sm:text-lg">Accepting Patients</p>
             </div>
           </motion.div>
 
@@ -83,14 +85,14 @@ export default function Hero() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex w-full items-center gap-3 rounded-2xl border border-white/20 bg-white/90 p-4 shadow-2xl backdrop-blur-xl sm:gap-4 sm:p-5 sm:min-w-[240px] sm:w-auto"
+            className="flex items-center gap-3 rounded-xl border border-white/20 bg-white/90 p-3.5 shadow-xl backdrop-blur-xl sm:min-w-[240px] sm:gap-4 sm:rounded-2xl sm:p-5"
           >
-            <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
-              <Users className="w-6 h-6" />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 sm:h-12 sm:w-12">
+              <Users className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
-            <div>
-              <p className="text-sm text-slate-500 font-medium">Available Doctors</p>
-              <p className="text-lg font-bold text-slate-900">45+ Today</p>
+            <div className="min-w-0">
+              <p className="text-xs font-medium text-slate-500 sm:text-sm">Available Doctors</p>
+              <p className="text-sm font-bold text-slate-900 sm:text-lg">45+ Today</p>
             </div>
           </motion.div>
 
@@ -98,14 +100,14 @@ export default function Hero() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex w-full items-center gap-3 rounded-2xl border border-white/20 bg-white/90 p-4 shadow-2xl backdrop-blur-xl sm:gap-4 sm:p-5 sm:min-w-[240px] sm:w-auto"
+            className="flex items-center gap-3 rounded-xl border border-white/20 bg-white/90 p-3.5 shadow-xl backdrop-blur-xl sm:min-w-[240px] sm:gap-4 sm:rounded-2xl sm:p-5"
           >
-            <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 shrink-0">
-              <Clock className="w-6 h-6" />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-600 sm:h-12 sm:w-12">
+              <Clock className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
-            <div>
-              <p className="text-sm text-slate-500 font-medium">Avg Waiting Time</p>
-              <p className="text-lg font-bold text-slate-900">&lt; 15 Mins</p>
+            <div className="min-w-0">
+              <p className="text-xs font-medium text-slate-500 sm:text-sm">Avg Waiting Time</p>
+              <p className="text-sm font-bold text-slate-900 sm:text-lg">&lt; 15 Mins</p>
             </div>
           </motion.div>
         </div>

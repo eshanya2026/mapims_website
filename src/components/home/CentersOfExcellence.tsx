@@ -19,21 +19,21 @@ export default function CentersOfExcellence() {
   return (
     <section className="section-padding bg-slate-50">
       <div className="page-container">
-        <div className="section-header-center">
-          <div className="section-eyebrow-center">
-            <div className="h-0.5 w-10 bg-red-600 sm:w-12" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-red-600 sm:text-sm">Specialities</span>
-            <div className="h-0.5 w-10 bg-red-600 sm:w-12" />
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="w-12 h-[2px] bg-red-600"></div>
+            <span className="text-red-600 font-semibold uppercase tracking-wider text-sm">Specialities</span>
+            <div className="w-12 h-[2px] bg-red-600"></div>
           </div>
-          <h2 className="section-title">
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
             Centers of <span className="text-red-600">Excellence</span>
           </h2>
-          <p className="section-desc">
+          <p className="text-lg text-slate-600">
             We offer comprehensive medical care across various specialities, equipped with the latest technology and renowned medical professionals.
           </p>
         </div>
 
-        <div className="section-grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {centers.map((center, index) => (
             <motion.div
               key={index}
@@ -43,11 +43,11 @@ export default function CentersOfExcellence() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <Link href="#" className="block group">
-                <div className="relative h-full overflow-hidden rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition-all duration-300 hover:shadow-xl sm:rounded-3xl sm:p-8">
+                <div className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 h-full relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/5 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-500" />
                   
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-red-50 text-red-600 transition-colors duration-300 group-hover:bg-red-600 group-hover:text-white sm:mb-6 sm:h-16 sm:w-16 sm:rounded-2xl">
-                    <center.icon className="h-6 w-6 sm:h-8 sm:w-8" />
+                  <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mb-6 text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300">
+                    <center.icon className="w-8 h-8" />
                   </div>
                   
                   <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-red-600 transition-colors">

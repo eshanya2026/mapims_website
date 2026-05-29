@@ -7,7 +7,6 @@ const appRoot = path.dirname(fileURLToPath(import.meta.url));
 const nextConfig: NextConfig = {
   // Allow phone/tablet on your LAN to load dev assets (use Network URL from `npm run dev`)
   allowedDevOrigins: ["192.168.101.45"],
-  transpilePackages: ["@base-ui/react"],
   turbopack: {
     root: appRoot,
   },

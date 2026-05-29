@@ -26,7 +26,7 @@ export default function InternationalExpertDoctors() {
   return (
     <section className="py-12 md:py-16 bg-white border-t border-slate-100">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-10 gap-6">
+        <div className="mb-8 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end md:gap-6">
           <h2 className="text-3xl md:text-4xl font-bold text-red-600 text-center md:text-left">
             Talk To Our Expert Now!
           </h2>
