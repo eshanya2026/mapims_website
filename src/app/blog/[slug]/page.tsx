@@ -21,20 +21,42 @@ function isSectionHeading(block: string) {
   );
 }
 
+function isListBlock(block: string) {
+  const lines = block.split("\n").filter(Boolean);
+  return lines.length > 1 && lines.every((line) => line.trim().length < 120);
+}
+
 function BlogArticleBody({ content }: { content: string }) {
   const blocks = content.split(/\n\n+/).filter(Boolean);
 
   return (
-    <div className="space-y-4 text-slate-700 leading-relaxed">
-      {blocks.map((block, index) =>
-        isSectionHeading(block) ? (
-          <h2 key={index} className="pt-3 text-lg font-bold text-slate-900 first:pt-0">
-            {block.trim()}
-          </h2>
-        ) : (
-          <p key={index}>{block.trim()}</p>
-        )
-      )}
+    <div className="space-y-4 break-words text-[15px] leading-relaxed text-slate-700 sm:text-base">
+      {blocks.map((block, index) => {
+        const trimmed = block.trim();
+
+        if (isSectionHeading(trimmed)) {
+          return (
+            <h2
+              key={index}
+              className="pt-2 text-base font-bold leading-snug text-slate-900 first:pt-0 sm:pt-3 sm:text-lg"
+            >
+              {trimmed}
+            </h2>
+          );
+        }
+
+        if (isListBlock(trimmed)) {
+          return (
+            <ul key={index} className="list-disc space-y-2 pl-5 sm:pl-6">
+              {trimmed.split("\n").map((line, lineIndex) => (
+                <li key={lineIndex}>{line.trim()}</li>
+              ))}
+            </ul>
+          );
+        }
+
+        return <p key={index}>{trimmed}</p>;
+      })}
     </div>
   );
 }
@@ -64,39 +86,43 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const section = blogSections.find((item) => item.slug === post.section);
 
   return (
-    <main className="min-h-screen bg-slate-50 py-10 sm:py-14">
-      <div className="container mx-auto px-4">
-        <article className="mx-auto max-w-4xl overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-sm">
+    <main className="min-h-screen bg-slate-50 py-6 sm:py-10 md:py-14">
+      <div className="container mx-auto px-4 sm:px-6">
+        <article className="mx-auto max-w-4xl overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm sm:rounded-3xl">
           <img
             src={post.image}
             alt={post.title}
-            className="h-60 w-full object-cover sm:h-72 md:h-80"
+            className="h-48 w-full object-cover sm:h-60 md:h-72 lg:h-80"
           />
 
-          <div className="p-6 sm:p-8 md:p-10">
+          <div className="p-4 sm:p-8 md:p-10">
             <Link
               href={section?.href ?? "/blog/health-insights"}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-red-600 hover:underline"
+              className="inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-red-600 hover:underline"
             >
-              <ArrowLeft className="h-4 w-4" />
-              Back to {section?.label ?? "Blog"}
+              <ArrowLeft className="h-4 w-4 shrink-0" />
+              <span className="break-words">Back to {section?.label ?? "Blog"}</span>
             </Link>
 
-            <div className="mt-5 inline-flex rounded-full bg-red-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-red-600">
+            <div className="mt-4 inline-flex max-w-full rounded-full bg-red-50 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-red-600 sm:mt-5 sm:text-xs">
               {post.category}
             </div>
 
-            <h1 className="mt-4 text-3xl font-bold leading-tight text-slate-900 sm:text-4xl">
+            <h1 className="mt-3 text-2xl font-bold leading-snug text-slate-900 sm:mt-4 sm:text-3xl md:text-4xl">
               {post.title}
             </h1>
 
-            <p className="mt-3 flex items-center gap-2 text-sm text-slate-500">
-              <Calendar className="h-4 w-4" />
-              {post.date}
-              {post.author ? <span className="text-slate-400">· by {post.author}</span> : null}
+            <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 sm:text-sm">
+              <span className="inline-flex items-center gap-1.5">
+                <Calendar className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
+                {post.date}
+              </span>
+              {post.author ? (
+                <span className="text-slate-400">· by {post.author}</span>
+              ) : null}
             </p>
 
-            <div className="mt-8">
+            <div className="mt-6 sm:mt-8">
               <BlogArticleBody content={post.content} />
             </div>
           </div>

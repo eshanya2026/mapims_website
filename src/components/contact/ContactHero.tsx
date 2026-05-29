@@ -33,7 +33,7 @@ export default function ContactHero() {
         </svg>
       </div>
 
-      <div className="container mx-auto px-4 z-20 relative py-16 md:py-24">
+      <div className="page-container relative z-20 py-10 sm:py-14 md:py-16">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}

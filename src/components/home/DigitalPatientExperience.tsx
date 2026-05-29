@@ -13,29 +13,29 @@ const features = [
 
 export default function DigitalPatientExperience() {
   return (
-    <section className="py-24 bg-slate-950 relative overflow-hidden">
+    <section className="section-padding bg-slate-950 relative overflow-hidden">
       {/* Abstract Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
         <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-red-600/20 blur-[120px]" />
         <div className="absolute top-[60%] -left-[10%] w-[40%] h-[40%] rounded-full bg-blue-500/10 blur-[100px]" />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-16 items-center">
+      <div className="page-container relative z-10">
+        <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-16">
           <div className="w-full lg:w-1/2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-12 h-[2px] bg-red-600"></div>
-              <span className="text-red-600 font-semibold uppercase tracking-wider text-sm">Smart Healthcare</span>
+            <div className="section-eyebrow">
+              <div className="h-0.5 w-10 bg-red-600 sm:w-12" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-red-600 sm:text-sm">Smart Healthcare</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            <h2 className="section-title text-white">
               Digital Patient <br />
               <span className="text-slate-400">Experience</span>
             </h2>
-            <p className="text-lg text-slate-400 mb-8">
+            <p className="section-desc mb-6 text-slate-400 sm:mb-8">
               Experience seamless healthcare with our integrated digital platform. From booking appointments to accessing medical records, everything is just a click away.
             </p>
 
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {features.slice(0, 3).map((feature, index) => (
                 <motion.div 
                   key={index}

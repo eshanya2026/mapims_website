@@ -4,21 +4,21 @@ import { Phone, Ambulance } from "lucide-react";
 
 export default function EmergencyCTA() {
   return (
-    <section className="relative py-16 overflow-hidden">
+    <section className="relative overflow-hidden py-10 sm:py-14 md:py-16">
       <div className="absolute inset-0 bg-red-600 z-0" />
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 z-0" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 bg-white/10 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-white/20">
-          <div className="flex items-center gap-6">
-            <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shrink-0 shadow-xl animate-pulse">
-              <Phone className="w-10 h-10 text-red-600" />
+      <div className="page-container relative z-10">
+        <div className="flex flex-col items-center justify-between gap-6 rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur-md sm:gap-8 sm:rounded-3xl sm:p-8 md:flex-row md:p-12">
+          <div className="flex w-full flex-col items-center gap-4 text-center sm:flex-row sm:gap-6 sm:text-left md:w-auto">
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white shadow-xl animate-pulse sm:h-20 sm:w-20">
+              <Phone className="h-8 w-8 text-red-600 sm:h-10 sm:w-10" />
             </div>
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+              <h2 className="mb-2 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
                 Need Immediate Medical Help?
               </h2>
-              <p className="text-white/80 text-lg">
+              <p className="text-base text-white/80 sm:text-lg">
                 Our emergency team is available 24/7 to assist you.
               </p>
             </div>

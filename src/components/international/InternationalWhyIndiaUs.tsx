@@ -56,7 +56,7 @@ function WhyColumn({
 
 export default function InternationalWhyIndiaUs() {
   return (
-    <section id="why-india-us" className="py-16 md:py-24 bg-white border-t border-slate-100">
+    <section id="why-india-us" className="section-padding bg-white border-t border-slate-100">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

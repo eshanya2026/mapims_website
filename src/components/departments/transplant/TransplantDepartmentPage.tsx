@@ -52,9 +52,9 @@ export default function TransplantDepartmentPage() {
   return (
     <main className="min-h-screen">
       {/* Hero */}
-      <section className="relative min-h-[50vh] md:min-h-[55vh] flex items-center overflow-hidden">
+      <section className="relative min-h-[38vh] sm:min-h-[45vh] md:min-h-[55vh] flex items-center overflow-hidden">
         <HeroBackground imageSrc="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070&auto=format&fit=crop" />
-        <div className="container mx-auto px-4 z-20 relative py-16 md:py-24">
+        <div className="page-container relative z-20 py-10 sm:py-14 md:py-16">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -246,7 +246,7 @@ export default function TransplantDepartmentPage() {
           <div className="absolute inset-0 bg-slate-900/85" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x lg:divide-white/20">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-white/20">
             {transplantStats.map((stat) => (
               <div
                 key={stat.label}
@@ -449,7 +449,7 @@ export default function TransplantDepartmentPage() {
               Transplant <span className="text-red-600">Gallery</span>
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
             {transplantGallery.map((src, i) => (
               <div
                 key={src}

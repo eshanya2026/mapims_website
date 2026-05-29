@@ -7,7 +7,7 @@ import { internationalSpecialities } from "@/data/international-patients";
 
 export default function InternationalSpecialities() {
   return (
-    <section id="specialities" className="py-24 bg-slate-50">
+    <section id="specialities" className="section-padding bg-slate-50">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="flex items-center justify-center gap-2 mb-4">

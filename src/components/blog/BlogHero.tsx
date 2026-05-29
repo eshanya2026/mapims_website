@@ -14,17 +14,17 @@ export default function BlogHero({ section }: BlogHeroProps) {
   const activeSection = section ? getBlogSection(section) : undefined;
 
   return (
-    <section className="relative min-h-[45vh] md:min-h-[50vh] flex items-center overflow-hidden">
+    <section className="relative flex min-h-[38vh] items-center overflow-hidden sm:min-h-[42vh] md:min-h-[50vh]">
       <HeroBackground imageSrc="https://images.unsplash.com/photo-1504711434966-e338fb48f529?q=80&w=2070&auto=format&fit=crop" />
 
-      <div className="container mx-auto px-4 z-20 relative py-16 md:py-20">
+      <div className="container relative z-20 mx-auto px-4 py-12 sm:px-6 sm:py-16 md:py-20">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="max-w-3xl"
         >
-          <nav className="flex items-center gap-2 text-sm text-white/70 mb-6 flex-wrap">
+          <nav className="mb-4 flex flex-wrap items-center gap-1.5 text-xs text-white/70 sm:mb-6 sm:gap-2 sm:text-sm">
             <Link href="/" className="hover:text-white transition-colors">
               Home
             </Link>
@@ -40,7 +40,7 @@ export default function BlogHero({ section }: BlogHeroProps) {
             )}
           </nav>
 
-          <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-red-600/20 text-red-400 font-semibold text-sm mb-6 backdrop-blur-md border border-red-600/30">
+          <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-red-600/30 bg-red-600/20 px-3 py-1.5 text-xs font-semibold text-red-400 backdrop-blur-md sm:mb-6 sm:px-4 sm:text-sm">
             {activeSection?.slug === "health-insights" ? (
               <Sparkles className="w-4 h-4" />
             ) : (
@@ -49,7 +49,7 @@ export default function BlogHero({ section }: BlogHeroProps) {
             {activeSection ? activeSection.label : "News & Updates"}
           </span>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight">
+          <h1 className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
             {activeSection ? (
               <>
                 {activeSection.label.split(" ")[0]}{" "}
@@ -63,7 +63,7 @@ export default function BlogHero({ section }: BlogHeroProps) {
               </>
             )}
           </h1>
-          <p className="text-lg text-slate-300 mt-4 max-w-2xl leading-relaxed">
+          <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-300 sm:mt-4 sm:text-lg">
             {activeSection
               ? activeSection.description
               : "Stay informed with hospital events, news, and expert health guidance from Adhiparasakthi Hospitals, Melmaruvathur."}

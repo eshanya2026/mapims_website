@@ -16,20 +16,20 @@ const actions = [
 
 export default function QuickActions() {
   return (
-    <section className="relative -mt-16 z-40 px-4">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+    <section className="relative z-40 -mt-8 px-4 pb-2 sm:-mt-12 sm:pb-0 md:-mt-16">
+      <div className="page-container">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-6">
           {actions.map((action, index) => {
             const cardClass =
-              "bg-white rounded-2xl p-6 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center cursor-pointer group";
+              "bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 md:p-6 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col items-center text-center cursor-pointer group min-h-[108px] sm:min-h-0";
             const content = (
               <>
                 <div
-                  className={`w-14 h-14 rounded-full flex items-center justify-center mb-4 transition-transform group-hover:scale-110 ${action.color}`}
+                  className={`mb-2 sm:mb-4 flex h-10 w-10 sm:h-14 sm:w-14 items-center justify-center rounded-full transition-transform group-hover:scale-110 ${action.color}`}
                 >
-                  <action.icon className="w-7 h-7" />
+                  <action.icon className="h-5 w-5 sm:h-7 sm:w-7" />
                 </div>
-                <h3 className="font-semibold text-slate-900 mb-1 text-sm md:text-base">
+                <h3 className="mb-0.5 text-xs font-semibold text-slate-900 sm:mb-1 sm:text-sm md:text-base">
                   {action.title}
                 </h3>
                 <p className="text-xs text-slate-500 hidden md:block">{action.desc}</p>

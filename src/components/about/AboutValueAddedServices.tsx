@@ -22,12 +22,12 @@ export default function AboutValueAddedServices() {
   return (
     <section
       id="value-added-services"
-      className="relative py-20 md:py-28 bg-white scroll-mt-28 overflow-hidden"
+      className="relative section-padding bg-white scroll-mt-24 sm:scroll-mt-28 overflow-hidden"
     >
-      <div className="absolute top-0 right-0 w-[480px] h-[480px] bg-red-50 rounded-full blur-3xl opacity-60 -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+      <div className="pointer-events-none absolute top-0 right-0 h-64 w-64 translate-x-1/3 -translate-y-1/2 rounded-full bg-red-50 opacity-60 blur-3xl sm:h-80 sm:w-80 md:h-[480px] md:w-[480px]" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-slate-100 rounded-full blur-3xl opacity-80 translate-y-1/3 -translate-x-1/4 pointer-events-none" />
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="page-container relative z-10">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           <motion.div
             initial={{ opacity: 0, x: -24 }}
@@ -52,7 +52,7 @@ export default function AboutValueAddedServices() {
               Melmaruvathur.
             </p>
 
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
               {highlights.map((item) => (
                 <div
                   key={item.label}

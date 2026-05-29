@@ -8,7 +8,7 @@ import HeroBackground from "@/components/layout/HeroBackground";
 
 export default function DepartmentsHero() {
   return (
-    <section className="relative min-h-[50vh] md:min-h-[55vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[38vh] sm:min-h-[45vh] md:min-h-[55vh] flex items-center overflow-hidden">
       <HeroBackground
         imageSrc="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop"
         overlayClassName="bg-gradient-to-r from-slate-900/95 via-slate-900/75 to-slate-900/40"
@@ -25,7 +25,7 @@ export default function DepartmentsHero() {
         </svg>
       </div>
 
-      <div className="container mx-auto px-4 z-20 relative py-20 md:py-24">
+      <div className="container mx-auto px-4 z-20 relative py-10 sm:py-14 md:py-16">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}

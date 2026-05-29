@@ -101,9 +101,9 @@ function FooterHeading({ children }: { children: React.ReactNode }) {
 export default function Footer() {
   return (
     <footer className="bg-slate-950 text-slate-300 border-t border-slate-800">
-      <div className="container mx-auto px-4 pt-14 pb-10">
+      <div className="page-container pt-10 pb-8 sm:pt-14 sm:pb-10">
         {/* Main link columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-10 xl:gap-8">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 xl:grid-cols-4 xl:gap-8">
           <div className="space-y-5 sm:col-span-2 xl:col-span-1">
             <Link href="/" className="inline-flex items-center gap-3 group max-w-full flex-wrap sm:flex-nowrap">
               <span className="flex items-center gap-1.5 sm:gap-2 shrink-0 min-w-0 transition-transform group-hover:scale-[1.02]">
@@ -113,7 +113,7 @@ export default function Footer() {
                   aria-hidden
                   className="h-12 sm:h-14 w-auto object-contain shrink-0"
                 />
-                <span className="text-base sm:text-lg font-bold leading-tight text-white whitespace-nowrap">
+                <span className="text-base font-bold leading-tight text-white sm:text-lg">
                   Adhiparasakthi Hospital
                 </span>
               </span>

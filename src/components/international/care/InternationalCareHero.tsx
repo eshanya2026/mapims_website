@@ -8,7 +8,7 @@ import { internationalCareHero } from "@/data/international-patient-care";
 
 export default function InternationalCareHero() {
   return (
-    <section className="relative min-h-[50vh] md:min-h-[55vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[38vh] sm:min-h-[45vh] md:min-h-[55vh] flex items-center overflow-hidden">
       <HeroBackground
         imageSrc={internationalCareHero.image}
         imageClassName="object-cover object-[center_35%]"
@@ -29,7 +29,7 @@ export default function InternationalCareHero() {
         </svg>
       </div>
 
-      <div className="container mx-auto px-4 z-20 relative py-16 md:py-24">
+      <div className="page-container relative z-20 py-10 sm:py-14 md:py-16">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}

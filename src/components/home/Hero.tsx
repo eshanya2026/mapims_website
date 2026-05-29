@@ -9,7 +9,7 @@ import HeroBackground from "@/components/layout/HeroBackground";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-slate-50 py-12 lg:py-16">
+    <section className="relative flex min-h-[72vh] items-center overflow-hidden bg-slate-50 py-10 sm:min-h-[80vh] sm:py-12 md:min-h-[85vh] lg:min-h-[90vh] lg:py-16">
       <HeroBackground
         imageSrc="/images/mapims-hospital-campus.png"
         overlayClassName="bg-gradient-to-r from-slate-900/92 via-slate-800/80 to-slate-900/25"
@@ -28,7 +28,7 @@ export default function Hero() {
         </svg>
       </div>
 
-      <div className="container mx-auto px-4 z-20 relative">
+      <div className="page-container relative z-20">
         <div className="max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -38,23 +38,23 @@ export default function Hero() {
             <span className="inline-block py-1 px-3 rounded-full bg-red-600/20 text-red-600 font-semibold text-sm mb-6 backdrop-blur-md border border-red-600/30">
               World-Class Healthcare
             </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
+            <h1 className="mb-5 text-3xl font-bold leading-tight text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
               Advanced Healthcare <br />
               <span className="text-red-600">With Compassion</span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-200 mb-8 max-w-2xl leading-relaxed">
+            <p className="mb-6 max-w-2xl text-base leading-relaxed text-slate-200 sm:mb-8 sm:text-lg md:text-xl">
               Providing exceptional medical care with state-of-the-art technology and a team of dedicated experts committed to your well-being.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="#book-appointment"
-                className="inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white rounded-full px-8 h-14 text-lg font-medium shadow-lg shadow-red-600/30 transition-all"
+                className="inline-flex h-12 w-full items-center justify-center rounded-full bg-red-600 px-6 text-base font-medium text-white shadow-lg shadow-red-600/30 transition-all hover:bg-red-700 sm:h-14 sm:w-auto sm:px-8 sm:text-lg"
               >
                 <Calendar className="mr-2 w-5 h-5" />
                 Book Appointment
               </Link>
-              <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white/20 rounded-full px-8 h-14 text-lg backdrop-blur-md">
+              <Button size="lg" variant="outline" className="h-12 w-full rounded-full border-white/20 bg-white/10 px-6 text-base text-white backdrop-blur-md hover:bg-white/20 sm:h-14 sm:w-auto sm:px-8 sm:text-lg">
                 <Search className="mr-2 w-5 h-5" />
                 Find a Doctor
               </Button>
@@ -63,12 +63,12 @@ export default function Hero() {
         </div>
 
         {/* Floating Status Cards */}
-        <div className="mt-10 lg:mt-12 flex flex-col sm:flex-row flex-wrap gap-4">
+        <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4 lg:mt-12">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-white/90 backdrop-blur-xl p-5 rounded-2xl shadow-2xl border border-white/20 flex items-center gap-4 w-full sm:w-auto sm:min-w-[240px]"
+            className="flex w-full items-center gap-3 rounded-2xl border border-white/20 bg-white/90 p-4 shadow-2xl backdrop-blur-xl sm:gap-4 sm:p-5 sm:min-w-[240px] sm:w-auto"
           >
             <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 shrink-0">
               <Activity className="w-6 h-6" />
@@ -83,7 +83,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="bg-white/90 backdrop-blur-xl p-5 rounded-2xl shadow-2xl border border-white/20 flex items-center gap-4 w-full sm:w-auto sm:min-w-[240px]"
+            className="flex w-full items-center gap-3 rounded-2xl border border-white/20 bg-white/90 p-4 shadow-2xl backdrop-blur-xl sm:gap-4 sm:p-5 sm:min-w-[240px] sm:w-auto"
           >
             <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
               <Users className="w-6 h-6" />
@@ -98,7 +98,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="bg-white/90 backdrop-blur-xl p-5 rounded-2xl shadow-2xl border border-white/20 flex items-center gap-4 w-full sm:w-auto sm:min-w-[240px]"
+            className="flex w-full items-center gap-3 rounded-2xl border border-white/20 bg-white/90 p-4 shadow-2xl backdrop-blur-xl sm:gap-4 sm:p-5 sm:min-w-[240px] sm:w-auto"
           >
             <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 shrink-0">
               <Clock className="w-6 h-6" />

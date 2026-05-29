@@ -12,7 +12,7 @@ import { internationalFaqs } from "@/data/international-patients";
 
 export default function InternationalFAQ() {
   return (
-    <section id="faq" className="py-16 md:py-24 bg-slate-50">
+    <section id="faq" className="section-padding bg-slate-50">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -28,7 +28,7 @@ const Counter = ({ end, label, suffix = "" }: { end: number, label: string, suff
 
   return (
     <div className="flex flex-col">
-      <span className="text-4xl font-bold text-red-600 mb-1">
+      <span className="mb-1 text-2xl font-bold text-red-600 sm:text-3xl md:text-4xl">
         {count}{suffix}
       </span>
       <span className="text-sm font-medium text-slate-500 uppercase tracking-wider">{label}</span>
@@ -38,16 +38,16 @@ const Counter = ({ end, label, suffix = "" }: { end: number, label: string, suff
 
 export default function AboutSection() {
   return (
-    <section className="py-24 bg-white overflow-hidden">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row items-center gap-16">
+    <section className="section-padding bg-white overflow-hidden">
+      <div className="page-container">
+        <div className="flex flex-col items-center gap-8 sm:gap-10 lg:flex-row lg:gap-16">
           {/* Left: Image */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="w-full lg:w-1/2 relative pb-10"
+            className="relative w-full pb-6 sm:pb-8 lg:w-1/2 lg:pb-10"
           >
             {/* Decorative frame background */}
             <div
@@ -96,7 +96,7 @@ export default function AboutSection() {
               <div className="w-12 h-[2px] bg-red-600"></div>
               <span className="text-red-600 font-semibold uppercase tracking-wider text-sm">About Our Hospital</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+            <h2 className="mb-5 text-3xl font-bold leading-tight text-slate-900 sm:mb-6 sm:text-4xl md:text-5xl">
               Welcome to <span className="text-red-600">Adhiparasakthi</span> Hospital
             </h2>
             <p className="text-base text-slate-600 mb-4 leading-relaxed">
@@ -120,7 +120,7 @@ export default function AboutSection() {
               ))}
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10 p-6 bg-slate-50 rounded-2xl border border-slate-100">
+            <div className="mb-8 grid grid-cols-2 gap-4 rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:mb-10 sm:gap-6 sm:p-6 md:grid-cols-4">
               <Counter end={1000} label="Beds" suffix="+" />
               <Counter end={100} label="Doctors" suffix="+" />
               <Counter end={5} label="Floors" />

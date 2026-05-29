@@ -2,25 +2,41 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { BedDouble, Users, Building2, Award } from "lucide-react";
+import { BedDouble, Users, Ambulance, Award, type LucideIcon } from "lucide-react";
 
-const stats = [
+type StatConfig = {
+  icon: LucideIcon;
+  label: string;
+  end?: number;
+  suffix?: string;
+  display?: string;
+};
+
+const stats: StatConfig[] = [
   { icon: BedDouble, end: 1000, suffix: "+", label: "Hospital Beds" },
   { icon: Users, end: 100, suffix: "+", label: "Expert Doctors" },
-  { icon: Building2, end: 5, suffix: "", label: "Floors" },
+  {
+    icon: Ambulance,
+    display: "🚑 24/7",
+    label: "Emergency & Trauma Care",
+  },
   { icon: Award, end: 40, suffix: "+", label: "Years of Service" },
 ];
 
-function StatItem({ end, suffix, label, icon: Icon, delay }: {
-  end: number;
-  suffix: string;
-  label: string;
-  icon: typeof BedDouble;
-  delay: number;
-}) {
+function StatItem({
+  end,
+  suffix = "",
+  label,
+  icon: Icon,
+  display,
+  delay,
+}: StatConfig & { delay: number }) {
   const [count, setCount] = useState(0);
+  const isNumeric = display === undefined && end !== undefined;
 
   useEffect(() => {
+    if (!isNumeric || end === undefined) return;
+
     let start = 0;
     const duration = 2000;
     const increment = end / (duration / 16);
@@ -34,7 +50,7 @@ function StatItem({ end, suffix, label, icon: Icon, delay }: {
       }
     }, 16);
     return () => clearInterval(timer);
-  }, [end]);
+  }, [end, isNumeric]);
 
   return (
     <motion.div
@@ -47,10 +63,12 @@ function StatItem({ end, suffix, label, icon: Icon, delay }: {
       <div className="w-14 h-14 rounded-2xl bg-red-50 flex items-center justify-center mb-4">
         <Icon className="w-7 h-7 text-red-600" />
       </div>
-      <span className="text-3xl md:text-4xl font-bold text-slate-900 mb-1">
-        {count}{suffix}
+      <span className="text-2xl md:text-3xl font-bold text-slate-900 mb-1 leading-tight">
+        {display ?? `${count}${suffix}`}
       </span>
-      <span className="text-sm font-medium text-slate-500 uppercase tracking-wider">{label}</span>
+      <span className="text-sm font-medium text-slate-500 uppercase tracking-wider">
+        {label}
+      </span>
     </motion.div>
   );
 }

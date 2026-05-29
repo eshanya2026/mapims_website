@@ -28,7 +28,7 @@ const highlights = [
 
 export default function AboutHighlights() {
   return (
-    <section className="py-20 md:py-24 bg-slate-50">
+    <section className="section-padding bg-slate-50">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <div className="flex items-center justify-center gap-2 mb-4">

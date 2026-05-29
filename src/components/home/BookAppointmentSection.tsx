@@ -29,12 +29,9 @@ const highlights = [
 
 export default function BookAppointmentSection() {
   return (
-    <section id="book-appointment" className="py-24 bg-slate-50 relative overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-red-600/5 rounded-bl-[100px] pointer-events-none" />
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+    <section id="book-appointment" className="section-padding bg-slate-50">
+      <div className="page-container">
+        <div className="grid grid-cols-1 items-start gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Left: Section intro */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -43,20 +40,20 @@ export default function BookAppointmentSection() {
             transition={{ duration: 0.6 }}
             className="lg:sticky lg:top-28"
           >
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-12 h-[2px] bg-red-600" />
-              <span className="text-red-600 font-semibold uppercase tracking-wider text-sm">
+            <div className="section-eyebrow">
+              <div className="h-0.5 w-10 bg-red-600 sm:w-12" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-red-600 sm:text-sm">
                 Patient Services
               </span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+            <h2 className="section-title">
               Book an <span className="text-red-600">Appointment</span>
             </h2>
             <p className="text-lg text-slate-600 mb-10 leading-relaxed">
               Schedule a consultation with our expert doctors at your convenience. Fill in the form and our team will confirm your appointment shortly. Walk-ins are also welcome during OPD hours.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+            <div className="section-grid mb-6 grid-cols-1 sm:mb-8 sm:grid-cols-2 md:mb-10">
               {highlights.map((item, index) => (
                 <motion.div
                   key={item.title}
