@@ -95,12 +95,52 @@ export const whyUsPoints: InternationalWhyPoint[] = [
   },
 ];
 
+export type InternationalHeroSlide = {
+  title: string;
+  highlight?: string;
+  subtitle: string;
+  image: string;
+  imagePosition?: string;
+  href: string;
+};
+
+const internationalHeroImage = "/images/international/international-hero.png";
+
+export const internationalHeroSlides: InternationalHeroSlide[] = [
+  {
+    title: "Airport To Airport",
+    highlight: "Service",
+    subtitle:
+      "Smooth and efficient transportation from departure to arrival.",
+    image: internationalHeroImage,
+    imagePosition: "object-[center_35%]",
+    href: "/international/care",
+  },
+  {
+    title: "Treatment And",
+    highlight: "Stay",
+    subtitle:
+      "Enjoy seamless medical care and comfortable stay, tailored to your needs.",
+    image: internationalHeroImage,
+    imagePosition: "object-[center_35%]",
+    href: "/international/care",
+  },
+  {
+    title: "Life-Saving",
+    highlight: "Treatments",
+    subtitle: "Offering a wide array of life-saving treatments and surgeries.",
+    image: internationalHeroImage,
+    imagePosition: "object-[center_35%]",
+    href: "/international/care",
+  },
+];
+
+/** @deprecated Use internationalHeroSlides */
 export const internationalHero = {
   title: "Airport To Airport Service",
-  subtitle:
-    "Seamless international patient care — from arrival to recovery, with dedicated support for travel, treatment, and follow-up.",
-  cta: "Book Consultation",
-  image: "/images/international/international-hero.png",
+  subtitle: internationalHeroSlides[0].subtitle,
+  cta: "More Details",
+  image: internationalHeroSlides[0].image,
 };
 
 export const internationalFeatures = [

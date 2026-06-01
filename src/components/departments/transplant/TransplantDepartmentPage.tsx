@@ -16,12 +16,7 @@ import ExpandableContent from "@/components/departments/ExpandableContent";
 import HeroBackground from "@/components/layout/HeroBackground";
 import TransplantExpertCare from "@/components/departments/transplant/TransplantExpertCare";
 import TransplantSpecialistDoctors from "@/components/departments/transplant/TransplantSpecialistDoctors";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import FaqAccordion from "@/components/shared/FaqAccordion";
 import {
   transplantStats,
   transplantIntro,
@@ -394,36 +389,28 @@ export default function TransplantDepartmentPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-12 md:py-16 bg-white border-t border-slate-100">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <div className="w-12 h-0.5 bg-red-600" />
-              <span className="text-red-600 font-semibold uppercase tracking-wider text-sm">
+      <section
+        id="faq"
+        className="border-t border-slate-100 bg-white py-12 md:py-16"
+        aria-labelledby="transplant-faq-heading"
+      >
+        <div className="container mx-auto max-w-3xl px-4">
+          <header className="mb-8 text-center">
+            <div className="mb-4 flex items-center justify-center gap-2">
+              <div className="h-0.5 w-12 bg-red-600" />
+              <span className="text-sm font-semibold uppercase tracking-wider text-red-600">
                 FAQ
               </span>
-              <div className="w-12 h-0.5 bg-red-600" />
+              <div className="h-0.5 w-12 bg-red-600" />
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
+            <h2
+              id="transplant-faq-heading"
+              className="text-3xl font-bold text-slate-900 md:text-4xl"
+            >
               Frequently Asked <span className="text-red-600">Questions</span>
             </h2>
-          </div>
-          <Accordion className="rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-            {transplantFaqs.map((faq, index) => (
-              <AccordionItem
-                key={faq.question}
-                value={`transplant-faq-${index}`}
-                className="px-5 bg-white border-slate-200"
-              >
-                <AccordionTrigger className="py-4 text-base font-semibold text-slate-900 hover:text-red-600 hover:no-underline">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-slate-600 leading-relaxed pb-4">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          </header>
+          <FaqAccordion faqs={transplantFaqs} idPrefix="transplant-faq" />
         </div>
       </section>
 

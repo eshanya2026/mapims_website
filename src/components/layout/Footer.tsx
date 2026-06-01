@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { MapPin, Phone, Mail, ExternalLink } from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
 import { mapimsHealthCheckupUrl } from "@/data/site-links";
 import FooterNewsletter from "@/components/layout/FooterNewsletter";
+import FooterFindUs from "@/components/layout/FooterFindUs";
 import {
   FacebookIcon,
   YoutubeIcon,
@@ -51,6 +52,7 @@ function quickLinkHref(item: string): string {
   if (item === "International Patients") return "/international";
   if (item === "Contact") return "/contact";
   if (item === "Value Added Services") return "/about#value-added-services";
+  if (item === "Mission & Vision") return "/about#mission-vision";
   if (item === "Blog") return "/blog/health-insights";
   if (
     healthCheckupLinks.includes(item as (typeof healthCheckupLinks)[number])
@@ -83,12 +85,6 @@ const socialLinks = [
   },
 ];
 
-const MAP_EMBED_URL =
-  "https://maps.google.com/maps?q=Melmaruvathur+Adhiparasakthi+Institute+of+Medical+Sciences+and+Research,+Melmaruvathur,+Kancheepuram,+603319&hl=en&z=15&output=embed";
-
-const MAP_DIRECTIONS_URL =
-  "https://www.google.com/maps/dir/?api=1&destination=Melmaruvathur+Adhiparasakthi+Institute+of+Medical+Sciences+and+Research,+Melmaruvathur,+Tamil+Nadu+603319";
-
 function FooterHeading({ children }: { children: React.ReactNode }) {
   return (
     <h3 className="text-sm font-semibold uppercase tracking-wider text-white mb-5">
@@ -109,9 +105,8 @@ export default function Footer() {
               <span className="flex items-center gap-1.5 sm:gap-2 shrink-0 min-w-0 transition-transform group-hover:scale-[1.02]">
                 <img
                   src="/images/adhiparasakthi-hospitals-emblem.png"
-                  alt=""
-                  aria-hidden
-                  className="h-12 sm:h-14 w-auto object-contain shrink-0"
+                  alt="Adhiparasakthi Hospitals emblem"
+                  className="h-12 w-auto max-h-14 max-w-[3rem] object-contain object-center shrink-0 sm:max-w-[3.5rem]"
                 />
                 <span className="text-base sm:text-lg font-bold leading-tight text-white whitespace-nowrap">
                   Adhiparasakthi Hospital
@@ -239,31 +234,9 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Map — full-width rectangle below main columns */}
-        <div className="mt-12 pt-10 border-t border-slate-800">
-          <FooterHeading>Find us on Google Maps</FooterHeading>
-          <div className="relative w-full overflow-hidden rounded-lg border border-slate-800 bg-slate-900 h-44 sm:h-52 md:h-60">
-            <iframe
-              title="Adhiparasakthi Hospital location on Google Maps"
-              src={MAP_EMBED_URL}
-              className="absolute inset-0 w-full h-full border-0"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
-          </div>
-          <a
-            href={MAP_DIRECTIONS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 mt-3 text-sm text-red-500 hover:text-red-400 transition-colors"
-          >
-            Get directions
-            <ExternalLink className="size-3.5" />
-          </a>
-        </div>
+        <FooterFindUs />
 
-        <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-800 pt-8 md:flex-row">
           <p className="text-sm text-slate-500 text-center md:text-left">
             &copy; {new Date().getFullYear()} Adhiparasakthi Hospital. All
             rights reserved.

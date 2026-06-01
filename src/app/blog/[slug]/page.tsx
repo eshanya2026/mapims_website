@@ -95,32 +95,34 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             className="h-48 w-full object-cover sm:h-60 md:h-72 lg:h-80"
           />
 
-          <div className="p-4 sm:p-8 md:p-10">
+          <div className="p-5 sm:p-8 md:p-10">
             <Link
               href={section?.href ?? "/blog/health-insights"}
-              className="inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-red-600 hover:underline"
+              className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-red-600 transition-colors hover:text-red-700 hover:underline sm:mb-8"
             >
               <ArrowLeft className="h-4 w-4 shrink-0" />
-              <span className="break-words">Back to {section?.label ?? "Blog"}</span>
+              <span>Back to {section?.label ?? "Blog"}</span>
             </Link>
 
-            <div className="mt-4 inline-flex max-w-full rounded-full bg-red-50 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-red-600 sm:mt-5 sm:text-xs">
-              {post.category}
-            </div>
-
-            <h1 className="mt-3 text-2xl font-bold leading-snug text-slate-900 sm:mt-4 sm:text-3xl md:text-4xl">
-              {post.title}
-            </h1>
-
-            <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 sm:text-sm">
-              <span className="inline-flex items-center gap-1.5">
-                <Calendar className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
-                {post.date}
+            <header className="space-y-3 border-b border-slate-100 pb-6 sm:space-y-4 sm:pb-8">
+              <span className="inline-flex max-w-full rounded-full bg-red-50 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-red-600 sm:text-xs">
+                {post.category}
               </span>
-              {post.author ? (
-                <span className="text-slate-400">· by {post.author}</span>
-              ) : null}
-            </p>
+
+              <h1 className="text-2xl font-bold leading-snug text-slate-900 sm:text-3xl md:text-4xl">
+                {post.title}
+              </h1>
+
+              <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 sm:text-sm">
+                <span className="inline-flex items-center gap-1.5">
+                  <Calendar className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4" />
+                  {post.date}
+                </span>
+                {post.author ? (
+                  <span className="text-slate-400">· by {post.author}</span>
+                ) : null}
+              </p>
+            </header>
 
             <div className="mt-6 sm:mt-8">
               <BlogArticleBody content={post.content} />

@@ -1,7 +1,7 @@
 import type { InternationalServiceData } from "@/data/international-services/types";
 
 export const interventionalRadiologyPath =
-  "/international/care/interventional-radiology";
+  "/services/interventional-radiology";
 
 export const interventionalRadiologyService: InternationalServiceData = {
   slug: "interventional-radiology",

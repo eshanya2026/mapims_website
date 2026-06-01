@@ -3,6 +3,11 @@ export type InternationalServiceSection = {
   items: string[];
 };
 
+export type InternationalServiceFaq = {
+  question: string;
+  answer: string;
+};
+
 export type InternationalServiceData = {
   slug: string;
   path: string;
@@ -27,4 +32,5 @@ export type InternationalServiceData = {
   heroBadge: string;
   heroSubtitle: string;
   breadcrumbLabel: string;
+  faqs?: InternationalServiceFaq[];
 };

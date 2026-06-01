@@ -12,21 +12,18 @@ function FooterHeading({ children }: { children: React.ReactNode }) {
   );
 }
 
+/** Google Maps block in the site footer — homepage only. */
 export default function FooterFindUs() {
   const pathname = usePathname();
 
-  if (pathname === "/contact") {
+  if (pathname !== "/") {
     return null;
   }
 
   return (
-    <div className="mt-12 pt-10 border-t border-slate-800">
-      <FooterHeading>Find us</FooterHeading>
-      <p className="text-sm text-slate-500 mb-4 max-w-2xl">
-        Adhiparasakthi Hospitals, Melmaruvathur, Kancheepuram District, Tamil Nadu
-        603319
-      </p>
-      <FooterMap />
+    <div className="mt-12 border-t border-slate-800 pt-10">
+      <FooterHeading>Find us on Google Maps</FooterHeading>
+      <FooterMap variant="dark" size="compact" />
     </div>
   );
 }

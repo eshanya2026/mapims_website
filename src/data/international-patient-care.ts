@@ -1,15 +1,3 @@
-import { accidentEmergencyPath } from "@/data/international-services/accident-emergency";
-import { anaesthesiologyPath } from "@/data/international-services/anaesthesiology";
-import { centralLaboratoryPath } from "@/data/international-services/central-laboratory";
-import { cardiovascularThoracicPath } from "@/data/international-services/cardiovascular-thoracic-surgery";
-import { dermatologyPath } from "@/data/international-services/dermatology";
-import { generalSurgeryPath } from "@/data/international-services/general-surgery";
-import { hemodialysisPath } from "@/data/international-services/hemodialysis";
-import { interventionalRadiologyPath } from "@/data/international-services/interventional-radiology";
-import { radiologyImagingPath } from "@/data/international-services/radiology-imaging";
-import { spinalSurgeriesPath } from "@/data/international-services/spinal-surgeries";
-import { surgicalOncologyPath } from "@/data/international-services/surgical-oncology";
-
 export type LabeledItem = { label: string; text: string };
 
 export const internationalCarePath = "/international/care";
@@ -21,23 +9,6 @@ export const internationalCareHero = {
     "World-class healthcare for patients from abroad — dedicated coordinators, travel assistance, and comprehensive support at Melmaruvathur.",
   image: "/images/international/international-care-hero.png",
 };
-
-export const internationalCareSidebar = [
-  { label: "Accident & Emergency Services", href: accidentEmergencyPath },
-  { label: "Anaesthesiology", href: anaesthesiologyPath },
-  { label: "Central Laboratory", href: centralLaboratoryPath },
-  {
-    label: "Cardiovascular & Thoracic Surgery",
-    href: cardiovascularThoracicPath,
-  },
-  { label: "Dermatology", href: dermatologyPath },
-  { label: "General Surgery", href: generalSurgeryPath },
-  { label: "Hemodialysis", href: hemodialysisPath },
-  { label: "Interventional Radiology", href: interventionalRadiologyPath },
-  { label: "Radiology & Imaging Science", href: radiologyImagingPath },
-  { label: "Spinal Surgeries", href: spinalSurgeriesPath },
-  { label: "Surgical Oncology", href: surgicalOncologyPath },
-];
 
 export const internationalCareWelcome = {
   paragraphs: [
@@ -221,10 +192,7 @@ export const internationalNavGroups = [
     title: "Patient Care",
     items: [
       { name: "Patient Care & Services", href: "/international/care" },
-      ...internationalCareSidebar.map((item) => ({
-        name: item.label,
-        href: item.href,
-      })),
+      { name: "Hospital Services", href: "/services" },
     ],
   },
 ];

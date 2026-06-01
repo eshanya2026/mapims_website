@@ -29,11 +29,8 @@ const highlights = [
 
 export default function BookAppointmentSection() {
   return (
-    <section id="book-appointment" className="section-padding bg-slate-50 relative overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-red-600/5 rounded-bl-[100px] pointer-events-none" />
-
-      <div className="page-container relative z-10">
+    <section id="book-appointment" className="section-padding bg-slate-50">
+      <div className="page-container">
         <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-16">
           {/* Left: Section intro */}
           <motion.div
@@ -77,7 +74,7 @@ export default function BookAppointmentSection() {
               ))}
             </div>
 
-            <div className="p-6 rounded-2xl bg-red-600/5 border border-red-600/10 flex items-start gap-4">
+            <div className="flex items-start gap-4 rounded-2xl border border-red-100 bg-red-50 p-6">
               <div className="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center shrink-0">
                 <Calendar className="w-6 h-6 text-white" />
               </div>

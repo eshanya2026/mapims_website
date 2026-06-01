@@ -1,6 +1,6 @@
 import type { InternationalServiceData } from "@/data/international-services/types";
 
-export const generalSurgeryPath = "/international/care/general-surgery";
+export const generalSurgeryPath = "/services/general-surgery";
 
 export const generalSurgeryService: InternationalServiceData = {
   slug: "general-surgery",

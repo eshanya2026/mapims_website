@@ -3,11 +3,14 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Search, Menu, X, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import BookAppointmentLink from "@/components/layout/BookAppointmentLink";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { departments } from "@/data/departments";
 import { internationalNavGroups } from "@/data/international-patient-care";
 import { blogSections } from "@/data/blog-posts";
+import { servicesPath } from "@/data/hospital-services";
+import { procedureServicesSidebar } from "@/data/procedure-services";
 
 type NavLinkItem = {
   name: string;
@@ -43,6 +46,14 @@ const blogDropdownItems: NavDropdownItem[] = blogSections.map((section) => ({
   name: section.label,
   href: section.href,
 }));
+
+const servicesDropdownItems: NavDropdownItem[] = [
+  { name: "All Services", href: servicesPath, highlight: true },
+  ...procedureServicesSidebar.map((item) => ({
+    name: item.label,
+    href: item.href,
+  })),
+];
 
 function NavDropdown({
   label,
@@ -289,13 +300,12 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center gap-3 sm:gap-4 shrink-0 min-w-0">
-            <span className="flex items-center gap-1 sm:gap-1.5 shrink-0 min-w-0">
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-4 shrink-0 min-w-0">
+            <span className="flex items-center gap-2 sm:gap-2.5 shrink-0 min-w-0">
               <img
                 src="/images/adhiparasakthi-hospitals-emblem.png"
-                alt=""
-                aria-hidden
-                className="h-10 sm:h-12 w-auto object-contain shrink-0"
+                alt="Adhiparasakthi Hospitals emblem"
+                className="h-11 w-auto max-h-12 max-w-[2.75rem] object-contain object-center shrink-0 sm:h-12 sm:max-w-[3.25rem]"
               />
               <span className="text-sm sm:text-lg font-bold leading-tight text-slate-900 whitespace-nowrap">
                 Adhiparasakthi Hospital
@@ -323,6 +333,13 @@ export default function Navbar() {
               label="Departments"
               href="/departments"
               items={departmentDropdownItems}
+              wide
+            />
+
+            <NavDropdown
+              label="Services"
+              href={servicesPath}
+              items={servicesDropdownItems}
               wide
             />
 
@@ -359,9 +376,14 @@ export default function Navbar() {
             <button className="p-2 text-slate-600 hover:text-red-600 transition-colors rounded-full hover:bg-slate-50">
               <Search className="w-5 h-5" />
             </button>
-            <Button className="bg-red-600 hover:bg-red-700 text-white rounded-full px-6 shadow-md shadow-red-600/20 transition-all hover:shadow-lg hover:-translate-y-0.5">
+            <BookAppointmentLink
+              className={cn(
+                buttonVariants(),
+                "h-9 rounded-full bg-red-600 px-6 text-white shadow-md shadow-red-600/20 transition-all hover:bg-red-700 hover:shadow-lg hover:-translate-y-0.5"
+              )}
+            >
               Book Appointment
-            </Button>
+            </BookAppointmentLink>
           </div>
 
           <button
@@ -394,6 +416,13 @@ export default function Navbar() {
             label="Departments"
             href="/departments"
             items={departmentDropdownItems}
+            onNavigate={closeMobileMenu}
+          />
+
+          <MobileNavSection
+            label="Services"
+            href={servicesPath}
+            items={servicesDropdownItems}
             onNavigate={closeMobileMenu}
           />
 
@@ -435,9 +464,15 @@ export default function Navbar() {
           </Link>
 
           <div className="pt-4 border-t flex flex-col space-y-4">
-            <Button className="w-full bg-red-600 hover:bg-red-700 text-white rounded-full">
+            <BookAppointmentLink
+              className={cn(
+                buttonVariants(),
+                "h-10 w-full justify-center rounded-full bg-red-600 text-white hover:bg-red-700"
+              )}
+              onNavigate={closeMobileMenu}
+            >
               Book Appointment
-            </Button>
+            </BookAppointmentLink>
           </div>
         </div>
       )}

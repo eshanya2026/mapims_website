@@ -36,10 +36,8 @@ export default function HeroBackground({
             src={imageSrc}
             alt=""
             aria-hidden
-            width={1024}
-            height={683}
             className={cn(
-              "absolute top-0 right-0 h-full w-[min(62%,1024px)] max-w-[1024px] object-cover object-center",
+              "absolute top-0 right-0 h-full w-[min(58%,920px)] max-w-[1024px] object-cover object-right",
               imageClassName
             )}
             fetchPriority="high"

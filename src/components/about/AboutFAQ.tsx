@@ -1,15 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { HelpCircle } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import FaqAccordion, { type FaqItem } from "@/components/shared/FaqAccordion";
 
-const faqs = [
+const faqs: FaqItem[] = [
   {
     question: "Can I consult online?",
     answer:
@@ -39,57 +33,46 @@ const faqs = [
 
 export default function AboutFAQ() {
   return (
-    <section className="section-padding bg-white">
+    <section
+      id="faq"
+      className="section-padding bg-white"
+      aria-labelledby="about-faq-heading"
+    >
       <div className="container mx-auto px-4">
-        <motion.div
+        <motion.header
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center max-w-2xl mx-auto mb-12"
+          className="mx-auto mb-12 max-w-2xl text-center"
         >
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-12 h-0.5 bg-red-600" />
-            <span className="text-red-600 font-semibold uppercase tracking-wider text-sm">
+          <div className="mb-4 flex items-center justify-center gap-2">
+            <div className="h-0.5 w-12 bg-red-600" />
+            <span className="text-sm font-semibold uppercase tracking-wider text-red-600">
               FAQ
             </span>
-            <div className="w-12 h-0.5 bg-red-600" />
+            <div className="h-0.5 w-12 bg-red-600" />
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <h2
+            id="about-faq-heading"
+            className="mb-4 text-3xl font-bold text-slate-900 md:text-4xl"
+          >
             Frequently Asked <span className="text-red-600">Questions</span>
           </h2>
-          <p className="text-slate-600 leading-relaxed">
+          <p className="leading-relaxed text-slate-600">
             Quick answers about our hospital, accreditation, and how to get care
             at Adhiparasakthi Hospital.
           </p>
-        </motion.div>
+        </motion.header>
 
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="max-w-3xl mx-auto"
+          className="mx-auto max-w-3xl"
         >
-          <Accordion className="rounded-2xl border border-slate-200 bg-slate-50/50 shadow-sm overflow-hidden">
-            {faqs.map((faq, index) => (
-              <AccordionItem
-                key={faq.question}
-                value={`faq-${index}`}
-                className="border-slate-200 bg-white px-5 md:px-6"
-              >
-                <AccordionTrigger className="py-5 text-base font-semibold text-slate-900 hover:text-red-600 hover:no-underline gap-4">
-                  <span className="flex items-start gap-3 text-left">
-                    <HelpCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
-                    {faq.question}
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="text-slate-600 leading-relaxed pb-5 pl-8">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <FaqAccordion faqs={faqs} idPrefix="about-faq" />
         </motion.div>
       </div>
     </section>

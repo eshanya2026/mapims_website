@@ -5,9 +5,7 @@ import InternationalWelcome from "@/components/international/InternationalWelcom
 import InternationalSpecialities from "@/components/international/InternationalSpecialities";
 import InternationalWhyIndiaUs from "@/components/international/InternationalWhyIndiaUs";
 import InternationalExpertDoctors from "@/components/international/InternationalExpertDoctors";
-import CertificationSection from "@/components/about/CertificationSection";
-import InternationalGallery from "@/components/international/InternationalGallery";
-import InternationalCTA from "@/components/international/InternationalCTA";
+import InternationalTestimonials from "@/components/international/InternationalTestimonials";
 
 export const metadata: Metadata = {
   title: "International Patients | Adhiparasakthi Hospital",
@@ -24,9 +22,7 @@ export default function InternationalPatientsPage() {
       <InternationalSpecialities />
       <InternationalWhyIndiaUs />
       <InternationalExpertDoctors />
-      <CertificationSection />
-      <InternationalGallery />
-      <InternationalCTA />
+      <InternationalTestimonials />
     </main>
   );
 }

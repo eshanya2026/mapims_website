@@ -1,6 +1,6 @@
 import type { InternationalServiceData } from "@/data/international-services/types";
 
-export const dermatologyPath = "/international/care/dermatology";
+export const dermatologyPath = "/services/dermatology";
 
 export const dermatologyService: InternationalServiceData = {
   slug: "dermatology",

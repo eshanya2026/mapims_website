@@ -74,28 +74,33 @@ export default function AppointmentBookingBox({
     <motion.div {...wrapperProps} className={cn("w-full", className)}>
       <div
         className={cn(
-          "rounded-3xl shadow-2xl border overflow-hidden",
+          "overflow-hidden rounded-2xl border shadow-xl sm:rounded-3xl sm:shadow-2xl",
           variant === "hero"
-            ? "bg-white/95 backdrop-blur-xl border-white/40"
-            : "bg-white border-slate-100 shadow-xl shadow-slate-200/50"
+            ? "border-white/40 bg-white/95 backdrop-blur-xl"
+            : "border-slate-100 bg-white shadow-slate-200/50"
         )}
       >
-        {/* Header */}
-        <div className="bg-red-600 px-6 py-5">
+        <div className="bg-red-600 px-4 py-4 sm:px-6 sm:py-5">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
-              <Calendar className="w-5 h-5 text-white" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20">
+              <Calendar className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-white">Book an Appointment</h3>
-              <p className="text-white/80 text-sm">Schedule your visit in minutes</p>
+              <h3 className="text-base font-bold text-white sm:text-lg">
+                {variant === "hero" ? "Book an Appointment" : "Appointment Request Form"}
+              </h3>
+              <p className="text-sm text-white/80">
+                {variant === "hero"
+                  ? "Schedule your visit in minutes"
+                  : "Fill in your details and we will confirm shortly"}
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="space-y-4 p-4 sm:p-6">
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="space-y-1.5">
               <label htmlFor={fieldId("patient-name")} className="text-xs font-semibold text-slate-600 uppercase tracking-wider">
                 Full Name *
@@ -167,7 +172,7 @@ export default function AppointmentBookingBox({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="space-y-1.5">
               <label htmlFor={fieldId("appointment-date")} className="text-xs font-semibold text-slate-600 uppercase tracking-wider">
                 Preferred Date *

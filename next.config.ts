@@ -5,6 +5,15 @@ import type { NextConfig } from "next";
 const appRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: "/international/care/:slug",
+        destination: "/services/:slug",
+        permanent: true,
+      },
+    ];
+  },
   // Allow phone/tablet on your LAN to load dev assets (use Network URL from `npm run dev`)
   allowedDevOrigins: ["192.168.101.45"],
   turbopack: {

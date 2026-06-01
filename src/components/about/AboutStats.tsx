@@ -17,7 +17,7 @@ const stats: StatConfig[] = [
   { icon: Users, end: 100, suffix: "+", label: "Expert Doctors" },
   {
     icon: Ambulance,
-    display: "🚑 24/7",
+    display: "24/7",
     label: "Emergency & Trauma Care",
   },
   { icon: Award, end: 40, suffix: "+", label: "Years of Service" },

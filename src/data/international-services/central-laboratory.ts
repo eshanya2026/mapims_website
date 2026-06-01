@@ -1,6 +1,6 @@
 import type { InternationalServiceData } from "@/data/international-services/types";
 
-export const centralLaboratoryPath = "/international/care/central-laboratory";
+export const centralLaboratoryPath = "/services/central-laboratory";
 
 export const centralLaboratoryService: InternationalServiceData = {
   slug: "central-laboratory",

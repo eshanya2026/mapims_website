@@ -21,8 +21,8 @@ export default function AboutPage() {
       <AboutHero />
       <AboutStats />
       <AboutContent />
-      <AboutHighlights />
       <AboutValueAddedServices />
+      <AboutHighlights />
       <CertificationSection />
       <AboutFAQ />
       <AboutSpecialistDoctors />

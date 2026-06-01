@@ -166,4 +166,34 @@
   .page-container {
     @apply container mx-auto w-full max-w-7xl px-4 sm:px-6;
   }
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+      opacity: 0;
+    }
+    to {
+      height: var(--accordion-panel-height);
+      opacity: 1;
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--accordion-panel-height);
+      opacity: 1;
+    }
+    to {
+      height: 0;
+      opacity: 0;
+    }
+  }
+
+  .animate-accordion-down {
+    animation: accordion-down 0.3s ease-out;
+  }
+
+  .animate-accordion-up {
+    animation: accordion-up 0.25s ease-in;
+  }
 }

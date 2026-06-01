@@ -4,6 +4,7 @@ import "./globals.css";
 import TopHeader from "@/components/layout/TopHeader";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import HashScroll from "@/components/layout/HashScroll";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} overflow-x-hidden antialiased bg-white text-slate-900`}>
+        <HashScroll />
         <TopHeader />
         <Navbar />
         {children}

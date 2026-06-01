@@ -1,7 +1,7 @@
 import type { InternationalServiceData } from "@/data/international-services/types";
 
 export const accidentEmergencyPath =
-  "/international/care/accident-emergency-services";
+  "/services/accident-emergency-services";
 
 export const accidentEmergencyService: InternationalServiceData = {
   slug: "accident-emergency-services",

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import BlogHero from "@/components/blog/BlogHero";
 import BlogComingSoon from "@/components/blog/BlogComingSoon";
 import BlogSectionNav from "@/components/blog/BlogSectionNav";
-import EmergencyCTA from "@/components/home/EmergencyCTA";
 
 export const metadata: Metadata = {
   title: "Hospital News | Adhiparasakthi Hospital Blog",
@@ -16,7 +15,6 @@ export default function HospitalNewsPage() {
       <BlogHero section="hospital-news" />
       <BlogSectionNav active="hospital-news" />
       <BlogComingSoon section="hospital-news" />
-      <EmergencyCTA />
     </main>
   );
 }

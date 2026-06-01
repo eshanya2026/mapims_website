@@ -46,8 +46,7 @@ export const blogPosts: BlogPost[] = [
     author: "ADH Medical Care",
     category: "Oncology",
     section: "health-insights",
-    image:
-      "https://images.unsplash.com/photo-1559757175-08eb37c6afcb?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/blog/cancer-treatment-breakthroughs.png",
     excerpt:
       "Cancer treatment is evolving rapidly, with innovations like immunotherapy, precision medicine, and AI-driven oncology offering new hope for patients.",
     content:
@@ -60,8 +59,7 @@ export const blogPosts: BlogPost[] = [
     author: "ADH by Mdical Care 15",
     category: "Genetics",
     section: "health-insights",
-    image:
-      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/blog/7aa80442-19ce-4e4a-bc0b-5d4e06794c64.png",
     excerpt:
       "DNA research is rapidly evolving with breakthroughs in CRISPR, gene therapy, epigenetics, and synthetic biology that are transforming medicine.",
     content:
@@ -74,8 +72,7 @@ export const blogPosts: BlogPost[] = [
     author: "ADH by Mdical Care 15",
     category: "Healthcare Technology",
     section: "health-insights",
-    image:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/blog/4fd79966-0c0b-440d-af64-cbd6bd08520f.png",
     excerpt:
       "AI is reshaping healthcare through enhanced diagnostics, personalized treatment, robotic surgery, telemedicine, and predictive analytics.",
     content:
@@ -88,8 +85,7 @@ export const blogPosts: BlogPost[] = [
     author: "ADH by Mdical Care 15",
     category: "Neurosciences",
     section: "health-insights",
-    image:
-      "https://images.unsplash.com/photo-1584820929298-1fcef00f5c8b?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/blog/brain-tumor.png",
     excerpt:
       "Learn about brain tumor types, warning signs, diagnosis methods, and modern treatment options including surgery, radiation, and targeted therapy.",
     content:
@@ -102,8 +98,7 @@ export const blogPosts: BlogPost[] = [
     author: "ADH by Mdical Care 15",
     category: "Paediatrics",
     section: "health-insights",
-    image:
-      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1200&auto=format&fit=crop",
+    image: "/images/blog/children.png",
     excerpt:
       "Timely childhood vaccinations protect against preventable diseases and support healthy growth from infancy through adolescence.",
     content:

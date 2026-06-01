@@ -1,6 +1,6 @@
 import type { InternationalServiceData } from "@/data/international-services/types";
 
-export const hemodialysisPath = "/international/care/hemodialysis";
+export const hemodialysisPath = "/services/hemodialysis";
 
 export const hemodialysisService: InternationalServiceData = {
   slug: "hemodialysis",

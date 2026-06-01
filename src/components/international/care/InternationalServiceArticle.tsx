@@ -4,7 +4,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Activity } from "lucide-react";
 import type { InternationalServiceData } from "@/data/international-services/types";
-import { internationalCarePath } from "@/data/international-patient-care";
+import { servicesPath } from "@/data/hospital-services";
+import ServiceFAQ from "@/components/services/ServiceFAQ";
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -92,6 +93,14 @@ export default function InternationalServiceArticle({
 
       <p className="text-slate-600 leading-relaxed mb-10">{service.closing}</p>
 
+      {service.faqs && service.faqs.length > 0 ? (
+        <ServiceFAQ
+          faqs={service.faqs}
+          idPrefix={`${service.slug}-faq`}
+          description={`Common questions about ${service.breadcrumbLabel} at Adhiparasakthi Hospital, Melmaruvathur.`}
+        />
+      ) : null}
+
       {/* <div className="rounded-3xl overflow-hidden shadow-2xl border border-slate-100">
         <img
           src={service.footerImage ?? service.image}
@@ -102,10 +111,10 @@ export default function InternationalServiceArticle({
 
       <p className="mt-8 text-sm text-slate-500">
         <Link
-          href={internationalCarePath}
+          href={servicesPath}
           className="text-red-600 font-semibold hover:underline"
         >
-          ← Back to International Patients Care
+          ← Back to all services
         </Link>
       </p>
     </motion.article>

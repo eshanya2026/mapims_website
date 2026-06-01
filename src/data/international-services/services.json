@@ -40,7 +40,7 @@
         ]
       }
     ],
-    "path": "/international/care/accident-emergency-services"
+    "path": "/services/accident-emergency-services"
   },
   {
     "slug": "anaesthesiology",
@@ -94,7 +94,7 @@
         ]
       }
     ],
-    "path": "/international/care/anaesthesiology"
+    "path": "/services/anaesthesiology"
   },
   {
     "slug": "central-laboratory",
@@ -145,7 +145,7 @@
         ]
       }
     ],
-    "path": "/international/care/central-laboratory"
+    "path": "/services/central-laboratory"
   },
   {
     "slug": "cardiovascular-thoracic-surgery",
@@ -177,7 +177,7 @@
         ]
       }
     ],
-    "path": "/international/care/cardiovascular-thoracic-surgery"
+    "path": "/services/cardiovascular-thoracic-surgery"
   },
   {
     "slug": "dermatology",
@@ -227,7 +227,7 @@
         ]
       }
     ],
-    "path": "/international/care/dermatology"
+    "path": "/services/dermatology"
   },
   {
     "slug": "general-surgery",
@@ -242,7 +242,7 @@
         "paragraphs": []
       }
     ],
-    "path": "/international/care/general-surgery"
+    "path": "/services/general-surgery"
   },
   {
     "slug": "hemodialysis",
@@ -257,7 +257,7 @@
         "paragraphs": []
       }
     ],
-    "path": "/international/care/hemodialysis"
+    "path": "/services/hemodialysis"
   },
   {
     "slug": "interventional-radiology",
@@ -300,7 +300,7 @@
         ]
       }
     ],
-    "path": "/international/care/interventional-radiology"
+    "path": "/services/interventional-radiology"
   },
   {
     "slug": "radiology-imaging-science",
@@ -347,7 +347,7 @@
         ]
       }
     ],
-    "path": "/international/care/radiology-imaging-science"
+    "path": "/services/radiology-imaging-science"
   },
   {
     "slug": "spinal-surgeries",
@@ -362,7 +362,7 @@
         "paragraphs": []
       }
     ],
-    "path": "/international/care/spinal-surgeries"
+    "path": "/services/spinal-surgeries"
   },
   {
     "slug": "surgical-oncology",
@@ -401,6 +401,6 @@
         ]
       }
     ],
-    "path": "/international/care/surgical-oncology"
+    "path": "/services/surgical-oncology"
   }
 ]

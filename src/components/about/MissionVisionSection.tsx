@@ -23,10 +23,12 @@ function PanelHeader({
   icon: Icon,
   subtitle,
   title,
+  headingId,
 }: {
   icon: typeof Target;
   subtitle: string;
   title: string;
+  headingId?: string;
 }) {
   return (
     <header className="bg-red-600 px-6 py-5 flex items-center gap-4">
@@ -35,7 +37,9 @@ function PanelHeader({
       </div>
       <div>
         <p className="text-white/75 text-xs font-medium uppercase tracking-wider">{subtitle}</p>
-        <h3 className="text-xl font-bold text-white">{title}</h3>
+        <h3 id={headingId} className="text-xl font-bold text-white">
+          {title}
+        </h3>
       </div>
     </header>
   );
@@ -58,7 +62,7 @@ function DividerEmblem({ className = "" }: { className?: string }) {
 
 export default function MissionVisionSection() {
   return (
-    <div id="mission-vision">
+    <div>
       <div className="text-center mb-10">
         <span className="text-red-600 font-semibold uppercase tracking-wider text-sm">Our Purpose</span>
         <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-2">
@@ -87,8 +91,13 @@ export default function MissionVisionSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2">
           {/* Mission */}
-          <section id="mission" className="flex flex-col lg:pr-4">
-            <PanelHeader icon={Target} subtitle="What we do" title="Our Mission" />
+          <section aria-labelledby="mission-heading" className="flex flex-col lg:pr-4">
+            <PanelHeader
+              icon={Target}
+              subtitle="What we do"
+              title="Our Mission"
+              headingId="mission-heading"
+            />
             <PanelBody>
               <p className="text-slate-600 text-sm leading-relaxed mb-6">
                 The Adhiparasakthi medical family is selflessly working every day, dedicating their lives to improve the lives of people, many of whom are poor ones belonging to the lower socioeconomic class of surrounding villages from agricultural background. His Holiness Arul Thiru Bangaru Adigalar&apos;s mission of humane healthcare delivery is accomplished through several instruments: the super specialty hospitals, community care, medical camps, preventive healthcare, health maintenance and education. His teachings and exemplary life have inspired thousands of individuals who administer care for patients.
@@ -112,8 +121,13 @@ export default function MissionVisionSection() {
           </div>
 
           {/* Vision */}
-          <section id="vision" className="flex flex-col lg:pl-4">
-            <PanelHeader icon={Eye} subtitle="Where we're headed" title="Our Vision" />
+          <section aria-labelledby="vision-heading" className="flex flex-col lg:pl-4">
+            <PanelHeader
+              icon={Eye}
+              subtitle="Where we're headed"
+              title="Our Vision"
+              headingId="vision-heading"
+            />
             <PanelBody>
               <div className="bg-red-50 border border-red-100 rounded-xl p-4 mb-6 relative">
                 <Quote className="w-5 h-5 text-red-300 absolute top-3 right-3" />

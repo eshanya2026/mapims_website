@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import DepartmentsHero from "@/components/departments/DepartmentsHero";
 import DepartmentsGrid from "@/components/departments/DepartmentsGrid";
 import DepartmentsCTA from "@/components/departments/DepartmentsCTA";
+import DepartmentsFAQ from "@/components/departments/DepartmentsFAQ";
 import EmergencyCTA from "@/components/home/EmergencyCTA";
 
 export const metadata: Metadata = {
@@ -16,6 +17,7 @@ export default function DepartmentsPage() {
       <DepartmentsHero />
       <DepartmentsGrid />
       <DepartmentsCTA />
+      <DepartmentsFAQ />
       <EmergencyCTA />
     </main>
   );

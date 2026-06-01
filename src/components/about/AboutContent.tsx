@@ -2,23 +2,90 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Phone, Calendar, Target, Eye, ArrowRight } from "lucide-react";
+import {
+  Target,
+  ArrowRight,
+  ArrowUpRight,
+  Building2,
+  HeartHandshake,
+  CircleHelp,
+  History,
+} from "lucide-react";
+import AboutJourneyTimeline from "@/components/about/AboutJourneyTimeline";
 import MissionVisionSection from "@/components/about/MissionVisionSection";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const sidebarLinks = [
-  { id: "about", label: "About Us", icon: null },
-  { id: "mission", label: "Our Mission", icon: Target },
-  { id: "vision", label: "Our Vision", icon: Eye },
-];
+  { id: "about", label: "About Us", icon: Building2 },
+  { id: "our-journey", label: "Our Journey", icon: History },
+  { id: "mission-vision", label: "Mission & Vision", icon: Target },
+  {
+    id: "value-added-services",
+    label: "Value Added Services",
+    icon: HeartHandshake,
+  },
+  { id: "faq", label: "FAQ", icon: CircleHelp },
+] as const;
+
+type SectionId = (typeof sidebarLinks)[number]["id"];
 
 export default function AboutContent() {
-  const [activeSection, setActiveSection] = useState("about");
+  const [activeSection, setActiveSection] = useState<SectionId>("about");
+
+  const scrollToSection = useCallback((id: SectionId) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const offset = 112; // sticky header
+    const top = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: "smooth" });
+  }, []);
+
+  useEffect(() => {
+    const sectionIds: SectionId[] = [
+      "about",
+      "our-journey",
+      "mission-vision",
+      "value-added-services",
+      "faq",
+    ];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]?.target.id) {
+          setActiveSection(visible[0].target.id as SectionId);
+        }
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: [0, 0.25, 0.5] }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "") as SectionId;
+    if (sidebarLinks.some((link) => link.id === hash)) {
+      setActiveSection(hash);
+      requestAnimationFrame(() => scrollToSection(hash));
+    }
+  }, [scrollToSection]);
+
+  const handleNavClick = (id: SectionId) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    setActiveSection(id);
+    scrollToSection(id);
+  };
 
   return (
     <>
-      <section id="about" className="section-padding bg-white">
+      <section id="about" className="section-padding bg-white scroll-mt-28">
         <div className="container mx-auto px-4">
           <div className="flex flex-col gap-8 lg:flex-row lg:gap-14">
             {/* Sidebar */}
@@ -28,48 +95,67 @@ export default function AboutContent() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="lg:sticky lg:top-28 space-y-5"
+                className="space-y-5 lg:sticky lg:top-28"
               >
-                <nav className="bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-200/40 overflow-hidden">
-                  {sidebarLinks.map((link) => (
-                    <a
-                      key={link.id}
-                      href={`#${link.id}`}
-                      onClick={() => setActiveSection(link.id)}
-                      className={cn(
-                        "flex items-center gap-3 px-5 py-4 text-sm font-semibold border-b border-slate-50 last:border-0 transition-all duration-200",
-                        activeSection === link.id
-                          ? "bg-red-600 text-white shadow-inner"
-                          : "text-slate-700 hover:bg-red-50 hover:text-red-600"
-                      )}
-                    >
-                      {link.icon && <link.icon className="w-4 h-4" />}
-                      {link.label}
-                    </a>
-                  ))}
-                </nav>
+                {/* Navigation — matches reference stepper design */}
+                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <h3 className="mb-6 text-xl font-bold text-slate-800">About MAPIMS</h3>
 
-                <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-2xl p-6 text-white shadow-xl shadow-red-600/25">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
-                      <Phone className="w-5 h-5" />
-                    </div>
-                    <span className="font-bold uppercase tracking-wider text-sm">Emergency Call</span>
-                  </div>
-                  <a href="tel:1066" className="text-3xl font-black block mb-1 hover:underline">
-                    1066
-                  </a>
-                  <a href="tel:+919499059966" className="text-sm text-white/80 hover:text-white">
-                    +91 94990 59966
-                  </a>
+                  <nav aria-label="About page sections">
+                    <ul className="relative space-y-6">
+                      <div
+                        className="absolute bottom-5 left-5 top-5 w-px bg-slate-200"
+                        aria-hidden
+                      />
+                      {sidebarLinks.map((link) => {
+                        const isActive = activeSection === link.id;
+                        return (
+                          <li key={link.id} className="relative">
+                            <a
+                              href={`#${link.id}`}
+                              onClick={handleNavClick(link.id)}
+                              className="group flex items-center gap-4"
+                            >
+                              <span
+                                className={cn(
+                                  "relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-200",
+                                  isActive
+                                    ? "border-red-600 bg-red-600 text-white shadow-md shadow-red-600/25"
+                                    : "border-slate-200 bg-white text-slate-400 group-hover:border-slate-300"
+                                )}
+                              >
+                                <link.icon className="h-[18px] w-[18px]" strokeWidth={1.75} />
+                              </span>
+                              <span
+                                className={cn(
+                                  "flex-1 text-base font-semibold transition-colors",
+                                  isActive
+                                    ? "text-red-600"
+                                    : "text-slate-800 group-hover:text-slate-900"
+                                )}
+                              >
+                                {link.label}
+                              </span>
+                              {isActive && (
+                                <ArrowUpRight
+                                  className="h-5 w-5 shrink-0 text-red-600"
+                                  strokeWidth={2}
+                                />
+                              )}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </nav>
                 </div>
 
                 <Link
-                  href="/#book-appointment"
-                  className="flex w-full h-12 items-center justify-center bg-red-600 hover:bg-red-700 hover:shadow-lg hover:-translate-y-0.5 text-white rounded-full text-base font-semibold shadow-md shadow-red-600/20 transition-all"
+                  href="/contact"
+                  className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-red-600 px-8 text-base font-semibold text-white shadow-lg shadow-red-600/25 transition-all hover:-translate-y-0.5 hover:bg-red-700"
                 >
-                  <Calendar className="mr-2 w-5 h-5" />
-                  Book Appointment
+                  Schedule a Visit
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
               </motion.div>
             </aside>
@@ -107,40 +193,15 @@ export default function AboutContent() {
                     Besides the above, MAPIMS — Melmaruvathur is well known for cost leadership, total transparency, and ethical medical treatment and clinical practices across all its super-specialty institutes, departments, and various allied services in this part of the Indian sub-continent — to the advantage of all who seek good health and cures at our facility.
                   </p>
                 </div>
-
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className="relative rounded-3xl overflow-hidden shadow-2xl mb-10 group"
-                >
-                  <img
-                    src="/images/mapims-about-campus.png"
-                    alt="Adhiparasakthi Hospital campus at Melmaruvathur"
-                    className="w-full h-auto object-cover object-[center_40%] aspect-[16/8] group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <p className="text-white font-semibold text-lg">1000+ Bed Super-Specialty Tertiary Care</p>
-                    <p className="text-white/80 text-sm mt-1">World-class technology · Ethical · Transparent care</p>
-                  </div>
-                </motion.div>
-
-                <Link
-                  href="/#book-appointment"
-                  className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white rounded-full px-8 h-12 font-semibold shadow-lg shadow-red-600/25 transition-all hover:-translate-y-0.5"
-                >
-                  Schedule a Visit
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
               </motion.div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="pb-16 md:pb-24 bg-white">
+      <AboutJourneyTimeline />
+
+      <section id="mission-vision" className="pb-16 md:pb-24 bg-white scroll-mt-28">
         <div className="container mx-auto px-4">
           <MissionVisionSection />
         </div>
