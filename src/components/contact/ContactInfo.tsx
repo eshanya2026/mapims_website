@@ -1,4 +1,12 @@
-import { MapPin, Phone, Mail, Clock, Ambulance, ArrowUpRight } from "lucide-react";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Ambulance,
+  ArrowUpRight,
+  MessageSquare,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ADDRESS =
@@ -18,6 +26,14 @@ const primaryContacts = [
     value: "contact@mapims.edu.in",
     href: "mailto:contact@mapims.edu.in",
     hint: "We reply within 1–2 business days",
+  },
+  {
+    icon: MessageSquare,
+    label: "Patient Feedback",
+    value: "Feedback Portal",
+    href: "https://feedback.mapims.edu.in/feedback",
+    hint: "Share your experience",
+    external: true,
   },
 ] as const;
 
@@ -52,10 +68,13 @@ export default function ContactInfo() {
       </div>
 
       <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {primaryContacts.map(({ icon: Icon, label, value, href, hint }) => (
+        {primaryContacts.map(
+          ({ icon: Icon, label, value, href, hint, external }) => (
           <a
             key={label}
             href={href}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener noreferrer" : undefined}
             className={cn(
               "group relative overflow-hidden rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200/80 transition-all duration-200",
               "hover:-translate-y-0.5 hover:shadow-md hover:ring-red-200"

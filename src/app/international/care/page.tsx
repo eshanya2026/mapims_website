@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import InternationalCareHero from "@/components/international/care/InternationalCareHero";
 import InternationalPatientCareContent from "@/components/international/care/InternationalPatientCareContent";
-import InternationalDeskCTA from "@/components/international/InternationalDeskCTA";
 import InternationalFAQ from "@/components/international/InternationalFAQ";
 
 export const metadata: Metadata = {
@@ -15,7 +14,6 @@ export default function InternationalPatientCarePage() {
     <main className="min-h-screen">
       <InternationalCareHero />
       <InternationalPatientCareContent />
-      <InternationalDeskCTA />
       <InternationalFAQ />
     </main>
   );

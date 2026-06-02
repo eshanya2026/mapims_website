@@ -101,8 +101,13 @@ export const internationalDesk = {
   tollFreeDisplay: "1800 599 0999",
   phoneTel: "tel:+919499059966",
   phoneDisplay: "+91 94990 59966",
+  whatsappUrl: "https://wa.me/919499059966",
   email: "contact@mapims.edu.in",
   mailto: "mailto:contact@mapims.edu.in",
+  address:
+    "Adhiparasakthi Hospitals, Melmaruvathur, Kancheepuram District, Tamil Nadu 603319, India",
+  mapsUrl:
+    "https://www.google.com/maps/dir/?api=1&destination=Melmaruvathur+Adhiparasakthi+Institute+of+Medical+Sciences+and+Research,+Melmaruvathur,+Tamil+Nadu+603319",
 } as const;
 
 export type InternationalHeroSlide = {
