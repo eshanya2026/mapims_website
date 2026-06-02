@@ -3,8 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronLeft, Plane, ArrowRight, Calendar } from "lucide-react";
+import { ChevronRight, ChevronLeft, Plane, ArrowRight } from "lucide-react";
 import HeroBackground from "@/components/layout/HeroBackground";
+import ContactInternationalDeskButton from "@/components/international/ContactInternationalDeskButton";
 import { internationalHeroSlides } from "@/data/international-patients";
 import { cn } from "@/lib/utils";
 
@@ -90,13 +91,7 @@ export default function InternationalHero() {
               Explore Patient Care
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
-            <Link
-              href="/#book-appointment"
-              className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 bg-white/10 px-8 font-medium text-white backdrop-blur-md transition hover:bg-white/20"
-            >
-              <Calendar className="mr-2 h-5 w-5" />
-              Book Appointment
-            </Link>
+            <ContactInternationalDeskButton variant="outline" />
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-white/10 pt-6">

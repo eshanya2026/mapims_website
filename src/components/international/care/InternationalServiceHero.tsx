@@ -2,7 +2,10 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ChevronRight, Calendar, Phone, Ambulance } from "lucide-react";
+import { ChevronRight, Ambulance } from "lucide-react";
+import HeroBackground from "@/components/layout/HeroBackground";
+import ContactInternationalDeskButton from "@/components/international/ContactInternationalDeskButton";
+import BookAppointmentLink from "@/components/layout/BookAppointmentLink";
 
 type InternationalServiceHeroProps = {
   badge: string;
@@ -12,8 +15,6 @@ type InternationalServiceHeroProps = {
   image: string;
   breadcrumbs: { label: string; href?: string }[];
 };
-
-import HeroBackground from "@/components/layout/HeroBackground";
 
 export default function InternationalServiceHero({
   badge,
@@ -71,20 +72,10 @@ export default function InternationalServiceHero({
           )}
 
           <div className="flex flex-col sm:flex-row gap-4 mt-8">
-            <a
-              href="tel:+919499059966"
-              className="inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white rounded-full px-8 h-12 font-medium shadow-lg shadow-red-600/30 transition-all"
-            >
-              <Phone className="mr-2 w-5 h-5" />
-              Call 94990 59966
-            </a>
-            <Link
-              href="/#book-appointment"
-              className="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full px-8 h-12 font-medium backdrop-blur-md transition-all"
-            >
-              <Calendar className="mr-2 w-5 h-5" />
+            <ContactInternationalDeskButton variant="primary" />
+            <BookAppointmentLink className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 bg-white/10 px-8 font-medium text-white backdrop-blur-md transition hover:bg-white/20">
               Book Appointment
-            </Link>
+            </BookAppointmentLink>
           </div>
         </motion.div>
       </div>

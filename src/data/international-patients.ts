@@ -95,6 +95,16 @@ export const whyUsPoints: InternationalWhyPoint[] = [
   },
 ];
 
+/** International Patient Department / desk — use across international pages */
+export const internationalDesk = {
+  tollFreeTel: "tel:18005990999",
+  tollFreeDisplay: "1800 599 0999",
+  phoneTel: "tel:+919499059966",
+  phoneDisplay: "+91 94990 59966",
+  email: "contact@mapims.edu.in",
+  mailto: "mailto:contact@mapims.edu.in",
+} as const;
+
 export type InternationalHeroSlide = {
   title: string;
   highlight?: string;

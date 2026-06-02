@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ChevronRight, Calendar, Phone, Plane } from "lucide-react";
+import { ChevronRight, Phone, Plane } from "lucide-react";
 import HeroBackground from "@/components/layout/HeroBackground";
+import ContactInternationalDeskButton from "@/components/international/ContactInternationalDeskButton";
+import { internationalDesk } from "@/data/international-patients";
 import { internationalCareHero } from "@/data/international-patient-care";
 
 export default function InternationalCareHero() {
@@ -62,19 +64,13 @@ export default function InternationalCareHero() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-8">
-            <Link
-              href="/#book-appointment"
-              className="inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white rounded-full px-8 h-12 font-medium shadow-lg shadow-red-600/30 transition-all"
-            >
-              <Calendar className="mr-2 w-5 h-5" />
-              Book Appointment
-            </Link>
+            <ContactInternationalDeskButton variant="primary" />
             <a
-              href="tel:18005990999"
+              href={internationalDesk.phoneTel}
               className="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full px-8 h-12 font-medium backdrop-blur-md transition-all"
             >
               <Phone className="mr-2 w-5 h-5" />
-              1800 599 0999
+              {internationalDesk.phoneDisplay}
             </a>
           </div>
         </motion.div>
