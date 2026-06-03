@@ -19,6 +19,7 @@ const primaryContacts = [
     value: "1800 599 0999",
     href: "tel:18005990999",
     hint: "Mon–Sat 8 AM – 8 PM",
+    external: false,
   },
   {
     icon: Mail,
@@ -26,6 +27,7 @@ const primaryContacts = [
     value: "contact@mapims.edu.in",
     href: "mailto:contact@mapims.edu.in",
     hint: "We reply within 1–2 business days",
+    external: false,
   },
   {
     icon: MessageSquare,
