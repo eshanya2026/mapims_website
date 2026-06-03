@@ -14,8 +14,8 @@ export default function ContactHero() {
     <section className="relative flex min-h-[52vh] items-center overflow-hidden md:min-h-[60vh]">
       <HeroBackground
         imageSrc="/images/contact-hero.png"
-        imageClassName="object-cover object-[right_center] sm:object-[70%_center] lg:object-[right_center]"
-        overlayClassName="bg-gradient-to-r from-slate-950/95 via-slate-900/85 via-65% to-slate-900/40 lg:via-50% lg:to-transparent"
+        imageClassName="object-cover object-center"
+        overlayClassName="bg-gradient-to-r from-slate-950/95 via-slate-900/80 via-55% to-slate-900/35"
       />
 
       <div className="absolute bottom-0 left-0 w-full h-24 z-10 opacity-20 pointer-events-none overflow-hidden">
@@ -33,12 +33,12 @@ export default function ContactHero() {
         </svg>
       </div>
 
-      <div className="page-container relative z-20 py-10 sm:py-14 md:py-16">
+      <div className="page-container relative z-20 py-12 sm:py-16 md:py-20">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-xl lg:max-w-2xl xl:max-w-3xl"
+          className="max-w-3xl"
         >
           <nav className="mb-6 flex flex-wrap items-center gap-2 text-sm text-white/70">
             <Link href="/" className="hover:text-white transition-colors">

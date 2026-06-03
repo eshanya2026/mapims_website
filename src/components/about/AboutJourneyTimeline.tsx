@@ -1,6 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const milestones = [
@@ -69,6 +74,19 @@ function MilestoneCard({
 }
 
 export default function AboutJourneyTimeline() {
+  const journeyRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: journeyRef,
+    offset: ["start 0.85", "end 0.15"],
+  });
+
+  const objectPosition = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["center 38%", "center 58%"]
+  );
+
   return (
     <section
       id="our-journey"
@@ -102,38 +120,42 @@ export default function AboutJourneyTimeline() {
           </p>
         </motion.header>
 
-        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-16">
-          {/* Campus image — fills left column on large screens */}
+        <div
+          ref={journeyRef}
+          className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-16"
+        >
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
-            className="lg:col-span-5"
+            className="lg:col-span-5 lg:sticky lg:top-28 lg:self-start"
           >
-            <div className="relative overflow-hidden rounded-3xl border border-slate-200 shadow-xl lg:sticky lg:top-28">
-              <img
-                src="/images/mapims-about-campus.png"
-                alt="Adhiparasakthi Hospital campus at Melmaruvathur"
-                className="aspect-[4/5] w-full object-cover object-[center_40%] sm:aspect-[16/10] lg:aspect-[4/5]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/85 via-slate-900/25 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-                <p className="text-xs font-semibold uppercase tracking-wider text-red-400">
-                  Melmaruvathur
-                </p>
-                <p className="mt-1 text-xl font-bold text-white sm:text-2xl">
-                  Four decades of healing
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-white/80">
-                  Rooted in service since 1986, growing with MAPIMS and the
-                  communities we serve.
-                </p>
+            <div className="relative overflow-hidden rounded-3xl border border-slate-200 shadow-xl">
+              <div className="relative aspect-[4/5] w-full overflow-hidden sm:aspect-[16/10] lg:aspect-[4/5]">
+                <motion.img
+                  src="/images/mapims-about-campus.png"
+                  alt="Adhiparasakthi Hospital campus at Melmaruvathur"
+                  style={{ objectPosition }}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/85 via-slate-900/25 to-transparent" />
+                <div className="pointer-events-none absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-red-400">
+                    Melmaruvathur
+                  </p>
+                  <p className="mt-1 text-xl font-bold text-white sm:text-2xl">
+                    Four decades of healing
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-white/80">
+                    Rooted in service since 1986, growing with MAPIMS and the
+                    communities we serve.
+                  </p>
+                </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Timeline — alternating left / right on md+ */}
           <div className="lg:col-span-7">
             <ol className="relative">
               <div
@@ -154,7 +176,6 @@ export default function AboutJourneyTimeline() {
                     transition={{ duration: 0.45, delay: index * 0.06 }}
                     className="relative pb-10 last:pb-0 md:pb-12"
                   >
-                    {/* Mobile: dot + full-width card */}
                     <div className="flex gap-4 md:hidden">
                       <div className="relative z-10 shrink-0 pt-1">
                         <span
@@ -173,7 +194,6 @@ export default function AboutJourneyTimeline() {
                       </div>
                     </div>
 
-                    {/* Desktop: alternating left / right cards */}
                     <div className="relative hidden md:block md:min-h-[6.5rem]">
                       <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
                         <span
@@ -190,9 +210,7 @@ export default function AboutJourneyTimeline() {
                       <div
                         className={cn(
                           "w-[calc(50%-2.75rem)] pt-1",
-                          isRight
-                            ? "ml-auto pl-2"
-                            : "mr-auto pr-2"
+                          isRight ? "ml-auto pl-2" : "mr-auto pr-2"
                         )}
                       >
                         <MilestoneCard

@@ -15,7 +15,7 @@ export default function BlogHero({ section }: BlogHeroProps) {
 
   return (
     <section className="relative flex min-h-[38vh] items-center overflow-hidden sm:min-h-[42vh] md:min-h-[50vh]">
-      <HeroBackground imageSrc="https://images.unsplash.com/photo-1504711434966-e338fb48f529?q=80&w=2070&auto=format&fit=crop" />
+      <HeroBackground imageSrc="/images/blog/579502f2-f668-42e9-be7a-995936f42cfa.png" />
 
       <div className="container relative z-20 mx-auto px-4 py-12 sm:px-6 sm:py-16 md:py-20">
         <motion.div

@@ -53,7 +53,9 @@ export default function DepartmentsGrid() {
                   {dept.description}
                 </p>
                 <div className="flex flex-col gap-2">
-                  {dept.slug === "multi-organ-transplant" && (
+                  {(dept.slug === "multi-organ-transplant" ||
+                    dept.slug === "cardiology" ||
+                    dept.slug === "oncology") && (
                     <Link
                       href={`/departments/${dept.slug}`}
                       className="inline-flex items-center justify-center gap-2 bg-red-600 text-white font-semibold text-sm rounded-lg px-4 py-2.5 hover:bg-red-700 transition-colors"
