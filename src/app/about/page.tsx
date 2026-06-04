@@ -7,7 +7,6 @@ import AboutValueAddedServices from "@/components/about/AboutValueAddedServices"
 import CertificationSection from "@/components/about/CertificationSection";
 import AboutFAQ from "@/components/about/AboutFAQ";
 import AboutSpecialistDoctors from "@/components/about/AboutSpecialistDoctors";
-import EmergencyCTA from "@/components/home/EmergencyCTA";
 
 export const metadata: Metadata = {
   title: "About Us | Adhiparasakthi Hospital",
@@ -26,7 +25,6 @@ export default function AboutPage() {
       <CertificationSection />
       <AboutFAQ />
       <AboutSpecialistDoctors />
-      <EmergencyCTA />
     </main>
   );
 }

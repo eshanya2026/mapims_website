@@ -13,28 +13,37 @@ type Testimonial = {
 
 function StarRating({ rating }: { rating: Testimonial["rating"] }) {
   return (
-    <div className="flex gap-1.5" aria-label={`Rating: ${rating} out of 5`}>
-      {Array.from({ length: 5 }).map((_, idx) => {
-        const starIndex = idx + 1; // 1..5
+    <div
+      className="mb-4 flex gap-0.5"
+      aria-label={`${rating} out of 5 stars`}
+    >
+      {Array.from({ length: 5 }, (_, i) => {
+        const starIndex = i + 1;
         const isFull = rating >= starIndex;
         const isHalf = !isFull && rating >= starIndex - 0.5;
 
-        return (
-          <span key={idx} className="relative inline-block w-5 h-5">
-            <Star className="absolute inset-0 w-5 h-5 text-yellow-400/40" fill="none" />
+        if (isFull) {
+          return (
+            <Star
+              key={i}
+              className="h-5 w-5 fill-amber-400 text-amber-400"
+            />
+          );
+        }
 
-            {(isFull || isHalf) && (
-              <span
-                className="absolute inset-0 overflow-hidden"
-                style={{ width: isFull ? "100%" : "50%" }}
-              >
-                <Star
-                  className="w-5 h-5 text-yellow-400"
-                  fill="currentColor"
-                />
+        if (isHalf) {
+          return (
+            <span key={i} className="relative inline-block h-5 w-5">
+              <Star className="h-5 w-5 fill-slate-200 text-slate-200" />
+              <span className="absolute inset-0 w-1/2 overflow-hidden">
+                <Star className="h-5 w-5 fill-amber-400 text-amber-400" />
               </span>
-            )}
-          </span>
+            </span>
+          );
+        }
+
+        return (
+          <Star key={i} className="h-5 w-5 fill-slate-200 text-slate-200" />
         );
       })}
     </div>
@@ -72,71 +81,71 @@ export default function InternationalTestimonials() {
   return (
     <section
       id="testimonials"
-      className="section-padding relative overflow-hidden border-b border-slate-100 bg-white"
+      className="section-padding relative overflow-hidden bg-white"
       aria-labelledby="international-testimonials-heading"
     >
-      <div className="container relative z-10 mx-auto px-4 sm:px-6">
+      <div className="absolute left-0 top-0 z-0 h-1/2 w-full bg-slate-900" />
+
+      <div className="page-container relative z-10">
         <motion.header
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mx-auto mb-12 max-w-2xl text-center md:mb-14"
+          className="mx-auto mb-16 max-w-3xl text-center"
         >
           <div className="mb-4 flex items-center justify-center gap-2">
-            <div className="h-0.5 w-12 bg-red-600" />
+            <div className="h-[2px] w-12 bg-red-600" />
             <span className="text-sm font-semibold uppercase tracking-wider text-red-600">
-              Testimonials
+              Patient Stories
             </span>
-            <div className="h-0.5 w-12 bg-red-600" />
+            <div className="h-[2px] w-12 bg-red-600" />
           </div>
           <h2
             id="international-testimonials-heading"
-            className="mb-4 text-3xl font-bold text-slate-900 md:text-4xl"
+            className="mb-6 text-4xl font-bold text-white md:text-5xl"
           >
-            What Our International <span className="text-red-600">Patients Say</span>
+            What Our International{" "}
+            <span className="text-red-600">Patients Say</span>
           </h2>
-          <p className="leading-relaxed text-slate-600">
+          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-slate-300">
             Real experiences from patients and families who travelled to MAPIMS for
             treatment — coordinators, clear communication, and care you can trust.
           </p>
         </motion.header>
 
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-4">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: index * 0.08 }}
-              className="bg-white rounded-3xl p-7 shadow-lg border border-slate-100"
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="relative mt-12 rounded-3xl border border-slate-100 bg-white p-8 shadow-xl"
             >
-              <div className="flex items-start gap-4">
-                <InitialAvatar name={testimonial.name} />
-
-                <div className="flex-1">
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="min-w-0">
-                      <h4 className="font-bold text-slate-900">
-                        {testimonial.name}
-                      </h4>
-                      <p className="text-sm text-slate-500">{testimonial.role}</p>
-                    </div>
-                    <div className="text-slate-300">
-                      <Quote className="w-9 h-9" />
-                    </div>
-                  </div>
-
-                  <div className="mt-3">
-                    <StarRating rating={testimonial.rating} />
-                  </div>
-                </div>
+              <div className="absolute -top-10 left-8">
+                <InitialAvatar
+                  name={testimonial.name}
+                  size="lg"
+                  className="shadow-lg"
+                />
+              </div>
+              <div className="absolute right-8 top-6 text-slate-200">
+                <Quote className="h-12 w-12" />
               </div>
 
-              <p className="mt-5 text-slate-600 leading-relaxed italic">
-                &quot;{testimonial.text}&quot;
-              </p>
+              <div className="mb-6 mt-8">
+                <StarRating rating={testimonial.rating} />
+                <p className="italic leading-relaxed text-slate-600">
+                  &quot;{testimonial.text}&quot;
+                </p>
+              </div>
+
+              <div className="border-t border-slate-100 pt-4">
+                <h4 className="font-bold text-slate-900">{testimonial.name}</h4>
+                <p className="text-sm text-slate-500">{testimonial.role}</p>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -144,4 +153,3 @@ export default function InternationalTestimonials() {
     </section>
   );
 }
-

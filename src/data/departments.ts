@@ -5,117 +5,181 @@ export type Department = {
   image: string;
 };
 
+/** Slugs with a dedicated department detail page */
+export const departmentDetailSlugs = [
+  "cardiology",
+  "orthopaedics",
+  "obstetrics-gynaecology",
+  "nephrology",
+  "paediatric",
+  "diabetology",
+  "general-medicine",
+  "medical-gastroenterology",
+  "plastic-surgery",
+  "ophthalmology",
+  "ent",
+  "urology",
+  "joint-replacement",
+  "oncology",
+  "neurology",
+  "multi-organ-transplant",
+] as const;
+
+/** Emoji shown beside department names in the department page aside */
+export const departmentAsideIcons: Record<string, string> = {
+  cardiology: "❤️",
+  orthopaedics: "🦴",
+  "joint-replacement": "🦵",
+  "obstetrics-gynaecology": "🤰",
+  nephrology: "🫘",
+  paediatric: "👶",
+  diabetology: "🩸",
+  "general-medicine": "🩺",
+  "medical-gastroenterology": "🍽️",
+  ophthalmology: "👁️",
+  ent: "👂",
+  urology: "🚻",
+  "multi-organ-transplant": "🫀",
+  oncology: "🎗️",
+  neurology: "🧠",
+  "plastic-surgery": "✋",
+};
+
+export function getDepartmentHref(slug: string): string {
+  if (
+    (departmentDetailSlugs as readonly string[]).includes(slug)
+  ) {
+    return `/departments/${slug}`;
+  }
+  return "/departments";
+}
+
 export const departments: Department[] = [
   {
     slug: "cardiology",
     name: "Cardiology",
     description:
-      "Comprehensive heart care including diagnostics, interventional procedures, cardiac surgery support, and preventive cardiology for all age groups.",
-    image: "https://images.unsplash.com/photo-1530497610247-94d17445316a?q=80&w=800&auto=format&fit=crop",
+      "Top cardiology services in Chennai — cutting-edge heart care, cardiothoracic CCUs with 1:1 nursing, and 50+ subspecialized experts for adults and children.",
+    image: "/images/0b7b9cd4-ff80-484d-b49e-b1604e2e0fb1.png",
   },
   {
     slug: "orthopaedics",
     name: "Orthopaedics",
     description:
-      "Expert care for bone, joint, and musculoskeletal disorders — from trauma and sports injuries to complex reconstructive procedures.",
-    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=800&auto=format&fit=crop",
+      "Best orthopaedics in India — joint replacement, spine, sports medicine, trauma, paediatric orthopaedics, and rehabilitation at Melmaruvathur.",
+    image: "/images/ortho.png",
   },
   {
     slug: "joint-replacement",
     name: "Joint Replacement",
     description:
-      "Advanced knee and hip replacement surgeries with modern implants, rehabilitation protocols, and dedicated post-operative care.",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop",
+      "Best joint replacement service in Chennai — hip, knee, shoulder, elbow, and wrist replacements with advanced theatres and expert orthopaedic surgeons.",
+    image: "/images/joint%20.png",
   },
   {
     slug: "obstetrics-gynaecology",
     name: "Obstetrics & Gynaecology",
     description:
-      "Complete women's health services including maternity care, high-risk pregnancy management, and gynaecological treatments.",
-    image: "https://images.unsplash.com/photo-1555252333-9f8e4a09c02d?q=80&w=800&auto=format&fit=crop",
+      "Best obstetrics & gynaecology in India — pregnancy care, IVF, laparoscopic surgery, high-risk obstetrics, and NICU at Melmaruvathur.",
+    image: "/images/og.png",
   },
   {
     slug: "nephrology",
     name: "Nephrology",
     description:
-      "Specialized kidney care with dialysis facilities, chronic kidney disease management, and renal transplant support services.",
-    image: "https://images.unsplash.com/photo-1631217868264-e5b1b5d261b9?q=80&w=800&auto=format&fit=crop",
+      "Best nephrology in India — kidney transplant, 50+ dialysis units, CKD care, and advanced renal technology at Melmaruvathur.",
+    image: "/images/nephrology.png",
   },
   {
     slug: "paediatric",
     name: "Paediatric",
     description:
-      "Dedicated child healthcare from newborns to adolescents — neonatal ICU, paediatric surgery, and developmental care under one roof.",
-    image: "https://images.unsplash.com/photo-1584820929298-1fcef00f5c8b?q=80&w=800&auto=format&fit=crop",
+      "Best paediatric care in Chennai — routine check-ups, vaccinations, surgery, NICU/PICU, and family-centred child healthcare at Melmaruvathur.",
+    image: "/images/paedrtrics.png",
   },
   {
     slug: "diabetology",
     name: "Diabetology",
     description:
-      "Holistic diabetes management including screening, insulin therapy, lifestyle counselling, and complication prevention programs.",
-    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=800&auto=format&fit=crop",
+      "Best diabetology in India — diabetes management, insulin pump, CGMS, bariatric surgery, and endocrine care at Melmaruvathur.",
+    image: "/images/diab.png",
   },
   {
     slug: "general-medicine",
     name: "General Medicine",
     description:
-      "Primary and internal medicine services for diagnosis, treatment, and management of a wide range of acute and chronic conditions.",
-    image: "https://images.unsplash.com/photo-1666214280557-f853b833a0b3?q=80&w=800&auto=format&fit=crop",
+      "Best general medicine in Chennai — diagnostics, chronic care, laparoscopic surgery, and 24/7 emergency at Melmaruvathur.",
+    image: "/images/general%20med.png",
   },
   {
     slug: "medical-gastroenterology",
     name: "Medical Gastroenterology",
     description:
-      "Advanced digestive system care including endoscopy, liver disease treatment, and management of GI disorders.",
-    image: "https://images.unsplash.com/photo-1559757175-08eb37c6afcb?q=80&w=800&auto=format&fit=crop",
+      "Best medical gastroenterology in India — endoscopy, liver care, colorectal health, and minimally invasive GI surgery at Melmaruvathur.",
+    image: "/images/medical%20gastro.png",
   },
   {
     slug: "ophthalmology",
     name: "Ophthalmology",
     description:
-      "Complete eye care from routine examinations to cataract surgery, glaucoma treatment, and retinal specialty services.",
-    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=800&auto=format&fit=crop",
+      "Best ophthalmology in India — cataract, glaucoma, retina, LASIK, and 1L+ successful eye surgeries at Melmaruvathur.",
+    image: "/images/optho.png",
   },
   {
     slug: "ent",
     name: "Otorhinolaryngology - ENT",
     description:
-      "Expert treatment for ear, nose, and throat conditions including sinus disorders, hearing problems, and head-neck surgeries.",
-    image: "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?q=80&w=800&auto=format&fit=crop",
+      "Best ENT hospital in India — ear, nose, throat, sinus surgery, cochlear implants, and head & neck care at Melmaruvathur.",
+    image: "/images/ent.png",
   },
   {
     slug: "urology",
     name: "Urology",
     description:
-      "Comprehensive urological care for kidney stones, prostate conditions, urinary tract disorders, and minimally invasive surgeries.",
-    image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=800&auto=format&fit=crop",
+      "Best urology hospital in India — kidney stones, prostate, laser surgery, renal transplant, and uro-oncology at Melmaruvathur.",
+    image: "/images/urology.png",
   },
   {
     slug: "multi-organ-transplant",
     name: "Multi Organ Transplant",
     description:
       "Specialized transplant programs with multidisciplinary teams providing pre and post-transplant evaluation, surgery, and lifelong follow-up.",
-    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop",
+    image: "/images/mutliorgan%20.png",
   },
   {
     slug: "oncology",
     name: "Oncology",
     description:
-      "State-of-the-art cancer care including medical oncology, surgical oncology, chemotherapy, and supportive palliative services.",
-    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=800&auto=format&fit=crop",
+      "At Adhiparasakthi Hospitals, our Oncology Department is committed to providing world-class cancer care through cutting-edge treatments, compassionate support, and a patient-centered approach.",
+    image: "/images/oncology.png",
   },
   {
     slug: "neurology",
     name: "Neurology",
     description:
-      "Advanced neurological care for stroke, epilepsy, Parkinson's disease, spine disorders, and neuro-intensive monitoring.",
-    image: "https://images.unsplash.com/photo-1559757175-08eb37c6afcb?q=80&w=800&auto=format&fit=crop",
+      "At Adhiparasakthi Hospitals, we are dedicated to providing world-class neurological care for patients of all ages with advanced diagnostics and skilled neurologists.",
+    image: "/images/neurology.png",
   },
   {
     slug: "plastic-surgery",
     name: "Plastic Surgery",
     description:
-      "Reconstructive and cosmetic surgical services including trauma reconstruction, burn care, and aesthetic procedures.",
-    image: "https://images.unsplash.com/photo-1629909613654-28e377b8d9e0?q=80&w=800&auto=format&fit=crop",
+      "Best plastic surgery in India — reconstructive, aesthetic, burns, hand, trauma, and gender affirmation care at Melmaruvathur.",
+    image: "/images/plastic%20surgery.png",
   },
 ];
+
+/** Priority order at the top of the department page aside nav */
+export const departmentAsidePrioritySlugs = [
+  "multi-organ-transplant",
+  "oncology",
+] as const;
+
+export function getDepartmentsForAside(): Department[] {
+  const prioritySlugs = new Set<string>(departmentAsidePrioritySlugs);
+  const prioritized = departmentAsidePrioritySlugs
+    .map((slug) => departments.find((d) => d.slug === slug))
+    .filter((d): d is Department => d !== undefined);
+  const rest = departments.filter((d) => !prioritySlugs.has(d.slug));
+  return [...prioritized, ...rest];
+}

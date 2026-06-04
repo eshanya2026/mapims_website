@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { procedureServicesSidebar } from "@/data/procedure-services";
 
@@ -43,26 +42,6 @@ export default function ProcedureServicesSidebar() {
               );
             })}
           </nav>
-        </div>
-
-        <div className="rounded-2xl bg-gradient-to-br from-red-600 to-red-700 p-6 text-white shadow-xl shadow-red-600/25">
-          <div className="mb-3 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20">
-              <Phone className="h-5 w-5" />
-            </div>
-            <span className="text-sm font-bold uppercase tracking-wider">
-              Emergency Call
-            </span>
-          </div>
-          <a href="tel:1066" className="mb-1 block text-3xl font-black hover:underline">
-            1066
-          </a>
-          <a
-            href="tel:+919499059966"
-            className="text-sm text-white/80 hover:text-white"
-          >
-            +91 94990 59966
-          </a>
         </div>
       </motion.div>
     </aside>

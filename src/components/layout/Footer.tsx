@@ -3,12 +3,7 @@ import { MapPin, Phone, Mail } from "lucide-react";
 import { mapimsHealthCheckupUrl } from "@/data/site-links";
 import FooterNewsletter from "@/components/layout/FooterNewsletter";
 import FooterFindUs from "@/components/layout/FooterFindUs";
-import {
-  FacebookIcon,
-  YoutubeIcon,
-  InstagramIcon,
-  LinkedinIcon,
-} from "@/components/layout/SocialIcons";
+import { socialLinks } from "@/data/site-social";
 
 const departments = [
   "Multi Organ Transplant",
@@ -61,29 +56,6 @@ function quickLinkHref(item: string): string {
   }
   return "#";
 }
-
-const socialLinks = [
-  {
-    name: "Facebook",
-    href: "https://www.facebook.com/ADHIPARASAKTHIHOSPITALSMELMARUVATHUR/",
-    icon: FacebookIcon,
-  },
-  {
-    name: "YouTube",
-    href: "https://www.youtube.com/results?search_query=MAPIMS+Adhiparasakthi+Hospital+Melmaruvathur",
-    icon: YoutubeIcon,
-  },
-  {
-    name: "Instagram",
-    href: "https://www.instagram.com/explore/tags/mapims/",
-    icon: InstagramIcon,
-  },
-  {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/search/results/all/?keywords=MAPIMS%20Melmaruvathur",
-    icon: LinkedinIcon,
-  },
-];
 
 function FooterHeading({ children }: { children: React.ReactNode }) {
   return (

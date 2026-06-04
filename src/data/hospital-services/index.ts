@@ -1,13 +1,5 @@
 import type { InternationalServiceData } from "@/data/international-services/types";
-import { serviceFaqsBySlug } from "@/data/international-services/service-faqs";
 import { servicesList } from "@/data/hospital-services/services-list";
-
-function attachServiceFaqs(
-  service: InternationalServiceData
-): InternationalServiceData {
-  const faqs = service.faqs ?? serviceFaqsBySlug[service.slug];
-  return faqs?.length ? { ...service, faqs } : service;
-}
 
 export const servicesPath = "/services";
 
@@ -75,8 +67,7 @@ export async function getServiceBySlug(
 ): Promise<InternationalServiceData | undefined> {
   const load = serviceLoaders[slug];
   if (!load) return undefined;
-  const service = await load();
-  return attachServiceFaqs(service);
+  return load();
 }
 
 export function getAllServiceSlugs(): string[] {

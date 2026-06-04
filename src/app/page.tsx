@@ -9,7 +9,6 @@ import DigitalPatientExperience from "@/components/home/DigitalPatientExperience
 import HealthPackages from "@/components/home/HealthPackages";
 import Testimonials from "@/components/home/Testimonials";
 import NewsEvents from "@/components/home/NewsEvents";
-import EmergencyCTA from "@/components/home/EmergencyCTA";
 
 export default function Home() {
   return (
@@ -25,7 +24,6 @@ export default function Home() {
       <HealthPackages />
       <Testimonials />
       <NewsEvents />
-      <EmergencyCTA />
     </main>
   );
 }

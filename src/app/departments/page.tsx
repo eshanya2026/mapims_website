@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import DepartmentsHero from "@/components/departments/DepartmentsHero";
 import DepartmentsGrid from "@/components/departments/DepartmentsGrid";
-import DepartmentsCTA from "@/components/departments/DepartmentsCTA";
-import DepartmentsFAQ from "@/components/departments/DepartmentsFAQ";
-import EmergencyCTA from "@/components/home/EmergencyCTA";
+import DepartmentHelpCTA from "@/components/departments/DepartmentHelpCTA";
 
 export const metadata: Metadata = {
   title: "All Departments | Adhiparasakthi Hospital",
@@ -16,9 +14,7 @@ export default function DepartmentsPage() {
     <main>
       <DepartmentsHero />
       <DepartmentsGrid />
-      <DepartmentsCTA />
-      <DepartmentsFAQ />
-      <EmergencyCTA />
+      <DepartmentHelpCTA />
     </main>
   );
 }

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { UserRound, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { departments } from "@/data/departments";
 
 export default function DepartmentsGrid() {
@@ -55,7 +55,20 @@ export default function DepartmentsGrid() {
                 <div className="flex flex-col gap-2">
                   {(dept.slug === "multi-organ-transplant" ||
                     dept.slug === "cardiology" ||
-                    dept.slug === "oncology") && (
+                    dept.slug === "orthopaedics" ||
+                    dept.slug === "obstetrics-gynaecology" ||
+                    dept.slug === "nephrology" ||
+                    dept.slug === "paediatric" ||
+                    dept.slug === "diabetology" ||
+                    dept.slug === "general-medicine" ||
+                    dept.slug === "medical-gastroenterology" ||
+                    dept.slug === "plastic-surgery" ||
+                    dept.slug === "ophthalmology" ||
+                    dept.slug === "ent" ||
+                    dept.slug === "urology" ||
+                    dept.slug === "joint-replacement" ||
+                    dept.slug === "oncology" ||
+                    dept.slug === "neurology") && (
                     <Link
                       href={`/departments/${dept.slug}`}
                       className="inline-flex items-center justify-center gap-2 bg-red-600 text-white font-semibold text-sm rounded-lg px-4 py-2.5 hover:bg-red-700 transition-colors"
@@ -64,14 +77,6 @@ export default function DepartmentsGrid() {
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                   )}
-                  <Link
-                    href={`/doctors?department=${dept.slug}`}
-                    className="inline-flex items-center justify-center gap-2 text-red-600 font-semibold text-sm hover:text-red-700 transition-colors"
-                  >
-                    <UserRound className="w-4 h-4" />
-                    View Specialist Doctors
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
                 </div>
               </div>
             </motion.article>

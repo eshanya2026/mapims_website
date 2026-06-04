@@ -10,8 +10,9 @@ export default function DepartmentsHero() {
   return (
     <section className="relative min-h-[38vh] sm:min-h-[45vh] md:min-h-[55vh] flex items-center overflow-hidden">
       <HeroBackground
-        imageSrc="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop"
-        overlayClassName="bg-gradient-to-r from-slate-900/95 via-slate-900/75 to-slate-900/40"
+        imageSrc="/images/dept.png"
+        imageClassName="object-cover object-bottom object-center"
+        overlayClassName="bg-gradient-to-r from-slate-950/97 via-slate-900/92 via-38% to-slate-900/10"
       />
 
       <div className="absolute bottom-0 left-0 w-full h-24 z-10 opacity-20 pointer-events-none overflow-hidden">

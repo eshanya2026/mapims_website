@@ -1,30 +1,11 @@
-export const transplantStats = [
-  {
-    value: "22",
-    label: "Renal (Kidney) Transplants",
-    sublabel: "Cadaver Cases",
-  },
-  {
-    value: "20",
-    label: "Cornea Transplants",
-    sublabel: "Successful Cases",
-  },
-  {
-    value: "1",
-    label: "Other Transplants",
-    sublabel: "Specialized Cases",
-  },
-  {
-    value: "43",
-    label: "Total Transplant Cases",
-    sublabel: "Overall Achievement",
-  },
-];
+import type { DepartmentSpecialist } from "@/data/department-specialist";
+
+export type { DepartmentSpecialist };
 
 export const transplantIntro = {
   preview:
-    "Welcome to the Multi-Organ Transplant Department at Adhiparasakthi Hospitals. At Adhiparasakthi Hospitals, we are committed to saving lives and enhancing health through our state-of-the-art Multi-Organ Transplant Department.",
-  full: "At Adhiparasakthi Hospitals, we are committed to saving lives and enhancing health through our state-of-the-art Multi-Organ Transplant Department. As a leader in organ transplant medicine, we provide comprehensive care for patients requiring complex multi-organ transplants, including heart, liver, kidney, and pancreas. Our facility is fully authorized by the government to perform multi-organ transplants, adhering to the highest standards of medical practice and patient safety.",
+    "At Adhiparasakthi Hospitals, we are committed to saving lives and enhancing health through our state-of-the-art Multi-Organ Transplant Department.",
+  full: "As a leader in organ transplant medicine, we provide comprehensive care for patients requiring complex multi-organ transplants, including heart, liver, kidney, and pancreas. Our facility is fully authorized by the government to perform multi-organ transplants, adhering to the highest standards of medical practice and patient safety. Each transplant journey is supported by a team of specialists who are dedicated to providing personalized care tailored to the unique needs of each patient.",
 };
 
 export const transplantVisionMission = {
@@ -71,25 +52,63 @@ export const kidneyHopeCaseStudy = {
 
 export const whyChooseTransplant = [
   {
-    title: "Expertise and Experience",
+    title: "Experienced Medical Team",
     description:
-      "Our multidisciplinary team of transplant surgeons, physicians, and coordinators brings extensive experience in complex liver and kidney transplantation.",
+      "Our renal transplant team comprises highly experienced doctors, surgeons, and support staff committed to the best possible outcomes and personalized care.",
   },
   {
-    title: "Comprehensive Care",
+    title: "Patient Centered Care",
     description:
-      "From evaluation and surgery to post-transplant follow-up, we provide end-to-end transplant care under one roof.",
+      "We guide every patient and family through evaluation, surgery, recovery, and long-term follow-up with compassion, transparency, and respect.",
   },
   {
-    title: "State-of-the-art Facilities",
+    title: "24/7 Hours Service",
     description:
-      "Advanced operation theatres, ICU support, and diagnostic infrastructure for safe transplant outcomes.",
+      "Round-the-clock clinical support, ICU care, and transplant coordination for patients and donors throughout the transplant journey.",
+  },
+];
+
+export const transplantMilestones = [
+  {
+    title: "Back-to-Back Cadaver Transplants",
+    body: "Our multi organ transplant team successfully completed two back-to-back cadaver transplants in 8 hours.",
   },
   {
-    title: "Patient-Centric Approach",
-    description:
-      "Compassionate, ethical care with transparent communication for patients and families throughout the transplant journey.",
+    title: "HOPE Kidney Transplant",
+    body: kidneyHopeCaseStudy.preview,
+    detail: kidneyHopeCaseStudy.paragraphs.join("\n\n"),
   },
+];
+
+export const transplantExcellence = {
+  heading: "Pioneering Excellence in Multi-Organ Transplantation",
+  intro:
+    "Adhiparasakthi Hospitals delivers advanced transplant medicine with technology, specialist expertise, and comprehensive support for every stage of care.",
+  pillars: [
+    {
+      title: "Advanced Technological Infrastructure",
+      description:
+        "Modern surgical suites and diagnostic systems equipped for complex liver and kidney transplant procedures.",
+    },
+    {
+      title: "Expert Team of Transplant Specialists",
+      description:
+        "Multidisciplinary surgeons, nephrologists, hepatologists, and coordinators with deep experience in organ transplantation.",
+    },
+    {
+      title: "Comprehensive Support Services",
+      description:
+        "End-to-end evaluation, surgery, ICU care, dialysis coordination, and lifelong post-transplant follow-up.",
+    },
+  ],
+  servicesNote:
+    "Enhancing health through the provision of advanced transplant services.",
+};
+
+export const transplantDepartmentMetrics = [
+  { end: 15, suffix: "+", label: "Health Sections" },
+  { end: 200, suffix: "+", label: "Happy Patients" },
+  { end: 30, suffix: "+", label: "Expert Doctors" },
 ];
 
 export type TransplantServiceCard = {
@@ -101,6 +120,11 @@ export type TransplantServiceCard = {
 
 export const transplantServices: TransplantServiceCard[] = [
   {
+    title: "Expert Surgeons",
+    highlight: "20+",
+    subtitle: "Specialist Doctors",
+  },
+  {
     title: "Advanced Medical Equipment's",
     highlight: "24 X 7",
     subtitle: "Support",
@@ -110,19 +134,9 @@ export const transplantServices: TransplantServiceCard[] = [
     highlight: "Multi Transplant",
     subtitle: "Services",
   },
-  {
-    title: "Transplant services",
-    description:
-      "Enhancing health through the provision of advanced transplant services.",
-  },
-  {
-    title: "Expert Surgeons",
-    highlight: "14",
-    subtitle: "Specialist Doctors",
-  },
 ];
 
-export const transplantSpecialistCount = 14;
+export const transplantSpecialistCount = 20;
 
 export const expertCareTransplant = {
   title: "Expert Care in Liver & kidney Transplantation",
@@ -192,8 +206,16 @@ export const kidneyTransplantProgram = {
     "2 cadaver transplant in 12 hours –3 times",
     "Obese donor and recipient",
     "Transplant in a young female with Turner syndrome and Aortic stenosis",
-    "Transplant in a young male with transplantation",
+    "Transplant in a young male with severe PAH",
   ],
+};
+
+export const transplantProgramAchievements = {
+  heading: "Our Achievements",
+  intro:
+    "Our successful transplant cases demonstrate our commitment to excellence in liver and kidney transplantation.",
+  liver: liverTransplantProgram,
+  kidney: kidneyTransplantProgram,
 };
 
 export const leadDoctor = {
@@ -213,29 +235,6 @@ My executive role has been valued as a clinician- assisting in surgeries, and ai
 
 I have managed daily business operations of the various Multi organ transplant units I have been a part of, working closely with department heads. I have supervised day to day operations ensuring a smooth workflow. I value honesty and teamwork, and I take a straightforward, determined approach to my work. My insight and experience as a leader would help take a department forward towards achieving its goals.`,
 };
-
-export const transplantFaqs = [
-  {
-    question: "What is a liver transplant?",
-    answer:
-      "A liver transplant is a surgical procedure to replace a diseased liver with a healthy liver from a donor. It is recommended for patients with end-stage liver disease or acute liver failure when other treatments are no longer effective.",
-  },
-  {
-    question: "Who can donate a kidney?",
-    answer:
-      "A kidney can be donated by a living donor (related or unrelated, subject to medical compatibility) or from a deceased donor through the cadaver transplant program. Our transplant team evaluates donors and recipients for safe matching.",
-  },
-  {
-    question: "What is the waiting list process for transplant?",
-    answer:
-      "After evaluation and approval, patients are registered on the transplant waiting list as per government guidelines. Waiting time depends on organ availability, blood group, medical urgency, and compatibility.",
-  },
-  {
-    question: "Can I consult online before visiting the hospital?",
-    answer:
-      "Yes. You can request an online consultation through our website by booking an appointment or contacting us at +91 94990 59966 or contact@mapims.edu.in for teleconsultation guidance and required reports.",
-  },
-];
 
 const specialistImagePool = [
   "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=400&auto=format&fit=crop",
@@ -279,6 +278,203 @@ export const transplantSpecialists = [
   ...doctor,
   image: specialistImagePool[index % specialistImagePool.length],
 }));
+
+export const transplantHeroImage = "/images/mutliorgan%20.png";
+
+export const transplantServicesIntro = transplantExcellence.servicesNote;
+
+export const transplantInfrastructure = [
+  expertCareTransplant.accordion[0].content,
+  expertCareTransplant.accordion[1].content,
+  expertCareTransplant.accordion[2].content,
+  expertCareTransplant.accordion[3].content,
+];
+
+export const transplantTeamNote = {
+  title: expertCareTransplant.title,
+  description: expertCareTransplant.intro,
+};
+
+export const transplantJourney = {
+  heading: "Transforming Lives Through Advanced Transplant Care.",
+  body: "From evaluation and surgery to recovery and long-term follow-up, our transplant team guides patients and families through every step with compassion, transparency, and clinical excellence.",
+  ctaHeading: "Take the First Step Today",
+  ctaBody:
+    "Schedule a consultation with our transplant experts to discuss liver or kidney transplant options and personalized care plans for you or your loved one.",
+};
+
+export const transplantJourneyPillars = [
+  {
+    title: "Evaluation & Planning",
+    description:
+      "Thorough assessment, donor matching, and clear guidance through waiting-list and preparation.",
+  },
+  {
+    title: "Surgery & Recovery",
+    description:
+      "Expert surgical teams and ICU support for safe transplant procedures and post-operative care.",
+  },
+  {
+    title: "Lifelong Follow-Up",
+    description:
+      "Ongoing monitoring, medication management, and family support after transplant.",
+  },
+];
+
+function mapTransplantSpecialist(
+  entry: {
+    id: string;
+    name: string;
+    degree: string;
+    experience: string;
+    designation: string;
+  },
+  imageIndex: number,
+  accent: DepartmentSpecialist["accent"]
+): DepartmentSpecialist {
+  return {
+    ...entry,
+    image: specialistImagePool[imageIndex % specialistImagePool.length],
+    accent,
+  };
+}
+
+/** Transplant faculty — replace images with official MAPIMS photos when available */
+export const transplantDepartmentSpecialists: DepartmentSpecialist[] = [
+  mapTransplantSpecialist(
+    {
+      id: "transplant-ramesh",
+      name: "Dr. T. Ramesh",
+      degree: "Medical Director",
+      experience: "20+ Yrs",
+      designation: "Medical Director — Multi Organ Transplant",
+    },
+    0,
+    "primary"
+  ),
+  mapTransplantSpecialist(
+    {
+      id: "transplant-neelamekam",
+      name: "Dr. Kapali Neelamekam",
+      degree: "Advisor — Multi Organ Transplant",
+      experience: "25+ Yrs",
+      designation: "Advisor — Multi Organ Transplant",
+    },
+    1,
+    "deep"
+  ),
+  mapTransplantSpecialist(
+    {
+      id: "transplant-vaseekaran",
+      name: "Vaseekaran",
+      degree: "Chief Operating Officer (COO)",
+      experience: "15+ Yrs",
+      designation:
+        "Department of Multi Organ Transplant (Liver, Kidney & HPB Surgery)",
+    },
+    2,
+    "primary"
+  ),
+  mapTransplantSpecialist(
+    {
+      id: "transplant-mahendra",
+      name: "Dr. Mahendra Varman L",
+      degree: "MD, DM (Nephrology)",
+      experience: "18+ Yrs",
+      designation: "Lead Consultant — Transplant Sciences & Nephrology",
+    },
+    3,
+    "deep"
+  ),
+  mapTransplantSpecialist(
+    {
+      id: "transplant-bhaskaran",
+      name: "Dr. S. Bhaskaran",
+      degree: "MD, DM (Nephrology)",
+      experience: "16+ Yrs",
+      designation: "Senior Consultant — Nephrology & Renal Transplant",
+    },
+    4,
+    "primary"
+  ),
+  mapTransplantSpecialist(
+    {
+      id: "transplant-rajkumar",
+      name: "Dr. T.R. Rajkumar",
+      degree: "MS, M.Ch.",
+      experience: "18+ Yrs",
+      designation: "Transplant Surgeon & Consultant Urologist",
+    },
+    5,
+    "deep"
+  ),
+  mapTransplantSpecialist(
+    {
+      id: "transplant-rajendiran",
+      name: "M.M. Rajendiran",
+      degree: "Dialysis Manager",
+      experience: "12+ Yrs",
+      designation: "Dialysis Manager — Transplant Services",
+    },
+    6,
+    "primary"
+  ),
+  mapTransplantSpecialist(
+    {
+      id: "transplant-seshadri",
+      name: "Seshadri",
+      degree: "Transplant Manager & Coordinator",
+      experience: "10+ Yrs",
+      designation: "Transplant Manager & Coordinator",
+    },
+    0,
+    "deep"
+  ),
+  mapTransplantSpecialist(
+    {
+      id: "transplant-sathish",
+      name: "G. Sathish Kumar",
+      degree: "Transplant Coordinator",
+      experience: "8+ Yrs",
+      designation: "Transplant Coordinator",
+    },
+    1,
+    "primary"
+  ),
+  mapTransplantSpecialist(
+    {
+      id: "transplant-dinesh",
+      name: "Dr. Dinesh Jothimani",
+      degree: "MS, M.Ch. (Surgical Gastroenterology)",
+      experience: "14+ Yrs",
+      designation: "Consultant — Surgical Gastroenterology",
+    },
+    2,
+    "deep"
+  ),
+  mapTransplantSpecialist(
+    {
+      id: "transplant-kumaresan",
+      name: "Dr. S. Kumaresan",
+      degree: "MD, DA",
+      experience: "20+ Yrs",
+      designation: "Head of Transplant Anesthesia",
+    },
+    3,
+    "primary"
+  ),
+  mapTransplantSpecialist(
+    {
+      id: "transplant-umesh",
+      name: "Dr. Umesh Raj Somasundaram",
+      degree: "MS, M.Ch.",
+      experience: "15+ Yrs",
+      designation: "Advanced Laparoscopic & General Surgery",
+    },
+    4,
+    "deep"
+  ),
+];
 
 export const transplantGallery = [
   "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=600&auto=format&fit=crop",
