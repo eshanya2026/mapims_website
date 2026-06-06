@@ -35,8 +35,8 @@ export default function DepartmentSectionHeading({
       {description ? (
         <p
           className={cn(
-            "mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base",
-            align === "center" && "mx-auto"
+            "mt-3 text-sm leading-relaxed text-slate-600 md:text-base",
+            align === "center" ? "mx-auto max-w-2xl" : "max-w-none"
           )}
         >
           {description}

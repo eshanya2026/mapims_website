@@ -20,6 +20,7 @@ import {
 import {
   DepartmentPageHero,
   DepartmentContentLayout,
+  DepartmentIntroText,
   DepartmentSection,
   DepartmentSectionLabel,
   DepartmentSectionHeading,
@@ -51,10 +52,10 @@ export default function JointReplacementDepartmentPage() {
       <DepartmentContentLayout>
         <DepartmentSection id="why-choose-us">
           <DepartmentSectionLabel>Department</DepartmentSectionLabel>
-          <div className="mb-8 max-w-3xl space-y-4 leading-relaxed text-slate-600">
+          <DepartmentIntroText>
             <p>{jointReplacementIntro.preview}</p>
             <p>{jointReplacementIntro.full}</p>
-          </div>
+          </DepartmentIntroText>
 
           <motion.div
             initial={{ opacity: 0, y: 14 }}

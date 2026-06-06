@@ -25,6 +25,7 @@ import {
 import {
   DepartmentPageHero,
   DepartmentContentLayout,
+  DepartmentIntroText,
   DepartmentSection,
   DepartmentSectionLabel,
   DepartmentSectionHeading,
@@ -75,10 +76,10 @@ export default function TransplantDepartmentPage() {
       <DepartmentContentLayout>
         <DepartmentSection id="why-choose-us">
           <DepartmentSectionLabel>Department</DepartmentSectionLabel>
-          <div className="mb-8 max-w-3xl space-y-4 leading-relaxed text-slate-600">
+          <DepartmentIntroText>
             <p>{transplantIntro.preview}</p>
             <p>{transplantIntro.full}</p>
-          </div>
+          </DepartmentIntroText>
           <DepartmentSectionHeading title="Why" highlight="Choose Us?" />
           <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {whyChooseTransplant.map((item) => (

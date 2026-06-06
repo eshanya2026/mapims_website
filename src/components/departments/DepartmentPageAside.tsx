@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
 import { ArrowRight, Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -16,21 +15,18 @@ export default function DepartmentPageAside() {
   const activeDepartmentSlug = pathname?.split("/departments/")[1]?.split("/")[0];
 
   return (
-    <aside className="order-2 w-full shrink-0 lg:order-1 lg:w-72">
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="space-y-5 lg:sticky lg:top-28"
-      >
+    <aside className="hidden w-72 shrink-0 self-start lg:sticky lg:top-24 lg:block lg:max-h-[calc(100vh-6rem)]">
+      <div className="space-y-5">
         <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md shadow-slate-200/50">
           <div className="border-b border-slate-100 bg-slate-50 px-5 py-4">
             <h3 className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500">
-              Browse Departments
+              Browse Specialities
             </h3>
           </div>
-          <nav aria-label="All hospital departments" className="max-h-[28rem] overflow-y-auto">
+          <nav
+            aria-label="All hospital departments"
+            className="max-h-[min(28rem,calc(100vh-14rem))] overflow-y-auto overscroll-contain"
+          >
             {getDepartmentsForAside().map((dept) => {
               const isActive = activeDepartmentSlug === dept.slug;
               const icon = departmentAsideIcons[dept.slug];
@@ -74,7 +70,7 @@ export default function DepartmentPageAside() {
           Book Appointment
           <ArrowRight className="h-4 w-4" />
         </Link>
-      </motion.div>
+      </div>
     </aside>
   );
 }

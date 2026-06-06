@@ -1,3 +1,4 @@
+export { default as DepartmentIntroText } from "./DepartmentIntroText";
 export { default as DepartmentSectionLabel } from "./DepartmentSectionLabel";
 export { default as DepartmentSection } from "./DepartmentSection";
 export { default as DepartmentSectionHeading } from "./DepartmentSectionHeading";

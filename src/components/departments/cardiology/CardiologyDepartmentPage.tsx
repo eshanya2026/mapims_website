@@ -29,6 +29,7 @@ import {
 import {
   DepartmentPageHero,
   DepartmentContentLayout,
+  DepartmentIntroText,
   DepartmentSection,
   DepartmentSectionLabel,
   DepartmentSectionHeading,
@@ -66,10 +67,10 @@ export default function CardiologyDepartmentPage() {
       <DepartmentContentLayout>
         <DepartmentSection id="why-choose-us">
           <DepartmentSectionLabel>Department</DepartmentSectionLabel>
-          <div className="mb-8 max-w-3xl space-y-4 leading-relaxed text-slate-600">
+          <DepartmentIntroText>
             <p>{cardiologyIntro.preview}</p>
             <p>{cardiologyIntro.full}</p>
-          </div>
+          </DepartmentIntroText>
           <DepartmentSectionHeading title="Why" highlight="Choose Us?" />
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
             {cardiologyWhyChooseStats.map((stat, index) => (

@@ -1,7 +1,6 @@
 "use client";
 
-import { Brain, Users } from "lucide-react";
-import { motion } from "framer-motion";
+import { Brain } from "lucide-react";
 import DepartmentHeroStats from "@/components/departments/DepartmentHeroStats";
 import DepartmentPatientCareSection from "@/components/departments/DepartmentPatientCareSection";
 import DepartmentFAQ from "@/components/departments/DepartmentFAQ";
@@ -12,7 +11,7 @@ import {
   neurologyServices,
   neurologyServicesIntro,
   neurologyInfrastructure,
-  neurologyTeamNote,
+  neurologyExcellenceNote,
   neurologyJourney,
   neurologyJourneyPillars,
   neurologyHeroImage,
@@ -20,6 +19,7 @@ import {
 import {
   DepartmentPageHero,
   DepartmentContentLayout,
+  DepartmentIntroText,
   DepartmentSection,
   DepartmentSectionLabel,
   DepartmentSectionHeading,
@@ -27,6 +27,7 @@ import {
   DepartmentServicesGrid,
   DepartmentChecklistGrid,
   DepartmentGradientPanel,
+  DepartmentExcellenceNote,
 } from "@/components/departments/design";
 
 const NEUROLOGY_HERO_TAGLINE =
@@ -55,10 +56,10 @@ export default function NeurologyDepartmentPage() {
       <DepartmentContentLayout>
         <DepartmentSection id="why-choose-us">
           <DepartmentSectionLabel>Department</DepartmentSectionLabel>
-          <div className="mb-8 max-w-3xl space-y-4 leading-relaxed text-slate-600">
+          <DepartmentIntroText>
             <p>{neurologyIntro.preview}</p>
             <p>{neurologyIntro.full}</p>
-          </div>
+          </DepartmentIntroText>
           <DepartmentSectionHeading title="Why" highlight="Choose Us?" />
           <DepartmentWhyChooseCards items={whyChooseNeurology} />
         </DepartmentSection>
@@ -86,24 +87,16 @@ export default function NeurologyDepartmentPage() {
           <div className="mt-8">
             <DepartmentChecklistGrid items={neurologyInfrastructure} />
           </div>
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-8 flex flex-col gap-5 rounded-2xl border border-red-200 bg-red-50 p-6 md:flex-row md:items-center md:p-8"
-          >
-            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-red-600 text-white shadow-md shadow-red-600/25">
-              <Users className="h-7 w-7" />
-            </span>
-            <div>
-              <h3 className="text-lg font-bold text-red-900">
-                {neurologyTeamNote.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-red-800/80 md:text-base">
-                {neurologyTeamNote.description}
-              </p>
-            </div>
-          </motion.div>
+          <div className="mt-8">
+            <DepartmentExcellenceNote
+              title={
+                <>
+                  Excellence in <span className="text-red-600">Patient Care</span>
+                </>
+              }
+              paragraphs={[neurologyExcellenceNote]}
+            />
+          </div>
         </DepartmentSection>
 
         <DepartmentFAQ departmentSlug="neurology" />

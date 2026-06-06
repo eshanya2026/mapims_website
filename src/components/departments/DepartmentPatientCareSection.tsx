@@ -83,34 +83,34 @@ export default function DepartmentPatientCareSection({
           </ol>
         </div>
 
-        <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-red-950 to-slate-900 px-6 py-8 md:px-10 md:py-10">
+        <div className="relative overflow-hidden bg-gradient-to-br from-red-600 via-red-700 to-red-800 px-6 py-8 md:px-10 md:py-10">
           <div
-            className="pointer-events-none absolute -right-6 top-0 h-32 w-32 rounded-full bg-red-500/20 blur-3xl"
+            className="pointer-events-none absolute -right-6 top-0 h-32 w-32 rounded-full bg-white/10 blur-3xl"
             aria-hidden
           />
           <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div className="max-w-xl">
-              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-red-300">
+              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-red-100">
                 Ready to begin?
               </p>
               <h3 className="mt-2 text-xl font-bold text-white md:text-2xl">
                 {ctaHeading}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-300 md:text-base">
+              <p className="mt-2 text-sm leading-relaxed text-red-50/90 md:text-base">
                 {ctaBody}
               </p>
             </div>
             <div className="flex shrink-0 flex-col gap-3 sm:flex-row md:flex-col lg:flex-row">
               <Link
                 href="/#book-appointment"
-                className="inline-flex h-12 items-center justify-center rounded-xl bg-red-600 px-8 font-semibold text-white shadow-lg shadow-red-900/40 transition-all hover:-translate-y-0.5 hover:bg-red-700"
+                className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-8 font-semibold text-red-600 shadow-lg shadow-red-900/20 transition-all hover:-translate-y-0.5 hover:bg-red-50"
               >
                 <Calendar className="mr-2 h-5 w-5" />
                 Schedule Consultation
               </Link>
               <a
                 href="tel:+919499059966"
-                className="inline-flex h-12 items-center justify-center rounded-xl border border-white/20 bg-white/10 px-8 font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/15"
+                className="inline-flex h-12 items-center justify-center rounded-xl border border-white/30 bg-white/10 px-8 font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20"
               >
                 <Phone className="mr-2 h-5 w-5" />
                 +91 94990 59966

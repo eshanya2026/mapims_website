@@ -90,11 +90,8 @@ export const neurologyInfrastructure = [
   "24/7 emergency stroke care services",
 ];
 
-export const neurologyTeamNote = {
-  title: "Expert Neurological Team",
-  description:
-    "Our team of neurologists, neurosurgeons, and rehabilitation specialists is dedicated to guiding you on your journey to recovery — from early diagnosis to advanced treatments and post-treatment care.",
-};
+export const neurologyExcellenceNote =
+  "Our team of neurologists, neurosurgeons, and rehabilitation specialists is dedicated to guiding you on your journey to recovery — from early diagnosis to advanced treatments and post-treatment care.";
 
 export const neurologyJourney = {
   heading: "Advanced Neurological Care for Every Stage of Life.",

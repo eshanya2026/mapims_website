@@ -28,6 +28,7 @@ import {
 import {
   DepartmentPageHero,
   DepartmentContentLayout,
+  DepartmentIntroText,
   DepartmentSection,
   DepartmentSectionLabel,
   DepartmentSectionHeading,
@@ -68,10 +69,10 @@ export default function PlasticSurgeryDepartmentPage() {
       <DepartmentContentLayout>
         <DepartmentSection id="why-choose-us">
           <DepartmentSectionLabel>Department</DepartmentSectionLabel>
-          <div className="mb-8 max-w-3xl space-y-4 leading-relaxed text-slate-600">
+          <DepartmentIntroText>
             <p>{plasticSurgeryIntro.preview}</p>
             <p>{plasticSurgeryIntro.full}</p>
-          </div>
+          </DepartmentIntroText>
           <DepartmentSectionHeading title="Why" highlight="Choose Us?" />
           <DepartmentWhyChooseCards items={whyChoosePlasticSurgery} />
         </DepartmentSection>

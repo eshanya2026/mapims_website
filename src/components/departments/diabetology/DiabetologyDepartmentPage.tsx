@@ -30,6 +30,7 @@ import {
 import {
   DepartmentPageHero,
   DepartmentContentLayout,
+  DepartmentIntroText,
   DepartmentSection,
   DepartmentSectionLabel,
   DepartmentSectionHeading,
@@ -62,10 +63,10 @@ export default function DiabetologyDepartmentPage() {
       <DepartmentContentLayout>
         <DepartmentSection id="why-choose-us">
           <DepartmentSectionLabel>Department</DepartmentSectionLabel>
-          <div className="mb-8 max-w-3xl space-y-4 leading-relaxed text-slate-600">
+          <DepartmentIntroText>
             <p>{diabetologyIntro.preview}</p>
             <p>{diabetologyIntro.full}</p>
-          </div>
+          </DepartmentIntroText>
           <DepartmentSectionHeading title="Why" highlight="Choose Us?" />
           <DepartmentWhyChooseCards items={whyChooseDiabetology} />
         </DepartmentSection>
