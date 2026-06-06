@@ -59,98 +59,98 @@ export const departments: Department[] = [
     slug: "cardiology",
     name: "Cardiology",
     description:
-      "Top cardiology services in Chennai — cutting-edge heart care, cardiothoracic CCUs with 1:1 nursing, and 50+ subspecialized experts for adults and children.",
+      "Comprehensive heart care for adults and children—from preventive care and cardiac imaging to interventional procedures and 24/7 CCU support.",
     image: "/images/0b7b9cd4-ff80-484d-b49e-b1604e2e0fb1.png",
   },
   {
     slug: "orthopaedics",
     name: "Orthopaedics",
     description:
-      "Best orthopaedics in India — joint replacement, spine, sports medicine, trauma, paediatric orthopaedics, and rehabilitation at Melmaruvathur.",
+      "Comprehensive bone, joint, muscle, and spine care—from fractures and sports injuries to joint replacement, spine surgery, and rehabilitation.",
     image: "/images/ortho.png",
   },
   {
     slug: "joint-replacement",
     name: "Joint Replacement",
     description:
-      "Best joint replacement service in Chennai — hip, knee, shoulder, elbow, and wrist replacements with advanced theatres and expert orthopaedic surgeons.",
+      "Comprehensive hip, knee, shoulder, and upper-limb joint replacement with modern implants, advanced surgical techniques, and personalized rehabilitation.",
     image: "/images/joint%20.png",
   },
   {
     slug: "obstetrics-gynaecology",
     name: "Obstetrics & Gynaecology",
     description:
-      "Best obstetrics & gynaecology in India — pregnancy care, IVF, laparoscopic surgery, high-risk obstetrics, and NICU at Melmaruvathur.",
+      "Expert women's healthcare from adolescence through pregnancy, fertility, surgery, and menopause—with maternity, NICU, and gynaecology under one roof.",
     image: "/images/og.png",
   },
   {
     slug: "nephrology",
     name: "Nephrology",
     description:
-      "Best nephrology in India — kidney transplant, 50+ dialysis units, CKD care, and advanced renal technology at Melmaruvathur.",
+      "Comprehensive kidney care—from CKD management and dialysis to transplantation, renal diagnostics, and 24/7 emergency renal support.",
     image: "/images/nephrology.png",
   },
   {
     slug: "paediatric",
     name: "Paediatric",
     description:
-      "Best paediatric care in Chennai — routine check-ups, vaccinations, surgery, NICU/PICU, and family-centred child healthcare at Melmaruvathur.",
+      "Comprehensive child healthcare from infancy through adolescence—wellness visits, vaccinations, neonatal care, pediatric surgery, and 24/7 emergency support.",
     image: "/images/paedrtrics.png",
   },
   {
     slug: "diabetology",
     name: "Diabetology",
     description:
-      "Best diabetology in India — diabetes management, insulin pump, CGMS, bariatric surgery, and endocrine care at Melmaruvathur.",
+      "Personalized diabetes and metabolic care—CGMS, insulin pump therapy, complication management, bariatric surgery, and endocrine support.",
     image: "/images/diab.png",
   },
   {
     slug: "general-medicine",
     name: "General Medicine",
     description:
-      "Best general medicine in Chennai — diagnostics, chronic care, laparoscopic surgery, and 24/7 emergency at Melmaruvathur.",
+      "Expert diagnosis, preventive care, and chronic disease management—with advanced diagnostics, telemedicine, and 24/7 emergency support.",
     image: "/images/general%20med.png",
   },
   {
     slug: "medical-gastroenterology",
     name: "Medical Gastroenterology",
     description:
-      "Best medical gastroenterology in India — endoscopy, liver care, colorectal health, and minimally invasive GI surgery at Melmaruvathur.",
+      "Comprehensive digestive, liver, and colorectal care—with advanced endoscopy, ERCP, EUS, and minimally invasive treatment options.",
     image: "/images/medical%20gastro.png",
   },
   {
     slug: "ophthalmology",
     name: "Ophthalmology",
     description:
-      "Best ophthalmology in India — cataract, glaucoma, retina, LASIK, and 1L+ successful eye surgeries at Melmaruvathur.",
+      "Comprehensive eye care—from cataract and glaucoma to retina, cornea, LASIK, and pediatric ophthalmology with advanced diagnostics.",
     image: "/images/optho.png",
   },
   {
     slug: "ent",
     name: "Otorhinolaryngology - ENT",
     description:
-      "Best ENT hospital in India — ear, nose, throat, sinus surgery, cochlear implants, and head & neck care at Melmaruvathur.",
+      "Comprehensive ear, nose, and throat care—from hearing and sinus disorders to pediatric ENT, cochlear implants, and head & neck surgery.",
     image: "/images/ent.png",
   },
   {
     slug: "urology",
     name: "Urology",
     description:
-      "Best urology hospital in India — kidney stones, prostate, laser surgery, renal transplant, and uro-oncology at Melmaruvathur.",
+      "Comprehensive urological care—from kidney stones and prostate disorders to uro-oncology, laser surgery, and renal transplantation.",
     image: "/images/urology.png",
   },
   {
     slug: "multi-organ-transplant",
     name: "Multi Organ Transplant",
     description:
-      "Specialized transplant programs with multidisciplinary teams providing pre and post-transplant evaluation, surgery, and lifelong follow-up.",
+      "Government-authorized liver and kidney transplant care with HOPE technology, expert multidisciplinary teams, and comprehensive pre and post-transplant support.",
     image: "/images/mutliorgan%20.png",
   },
   {
     slug: "oncology",
     name: "Oncology",
     description:
-      "At Adhiparasakthi Hospitals, our Oncology Department is committed to providing world-class cancer care through cutting-edge treatments, compassionate support, and a patient-centered approach.",
+      "Comprehensive cancer care from early diagnosis through treatment, recovery, and survivorship—with advanced technology and compassionate support.",
     image: "/images/oncology.png",
   },
   {
@@ -164,7 +164,7 @@ export const departments: Department[] = [
     slug: "plastic-surgery",
     name: "Plastic Surgery",
     description:
-      "Best plastic surgery in India — reconstructive, aesthetic, burns, hand, trauma, and gender affirmation care at Melmaruvathur.",
+      "Reconstructive and aesthetic surgery—burns, trauma, hand microsurgery, breast surgery, wound care, and cosmetic procedures.",
     image: "/images/plastic%20surgery.png",
   },
 ];

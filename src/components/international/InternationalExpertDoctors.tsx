@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -81,12 +80,6 @@ export default function InternationalExpertDoctors() {
                       {doctor.name}, {doctor.credentials}
                     </h3>
                     <p className="text-sm text-slate-500 mt-1">{doctor.specialty}</p>
-                    <Link
-                      href="/doctors"
-                      className="inline-block mt-3 text-sm font-semibold text-red-600 hover:text-red-700"
-                    >
-                      View Profile
-                    </Link>
                   </div>
                 </motion.div>
               </div>

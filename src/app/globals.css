@@ -129,6 +129,21 @@
   html {
     @apply font-sans;
   }
+
+  /* Body copy: full-width justified text across content pages */
+  main p,
+  main li {
+    text-align: justify;
+    text-wrap: pretty;
+  }
+
+  /* Heroes, centered blocks, and chrome keep their intended alignment */
+  main > section.relative :is(p, li),
+  :is(.text-center, .text-left) :is(p, li),
+  footer :is(p, li),
+  nav :is(p, li) {
+    text-align: inherit;
+  }
 }
 
 /* True red brand — overrides any pink-tinted primary rendering */

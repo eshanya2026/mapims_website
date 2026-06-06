@@ -1,140 +1,210 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, Star } from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Stethoscope } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const doctors = [
   {
     id: 1,
-    name: "Dr. Rajesh Kumar",
-    qualification: "MBBS, MD, DM (Cardiology)",
-    specialty: "Senior Cardiologist",
-    experience: "15+ Years",
-    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=2070&auto=format&fit=crop",
-    rating: 4.9
+    name: "Dr.T.Ramesh",
+    specialty: "Medical Director",
+    image: "/images/doctor/ramesh.jpg",
   },
   {
     id: 2,
-    name: "Dr. Priya Sharma",
-    qualification: "MBBS, MS (Neurology)",
-    specialty: "Neurologist",
-    experience: "12+ Years",
-    image: "https://images.unsplash.com/photo-1594824416174-8848d61719c8?q=80&w=1974&auto=format&fit=crop",
-    rating: 4.8
+    name: "Dr. S. KUMARESAN",
+    specialty: "Head of Transplant Anesthesia",
+    image: "/images/doctor/Dr.Kumaresan.jpg",
   },
   {
     id: 3,
-    name: "Dr. Anand Verma",
-    qualification: "MBBS, MS (Orthopaedics)",
-    specialty: "Orthopaedic Surgeon",
-    experience: "20+ Years",
-    image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1964&auto=format&fit=crop",
-    rating: 5.0
+    name: "DR.R. RAMA KRISHNAN",
+    specialty: "Consultant Urologist",
+    image: "/images/doctor/ramakrishan.jpg",
   },
   {
     id: 4,
-    name: "Dr. Sunita Reddy",
-    qualification: "MBBS, MD (Pediatrics)",
-    specialty: "Pediatrician",
-    experience: "10+ Years",
-    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070&auto=format&fit=crop",
-    rating: 4.7
-  }
+    name: "Dr. Umesh Raj Somasundaram",
+    specialty: "Advanced Laparoscopic & General Surgery",
+    image: "/images/doctor/Dr.UmeshRaj.jpg",
+  },
+  {
+    id: 5,
+    name: "Dr A. Rekha",
+    specialty: "Medical Superintendent",
+    image: "/images/doctor/rekha.jpg",
+  },
 ];
+
+function DoctorPortrait({ image, name }: { image: string; name: string }) {
+  return (
+    <div className="relative mx-auto h-[220px] w-[170px] shrink-0 overflow-hidden sm:mx-0 sm:h-[240px] sm:w-[185px]">
+      <div
+        className="absolute inset-0 bg-gradient-to-br from-red-500 via-red-600 to-rose-700 opacity-95 transition-opacity duration-300 group-hover:opacity-100"
+        style={{ borderRadius: "58% 42% 38% 62% / 48% 52% 48% 52%" }}
+        aria-hidden
+      />
+      <div
+        className="absolute inset-[6px] overflow-hidden bg-white/10"
+        style={{ borderRadius: "55% 45% 40% 60% / 50% 50% 46% 54%" }}
+      >
+        <img
+          src={image}
+          alt={name}
+          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+        />
+      </div>
+    </div>
+  );
+}
 
 export default function DoctorShowcase() {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const [itemsPerView, setItemsPerView] = useState(3);
+  const [itemsPerView, setItemsPerView] = useState(2);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) setItemsPerView(3);
-      else if (window.innerWidth >= 768) setItemsPerView(2);
+      if (window.innerWidth >= 1024) setItemsPerView(2);
       else setItemsPerView(1);
     };
-    
+
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % Math.max(1, doctors.length - itemsPerView + 1));
-  };
+  const maxIndex = Math.max(0, doctors.length - itemsPerView);
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + Math.max(1, doctors.length - itemsPerView + 1)) % Math.max(1, doctors.length - itemsPerView + 1));
+  useEffect(() => {
+    setCurrentIndex((prev) => Math.min(prev, maxIndex));
+  }, [maxIndex]);
+
+  const goToSlide = (index: number) => {
+    setCurrentIndex(Math.max(0, Math.min(index, maxIndex)));
   };
 
   return (
-    <section className="section-padding bg-slate-50">
-      <div className="container mx-auto px-4">
-        <div className="mb-8 flex flex-col items-start justify-between gap-4 sm:mb-12 md:flex-row md:items-end md:gap-6">
-          <div className="max-w-2xl">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-12 h-[2px] bg-red-600"></div>
-              <span className="text-red-600 font-semibold uppercase tracking-wider text-sm">Our Experts</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900">
-              Meet Our <span className="text-red-600">Specialists</span>
-            </h2>
+    <section className="section-padding relative overflow-hidden bg-slate-50">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(220,38,38,0.05),transparent_50%)]" />
+      <div
+        className="pointer-events-none absolute -right-24 top-20 h-72 w-72 rounded-full bg-red-600/10 blur-3xl"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute -left-16 bottom-10 h-56 w-56 rounded-full bg-red-500/10 blur-3xl"
+        aria-hidden
+      />
+
+      <div className="page-container relative z-10">
+        <div className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
+          <div className="mb-4 flex items-center justify-center gap-2">
+            <div className="h-0.5 w-12 bg-red-600" />
+            <span className="text-sm font-semibold uppercase tracking-wider text-red-600">
+              Our Experts
+            </span>
+            <div className="h-0.5 w-12 bg-red-600" />
           </div>
-          <div className="flex gap-4">
-            <button 
-              onClick={prevSlide}
-              className="w-12 h-12 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:bg-red-600 hover:text-white hover:border-red-600 transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </button>
-            <button 
-              onClick={nextSlide}
-              className="w-12 h-12 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:bg-red-600 hover:text-white hover:border-red-600 transition-colors"
-            >
-              <ArrowRight className="w-5 h-5" />
-            </button>
-          </div>
+          <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">
+            Meet Our <span className="text-red-600">Specialists</span>
+          </h2>
+          <p className="mt-5 text-lg leading-relaxed text-slate-600">
+            Highly qualified physicians and surgeons delivering compassionate,
+            patient-centred care across every specialty at MAPIMS.
+          </p>
         </div>
 
-        <div className="relative overflow-hidden py-4">
-          <div 
-            className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)` }}
-          >
-            {doctors.map((doctor) => (
-              <div key={doctor.id} className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4">
-                <div className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow border border-slate-100 group">
-                  <div className="relative h-80 overflow-hidden bg-slate-100">
-                    <img 
-                      src={doctor.image} 
-                      alt={doctor.name} 
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+        <div className="relative">
+          <div className="overflow-hidden py-2">
+            <div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{
+                transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
+              }}
+            >
+              {doctors.map((doctor) => (
+                <div
+                  key={doctor.id}
+                  className="flex-shrink-0 px-3"
+                  style={{ width: `${100 / itemsPerView}%` }}
+                >
+                  <article className="group relative flex h-full min-h-[300px] flex-col items-center gap-5 overflow-hidden rounded-3xl border border-slate-100 bg-white p-5 shadow-sm transition-shadow duration-300 hover:border-red-100 hover:shadow-xl hover:shadow-slate-200/50 sm:flex-row sm:items-stretch sm:gap-6 sm:p-6">
+                    <div
+                      className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-red-600/5 transition-transform duration-500 group-hover:scale-150"
+                      aria-hidden
                     />
-                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 text-sm font-bold text-slate-900 shadow-sm">
-                      <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                      {doctor.rating}
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <div className="text-red-600 font-medium text-sm mb-2">{doctor.specialty}</div>
-                    <h3 className="text-2xl font-bold text-slate-900 mb-1">{doctor.name}</h3>
-                    <p className="text-slate-500 text-sm mb-4">{doctor.qualification}</p>
-                    
-                    <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                      <div className="text-sm">
-                        <span className="text-slate-400 block">Experience</span>
-                        <span className="font-bold text-slate-900">{doctor.experience}</span>
+
+                    <DoctorPortrait image={doctor.image} name={doctor.name} />
+
+                    <div className="relative flex min-w-0 flex-1 flex-col justify-between text-center sm:text-left">
+                      <div>
+                        <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-red-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-red-600">
+                          <Stethoscope className="h-3.5 w-3.5" />
+                          MAPIMS Specialist
+                        </div>
+                        <h3 className="text-xl font-bold leading-snug text-slate-900 transition-colors group-hover:text-red-600 sm:text-2xl">
+                          {doctor.name}
+                        </h3>
+                        <p className="mt-2 text-sm font-semibold text-red-600 sm:text-base">
+                          {doctor.specialty}
+                        </p>
+                        <p className="mt-3 text-sm leading-relaxed text-slate-500">
+                          Dedicated to providing expert diagnosis, personalised treatment,
+                          and compassionate care for every patient.
+                        </p>
                       </div>
-                      <Button className="bg-slate-900 hover:bg-red-600 text-white rounded-full">
+
+                      <Link
+                        href="/#book-appointment"
+                        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-red-600 hover:shadow-lg hover:shadow-red-600/25 sm:w-fit"
+                      >
                         Book Consult
-                      </Button>
+                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </Link>
                     </div>
-                  </div>
+                  </article>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-10 flex flex-col items-center justify-between gap-6 sm:flex-row">
+            <div className="flex items-center gap-2">
+              {Array.from({ length: maxIndex + 1 }, (_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => goToSlide(i)}
+                  aria-label={`Go to slide ${i + 1}`}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    currentIndex === i
+                      ? "w-8 bg-red-600"
+                      : "w-2 bg-slate-300 hover:bg-slate-400"
+                  }`}
+                />
+              ))}
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => goToSlide(currentIndex - 1)}
+                disabled={currentIndex === 0}
+                aria-label="Previous doctors"
+                className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-600 shadow-sm transition-colors hover:border-red-600 hover:bg-red-600 hover:text-white disabled:pointer-events-none disabled:opacity-40"
+              >
+                <ArrowLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => goToSlide(currentIndex + 1)}
+                disabled={currentIndex >= maxIndex}
+                aria-label="Next doctors"
+                className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-600 shadow-sm transition-colors hover:border-red-600 hover:bg-red-600 hover:text-white disabled:pointer-events-none disabled:opacity-40"
+              >
+                <ArrowRight className="h-5 w-5" />
+              </button>
+            </div>
           </div>
         </div>
       </div>

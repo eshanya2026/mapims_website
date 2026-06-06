@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Calendar, Video, FileText, Ambulance, HeartPulse, Search } from "lucide-react";
+import { Calendar, Video, FileText, Ambulance, HeartPulse } from "lucide-react";
 import { mapimsHealthCheckupUrl } from "@/data/site-links";
 
 const actions = [
@@ -11,14 +11,13 @@ const actions = [
   { icon: FileText, title: "Lab Reports", desc: "View your test results online", color: "bg-emerald-50 text-emerald-600", href: "/#book-appointment" },
   { icon: Ambulance, title: "Emergency Care", desc: "24/7 immediate medical help", color: "bg-red-50 text-red-700", href: "tel:1066" },
   { icon: HeartPulse, title: "Health Packages", desc: "Preventive health checkups", color: "bg-red-50 text-red-700", href: mapimsHealthCheckupUrl, external: true },
-  { icon: Search, title: "Find Doctor", desc: "Search by specialty or name", color: "bg-indigo-50 text-indigo-600", href: "/departments" },
 ];
 
 export default function QuickActions() {
   return (
     <section className="relative z-40 -mt-4 px-3 pb-2 sm:-mt-10 sm:px-4 md:-mt-14 lg:-mt-16">
       <div className="container mx-auto">
-        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-5 lg:gap-5">
           {actions.map((action, index) => {
             const cardClass =
               "flex h-full min-h-[108px] cursor-pointer flex-col items-center justify-center rounded-xl border border-slate-100 bg-white p-3 text-center shadow-lg shadow-slate-200/40 transition-shadow group sm:min-h-0 sm:rounded-2xl sm:p-5 sm:shadow-xl";
@@ -37,7 +36,7 @@ export default function QuickActions() {
             );
             return (
               <motion.div
-                key={index}
+                key={action.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

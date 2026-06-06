@@ -1,212 +1,150 @@
-import type { DepartmentSpecialist } from "@/data/department-specialist";
-
-export type { DepartmentSpecialist };
+export const nephrologyHeroTagline = "Comprehensive Kidney Care You Can Trust";
 
 export const nephrologyIntro = {
   preview:
-    "At Adhiparasakthi Hospitals, our advanced Nephrology Department is dedicated to providing world-class care for kidney-related conditions.",
-  full: "From early diagnosis to cutting-edge treatments, our expert team is equipped to handle all aspects of kidney health, ensuring the best possible outcomes for our patients. With a team of top nephrologists, advanced diagnostic tools, and all nephrology-related facilities under one roof, we ensure seamless care throughout your treatment journey. Whether it's dialysis, surgeries, or long-term kidney care, you can trust Adhiparasakthi Hospitals for the best nephrology services in Melmaruvathur.",
+    "At Adhiparasakthi Hospitals, our Nephrology Department provides advanced diagnosis, treatment, and long-term management for a wide range of kidney disorders. Supported by experienced nephrologists, transplant specialists, and modern technology, we deliver comprehensive kidney care under one roof.",
+  full: "From preventive kidney health to dialysis and transplantation, our goal is to help patients achieve the best possible outcomes and improved quality of life.",
 };
 
 export const whyChooseNephrology = [
   {
-    title: "Complete Kidney Care",
+    title: "Expert Kidney Specialists",
     description:
-      "Kidney transplants, dialysis, CKD management, and urological surgery — all coordinated under one department.",
+      "Our multidisciplinary team includes nephrologists, urologists, transplant surgeons, dialysis experts, and critical care specialists.",
   },
   {
-    title: "50+ Advanced Dialysis Units",
+    title: "Advanced Renal Care",
     description:
-      "State-of-the-art hemodialysis and peritoneal dialysis with innovative water purification and real-time monitoring.",
+      "We offer state-of-the-art diagnostics, dialysis services, kidney transplantation, and specialized treatments for complex renal disorders.",
   },
   {
-    title: "Expert Multidisciplinary Team",
+    title: "Comprehensive Treatment Approach",
     description:
-      "Eminent kidney transplant specialists, nephrologists, and urologists with dedicated technical support.",
+      "From early-stage kidney disease management to advanced renal replacement therapies, we provide seamless, patient-centered care.",
   },
   {
-    title: "24/7 Clinical Support",
+    title: "Modern Infrastructure",
     description:
-      "Best-in-industry operation theatres, ICU backup, 1:1 nursing, and comfortable inpatient rooms.",
+      "Equipped with advanced dialysis units, imaging systems, renal laboratories, and transplant facilities for complete kidney care.",
   },
 ];
-
-export const nephrologyServicesIntro = "Scope of services we provide:";
 
 export const nephrologyServices = [
   {
-    title: "Kidney Transplants",
-    description:
-      "Expertly managed transplant services with high success rates and lifelong follow-up.",
+    title: "Chronic Kidney Disease (CKD) Management",
+    bullets: [
+      "Early Detection & Prevention",
+      "Long-Term Kidney Function Monitoring",
+      "Lifestyle & Medication Management",
+      "CKD Progression Control",
+    ],
   },
   {
-    title: "Hemodialysis & Peritoneal Dialysis",
-    description:
-      "State-of-the-art dialysis units for both acute and chronic kidney conditions.",
+    title: "Dialysis Services",
+    bullets: [
+      "Hemodialysis",
+      "Peritoneal Dialysis (CPD)",
+      "Continuous Renal Replacement Therapy (CRRT)",
+      "Acute & Chronic Dialysis Care",
+    ],
   },
   {
-    title: "Hypertension Management",
-    description:
-      "Comprehensive care for high blood pressure to protect kidney function.",
+    title: "Kidney Transplantation",
+    bullets: [
+      "Living Donor Kidney Transplants",
+      "Cadaver Donor Kidney Transplants",
+      "Combined Kidney & Liver Transplants",
+      "Comprehensive Pre & Post-Transplant Care",
+    ],
   },
   {
-    title: "Nephrotic Syndrome Treatment",
-    description:
-      "Specialized management of complex kidney disorders and glomerular disease.",
+    title: "Hypertension & Kidney Health",
+    bullets: [
+      "High Blood Pressure Management",
+      "Renal Hypertension Evaluation",
+      "Prevention of Kidney Damage",
+    ],
   },
   {
-    title: "Urological Surgeries",
-    description:
-      "Minimally invasive surgeries, including kidney stone removal, for faster recovery.",
+    title: "Renal Diagnostics",
+    bullets: [
+      "Kidney Biopsy",
+      "Advanced Renal Imaging",
+      "Laboratory Evaluation",
+      "Electrolyte & Metabolic Assessment",
+    ],
   },
   {
-    title: "Chronic Kidney Disease (CKD)",
-    description:
-      "Preventive care, monitoring, and treatment for patients with chronic kidney disease.",
+    title: "Specialized Renal Care",
+    bullets: [
+      "Nephrotic Syndrome",
+      "Glomerular Diseases",
+      "Autoimmune Kidney Disorders",
+      "Polycystic Kidney Disease",
+      "Kidney Infections",
+      "Hydronephrosis",
+      "Renal Vascular Disorders",
+    ],
   },
 ];
 
-export const nephrologyTechnology = [
-  "State-of-the-art dialysis units with advanced hemodialysis machines",
-  "Cutting-edge renal imaging — ultrasound and CT for accurate diagnosis",
-  "Advanced renal biopsy facilities with high-resolution imaging",
-  "Comprehensive kidney care labs with latest automated analyzers",
-  "Innovative water purification systems for dialysis procedures",
-  "Modern patient monitoring systems for real-time vital tracking",
-  "Sophisticated peritoneal dialysis setup for home-based therapy",
-  "Integrated electronic health records for seamless care coordination",
-  "Experienced clinical staff with advanced training and tools",
+export const nephrologyConditions = [
+  "Chronic & Acute Kidney Failure",
+  "Diabetic Kidney Disease",
+  "Kidney Stones",
+  "Nephritis & Nephrotic Syndrome",
+  "Lupus Nephritis",
+  "Autoimmune Vasculitis",
+  "Urinary Abnormalities",
+  "Kidney & Urinary Tract Cancers",
+  "Electrolyte & Acid-Base Disorders",
+  "Drug & Toxin-Induced Kidney Damage",
 ];
-
-export const nephrologySpecialityConditions = [
-  "Renal transplantations",
-  "Urine abnormalities — protein, sugar, blood, casts, and crystals",
-  "Glomerular ailments affecting kidney filtering systems",
-  "Cancers of the kidneys, bladder, and urethra",
-  "Acute and chronic renal failure",
-  "Kidney infections and kidney/bladder stones",
-  "Diabetes and hypertension effects on the kidneys",
-  "Acid-base imbalances and toxin or drug-related kidney effects",
-  "Nephrotic syndrome and nephritis",
-  "Renal vascular diseases",
-  "Polycystic kidney disease",
-  "Tubulointerstitial diseases",
-  "Dialysis and long-term complications",
-  "Autoimmune diseases including lupus and vasculitis",
-  "Hydronephrosis",
-];
-
-export const nephrologyMajorServices = [
-  {
-    title: "Continuous Renal Replacement Therapy (CRRT)",
-    description: "Advanced critical-care renal support for acutely ill patients.",
-  },
-  {
-    title: "Peritoneal Dialysis (CPD)",
-    description: "Home-based and hospital peritoneal dialysis programmes.",
-  },
-  {
-    title: "Plasmapheresis",
-    description: "Plasma dialysis for selected immune and renal conditions.",
-  },
-  {
-    title: "Combined Kidney & Liver Transplant",
-    description: "Coordinated multi-organ transplant with kidney biopsy services.",
-  },
-];
-
-export const nephrologySpeciality = {
-  heading: "Our Speciality",
-  preview:
-    "Our Nephrology department deals with the study of the normal working of the kidneys as well as its diseases.",
-  full: "We have an eminent team of kidney transplant specialists, nephrologists, urologists, and the technical expertise needed to meet the challenges of this life-saving specialty — delivering personalized and effective nephrology care at every stage.",
-};
 
 export const nephrologyInfrastructure = [
-  "Best-in-industry operation theatres equipped with latest technology",
-  "Qualified and experienced medical team with transplant and dialysis expertise",
-  "1:1 nursing ratio with 24/7 patient care",
-  "Suite, deluxe, and semi-deluxe rooms for comfortable recovery",
-  "50+ advanced dialysis units with full water purification and monitoring",
+  "50+ Advanced Dialysis Stations",
+  "Modern Hemodialysis & Peritoneal Dialysis Units",
+  "Advanced Ultrasound & CT Imaging",
+  "Dedicated Renal Care Laboratories",
+  "High-Precision Kidney Biopsy Facilities",
+  "Integrated Electronic Health Records",
+  "Advanced Water Purification Systems",
+  "Modular Operation Theatres",
+  "In-house Laboratory & Blood Bank",
+  "24/7 Emergency Renal Care",
 ];
 
-export const nephrologyAchievementsNote =
-  "Our Nephrology department combines advanced dialysis infrastructure, renal imaging and biopsy facilities, and a multidisciplinary transplant team — setting the benchmark for comprehensive kidney care in the region.";
-
-export const nephrologyTeamNote = {
-  title: "Eminent Nephrology & Transplant Team",
-  description:
-    "Kidney transplant specialists, nephrologists, and urologists work together with dedicated technical staff to deliver seamless care from diagnosis through dialysis, surgery, and long-term follow-up.",
+export const nephrologyTransplantExcellence = {
+  intro:
+    "We have an experienced team of nephrologists, urologists, transplant surgeons, and specialized nursing professionals dedicated to delivering safe and successful transplant outcomes.",
+  detail:
+    "Our expertise extends across complex kidney transplant procedures, comprehensive donor evaluation, transplant coordination, and long-term follow-up care.",
 };
 
 export const nephrologyJourney = {
-  heading: "Protecting Kidney Health with Expert Care.",
-  body: "From early screening and CKD management to dialysis and transplant, Adhiparasakthi Hospitals provides compassionate, technology-driven nephrology care tailored to every patient.",
-  ctaHeading: "Book an Appointment",
+  heading: "Protecting Kidney Health. Improving Lives.",
+  body: "Whether you require preventive kidney care, dialysis support, transplant services, or treatment for complex renal disorders, our specialists are committed to providing personalized care with compassion and excellence.",
+  ctaHeading: "Book a Consultation Today",
   ctaBody:
-    "Schedule a consultation with our nephrology team for kidney health assessment, dialysis, or transplant evaluation.",
+    "Take the first step towards better kidney health with expert nephrology care at Adhiparasakthi Hospitals.",
 };
 
 export const nephrologyJourneyPillars = [
   {
     title: "Early Diagnosis",
-    description: "Advanced labs, imaging, and renal biopsy for accurate assessment.",
+    description:
+      "Advanced labs, imaging, and renal biopsy for accurate assessment.",
   },
   {
     title: "Advanced Treatment",
-    description: "Dialysis, CRRT, plasmapheresis, surgery, and transplant options.",
+    description:
+      "Dialysis, CRRT, surgery, and transplant options tailored to each patient.",
   },
   {
     title: "Long-Term Care",
-    description: "Ongoing monitoring, medication, and lifestyle support after treatment.",
+    description:
+      "Ongoing monitoring, medication, and lifestyle support after treatment.",
   },
 ];
 
 export const nephrologyHeroImage = "/images/nephrology.png";
-
-const specialistImagePool = [
-  "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=400&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=400&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=400&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1537368910025-79bb9997af2b?q=80&w=400&auto=format&fit=crop",
-];
-
-/** Replace with verified MAPIMS nephrology faculty when profiles are available */
-export const nephrologySpecialists: DepartmentSpecialist[] = [
-  {
-    id: "nephrology-transplant",
-    name: "Dr. S. Bhaskaran",
-    degree: "MD, DM (Nephrology)",
-    experience: "18+ Yrs",
-    designation: "Senior Consultant — Nephrology & Renal Transplant",
-    image: specialistImagePool[0],
-    accent: "primary",
-  },
-  {
-    id: "nephrology-dialysis",
-    name: "Dr. Mahendra Varman L",
-    degree: "MD, DM (Nephrology)",
-    experience: "16+ Yrs",
-    designation: "Lead Consultant — Dialysis & CKD Management",
-    image: specialistImagePool[1],
-    accent: "deep",
-  },
-  {
-    id: "nephrology-urology",
-    name: "Dr. T.R. Rajkumar",
-    degree: "MS, M.Ch.",
-    experience: "20+ Yrs",
-    designation: "Consultant — Urology & Kidney Stone Surgery",
-    image: specialistImagePool[2],
-    accent: "primary",
-  },
-  {
-    id: "nephrology-general",
-    name: "Dr. R. Rama Krishnan",
-    degree: "MS (Urology)",
-    experience: "14+ Yrs",
-    designation: "Consultant — Urology & Nephrology Support",
-    image: specialistImagePool[3],
-    accent: "deep",
-  },
-];

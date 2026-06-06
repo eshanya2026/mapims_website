@@ -24,7 +24,6 @@ type NavDropdownItem = NavLinkItem & {
 const simpleNavLinks: NavLinkItem[] = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
-  { name: "Doctors", href: "/doctors" },
   { name: "Careers", href: "/careers" },
   { name: "Contact", href: "/contact" },
 ];
@@ -35,7 +34,7 @@ type NavDropdownGroup = {
 };
 
 const departmentDropdownItems: NavDropdownItem[] = [
-  { name: "All Departments", href: "/departments", highlight: true },
+  { name: "All Specialities", href: "/departments", highlight: true },
   ...departments.map((dept) => ({
     name: dept.name,
     href: `/departments/${dept.slug}`,
@@ -330,7 +329,7 @@ export default function Navbar() {
             ))}
 
             <NavDropdown
-              label="Departments"
+              label="Specialities"
               href="/departments"
               items={departmentDropdownItems}
               wide
@@ -413,7 +412,7 @@ export default function Navbar() {
           </Link>
 
           <MobileNavSection
-            label="Departments"
+            label="Specialities"
             href="/departments"
             items={departmentDropdownItems}
             onNavigate={closeMobileMenu}
@@ -425,14 +424,6 @@ export default function Navbar() {
             items={servicesDropdownItems}
             onNavigate={closeMobileMenu}
           />
-
-          <Link
-            href="/doctors"
-            className="px-4 py-2 text-base font-medium text-slate-700 hover:text-red-600 hover:bg-slate-50 rounded-md"
-            onClick={closeMobileMenu}
-          >
-            Doctors
-          </Link>
 
           <MobileNavGroupedSection
             label="International Patients"

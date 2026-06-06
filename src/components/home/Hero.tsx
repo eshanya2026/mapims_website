@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Calendar, Search, Activity, Users, Clock } from "lucide-react";
+import { Calendar, Stethoscope, Users, Ambulance, Microscope } from "lucide-react";
 
 import HeroBackground from "@/components/layout/HeroBackground";
 
@@ -38,11 +38,11 @@ export default function Hero() {
               World-Class Healthcare
             </span>
             <h1 className="mb-4 text-2xl font-bold leading-tight text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-              Advanced Healthcare <br />
-              <span className="text-red-600">With Compassion</span>
+              Healing Lives, <br />
+              <span className="text-red-600">Building Trust</span>
             </h1>
             <p className="mb-6 max-w-2xl text-base leading-relaxed text-slate-200 sm:mb-8 sm:text-lg md:text-xl">
-              Providing exceptional medical care with state-of-the-art technology and a team of dedicated experts committed to your well-being.
+              Compassionate Care. Exceptional Outcomes
             </p>
 
             <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
@@ -57,27 +57,31 @@ export default function Hero() {
                 href="/departments"
                 className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 bg-white/10 px-6 text-base font-medium text-white backdrop-blur-md transition-all hover:bg-white/20 sm:h-14 sm:px-8 sm:text-lg"
               >
-                <Search className="mr-2 h-5 w-5" />
-                Find a Doctor
+                <Stethoscope className="mr-2 h-5 w-5" />
+                Explore Specialities
               </Link>
             </div>
           </motion.div>
         </div>
 
-        {/* Status cards — 2-col grid on mobile, row on tablet+ */}
-        <div className="mt-6 grid grid-cols-2 gap-2.5 sm:mt-10 sm:flex sm:flex-wrap sm:gap-4 lg:mt-12">
+        {/* Highlight cards */}
+        <div className="mt-6 flex flex-wrap gap-2.5 sm:mt-10 sm:gap-4 lg:mt-12">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="col-span-2 flex items-center gap-3 rounded-xl border border-white/20 bg-white/90 p-3.5 shadow-xl backdrop-blur-xl sm:col-span-1 sm:min-w-[240px] sm:gap-4 sm:rounded-2xl sm:p-5"
+            className="flex w-full items-center gap-3 rounded-xl border border-white/20 bg-white/90 p-3.5 shadow-xl backdrop-blur-xl sm:w-auto sm:min-w-[240px] sm:gap-4 sm:rounded-2xl sm:p-5"
           >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600 sm:h-12 sm:w-12">
-              <Activity className="h-5 w-5 sm:h-6 sm:w-6" />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 sm:h-12 sm:w-12">
+              <Users className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-medium text-slate-500 sm:text-sm">Live OP Status</p>
-              <p className="text-sm font-bold text-slate-900 sm:text-lg">Accepting Patients</p>
+              <p className="text-xs font-medium text-slate-500 sm:text-sm">
+                Expert Specialists
+              </p>
+              <p className="text-sm font-bold text-slate-900 sm:text-lg">
+                Multispeciality Care
+              </p>
             </div>
           </motion.div>
 
@@ -85,14 +89,18 @@ export default function Hero() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex items-center gap-3 rounded-xl border border-white/20 bg-white/90 p-3.5 shadow-xl backdrop-blur-xl sm:min-w-[240px] sm:gap-4 sm:rounded-2xl sm:p-5"
+            className="flex w-full items-center gap-3 rounded-xl border border-white/20 bg-white/90 p-3.5 shadow-xl backdrop-blur-xl sm:w-auto sm:min-w-[240px] sm:gap-4 sm:rounded-2xl sm:p-5"
           >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 sm:h-12 sm:w-12">
-              <Users className="h-5 w-5 sm:h-6 sm:w-6" />
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-red-100 text-red-600 sm:h-12 sm:w-12">
+              <Ambulance className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-medium text-slate-500 sm:text-sm">Available Doctors</p>
-              <p className="text-sm font-bold text-slate-900 sm:text-lg">45+ Today</p>
+              <p className="text-xs font-medium text-slate-500 sm:text-sm">
+                24/7 Emergency Care
+              </p>
+              <p className="text-sm font-bold text-slate-900 sm:text-lg">
+                Always Ready
+              </p>
             </div>
           </motion.div>
 
@@ -100,14 +108,18 @@ export default function Hero() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex items-center gap-3 rounded-xl border border-white/20 bg-white/90 p-3.5 shadow-xl backdrop-blur-xl sm:min-w-[240px] sm:gap-4 sm:rounded-2xl sm:p-5"
+            className="flex w-full items-center gap-3 rounded-xl border border-white/20 bg-white/90 p-3.5 shadow-xl backdrop-blur-xl sm:w-auto sm:min-w-[240px] sm:gap-4 sm:rounded-2xl sm:p-5"
           >
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-600 sm:h-12 sm:w-12">
-              <Clock className="h-5 w-5 sm:h-6 sm:w-6" />
+              <Microscope className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-medium text-slate-500 sm:text-sm">Avg Waiting Time</p>
-              <p className="text-sm font-bold text-slate-900 sm:text-lg">&lt; 15 Mins</p>
+              <p className="text-xs font-medium text-slate-500 sm:text-sm">
+                Advanced Diagnostics
+              </p>
+              <p className="text-sm font-bold text-slate-900 sm:text-lg">
+                Accurate & Fast Results
+              </p>
             </div>
           </motion.div>
         </div>

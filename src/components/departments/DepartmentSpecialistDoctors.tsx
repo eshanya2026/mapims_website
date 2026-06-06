@@ -104,7 +104,7 @@ export default function DepartmentSpecialistDoctors({
                   </p>
                 </div>
                 <Link
-                  href={`/doctors?department=${departmentSlug}`}
+                  href="/#book-appointment"
                   className="mt-4 inline-flex w-fit items-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white transition-all hover:bg-red-700 hover:shadow-md hover:shadow-red-600/25"
                 >
                   Know More

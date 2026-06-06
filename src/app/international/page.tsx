@@ -4,7 +4,6 @@ import InternationalFeatures from "@/components/international/InternationalFeatu
 import InternationalWelcome from "@/components/international/InternationalWelcome";
 import InternationalSpecialities from "@/components/international/InternationalSpecialities";
 import InternationalWhyIndiaUs from "@/components/international/InternationalWhyIndiaUs";
-import InternationalExpertDoctors from "@/components/international/InternationalExpertDoctors";
 import InternationalTestimonials from "@/components/international/InternationalTestimonials";
 import InternationalDeskSection from "@/components/international/InternationalDeskSection";
 
@@ -22,7 +21,6 @@ export default function InternationalPatientsPage() {
       <InternationalWelcome />
       <InternationalSpecialities />
       <InternationalWhyIndiaUs />
-      <InternationalExpertDoctors />
       <InternationalTestimonials />
       <InternationalDeskSection />
     </main>

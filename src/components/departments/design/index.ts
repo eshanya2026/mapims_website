@@ -1,0 +1,10 @@
+export { default as DepartmentSectionLabel } from "./DepartmentSectionLabel";
+export { default as DepartmentSection } from "./DepartmentSection";
+export { default as DepartmentSectionHeading } from "./DepartmentSectionHeading";
+export { default as DepartmentPageHero } from "./DepartmentPageHero";
+export { default as DepartmentContentLayout } from "./DepartmentContentLayout";
+export { default as DepartmentWhyChooseCards } from "./DepartmentWhyChooseCards";
+export { default as DepartmentServicesGrid } from "./DepartmentServicesGrid";
+export { default as DepartmentChecklistGrid } from "./DepartmentChecklistGrid";
+export { default as DepartmentGradientPanel } from "./DepartmentGradientPanel";
+export { default as DepartmentExcellenceNote } from "./DepartmentExcellenceNote";

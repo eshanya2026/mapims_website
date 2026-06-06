@@ -58,7 +58,7 @@ type DepartmentHeroStatsProps = {
 export default function DepartmentHeroStats({ stats }: DepartmentHeroStatsProps) {
   return (
     <section
-      className="relative z-30 -mt-10 px-4 sm:-mt-12"
+      className="relative z-30 -mt-14 px-4 sm:-mt-16"
       aria-label="Department statistics"
     >
       <div className="container mx-auto">
@@ -67,7 +67,7 @@ export default function DepartmentHeroStats({ stats }: DepartmentHeroStatsProps)
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="grid grid-cols-1 divide-y divide-slate-100 rounded-2xl border border-slate-100 bg-white shadow-xl shadow-slate-200/50 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4"
+          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
         >
           {stats.map((stat, index) => (
             <motion.div
@@ -76,7 +76,7 @@ export default function DepartmentHeroStats({ stats }: DepartmentHeroStatsProps)
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: index * 0.08 }}
-              className="px-5 py-6 text-center sm:px-6 sm:py-7"
+              className="rounded-2xl border border-slate-200/80 bg-white px-5 py-6 text-center shadow-lg shadow-slate-200/60"
             >
               <p className="text-3xl font-bold leading-none text-red-600 md:text-4xl">
                 <LiveStatValue

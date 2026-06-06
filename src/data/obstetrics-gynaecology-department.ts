@@ -1,195 +1,161 @@
-import type { DepartmentSpecialist } from "@/data/department-specialist";
-
-export type { DepartmentSpecialist };
+export const obgynHeroTagline =
+  "Comprehensive Women's Healthcare at Every Stage of Life";
 
 export const obstetricsGynaecologyIntro = {
   preview:
-    "At Adhiparasakthi Hospitals, our Obstetrics and Gynaecology department is dedicated to providing exceptional care for women at every stage of life.",
-  full: "From routine checkups to advanced treatments, we cover all aspects of women's health with cutting-edge facilities and expert care. Our state-of-the-art facilities include advanced labor rooms, cutting-edge operation theatres, and specialized neonatal care units, ensuring the highest level of safety and comfort for every patient. From routine diagnostics to specialized treatments and post-care services, we offer a complete spectrum of obstetric and gynecological care—all under one roof. Experience exceptional care tailored for women, at every stage of life.",
+    "At Adhiparasakthi Hospitals, our Obstetrics & Gynaecology Department provides expert care for women from adolescence through pregnancy, motherhood, and menopause.",
+  full: "With experienced specialists, advanced technology, and a patient-centered approach, we offer comprehensive healthcare tailored to every stage of a woman's life.",
 };
 
 export const whyChooseObgyn = [
   {
-    title: "Complete Women's Healthcare",
+    title: "Expert Women's Healthcare",
     description:
-      "Prenatal and postnatal care, fertility treatments, minimally invasive surgery, and menopause management under one roof.",
+      "Our team of experienced obstetricians, gynaecologists, fertility specialists, and neonatal experts provides personalized care with compassion and excellence.",
   },
   {
-    title: "High-Risk Pregnancy Expertise",
+    title: "Advanced Maternity & Surgical Care",
     description:
-      "Specialized management of complex pregnancies, medical disorders in pregnancy, and safe normal and C-section deliveries.",
+      "From routine consultations to complex surgeries and high-risk pregnancies, we offer world-class treatment using modern medical technologies.",
   },
   {
-    title: "Advanced Facilities",
+    title: "Mother & Baby Focused Care",
     description:
-      "Modern labor rooms, NICU, in-house blood bank and laboratory, and fully equipped operation theatres.",
+      "We ensure the highest standards of safety and comfort for both mother and child through every stage of pregnancy and childbirth.",
   },
   {
-    title: "Trusted Clinical Team",
+    title: "Comprehensive Care Under One Roof",
     description:
-      "Experienced consultants supported by resident postgraduate DNB trainees for round-the-clock hospital-based care.",
+      "Diagnostics, fertility services, maternity care, surgery, neonatal care, and postnatal support—all conveniently available in one place.",
   },
 ];
 
-export const obgynServicesIntro =
-  "We offer a wide range of treatments and surgeries for every stage of a woman's life:";
-
-export const obgynServices = [
+export const obstetricsServices = [
   {
-    title: "Pregnancy Care",
-    description:
-      "Comprehensive prenatal and postnatal care, high-risk pregnancy management, and safe normal and C-section deliveries.",
+    title: "Pregnancy & Maternity Care",
+    bullets: [
+      "Preconception Counseling",
+      "Prenatal & Postnatal Care",
+      "Normal & Caesarean Deliveries",
+      "High-Risk Pregnancy Management",
+      "Multiple Pregnancy Care",
+    ],
   },
   {
-    title: "Fertility Treatments",
-    description:
-      "Infertility consultations, IVF, IUI, and other assisted reproductive technologies.",
+    title: "Fetal Medicine & Ultrasound",
+    bullets: [
+      "Advanced Pregnancy Scans",
+      "Fetal Growth Monitoring",
+      "Congenital Anomaly Screening",
+      "Prenatal Diagnostic Services",
+    ],
   },
   {
-    title: "Gynaecological Surgeries",
-    description:
-      "Minimally invasive laparoscopic surgeries, hysterectomies, fibroid removal, and endometriosis treatment.",
+    title: "Labour & Delivery Care",
+    bullets: [
+      "Painless Labour Options",
+      "Labour Preparation Classes",
+      "Pregnancy Nutrition & Exercise Guidance",
+      "Postpartum Care & Recovery Support",
+    ],
   },
   {
-    title: "Menstrual Disorders",
-    description:
-      "Diagnosis and treatment for PCOS, irregular periods, and other hormonal issues.",
-  },
-  {
-    title: "Menopause Care",
-    description:
-      "Expert care for managing menopausal symptoms and long-term women's health.",
+    title: "Management of Pregnancy Complications",
+    bullets: [
+      "Recurrent Pregnancy Loss",
+      "Gestational Diabetes & Hypertension",
+      "Preterm & Post-Term Pregnancy",
+      "Obstetric Emergencies & Haemorrhage Management",
+    ],
   },
 ];
 
-export const gynaecologySpecialityAreas = [
-  "Puberty and adolescent health disorders",
-  "Irregular or painful menstruation",
-  "Abnormal and excessive uterine bleeding",
-  "PCOS / hirsutism",
-  "Abnormal vaginal discharges",
-  "Ectopic pregnancy management",
-  "MTP, contraception & family planning",
-  "Uterine and pelvic organ prolapse",
-  "Genital tract malformations",
-  "Genital infections, STD & tuberculosis",
-  "Endometriosis and allied conditions",
-  "Menopause disorders",
-  "Infertility and assisted reproductive technology",
-  "Genital cancers — surgery and chemotherapy",
-  "Benign breast disorders",
+export const gynaecologyServices = [
+  {
+    title: "Menstrual & Hormonal Disorders",
+    bullets: [
+      "PCOS & Hormonal Imbalances",
+      "Irregular or Painful Menstruation",
+      "Abnormal Uterine Bleeding",
+      "Adolescent Health Disorders",
+    ],
+  },
+  {
+    title: "Fertility & Reproductive Medicine",
+    bullets: [
+      "Infertility Evaluation & Treatment",
+      "IVF & IUI Services",
+      "Assisted Reproductive Technologies (ART)",
+      "Fertility Preservation & Counseling",
+    ],
+  },
+  {
+    title: "Minimally Invasive Gynaecological Surgery",
+    bullets: [
+      "Laparoscopic Surgery",
+      "Hysterectomy",
+      "Fibroid Removal",
+      "Endometriosis Treatment",
+    ],
+  },
+  {
+    title: "Women's Health & Wellness",
+    bullets: [
+      "Menopause Management",
+      "Family Planning & Contraception",
+      "Management of Vaginal Infections & STDs",
+      "Benign Breast Disorders",
+    ],
+  },
+  {
+    title: "Gynaecological Oncology",
+    bullets: [
+      "Screening & Early Detection",
+      "Surgical Treatment of Gynecological Cancers",
+      "Chemotherapy & Follow-up Care",
+    ],
+  },
 ];
-
-export const obstetricsSpecialityAreas = [
-  "Preconception and prenatal care",
-  "Early pregnancy complications",
-  "High-risk pregnancy management",
-  "Medical disorders in pregnancy",
-  "Recurrent pregnancy loss and abortions",
-  "Ultrasound and fetal medicine",
-  "Diet and exercise preparatory classes",
-  "Labour management preparatory classes",
-  "Painless labour",
-  "Puerperium management",
-  "Obstetric haemorrhages",
-  "Preterm and post-term pregnancy",
-  "Surgical complications of pregnancy",
-];
-
-export const obgynSpeciality = {
-  heading: "Our Speciality",
-  preview:
-    "Our team of consultants in Obstetrics and Gynaecology provides specialized care for women from puberty to menopause.",
-  full: "They are efficiently assisted by resident postgraduate students pursuing DNB who reside in the hospital itself, ensuring continuous, compassionate support. Trust our experienced doctors to provide personalized care tailored to your needs, ensuring the best outcomes for both mother and baby.",
-};
 
 export const obgynInfrastructure = [
-  "Specialized NICU for newborn intensive care",
-  "In-house blood bank for safe maternal and neonatal support",
-  "State-of-the-art ICU for critical obstetric and gynaecological care",
-  "In-house laboratory for rapid diagnostics",
-  "Best-in-industry operation theatres with latest technology",
-  "Qualified and experienced medical team with 1:1 nursing ratio and 24/7 care",
-  "Suite, deluxe, and semi-deluxe rooms for comfortable recovery",
+  "Modern Labour & Delivery Suites",
+  "Advanced Modular Operation Theatres",
+  "Dedicated NICU (Neonatal Intensive Care Unit)",
+  "State-of-the-Art ICU Facilities",
+  "In-house Blood Bank",
+  "In-house Laboratory Services",
+  "Advanced Ultrasound & Fetal Monitoring Systems",
+  "24/7 Emergency Obstetric Care",
+  "Suite, Deluxe & Semi-Deluxe Rooms",
 ];
 
-export const obgynAchievementsNote =
-  "We take pride in delivering exceptional obstetric and gynaecological care — combining advanced labor rooms, neonatal support, skilled surgeons, and a dedicated team focused on the safety and wellbeing of every mother and baby.";
-
-export const obgynTeamNote = {
-  title: "Expert Obstetric & Gynaecology Team",
-  description:
-    "Our consultants provide specialized care across the full spectrum of women's health, supported by DNB postgraduate residents living on campus for continuous clinical coverage.",
-};
+export const obgynExcellenceNote =
+  "Our consultants are supported by highly trained nursing staff, resident doctors, neonatal specialists, and allied healthcare professionals who work together to ensure safe and successful outcomes for every patient.";
 
 export const obgynJourney = {
-  heading: "Supporting Women's Health at Every Stage.",
-  body: "Whether it's high-risk pregnancies, infertility treatments, or minimally invasive surgeries, our expert team handles every aspect with compassion and precision — tailored for you and your family.",
-  ctaHeading: "Book an Appointment",
+  heading: "Caring for Women, Every Step of the Way",
+  body: "Whether you are planning a family, expecting a baby, seeking fertility treatment, or managing a gynecological condition, our specialists are committed to providing exceptional care with compassion and expertise.",
+  ctaHeading: "Book a Consultation Today",
   ctaBody:
-    "Schedule a consultation with our obstetrics and gynaecology team and take the first step toward personalized women's healthcare.",
+    "Take the next step towards better health and wellness with trusted Obstetrics & Gynaecology care at Adhiparasakthi Hospitals.",
 };
 
 export const obgynJourneyPillars = [
   {
     title: "Preventive & Routine Care",
-    description: "Checkups, screening, and guidance from adolescence through adulthood.",
+    description:
+      "Checkups, screening, and guidance from adolescence through adulthood.",
   },
   {
     title: "Specialized Treatment",
-    description: "Fertility, surgery, high-risk pregnancy, and neonatal support when needed.",
+    description:
+      "Fertility, surgery, high-risk pregnancy, and neonatal support when needed.",
   },
   {
     title: "Compassionate Follow-Up",
-    description: "Postnatal and long-term care for mother and baby with dedicated nursing.",
+    description:
+      "Postnatal and long-term care for mother and baby with dedicated nursing.",
   },
 ];
 
 export const obgynHeroImage = "/images/og.png";
-
-const specialistImagePool = [
-  "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=400&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=400&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1651008376811-b90daee60fbf?q=80&w=400&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1582750433449-648ed127b54e?q=80&w=400&auto=format&fit=crop",
-];
-
-/** Replace with verified MAPIMS OBGYN faculty when profiles are available */
-export const obgynSpecialists: DepartmentSpecialist[] = [
-  {
-    id: "obgyn-obstetrics",
-    name: "Dr. K. Lakshmi",
-    degree: "MD, DGO, DNB (OBG)",
-    experience: "20+ Yrs",
-    designation: "Senior Consultant — Obstetrics & High-Risk Pregnancy",
-    image: specialistImagePool[0],
-    accent: "primary",
-  },
-  {
-    id: "obgyn-fertility",
-    name: "Dr. Priya Venkat",
-    degree: "MD, DNB (OBG)",
-    experience: "16+ Yrs",
-    designation: "Consultant — Fertility & Reproductive Medicine",
-    image: specialistImagePool[1],
-    accent: "deep",
-  },
-  {
-    id: "obgyn-gynaecology",
-    name: "Dr. S. Meenakshi",
-    degree: "MS, DNB (OBG)",
-    experience: "18+ Yrs",
-    designation: "Senior Consultant — Gynaecology & Laparoscopic Surgery",
-    image: specialistImagePool[2],
-    accent: "primary",
-  },
-  {
-    id: "obgyn-fetal",
-    name: "Dr. R. Anitha",
-    degree: "MD, DNB (OBG)",
-    experience: "14+ Yrs",
-    designation: "Consultant — Fetal Medicine & Ultrasound",
-    image: specialistImagePool[3],
-    accent: "deep",
-  },
-];
