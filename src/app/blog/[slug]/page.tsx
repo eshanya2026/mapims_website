@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar } from "lucide-react";
+import { blogSections } from "@/data/blog-posts";
 import {
-  blogPosts,
-  blogSections,
-  getPostBySlug,
-} from "@/data/blog-posts";
+  getAllPublishedPostSlugs,
+  getPublishedPostBySlug,
+} from "@/lib/content";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -62,14 +62,15 @@ function BlogArticleBody({ content }: { content: string }) {
 }
 
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
+  const slugs = await getAllPublishedPostSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPublishedPostBySlug(slug);
   if (!post) return {};
 
   return {
@@ -80,7 +81,7 @@ export async function generateMetadata({
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPublishedPostBySlug(slug);
   if (!post) notFound();
 
   const section = blogSections.find((item) => item.slug === post.section);
@@ -133,4 +134,3 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     </main>
   );
 }
-

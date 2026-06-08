@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Stethoscope } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calendar, Stethoscope } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const doctors = [
@@ -195,10 +195,11 @@ export default function AboutSpecialistDoctors() {
 
                       <Link
                         href="/#book-appointment"
-                        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 border-red-600 px-5 py-2.5 text-sm font-semibold uppercase tracking-wide text-red-600 transition-all hover:bg-red-600 hover:text-white hover:shadow-md hover:shadow-red-600/20 sm:w-fit"
+                        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-red-600 px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-red-600/25 transition-all hover:-translate-y-0.5 hover:bg-red-700 hover:shadow-lg hover:shadow-red-600/30 sm:w-fit"
                       >
-                        Profile
-                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        <Calendar className="h-4 w-4" />
+                        Book Appointment
+                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                       </Link>
                     </div>
                   </motion.article>

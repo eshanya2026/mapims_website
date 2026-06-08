@@ -3,15 +3,13 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Calendar, ArrowRight } from "lucide-react";
-import { getPostsForSection, type BlogSection } from "@/data/blog-posts";
+import type { ContentPost } from "@/lib/content";
 
 type BlogGridProps = {
-  section: BlogSection;
+  posts: ContentPost[];
 };
 
-export default function BlogGrid({ section }: BlogGridProps) {
-  const posts = getPostsForSection(section);
-
+export default function BlogGrid({ posts }: BlogGridProps) {
   return (
     <section className="bg-slate-50 py-10 sm:py-16 md:py-24">
       <div className="container mx-auto px-4 sm:px-6">
@@ -63,10 +61,9 @@ export default function BlogGrid({ section }: BlogGridProps) {
         </div>
 
         {posts.length === 0 && (
-          <p className="text-center text-slate-500 py-12">No articles published yet.</p>
+          <p className="py-12 text-center text-slate-500">No articles published yet.</p>
         )}
       </div>
-
     </section>
   );
 }

@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import TopHeader from "@/components/layout/TopHeader";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import HashScroll from "@/components/layout/HashScroll";
+import ConditionalSiteChrome from "@/components/layout/ConditionalSiteChrome";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,10 +20,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} overflow-x-hidden antialiased bg-white text-slate-900`}>
         <HashScroll />
-        <TopHeader />
-        <Navbar />
-        {children}
-        <Footer />
+        <ConditionalSiteChrome>{children}</ConditionalSiteChrome>
       </body>
     </html>
   );

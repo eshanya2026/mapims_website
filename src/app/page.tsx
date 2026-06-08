@@ -8,7 +8,7 @@ import DoctorShowcase from "@/components/home/DoctorShowcase";
 import DigitalPatientExperience from "@/components/home/DigitalPatientExperience";
 import HealthPackages from "@/components/home/HealthPackages";
 import Testimonials from "@/components/home/Testimonials";
-import NewsEvents from "@/components/home/NewsEvents";
+import NewsEventsSection from "@/components/home/NewsEventsSection";
 
 export default function Home() {
   return (
@@ -23,7 +23,7 @@ export default function Home() {
       <DigitalPatientExperience />
       <HealthPackages />
       <Testimonials />
-      <NewsEvents />
+      <NewsEventsSection />
     </main>
   );
 }

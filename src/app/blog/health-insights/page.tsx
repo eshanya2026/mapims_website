@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import BlogHero from "@/components/blog/BlogHero";
 import BlogGrid from "@/components/blog/BlogGrid";
 import BlogSectionNav from "@/components/blog/BlogSectionNav";
+import { getPublishedPosts } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Health Insights | Adhiparasakthi Hospital Blog",
@@ -9,12 +10,14 @@ export const metadata: Metadata = {
     "Expert health tips, preventive care guidance, and wellness advice from Adhiparasakthi Hospitals at Melmaruvathur.",
 };
 
-export default function HealthInsightsPage() {
+export default async function HealthInsightsPage() {
+  const posts = await getPublishedPosts("health-insights");
+
   return (
     <main className="min-h-screen">
       <BlogHero section="health-insights" />
       <BlogSectionNav active="health-insights" />
-      <BlogGrid section="health-insights" />
+      <BlogGrid posts={posts} />
     </main>
   );
 }
