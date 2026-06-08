@@ -24,9 +24,10 @@ type NavDropdownItem = NavLinkItem & {
 const simpleNavLinks: NavLinkItem[] = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
-  { name: "Careers", href: "/careers" },
   { name: "Contact", href: "/contact" },
 ];
+
+const careersNavLink: NavLinkItem = { name: "Careers", href: "/careers" };
 
 type NavDropdownGroup = {
   title: string;
@@ -342,25 +343,22 @@ export default function Navbar() {
               wide
             />
 
-            {simpleNavLinks.slice(2, 3).map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="px-3 py-2 text-sm font-medium text-slate-700 hover:text-red-600 transition-colors rounded-md hover:bg-slate-50"
-              >
-                {link.name}
-              </Link>
-            ))}
-
             <NavDropdownGrouped
               label="International Patients"
               href="/international"
               groups={internationalNavGroups}
             />
 
+            <Link
+              href={careersNavLink.href}
+              className="px-3 py-2 text-sm font-medium text-slate-700 hover:text-red-600 transition-colors rounded-md hover:bg-slate-50"
+            >
+              {careersNavLink.name}
+            </Link>
+
             <NavDropdown label="Blog" href="/blog/health-insights" items={blogDropdownItems} />
 
-            {simpleNavLinks.slice(3).map((link) => (
+            {simpleNavLinks.slice(2).map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
@@ -432,20 +430,20 @@ export default function Navbar() {
             onNavigate={closeMobileMenu}
           />
 
+          <Link
+            href={careersNavLink.href}
+            className="px-4 py-2 text-base font-medium text-slate-700 hover:text-red-600 hover:bg-slate-50 rounded-md"
+            onClick={closeMobileMenu}
+          >
+            {careersNavLink.name}
+          </Link>
+
           <MobileNavSection
             label="Blog"
             href="/blog/health-insights"
             items={blogDropdownItems}
             onNavigate={closeMobileMenu}
           />
-
-          <Link
-            href="/careers"
-            className="px-4 py-2 text-base font-medium text-slate-700 hover:text-red-600 hover:bg-slate-50 rounded-md"
-            onClick={closeMobileMenu}
-          >
-            Careers
-          </Link>
           <Link
             href="/contact"
             className="px-4 py-2 text-base font-medium text-slate-700 hover:text-red-600 hover:bg-slate-50 rounded-md"
