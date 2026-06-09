@@ -22,7 +22,8 @@ export async function POST(request: Request) {
       ok: true,
       admin: { email: admin.email, name: admin.name },
     });
-  } catch {
+  } catch (error) {
+    console.error("[admin/login]", error);
     return NextResponse.json({ error: "Login failed" }, { status: 500 });
   }
 }

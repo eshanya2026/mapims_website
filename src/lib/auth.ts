@@ -1,7 +1,7 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
-import { prisma } from "@/lib/prisma";
+import { getAuthSecretKey } from "@/lib/auth-secret";
 
 const COOKIE_NAME = "mapims_admin_session";
 
@@ -11,13 +11,13 @@ export type AdminSession = {
   name: string | null;
 };
 
-function getSecret() {
-  const secret = process.env.AUTH_SECRET;
-  if (!secret) {
-    throw new Error("AUTH_SECRET environment variable is not set");
-  }
-  return new TextEncoder().encode(secret);
-}
+export type AdminUser = {
+  id: string;
+  email: string;
+  name: string | null;
+  passwordHash: string;
+  createdAt: Date;
+};
 
 export async function hashPassword(password: string) {
   return bcrypt.hash(password, 12);
@@ -40,7 +40,7 @@ export async function createSession(admin: {
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("7d")
-    .sign(getSecret());
+    .sign(getAuthSecretKey());
 
   const cookieStore = await cookies();
   cookieStore.set(COOKIE_NAME, token, {
@@ -63,7 +63,7 @@ export async function getSession(): Promise<AdminSession | null> {
   if (!token) return null;
 
   try {
-    const { payload } = await jwtVerify(token, getSecret());
+    const { payload } = await jwtVerify(token, getAuthSecretKey());
     return {
       adminId: payload.adminId as string,
       email: payload.email as string,
@@ -78,7 +78,7 @@ export async function verifySessionToken(
   token: string
 ): Promise<AdminSession | null> {
   try {
-    const { payload } = await jwtVerify(token, getSecret());
+    const { payload } = await jwtVerify(token, getAuthSecretKey());
     return {
       adminId: payload.adminId as string,
       email: payload.email as string,
@@ -97,7 +97,27 @@ export async function requireAdmin() {
   return session;
 }
 
-export async function authenticateAdmin(email: string, password: string) {
+function authenticateFromEnv(email: string, password: string): AdminUser | null {
+  const envEmail = process.env.ADMIN_EMAIL?.trim();
+  const envPassword = process.env.ADMIN_PASSWORD;
+
+  if (!envEmail || !envPassword) return null;
+  if (email !== envEmail || password !== envPassword) return null;
+
+  return {
+    id: "env-admin",
+    email: envEmail,
+    name: "MAPIMS Admin",
+    passwordHash: "",
+    createdAt: new Date(),
+  };
+}
+
+async function authenticateFromDatabase(
+  email: string,
+  password: string
+): Promise<AdminUser | null> {
+  const { prisma } = await import("@/lib/prisma");
   const admin = await prisma.admin.findUnique({ where: { email } });
   if (!admin) return null;
 
@@ -105,4 +125,16 @@ export async function authenticateAdmin(email: string, password: string) {
   if (!valid) return null;
 
   return admin;
+}
+
+export async function authenticateAdmin(email: string, password: string) {
+  const envAdmin = authenticateFromEnv(email, password);
+  if (envAdmin) return envAdmin;
+
+  try {
+    return await authenticateFromDatabase(email, password);
+  } catch (error) {
+    console.error("[auth] Database authentication failed:", error);
+    return null;
+  }
 }

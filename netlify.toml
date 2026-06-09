@@ -8,8 +8,15 @@
 
 [build.environment]
   NODE_VERSION = "22"
-  # Required for prisma generate during npm install (override in Netlify UI for production DB)
+  NETLIFY = "true"
   DATABASE_URL = "file:./prisma/dev.db"
+  AUTH_SECRET = "mapims-change-this-secret-in-netlify-ui"
+  ADMIN_EMAIL = "admin@mapims.edu.in"
+  ADMIN_PASSWORD = "admin123"
+
+# Bundle SQLite DB into serverless functions for admin API routes
+[functions]
+  included_files = ["prisma/**", ".netlify/prisma/**", ".next/prisma/**", "node_modules/better-sqlite3/**"]
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
