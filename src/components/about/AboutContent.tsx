@@ -70,11 +70,18 @@ export default function AboutContent() {
   }, []);
 
   useEffect(() => {
-    const hash = window.location.hash.replace("#", "") as SectionId;
-    if (sidebarLinks.some((link) => link.id === hash)) {
+    const scrollToHashSection = () => {
+      const hash = window.location.hash.replace("#", "") as SectionId;
+      if (!sidebarLinks.some((link) => link.id === hash)) return;
+
       setActiveSection(hash);
       requestAnimationFrame(() => scrollToSection(hash));
-    }
+      setTimeout(() => scrollToSection(hash), 150);
+    };
+
+    scrollToHashSection();
+    window.addEventListener("hashchange", scrollToHashSection);
+    return () => window.removeEventListener("hashchange", scrollToHashSection);
   }, [scrollToSection]);
 
   const handleNavClick = (id: SectionId) => (e: React.MouseEvent) => {

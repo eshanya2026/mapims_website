@@ -10,5 +10,9 @@ export async function GET(request: Request) {
     orderBy: { createdAt: "desc" },
   });
 
-  return NextResponse.json(inquiries);
+  return NextResponse.json(inquiries, {
+    headers: {
+      "Cache-Control": "no-store, max-age=0",
+    },
+  });
 }

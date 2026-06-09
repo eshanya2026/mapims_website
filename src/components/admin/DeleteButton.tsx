@@ -7,13 +7,15 @@ import { Button } from "@/components/ui/button";
 type DeleteButtonProps = {
   endpoint: string;
   label?: string;
-  onDeleted?: () => void;
+  onDeleted?: () => void | Promise<void>;
+  skipRefresh?: boolean;
 };
 
 export default function DeleteButton({
   endpoint,
   label = "Delete",
   onDeleted,
+  skipRefresh = false,
 }: DeleteButtonProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -26,8 +28,10 @@ export default function DeleteButton({
     setLoading(false);
 
     if (response.ok) {
-      onDeleted?.();
-      router.refresh();
+      await onDeleted?.();
+      if (!skipRefresh) {
+        router.refresh();
+      }
     }
   }
 

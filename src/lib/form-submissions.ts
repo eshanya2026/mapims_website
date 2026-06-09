@@ -1,4 +1,7 @@
+import { formTypeLabels } from "@/lib/form-type-labels";
 import { getPrismaClient, prisma } from "@/lib/prisma";
+
+export { formTypeLabels };
 import type { z } from "zod";
 import type {
   appointmentFormSchema,
@@ -110,12 +113,6 @@ export async function createFormSubmission(data: FormSubmissionInput) {
     },
   });
 }
-
-export const formTypeLabels: Record<string, string> = {
-  appointment: "Appointment",
-  contact: "Contact",
-  international: "International inquiry",
-};
 
 export async function getInquiryCounts() {
   try {

@@ -69,11 +69,13 @@ export default function HealthPackages() {
             return (
               <motion.article
                 key={pkg.id}
+                id={`health-package-${pkg.id}`}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.08 }}
                 className={cn(
+                  "scroll-mt-28",
                   "relative rounded-2xl border-2 p-6 flex flex-col h-full transition-all duration-300",
                   isSelected
                     ? "border-emerald-500 bg-emerald-50/60 shadow-lg shadow-emerald-500/10"

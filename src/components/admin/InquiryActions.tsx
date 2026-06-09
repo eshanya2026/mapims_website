@@ -8,9 +8,10 @@ import DeleteButton from "@/components/admin/DeleteButton";
 type InquiryActionsProps = {
   id: string;
   status: string;
+  onUpdated?: () => void | Promise<void>;
 };
 
-export default function InquiryActions({ id, status }: InquiryActionsProps) {
+export default function InquiryActions({ id, status, onUpdated }: InquiryActionsProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +25,10 @@ export default function InquiryActions({ id, status }: InquiryActionsProps) {
     setLoading(false);
 
     if (response.ok) {
-      router.refresh();
+      await onUpdated?.();
+      if (!onUpdated) {
+        router.refresh();
+      }
     }
   }
 
@@ -52,7 +56,12 @@ export default function InquiryActions({ id, status }: InquiryActionsProps) {
           Archive
         </Button>
       ) : null}
-      <DeleteButton endpoint={`/api/admin/inquiries/${id}`} label="Delete" />
+      <DeleteButton
+        endpoint={`/api/admin/inquiries/${id}`}
+        label="Delete"
+        onDeleted={onUpdated}
+        skipRefresh={Boolean(onUpdated)}
+      />
     </div>
   );
 }

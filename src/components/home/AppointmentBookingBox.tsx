@@ -3,7 +3,16 @@
 import { useRef, useState } from "react";
 import { submitForm } from "@/lib/submit-form";
 import { motion } from "framer-motion";
-import { Calendar, Clock, User, Phone, Mail, Stethoscope, MessageSquare } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  User,
+  Phone,
+  Mail,
+  Stethoscope,
+  MessageSquare,
+  CheckCircle2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -50,17 +59,21 @@ export default function AppointmentBookingBox({
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
   const submittingRef = useRef(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (submittingRef.current || loading) return;
 
+    const form = formRef.current;
+    if (!form) return;
+
     submittingRef.current = true;
     setLoading(true);
     setError("");
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(form);
 
     try {
       await submitForm({
@@ -74,9 +87,8 @@ export default function AppointmentBookingBox({
         message: String(formData.get("message") ?? ""),
       });
 
+      form.reset();
       setSubmitted(true);
-      e.currentTarget.reset();
-      setTimeout(() => setSubmitted(false), 5000);
     } catch (submitError) {
       setError(
         submitError instanceof Error
@@ -133,7 +145,32 @@ export default function AppointmentBookingBox({
           </div>
         </div>
 
+        {submitted ? (
+          <div className="space-y-5 p-6 sm:p-8 text-center">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
+              <CheckCircle2 className="h-8 w-8 text-green-600" />
+            </div>
+            <div>
+              <h4 className="text-lg font-bold text-slate-900 sm:text-xl">
+                Appointment request received
+              </h4>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600 sm:text-base">
+                Thank you. Our patient services team has received your request and
+                will contact you shortly to confirm your appointment.
+              </p>
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              className="h-11 rounded-xl px-6"
+              onClick={() => setSubmitted(false)}
+            >
+              Book another appointment
+            </Button>
+          </div>
+        ) : (
         <form
+          ref={formRef}
           onSubmit={handleSubmit}
           className="space-y-4 p-4 sm:p-6"
           aria-busy={loading}
@@ -276,11 +313,7 @@ export default function AppointmentBookingBox({
             disabled={loading}
             className="w-full h-12 bg-red-600 hover:bg-red-600/90 text-white rounded-xl text-base font-semibold shadow-lg shadow-red-600/25 transition-all hover:shadow-xl hover:-translate-y-0.5"
           >
-            {loading
-              ? "Submitting..."
-              : submitted
-                ? "Request Submitted ✓"
-                : "Confirm Appointment"}
+            {loading ? "Submitting..." : "Confirm Appointment"}
           </Button>
 
           <p className="text-center text-xs text-slate-500">
@@ -294,6 +327,7 @@ export default function AppointmentBookingBox({
             </a>
           </p>
         </form>
+        )}
       </div>
     </motion.div>
   );

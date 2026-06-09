@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
-import { mapimsHealthCheckupUrl } from "@/data/site-links";
 import FooterNewsletter from "@/components/layout/FooterNewsletter";
 import FooterFindUs from "@/components/layout/FooterFindUs";
+import FooterQuickLinks from "@/components/layout/FooterQuickLinks";
 import { socialLinks } from "@/data/site-social";
 
 const departments = [
@@ -23,38 +23,6 @@ const departments = [
   "Otorhinolaryngology - ENT",
   "Urology",
 ];
-
-const healthCheckupLinks = [
-  "Master Health Check Up Package",
-  "Cardio Health Check Up Package",
-  "Well Women Checkup Executive Package",
-] as const;
-
-const quickLinks = [
-  "Mission & Vision",
-  "International Patients",
-  ...healthCheckupLinks,
-  "Blog",
-  "Appointment",
-  "Patient Feedback",
-  "Value Added Services",
-  "Contact",
-];
-
-function quickLinkHref(item: string): string {
-  if (item === "Appointment") return "#book-appointment";
-  if (item === "International Patients") return "/international";
-  if (item === "Contact") return "/contact";
-  if (item === "Value Added Services") return "/about#value-added-services";
-  if (item === "Mission & Vision") return "/about#mission-vision";
-  if (item === "Blog") return "/blog/health-insights";
-  if (
-    healthCheckupLinks.includes(item as (typeof healthCheckupLinks)[number])
-  ) {
-    return mapimsHealthCheckupUrl;
-  }
-  return "#";
-}
 
 function FooterHeading({ children }: { children: React.ReactNode }) {
   return (
@@ -120,32 +88,7 @@ export default function Footer() {
 
           <div>
             <FooterHeading>Quick Links</FooterHeading>
-            <ul className="space-y-2">
-              {quickLinks.map((item) => {
-                const href = quickLinkHref(item);
-                const isExternal = href.startsWith("http");
-                const className =
-                  "text-sm text-slate-400 hover:text-white transition-colors";
-                return (
-                  <li key={item}>
-                    {isExternal ? (
-                      <a
-                        href={href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={className}
-                      >
-                        {item}
-                      </a>
-                    ) : (
-                      <Link href={href} className={className}>
-                        {item}
-                      </Link>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
+            <FooterQuickLinks />
           </div>
 
           <div>
