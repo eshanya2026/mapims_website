@@ -67,70 +67,90 @@ function mapPost(post: {
   };
 }
 
-export async function getPublishedPosts(section?: BlogSection) {
-  const posts = await prisma.post.findMany({
-    where: {
-      published: true,
-      ...(section ? { section } : {}),
-    },
-    orderBy: { publishedAt: "desc" },
-  });
+async function safeQuery<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
+  try {
+    return await fn();
+  } catch (error) {
+    if (process.env.NODE_ENV === "development") {
+      console.warn("[content] Database query failed:", error);
+    }
+    return fallback;
+  }
+}
 
-  return posts.map(mapPost);
+export async function getPublishedPosts(section?: BlogSection) {
+  return safeQuery(async () => {
+    const posts = await prisma.post.findMany({
+      where: {
+        published: true,
+        ...(section ? { section } : {}),
+      },
+      orderBy: { publishedAt: "desc" },
+    });
+    return posts.map(mapPost);
+  }, []);
 }
 
 export async function getPublishedPostBySlug(slug: string) {
-  const post = await prisma.post.findFirst({
-    where: { slug, published: true },
-  });
-
-  return post ? mapPost(post) : null;
+  return safeQuery(async () => {
+    const post = await prisma.post.findFirst({
+      where: { slug, published: true },
+    });
+    return post ? mapPost(post) : null;
+  }, null);
 }
 
 export async function getAllPublishedPostSlugs() {
-  const posts = await prisma.post.findMany({
-    where: { published: true },
-    select: { slug: true },
-  });
-  return posts.map((post) => post.slug);
+  return safeQuery(async () => {
+    const posts = await prisma.post.findMany({
+      where: { published: true },
+      select: { slug: true },
+    });
+    return posts.map((post) => post.slug);
+  }, []);
 }
 
 export async function getFeaturedNewsAndEvents(limit = 3) {
-  const posts = await prisma.post.findMany({
-    where: {
-      published: true,
-      section: { in: ["hospital-news", "hospital-events"] },
-    },
-    orderBy: { publishedAt: "desc" },
-    take: limit,
-  });
-
-  return posts.map(mapPost);
+  return safeQuery(async () => {
+    const posts = await prisma.post.findMany({
+      where: {
+        published: true,
+        section: { in: ["hospital-news", "hospital-events"] },
+      },
+      orderBy: { publishedAt: "desc" },
+      take: limit,
+    });
+    return posts.map(mapPost);
+  }, []);
 }
 
 export async function getPublishedJobs() {
-  const jobs = await prisma.job.findMany({
-    where: { published: true },
-    orderBy: { postedAt: "desc" },
-  });
-
-  return jobs.map(mapJob);
+  return safeQuery(async () => {
+    const jobs = await prisma.job.findMany({
+      where: { published: true },
+      orderBy: { postedAt: "desc" },
+    });
+    return jobs.map(mapJob);
+  }, []);
 }
 
 export async function getPublishedJobBySlug(slug: string) {
-  const job = await prisma.job.findFirst({
-    where: { slug, published: true },
-  });
-
-  return job ? mapJob(job) : null;
+  return safeQuery(async () => {
+    const job = await prisma.job.findFirst({
+      where: { slug, published: true },
+    });
+    return job ? mapJob(job) : null;
+  }, null);
 }
 
 export async function getAllPublishedJobSlugs() {
-  const jobs = await prisma.job.findMany({
-    where: { published: true },
-    select: { slug: true },
-  });
-  return jobs.map((job) => job.slug);
+  return safeQuery(async () => {
+    const jobs = await prisma.job.findMany({
+      where: { published: true },
+      select: { slug: true },
+    });
+    return jobs.map((job) => job.slug);
+  }, []);
 }
 
 function mapJob(job: {

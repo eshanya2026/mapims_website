@@ -2,7 +2,8 @@
 # https://docs.netlify.com/frameworks/next-js/overview/
 
 [build]
-  command = "npm run build"
+  # Create SQLite schema + seed blog posts before Next.js pre-renders CMS pages
+  command = "npm run db:setup && npm run build"
   publish = ".next"
 
 [build.environment]
