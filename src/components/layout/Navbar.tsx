@@ -351,6 +351,8 @@ export default function Navbar() {
 
             <Link
               href={careersNavLink.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-3 py-2 text-sm font-medium text-slate-700 hover:text-red-600 transition-colors rounded-md hover:bg-slate-50"
             >
               {careersNavLink.name}
@@ -432,6 +434,8 @@ export default function Navbar() {
 
           <Link
             href={careersNavLink.href}
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-4 py-2 text-base font-medium text-slate-700 hover:text-red-600 hover:bg-slate-50 rounded-md"
             onClick={closeMobileMenu}
           >

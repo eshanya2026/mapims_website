@@ -65,9 +65,11 @@ export default function DigitalPatientExperience() {
               transition={{ duration: 0.8 }}
               className="relative z-10"
             >
-              <img 
-                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop" 
-                alt="Digital Healthcare App" 
+              <img
+                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop"
+                alt="Digital Healthcare App"
+                loading="lazy"
+                decoding="async"
                 className="rounded-3xl shadow-2xl border border-slate-800"
               />
               

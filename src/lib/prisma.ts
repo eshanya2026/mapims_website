@@ -4,11 +4,10 @@ import { resolveDatabaseUrl } from "@/lib/resolve-database-url";
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
-  prismaInitError: Error | undefined;
+  prismaUrl: string | undefined;
 };
 
-function createPrismaClient() {
-  const url = resolveDatabaseUrl();
+function createPrismaClient(url: string) {
   const adapter = new PrismaBetterSqlite3({ url });
   return new PrismaClient({
     adapter,
@@ -16,30 +15,29 @@ function createPrismaClient() {
   });
 }
 
-function getPrismaClient(): PrismaClient {
-  if (globalForPrisma.prismaInitError) {
-    throw globalForPrisma.prismaInitError;
-  }
+function hasExpectedModels(client: PrismaClient) {
+  return typeof client.formSubmission?.count === "function";
+}
 
-  if (!globalForPrisma.prisma) {
-    try {
-      globalForPrisma.prisma = createPrismaClient();
-    } catch (error) {
-      globalForPrisma.prismaInitError = error as Error;
-      throw error;
-    }
+export function getPrismaClient() {
+  const url = resolveDatabaseUrl();
+  const stale =
+    globalForPrisma.prisma &&
+    (!hasExpectedModels(globalForPrisma.prisma) || globalForPrisma.prismaUrl !== url);
+
+  if (!globalForPrisma.prisma || stale) {
+    void globalForPrisma.prisma?.$disconnect();
+    globalForPrisma.prisma = createPrismaClient(url);
+    globalForPrisma.prismaUrl = url;
   }
 
   return globalForPrisma.prisma;
 }
 
 export const prisma = new Proxy({} as PrismaClient, {
-  get(_target, property) {
+  get(_target, prop) {
     const client = getPrismaClient();
-    const value = client[property as keyof PrismaClient];
-    if (typeof value === "function") {
-      return value.bind(client);
-    }
-    return value;
+    const value = Reflect.get(client, prop, client);
+    return typeof value === "function" ? value.bind(client) : value;
   },
 });

@@ -11,7 +11,7 @@
     "postinstall": "prisma generate",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
-    "db:bundle": "mkdir -p .netlify/prisma .next/prisma && cp prisma/dev.db .netlify/prisma/dev.db && cp prisma/dev.db .next/prisma/dev.db",
+    "db:bundle": "mkdir -p .netlify/prisma && cp prisma/dev.db .netlify/prisma/dev.db",
     "db:setup": "prisma generate && prisma db push && tsx prisma/seed.ts && npm run db:bundle"
   },
   "prisma": {

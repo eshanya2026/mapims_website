@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, Newspaper, Briefcase, LogOut } from "lucide-react";
+import { LayoutDashboard, Newspaper, Briefcase, Inbox, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { href: "/admin/posts", label: "Posts", icon: Newspaper },
   { href: "/admin/jobs", label: "Careers", icon: Briefcase },
+  { href: "/admin/inquiries", label: "Inquiries", icon: Inbox },
 ];
 
 export default function AdminSidebar() {

@@ -27,6 +27,8 @@ export default function BlogGrid({ posts }: BlogGridProps) {
                 <img
                   src={post.image}
                   alt={post.title}
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute left-3 top-3 max-w-[calc(100%-1.5rem)] rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-red-600 backdrop-blur-sm sm:left-4 sm:top-4 sm:px-3 sm:text-xs">

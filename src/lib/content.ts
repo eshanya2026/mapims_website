@@ -22,9 +22,11 @@ export type ContentJob = {
   department: string;
   location: string;
   employmentType: string;
+  vacancy: number;
   summary: string;
   description: string;
   requirements: string;
+  qualifications: string;
   applyEmail: string | null;
   applyUrl: string | null;
   postedAt: string;
@@ -85,7 +87,7 @@ export async function getPublishedPosts(section?: BlogSection) {
         published: true,
         ...(section ? { section } : {}),
       },
-      orderBy: { publishedAt: "desc" },
+      orderBy: [{ sortOrder: "asc" }, { publishedAt: "desc" }],
     });
     return posts.map(mapPost);
   }, []);
@@ -117,7 +119,7 @@ export async function getFeaturedNewsAndEvents(limit = 3) {
         published: true,
         section: { in: ["hospital-news", "hospital-events"] },
       },
-      orderBy: { publishedAt: "desc" },
+      orderBy: [{ sortOrder: "asc" }, { publishedAt: "desc" }],
       take: limit,
     });
     return posts.map(mapPost);
@@ -160,9 +162,11 @@ function mapJob(job: {
   department: string;
   location: string;
   employmentType: string;
+  vacancy: number;
   summary: string;
   description: string;
   requirements: string;
+  qualifications: string;
   applyEmail: string | null;
   applyUrl: string | null;
   postedAt: Date;
@@ -175,9 +179,11 @@ function mapJob(job: {
     department: job.department,
     location: job.location,
     employmentType: job.employmentType,
+    vacancy: job.vacancy,
     summary: job.summary,
     description: job.description,
     requirements: job.requirements,
+    qualifications: job.qualifications,
     applyEmail: job.applyEmail,
     applyUrl: job.applyUrl,
     postedAt: formatDate(job.postedAt),

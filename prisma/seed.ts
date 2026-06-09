@@ -22,10 +22,15 @@ async function main() {
     },
   });
 
+  const sortOrderBySection: Record<string, number> = {};
+
   for (const post of blogPosts) {
+    const sortOrder = sortOrderBySection[post.section] ?? 0;
+    sortOrderBySection[post.section] = sortOrder + 1;
+
     await prisma.post.upsert({
       where: { slug: post.slug },
-      update: {},
+      update: { sortOrder },
       create: {
         slug: post.slug,
         title: post.title,
@@ -35,6 +40,7 @@ async function main() {
         author: post.author ?? null,
         category: post.category,
         section: post.section,
+        sortOrder,
         published: true,
         publishedAt: new Date(post.date),
       },

@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
-import { getAuthSecretKey } from "@/lib/auth-secret";
 
 const COOKIE_NAME = "mapims_admin_session";
 
@@ -9,8 +8,11 @@ async function isAuthenticated(request: NextRequest) {
   const token = request.cookies.get(COOKIE_NAME)?.value;
   if (!token) return false;
 
+  const secret = process.env.AUTH_SECRET;
+  if (!secret) return false;
+
   try {
-    await jwtVerify(token, getAuthSecretKey());
+    await jwtVerify(token, new TextEncoder().encode(secret));
     return true;
   } catch {
     return false;

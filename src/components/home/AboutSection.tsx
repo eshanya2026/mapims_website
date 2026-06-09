@@ -57,6 +57,8 @@ export default function AboutSection() {
 
             <div className="relative rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/80 aspect-[4/3] lg:aspect-[16/10] border-[5px] border-white">
               <img
+                loading="lazy"
+                decoding="async"
                 src="/images/hospital-casualty-emergency.png"
                 alt="Adhiparasakthi Hospital Casualty and Emergency Care"
                 className="w-full h-full object-cover object-center"

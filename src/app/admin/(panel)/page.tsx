@@ -1,23 +1,28 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { getInquiryCounts } from "@/lib/form-submissions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
-import { Newspaper, Briefcase, Plus } from "lucide-react";
+import { Newspaper, Briefcase, Inbox, Plus } from "lucide-react";
 
 export default async function AdminDashboardPage() {
-  const [postCount, publishedPosts, jobCount, publishedJobs] = await Promise.all([
-    prisma.post.count(),
-    prisma.post.count({ where: { published: true } }),
-    prisma.job.count(),
-    prisma.job.count({ where: { published: true } }),
-  ]);
+  const [postCount, publishedPosts, jobCount, publishedJobs, inquiryCounts] =
+    await Promise.all([
+      prisma.post.count(),
+      prisma.post.count({ where: { published: true } }),
+      prisma.job.count(),
+      prisma.job.count({ where: { published: true } }),
+      getInquiryCounts(),
+    ]);
+
+  const { total: inquiryCount, new: newInquiries } = inquiryCounts;
 
   return (
     <div className="p-8">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
         <p className="mt-1 text-sm text-slate-500">
-          Manage hospital news, events, health insights, and career openings.
+          Manage hospital news, events, health insights, career openings, and form inquiries.
         </p>
       </div>
 
@@ -40,9 +45,18 @@ export default async function AdminDashboardPage() {
             <p className="mt-1 text-xs text-slate-500">{publishedJobs} published</p>
           </CardContent>
         </Card>
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-slate-500">Form inquiries</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-3xl font-bold text-slate-900">{inquiryCount}</p>
+            <p className="mt-1 text-xs text-slate-500">{newInquiries} new</p>
+          </CardContent>
+        </Card>
       </div>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
@@ -80,6 +94,19 @@ export default async function AdminDashboardPage() {
             </Link>
             <Link href="/admin/jobs" className={buttonVariants({ variant: "outline" })}>
               View all jobs
+            </Link>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-lg">
+              <Inbox className="h-5 w-5 text-red-600" />
+              Inquiries
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Link href="/admin/inquiries" className={buttonVariants({ variant: "outline" })}>
+              View form submissions
             </Link>
           </CardContent>
         </Card>

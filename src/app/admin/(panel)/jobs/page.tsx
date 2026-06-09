@@ -33,6 +33,7 @@ export default async function AdminJobsPage() {
             <tr>
               <th className="px-4 py-3 font-medium">Title</th>
               <th className="px-4 py-3 font-medium">Department</th>
+              <th className="px-4 py-3 font-medium">Vacancy</th>
               <th className="px-4 py-3 font-medium">Status</th>
               <th className="px-4 py-3 font-medium">Posted</th>
               <th className="px-4 py-3 font-medium">Actions</th>
@@ -43,6 +44,7 @@ export default async function AdminJobsPage() {
               <tr key={job.id} className="border-b border-slate-100 last:border-0">
                 <td className="px-4 py-3 font-medium text-slate-900">{job.title}</td>
                 <td className="px-4 py-3 text-slate-600">{job.department}</td>
+                <td className="px-4 py-3 text-slate-600">{job.vacancy ?? 1}</td>
                 <td className="px-4 py-3">
                   <span
                     className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold ${

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { submitForm } from "@/lib/submit-form";
 import { motion } from "framer-motion";
 import { Calendar, Clock, User, Phone, Mail, Stethoscope, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -47,11 +48,45 @@ export default function AppointmentBookingBox({
   className,
 }: AppointmentBookingBoxProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const submittingRef = useRef(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
+    if (submittingRef.current || loading) return;
+
+    submittingRef.current = true;
+    setLoading(true);
+    setError("");
+
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      await submitForm({
+        type: "appointment",
+        name: String(formData.get("name") ?? ""),
+        phone: String(formData.get("phone") ?? ""),
+        email: String(formData.get("email") ?? ""),
+        department: String(formData.get("department") ?? ""),
+        date: String(formData.get("date") ?? ""),
+        time: String(formData.get("time") ?? ""),
+        message: String(formData.get("message") ?? ""),
+      });
+
+      setSubmitted(true);
+      e.currentTarget.reset();
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (submitError) {
+      setError(
+        submitError instanceof Error
+          ? submitError.message
+          : "Unable to submit your request."
+      );
+    } finally {
+      submittingRef.current = false;
+      setLoading(false);
+    }
   };
 
   const fieldId = (name: string) => `${idPrefix}${name}`;
@@ -98,7 +133,11 @@ export default function AppointmentBookingBox({
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4 p-4 sm:p-6">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4 p-4 sm:p-6"
+          aria-busy={loading}
+        >
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="space-y-1.5">
@@ -228,11 +267,20 @@ export default function AppointmentBookingBox({
             </div>
           </div>
 
+          {error ? (
+            <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>
+          ) : null}
+
           <Button
             type="submit"
+            disabled={loading}
             className="w-full h-12 bg-red-600 hover:bg-red-600/90 text-white rounded-xl text-base font-semibold shadow-lg shadow-red-600/25 transition-all hover:shadow-xl hover:-translate-y-0.5"
           >
-            {submitted ? "Request Submitted ✓" : "Confirm Appointment"}
+            {loading
+              ? "Submitting..."
+              : submitted
+                ? "Request Submitted ✓"
+                : "Confirm Appointment"}
           </Button>
 
           <p className="text-center text-xs text-slate-500">

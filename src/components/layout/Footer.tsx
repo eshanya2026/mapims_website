@@ -32,7 +32,6 @@ const healthCheckupLinks = [
 
 const quickLinks = [
   "Mission & Vision",
-  "Charity Initiatives",
   "International Patients",
   ...healthCheckupLinks,
   "Blog",

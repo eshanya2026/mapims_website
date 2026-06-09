@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Send, MessageCircle } from "lucide-react";
 import { internationalDesk } from "@/data/international-patients";
 import { cn } from "@/lib/utils";
+import { submitForm } from "@/lib/submit-form";
 
 type FormState = {
   name: string;
@@ -40,6 +41,11 @@ export default function InternationalDeskInquiryForm() {
     medicalCondition: false,
     message: false,
   });
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const submittingRef = useRef(false);
+  const savedInquiryKeyRef = useRef<string | null>(null);
 
   const errors = useMemo(() => {
     const name = trim(state.name);
@@ -91,24 +97,85 @@ export default function InternationalDeskInquiryForm() {
       trim(state.message),
     ].join("\n");
 
-  const onSubmit = (e: React.FormEvent) => {
+  function inquiryPayload() {
+    return {
+      type: "international" as const,
+      name: trim(state.name),
+      country: trim(state.country),
+      email: trim(state.email),
+      phone: trim(state.phone),
+      medicalCondition: trim(state.medicalCondition),
+      message: trim(state.message),
+    };
+  }
+
+  function inquiryKey() {
+    return JSON.stringify(inquiryPayload());
+  }
+
+  async function saveInquiry() {
+    const key = inquiryKey();
+    if (savedInquiryKeyRef.current === key) {
+      return;
+    }
+
+    await submitForm(inquiryPayload());
+    savedInquiryKeyRef.current = key;
+  }
+
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     markAllTouched();
-    if (hasError) return;
+    if (hasError || submittingRef.current || loading) return;
 
-    const subject = encodeURIComponent(
-      "International Patient Inquiry — Adhiparasakthi Hospital"
-    );
-    const body = encodeURIComponent(buildBody());
-    window.location.href = `${internationalDesk.mailto}?subject=${subject}&body=${body}`;
+    submittingRef.current = true;
+    setLoading(true);
+    setSubmitError("");
+
+    try {
+      await saveInquiry();
+      setSubmitted(true);
+      savedInquiryKeyRef.current = null;
+      setState(INITIAL);
+      setTouched({
+        name: false,
+        country: false,
+        email: false,
+        phone: false,
+        medicalCondition: false,
+        message: false,
+      });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error ? error.message : "Unable to submit your inquiry."
+      );
+    } finally {
+      submittingRef.current = false;
+      setLoading(false);
+    }
   };
 
-  const onWhatsApp = () => {
+  const onWhatsApp = async () => {
     markAllTouched();
-    if (hasError) return;
+    if (hasError || submittingRef.current || loading) return;
 
-    const text = encodeURIComponent(buildBody());
-    window.open(`${internationalDesk.whatsappUrl}?text=${text}`, "_blank");
+    submittingRef.current = true;
+    setLoading(true);
+    setSubmitError("");
+
+    try {
+      await saveInquiry();
+      const text = encodeURIComponent(buildBody());
+      window.open(`${internationalDesk.whatsappUrl}?text=${text}`, "_blank");
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error ? error.message : "Unable to submit your inquiry."
+      );
+    } finally {
+      submittingRef.current = false;
+      setLoading(false);
+    }
   };
 
   const err = (key: keyof FormState) => (touched[key] ? errors[key] : "");
@@ -122,7 +189,7 @@ export default function InternationalDeskInquiryForm() {
         Share your details and our international coordinators will respond.
       </p>
 
-      <form onSubmit={onSubmit} className="mt-6 space-y-4">
+      <form onSubmit={onSubmit} className="mt-6 space-y-4" aria-busy={loading}>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label className="mb-1 block text-sm font-semibold text-slate-900" htmlFor="intl-inq-name">
@@ -219,18 +286,29 @@ export default function InternationalDeskInquiryForm() {
           </div>
         </div>
 
+        {submitError ? (
+          <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{submitError}</p>
+        ) : null}
+        {submitted ? (
+          <p className="rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700">
+            Thank you. Our international patient desk has received your inquiry.
+          </p>
+        ) : null}
+
         <div className="flex flex-col gap-3 border-t border-slate-100 pt-6 sm:flex-row">
           <button
             type="submit"
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-red-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-red-600/20 transition hover:bg-red-700"
+            disabled={loading}
+            className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-red-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-red-600/20 transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-70"
           >
             <Send className="h-4 w-4" />
-            Submit Inquiry
+            {loading ? "Submitting..." : "Submit Inquiry"}
           </button>
           <button
             type="button"
             onClick={onWhatsApp}
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-emerald-600 bg-emerald-50 px-6 py-3 text-sm font-semibold text-emerald-800 transition hover:bg-emerald-100"
+            disabled={loading}
+            className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-emerald-600 bg-emerald-50 px-6 py-3 text-sm font-semibold text-emerald-800 transition hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-70"
           >
             <MessageCircle className="h-4 w-4" />
             WhatsApp Us

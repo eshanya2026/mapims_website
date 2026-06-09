@@ -14,9 +14,10 @@ type JobFormData = {
   department: string;
   location: string;
   employmentType: string;
-  summary: string;
+  vacancy: number;
   description: string;
   requirements: string;
+  qualifications: string;
   applyEmail: string;
   applyUrl: string;
   published: boolean;
@@ -39,9 +40,10 @@ export default function JobForm({ initial, mode }: JobFormProps) {
     department: initial?.department ?? "",
     location: initial?.location ?? "Melmaruvathur, Tamil Nadu",
     employmentType: initial?.employmentType ?? "Full-time",
-    summary: initial?.summary ?? "",
+    vacancy: initial?.vacancy ?? 1,
     description: initial?.description ?? "",
     requirements: initial?.requirements ?? "",
+    qualifications: initial?.qualifications ?? "",
     applyEmail: initial?.applyEmail ?? "",
     applyUrl: initial?.applyUrl ?? "",
     published: initial?.published ?? false,
@@ -69,7 +71,11 @@ export default function JobForm({ initial, mode }: JobFormProps) {
     const response = await fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify({
+        ...form,
+        applyUrl:
+          form.applyUrl === "https://" || form.applyUrl === "http://" ? "" : form.applyUrl,
+      }),
     });
 
     if (!response.ok) {
@@ -136,20 +142,23 @@ export default function JobForm({ initial, mode }: JobFormProps) {
           />
         </div>
         <div>
+          <label className="mb-1.5 block text-sm font-medium">Vacancy</label>
+          <Input
+            type="number"
+            min={1}
+            value={form.vacancy}
+            onChange={(e) =>
+              updateField("vacancy", Math.max(1, Number.parseInt(e.target.value, 10) || 1))
+            }
+            required
+          />
+        </div>
+        <div>
           <label className="mb-1.5 block text-sm font-medium">Closing date</label>
           <Input
             type="date"
             value={form.closingDate}
             onChange={(e) => updateField("closingDate", e.target.value)}
-          />
-        </div>
-        <div className="sm:col-span-2">
-          <label className="mb-1.5 block text-sm font-medium">Summary</label>
-          <Textarea
-            value={form.summary}
-            onChange={(e) => updateField("summary", e.target.value)}
-            required
-            className="min-h-[80px]"
           />
         </div>
         <div className="sm:col-span-2">
@@ -159,6 +168,15 @@ export default function JobForm({ initial, mode }: JobFormProps) {
             onChange={(e) => updateField("description", e.target.value)}
             required
             className="min-h-[160px]"
+          />
+        </div>
+        <div className="sm:col-span-2">
+          <label className="mb-1.5 block text-sm font-medium">Qualifications</label>
+          <Textarea
+            value={form.qualifications}
+            onChange={(e) => updateField("qualifications", e.target.value)}
+            className="min-h-[120px]"
+            placeholder="e.g. MBBS, MD, B.Sc Nursing — one per line"
           />
         </div>
         <div className="sm:col-span-2">
@@ -184,7 +202,7 @@ export default function JobForm({ initial, mode }: JobFormProps) {
           <Input
             value={form.applyUrl}
             onChange={(e) => updateField("applyUrl", e.target.value)}
-            placeholder="https://"
+            placeholder="Optional — full URL including https://"
           />
         </div>
         <label className="flex items-center gap-2 text-sm sm:col-span-2">

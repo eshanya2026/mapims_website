@@ -8,15 +8,15 @@
 
 [build.environment]
   NODE_VERSION = "22"
-  NETLIFY = "true"
   DATABASE_URL = "file:./prisma/dev.db"
+  # Override AUTH_SECRET in Netlify UI → Site settings → Environment variables
   AUTH_SECRET = "mapims-change-this-secret-in-netlify-ui"
   ADMIN_EMAIL = "admin@mapims.edu.in"
   ADMIN_PASSWORD = "admin123"
 
 # Bundle SQLite DB into serverless functions for admin API routes
 [functions]
-  included_files = ["prisma/**", ".netlify/prisma/**", ".next/prisma/**", "node_modules/better-sqlite3/**"]
+  included_files = ["prisma/dev.db", ".netlify/prisma/dev.db"]
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

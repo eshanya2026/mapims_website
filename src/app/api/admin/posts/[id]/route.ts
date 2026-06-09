@@ -22,8 +22,13 @@ export async function PUT(request: Request, context: RouteContext) {
     const parsed = postSchema.safeParse(body);
 
     if (!parsed.success) {
+      const fieldErrors = parsed.error.flatten().fieldErrors;
+      const message =
+        fieldErrors.title?.[0] ??
+        fieldErrors.slug?.[0] ??
+        "Please check the form fields and try again.";
       return NextResponse.json(
-        { error: "Validation failed", details: parsed.error.flatten() },
+        { error: message, details: parsed.error.flatten() },
         { status: 400 }
       );
     }
@@ -47,8 +52,13 @@ export async function PUT(request: Request, context: RouteContext) {
     revalidateBlogPaths(existing.section, data.section, post.slug);
 
     return NextResponse.json(post);
-  } catch {
-    return NextResponse.json({ error: "Failed to update post" }, { status: 500 });
+  } catch (error) {
+    console.error("[admin/posts PUT]", error);
+    const message =
+      error instanceof Error && error.message.includes("Unique constraint")
+        ? "A post with this slug already exists"
+        : "Failed to update post";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 

@@ -56,17 +56,18 @@ function MilestoneCard({
         "rounded-2xl border bg-white p-5 shadow-sm md:p-6",
         isLast
           ? "border-red-200 shadow-md ring-1 ring-red-100"
-          : "border-slate-200",
-        alignRight && "md:text-right"
+          : "border-slate-200"
       )}
     >
-      <p className="text-sm font-bold uppercase tracking-wider text-red-600">
-        {item.year}
-      </p>
-      <h3 className="mt-1 text-lg font-bold text-slate-900 md:text-xl">
-        {item.title}
-      </h3>
-      <p className="mt-2 text-sm leading-relaxed text-slate-600 md:text-base">
+      <div className={cn(alignRight && "md:text-right")}>
+        <p className="text-sm font-bold uppercase tracking-wider text-red-600">
+          {item.year}
+        </p>
+        <h3 className="mt-1 text-lg font-bold text-slate-900 md:text-xl">
+          {item.title}
+        </h3>
+      </div>
+      <p className="mt-2 text-pretty text-sm normal-case leading-relaxed tracking-normal text-slate-600 [word-spacing:normal] md:text-base">
         {item.description}
       </p>
     </div>

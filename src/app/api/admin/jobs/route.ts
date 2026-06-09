@@ -16,8 +16,13 @@ export async function POST(request: Request) {
     const parsed = jobSchema.safeParse(body);
 
     if (!parsed.success) {
+      const fieldErrors = parsed.error.flatten().fieldErrors;
+      const message =
+        fieldErrors.title?.[0] ??
+        fieldErrors.applyUrl?.[0] ??
+        "Please check the form fields and try again.";
       return NextResponse.json(
-        { error: "Validation failed", details: parsed.error.flatten() },
+        { error: message, details: parsed.error.flatten() },
         { status: 400 }
       );
     }
@@ -30,9 +35,11 @@ export async function POST(request: Request) {
         department: data.department,
         location: data.location,
         employmentType: data.employmentType,
+        vacancy: data.vacancy,
         summary: data.summary,
         description: data.description,
         requirements: data.requirements,
+        qualifications: data.qualifications ?? "",
         applyEmail: data.applyEmail || null,
         applyUrl: data.applyUrl || null,
         published: data.published,
@@ -43,7 +50,12 @@ export async function POST(request: Request) {
     revalidatePath("/careers");
 
     return NextResponse.json(job, { status: 201 });
-  } catch {
-    return NextResponse.json({ error: "Failed to create job" }, { status: 500 });
+  } catch (error) {
+    console.error("[admin/jobs POST]", error);
+    const message =
+      error instanceof Error && error.message.includes("Unique constraint")
+        ? "A job with this slug already exists"
+        : "Failed to create job";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

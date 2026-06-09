@@ -10,30 +10,35 @@ const doctors = [
     name: "Dr.T.Ramesh",
     specialty: "Medical Director",
     image: "/images/doctor/ramesh.jpg",
+    bio: "Leads MAPIMS with a focus on clinical excellence, patient safety, and coordinated care across all specialties.",
   },
   {
     id: 2,
     name: "Dr. S. KUMARESAN",
     specialty: "Head of Transplant Anesthesia",
     image: "/images/doctor/Dr.Kumaresan.jpg",
+    bio: "Specialises in anaesthesia for organ transplant and high-risk surgeries, ensuring safe perioperative care at every stage.",
   },
   {
     id: 3,
     name: "DR.R. RAMA KRISHNAN",
     specialty: "Consultant Urologist",
     image: "/images/doctor/ramakrishan.jpg",
+    bio: "Provides expert diagnosis and treatment for urological conditions, from kidney stones to advanced endoscopic procedures.",
   },
   {
     id: 4,
     name: "Dr. Umesh Raj Somasundaram",
     specialty: "Advanced Laparoscopic & General Surgery",
     image: "/images/doctor/Dr.UmeshRaj.jpg",
+    bio: "Performs minimally invasive laparoscopic and general surgical procedures with a focus on faster recovery and precise outcomes.",
   },
   {
     id: 5,
     name: "Dr A. Rekha",
     specialty: "Medical Superintendent",
     image: "/images/doctor/rekha.jpg",
+    bio: "Oversees hospital operations and quality standards, ensuring smooth, compassionate care for every patient who walks through our doors.",
   },
 ];
 
@@ -52,6 +57,8 @@ function DoctorPortrait({ image, name }: { image: string; name: string }) {
         <img
           src={image}
           alt={name}
+          loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
         />
       </div>
@@ -149,14 +156,13 @@ export default function DoctorShowcase() {
                           {doctor.specialty}
                         </p>
                         <p className="mt-3 text-sm leading-relaxed text-slate-500">
-                          Dedicated to providing expert diagnosis, personalised treatment,
-                          and compassionate care for every patient.
+                          {doctor.bio}
                         </p>
                       </div>
 
                       <Link
                         href="/#book-appointment"
-                        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-red-600 hover:shadow-lg hover:shadow-red-600/25 sm:w-fit"
+                        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-red-600 bg-white px-6 py-3 text-sm font-semibold text-red-600 shadow-sm transition-all hover:bg-red-600 hover:text-white hover:shadow-lg hover:shadow-red-600/25 sm:w-fit"
                       >
                         Book Consult
                         <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

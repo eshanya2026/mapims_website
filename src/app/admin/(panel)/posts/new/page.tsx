@@ -1,5 +1,11 @@
-import PostForm from "@/components/admin/PostForm";
+import { redirect } from "next/navigation";
 
-export default function NewPostPage() {
-  return <PostForm mode="create" />;
+type NewPostPageProps = {
+  searchParams: Promise<{ section?: string }>;
+};
+
+export default async function NewPostPage({ searchParams }: NewPostPageProps) {
+  const { section } = await searchParams;
+  const query = section ? `?new=1&section=${section}` : "?new=1";
+  redirect(`/admin/posts${query}`);
 }

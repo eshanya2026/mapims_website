@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Send } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { submitForm } from "@/lib/submit-form";
 
 type FormState = {
   name: string;
@@ -34,6 +35,10 @@ export default function ContactForm({ className }: ContactFormProps) {
     email: false,
     message: false,
   });
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const submittingRef = useRef(false);
 
   const errors = useMemo(() => {
     const name = normalizeSpaces(state.name);
@@ -61,25 +66,36 @@ export default function ContactForm({ className }: ContactFormProps) {
     Boolean(errors.email) ||
     Boolean(errors.message);
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setTouched({ name: true, phone: true, email: true, message: true });
-    if (hasAnyError) return;
+    if (hasAnyError || submittingRef.current || loading) return;
 
-    const subject = encodeURIComponent(
-      "Website enquiry — Adhiparasakthi Hospital"
-    );
-    const body = encodeURIComponent(
-      [
-        `Name: ${normalizeSpaces(state.name)}`,
-        `Phone: ${normalizeSpaces(state.phone) || "-"}`,
-        `Email: ${normalizeSpaces(state.email) || "-"}`,
-        "",
-        normalizeSpaces(state.message),
-      ].join("\n")
-    );
+    submittingRef.current = true;
+    setLoading(true);
+    setSubmitError("");
 
-    window.location.href = `mailto:contact@mapims.edu.in?subject=${subject}&body=${body}`;
+    try {
+      await submitForm({
+        type: "contact",
+        name: normalizeSpaces(state.name),
+        phone: normalizeSpaces(state.phone),
+        email: normalizeSpaces(state.email),
+        message: normalizeSpaces(state.message),
+      });
+
+      setSubmitted(true);
+      setState(INITIAL_STATE);
+      setTouched({ name: false, phone: false, email: false, message: false });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (error) {
+      setSubmitError(
+        error instanceof Error ? error.message : "Unable to send your message."
+      );
+    } finally {
+      submittingRef.current = false;
+      setLoading(false);
+    }
   };
 
   const fieldError = (key: keyof FormState) =>
@@ -199,19 +215,24 @@ export default function ContactForm({ className }: ContactFormProps) {
         </div>
 
         <div className="mt-5 border-t border-slate-100 pt-5">
+          {submitError ? (
+            <p className="mb-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
+              {submitError}
+            </p>
+          ) : null}
+          {submitted ? (
+            <p className="mb-3 rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700">
+              Thank you. Your message has been received and our team will respond soon.
+            </p>
+          ) : null}
           <button
             type="submit"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-red-700/25 transition-all duration-200 hover:-translate-y-0.5 hover:bg-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:w-auto sm:min-w-[200px]"
+            disabled={loading}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-red-700/25 transition-all duration-200 hover:-translate-y-0.5 hover:bg-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto sm:min-w-[200px]"
           >
             <Send className="h-4 w-4" />
-            Send message
+            {loading ? "Sending..." : "Send message"}
           </button>
-          <p className="mt-2.5 text-xs text-slate-500">
-            Opens your email app to send to{" "}
-            <span className="font-medium text-slate-700">
-              contact@mapims.edu.in
-            </span>
-          </p>
         </div>
       </form>
     </div>
