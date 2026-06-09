@@ -70,6 +70,17 @@ Uploaded images are stored in `public/uploads/`.
 - For **Vercel** or serverless hosting, switch `DATABASE_URL` to PostgreSQL (Neon, Supabase, etc.) and use cloud storage for uploads instead of the local `public/uploads/` folder.
 - Set a strong `AUTH_SECRET` in production.
 
+### Netlify
+
+In **Site settings → Environment variables**, add:
+
+| Variable | Example |
+|----------|---------|
+| `DATABASE_URL` | `postgresql://user:pass@host/db?sslmode=require` (Neon/Supabase) |
+| `AUTH_SECRET` | long random string |
+
+`prisma generate` runs on `npm install`. `netlify.toml` sets a default `DATABASE_URL` so builds succeed before you configure a production database. For a live CMS on Netlify, use PostgreSQL — SQLite does not persist on serverless.
+
 ## Useful commands
 
 ```bash
