@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { prisma } from "@/lib/prisma";
+import { deletePost, findPostById, updatePost } from "@/lib/db/posts";
+import { isDuplicateKeyError } from "@/lib/db/utils";
 import { postSchema } from "@/lib/validations";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
 export async function GET(_request: Request, context: RouteContext) {
   const { id } = await context.params;
-  const post = await prisma.post.findUnique({ where: { id } });
+  const post = await findPostById(id);
   if (!post) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
@@ -33,31 +34,31 @@ export async function PUT(request: Request, context: RouteContext) {
       );
     }
 
-    const existing = await prisma.post.findUnique({ where: { id } });
+    const existing = await findPostById(id);
     if (!existing) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
     const data = parsed.data;
-    const post = await prisma.post.update({
-      where: { id },
-      data: {
-        ...data,
-        author: data.author || null,
-        publishedAt:
-          data.published && !existing.published ? new Date() : existing.publishedAt,
-      },
+    const post = await updatePost(id, {
+      ...data,
+      author: data.author || null,
+      publishedAt:
+        data.published && !existing.published ? new Date() : existing.publishedAt,
     });
+
+    if (!post) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
 
     revalidateBlogPaths(existing.section, data.section, post.slug);
 
     return NextResponse.json(post);
   } catch (error) {
     console.error("[admin/posts PUT]", error);
-    const message =
-      error instanceof Error && error.message.includes("Unique constraint")
-        ? "A post with this slug already exists"
-        : "Failed to update post";
+    const message = isDuplicateKeyError(error)
+      ? "A post with this slug already exists"
+      : "Failed to update post";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
@@ -65,12 +66,12 @@ export async function PUT(request: Request, context: RouteContext) {
 export async function DELETE(_request: Request, context: RouteContext) {
   const { id } = await context.params;
 
-  const existing = await prisma.post.findUnique({ where: { id } });
+  const existing = await findPostById(id);
   if (!existing) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  await prisma.post.delete({ where: { id } });
+  await deletePost(id);
   revalidateBlogPaths(existing.section, undefined, existing.slug);
 
   return NextResponse.json({ ok: true });

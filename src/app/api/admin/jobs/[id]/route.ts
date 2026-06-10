@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { prisma } from "@/lib/prisma";
+import { deleteJob, findJobById, updateJob } from "@/lib/db/jobs";
+import { isDuplicateKeyError } from "@/lib/db/utils";
 import { jobSchema } from "@/lib/validations";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
 export async function GET(_request: Request, context: RouteContext) {
   const { id } = await context.params;
-  const job = await prisma.job.findUnique({ where: { id } });
+  const job = await findJobById(id);
   if (!job) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
@@ -33,31 +34,32 @@ export async function PUT(request: Request, context: RouteContext) {
       );
     }
 
-    const existing = await prisma.job.findUnique({ where: { id } });
+    const existing = await findJobById(id);
     if (!existing) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
     const data = parsed.data;
-    const job = await prisma.job.update({
-      where: { id },
-      data: {
-        title: data.title,
-        slug: data.slug,
-        department: data.department,
-        location: data.location,
-        employmentType: data.employmentType,
-        vacancy: data.vacancy,
-        summary: data.summary,
-        description: data.description,
-        requirements: data.requirements,
-        qualifications: data.qualifications ?? "",
-        applyEmail: data.applyEmail || null,
-        applyUrl: data.applyUrl || null,
-        published: data.published,
-        closingDate: data.closingDate ? new Date(data.closingDate) : null,
-      },
+    const job = await updateJob(id, {
+      title: data.title,
+      slug: data.slug,
+      department: data.department,
+      location: data.location,
+      employmentType: data.employmentType,
+      vacancy: data.vacancy,
+      summary: data.summary,
+      description: data.description,
+      requirements: data.requirements,
+      qualifications: data.qualifications ?? "",
+      applyEmail: data.applyEmail || null,
+      applyUrl: data.applyUrl || null,
+      published: data.published,
+      closingDate: data.closingDate ? new Date(data.closingDate) : null,
     });
+
+    if (!job) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
 
     revalidatePath("/careers");
     revalidatePath(`/careers/${job.slug}`);
@@ -65,10 +67,9 @@ export async function PUT(request: Request, context: RouteContext) {
     return NextResponse.json(job);
   } catch (error) {
     console.error("[admin/jobs PUT]", error);
-    const message =
-      error instanceof Error && error.message.includes("Unique constraint")
-        ? "A job with this slug already exists"
-        : "Failed to update job";
+    const message = isDuplicateKeyError(error)
+      ? "A job with this slug already exists"
+      : "Failed to update job";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
@@ -76,12 +77,12 @@ export async function PUT(request: Request, context: RouteContext) {
 export async function DELETE(_request: Request, context: RouteContext) {
   const { id } = await context.params;
 
-  const existing = await prisma.job.findUnique({ where: { id } });
+  const existing = await findJobById(id);
   if (!existing) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  await prisma.job.delete({ where: { id } });
+  await deleteJob(id);
   revalidatePath("/careers");
   revalidatePath(`/careers/${existing.slug}`);
 

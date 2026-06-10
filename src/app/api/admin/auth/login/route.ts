@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { authenticateAdmin, createSession } from "@/lib/auth";
+import { getDefaultAdminPath, isAdminRole } from "@/lib/admin-roles";
 import { loginSchema } from "@/lib/validations";
 
 export async function POST(request: Request) {
@@ -12,7 +13,7 @@ export async function POST(request: Request) {
     }
 
     const admin = await authenticateAdmin(parsed.data.email, parsed.data.password);
-    if (!admin) {
+    if (!admin || !isAdminRole(admin.role)) {
       return NextResponse.json({ error: "Invalid email or password" }, { status: 401 });
     }
 
@@ -20,7 +21,12 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       ok: true,
-      admin: { email: admin.email, name: admin.name },
+      admin: {
+        email: admin.email,
+        name: admin.name,
+        role: admin.role,
+      },
+      defaultPath: getDefaultAdminPath(admin.role),
     });
   } catch (error) {
     console.error("[admin/login]", error);

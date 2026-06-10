@@ -1,12 +1,15 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { prisma } from "@/lib/prisma";
+import {
+  createPost,
+  getMaxSortOrderInSection,
+  listPosts,
+} from "@/lib/db/posts";
+import { isDuplicateKeyError } from "@/lib/db/utils";
 import { postSchema } from "@/lib/validations";
 
 export async function GET() {
-  const posts = await prisma.post.findMany({
-    orderBy: [{ section: "asc" }, { sortOrder: "asc" }, { publishedAt: "desc" }],
-  });
+  const posts = await listPosts();
   return NextResponse.json(posts);
 }
 
@@ -29,19 +32,13 @@ export async function POST(request: Request) {
     }
 
     const data = parsed.data;
-    const lastInSection = await prisma.post.findFirst({
-      where: { section: data.section },
-      orderBy: { sortOrder: "desc" },
-      select: { sortOrder: true },
-    });
+    const maxSortOrder = await getMaxSortOrderInSection(data.section);
 
-    const post = await prisma.post.create({
-      data: {
-        ...data,
-        author: data.author || null,
-        sortOrder: (lastInSection?.sortOrder ?? -1) + 1,
-        publishedAt: data.published ? new Date() : new Date(),
-      },
+    const post = await createPost({
+      ...data,
+      author: data.author || null,
+      sortOrder: maxSortOrder + 1,
+      publishedAt: new Date(),
     });
 
     revalidateBlogPaths(data.section, post.slug);
@@ -49,10 +46,9 @@ export async function POST(request: Request) {
     return NextResponse.json(post, { status: 201 });
   } catch (error) {
     console.error("[admin/posts POST]", error);
-    const message =
-      error instanceof Error && error.message.includes("Unique constraint")
-        ? "A post with this slug already exists"
-        : "Failed to create post";
+    const message = isDuplicateKeyError(error)
+      ? "A post with this slug already exists"
+      : "Failed to create post";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

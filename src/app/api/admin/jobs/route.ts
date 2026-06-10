@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { prisma } from "@/lib/prisma";
+import { createJob, listJobs } from "@/lib/db/jobs";
+import { isDuplicateKeyError } from "@/lib/db/utils";
 import { jobSchema } from "@/lib/validations";
 
 export async function GET() {
-  const jobs = await prisma.job.findMany({
-    orderBy: { updatedAt: "desc" },
-  });
+  const jobs = await listJobs();
   return NextResponse.json(jobs);
 }
 
@@ -28,23 +27,22 @@ export async function POST(request: Request) {
     }
 
     const data = parsed.data;
-    const job = await prisma.job.create({
-      data: {
-        title: data.title,
-        slug: data.slug,
-        department: data.department,
-        location: data.location,
-        employmentType: data.employmentType,
-        vacancy: data.vacancy,
-        summary: data.summary,
-        description: data.description,
-        requirements: data.requirements,
-        qualifications: data.qualifications ?? "",
-        applyEmail: data.applyEmail || null,
-        applyUrl: data.applyUrl || null,
-        published: data.published,
-        closingDate: data.closingDate ? new Date(data.closingDate) : null,
-      },
+    const job = await createJob({
+      title: data.title,
+      slug: data.slug,
+      department: data.department,
+      location: data.location,
+      employmentType: data.employmentType,
+      vacancy: data.vacancy,
+      summary: data.summary,
+      description: data.description,
+      requirements: data.requirements,
+      qualifications: data.qualifications ?? "",
+      applyEmail: data.applyEmail || null,
+      applyUrl: data.applyUrl || null,
+      published: data.published,
+      postedAt: new Date(),
+      closingDate: data.closingDate ? new Date(data.closingDate) : null,
     });
 
     revalidatePath("/careers");
@@ -52,10 +50,9 @@ export async function POST(request: Request) {
     return NextResponse.json(job, { status: 201 });
   } catch (error) {
     console.error("[admin/jobs POST]", error);
-    const message =
-      error instanceof Error && error.message.includes("Unique constraint")
-        ? "A job with this slug already exists"
-        : "Failed to create job";
+    const message = isDuplicateKeyError(error)
+      ? "A job with this slug already exists"
+      : "Failed to create job";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

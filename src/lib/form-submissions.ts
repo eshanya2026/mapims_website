@@ -1,13 +1,18 @@
+import { assignAppointmentReferenceId } from "@/lib/appointment-reference-id";
+import {
+  countFormSubmissions,
+  createFormSubmissionRecord,
+  findRecentDuplicateSubmission,
+} from "@/lib/db/form-submissions";
 import { formTypeLabels } from "@/lib/form-type-labels";
-import { getPrismaClient, prisma } from "@/lib/prisma";
-
-export { formTypeLabels };
 import type { z } from "zod";
 import type {
   appointmentFormSchema,
   contactFormSchema,
   internationalFormSchema,
 } from "@/lib/validations";
+
+export { formTypeLabels };
 
 type AppointmentData = z.infer<typeof appointmentFormSchema>;
 type ContactData = z.infer<typeof contactFormSchema>;
@@ -18,112 +23,66 @@ export type FormSubmissionInput =
   | ContactData
   | InternationalData;
 
-const DUPLICATE_WINDOW_MS = 2 * 60 * 1000;
-
-async function findRecentDuplicate(data: FormSubmissionInput) {
-  const since = new Date(Date.now() - DUPLICATE_WINDOW_MS);
-  const name = data.name.trim();
-
-  if (data.type === "appointment") {
-    return prisma.formSubmission.findFirst({
-      where: {
-        type: data.type,
-        name,
-        phone: data.phone.trim(),
-        email: data.email?.trim() || null,
-        department: data.department,
-        preferredTime: data.time,
-        preferredDate: new Date(`${data.date}T00:00:00`),
-        createdAt: { gte: since },
-      },
-      orderBy: { createdAt: "desc" },
-    });
+async function ensureAppointmentReference(submission: {
+  id: string;
+  type: string;
+  referenceId: string | null;
+  createdAt: Date;
+}) {
+  if (submission.type !== "appointment" || submission.referenceId) {
+    return submission;
   }
 
-  if (data.type === "contact") {
-    return prisma.formSubmission.findFirst({
-      where: {
-        type: data.type,
-        name,
-        phone: data.phone ? data.phone.trim() : null,
-        email: data.email?.trim() || null,
-        message: data.message,
-        createdAt: { gte: since },
-      },
-      orderBy: { createdAt: "desc" },
-    });
-  }
-
-  return prisma.formSubmission.findFirst({
-    where: {
-      type: data.type,
-      name,
-      email: data.email.trim(),
-      phone: data.phone.trim(),
-      country: data.country || null,
-      medicalCondition: data.medicalCondition || null,
-      message: data.message,
-      createdAt: { gte: since },
-    },
-    orderBy: { createdAt: "desc" },
-  });
+  return assignAppointmentReferenceId(submission.id, submission.createdAt);
 }
 
 export async function createFormSubmission(data: FormSubmissionInput) {
-  const duplicate = await findRecentDuplicate(data);
+  const duplicate = await findRecentDuplicateSubmission(data);
   if (duplicate) {
-    return duplicate;
+    return ensureAppointmentReference(duplicate);
   }
+
   if (data.type === "appointment") {
-    return prisma.formSubmission.create({
-      data: {
-        type: data.type,
-        name: data.name,
-        phone: data.phone,
-        email: data.email || null,
-        department: data.department,
-        preferredDate: new Date(`${data.date}T00:00:00`),
-        preferredTime: data.time,
-        message: data.message || null,
-      },
+    const created = await createFormSubmissionRecord({
+      type: data.type,
+      name: data.name,
+      phone: data.phone,
+      email: data.email || null,
+      department: data.department,
+      preferredDate: new Date(`${data.date}T00:00:00`),
+      preferredTime: data.time,
+      message: data.message || null,
     });
+
+    return assignAppointmentReferenceId(created.id, created.createdAt);
   }
 
   if (data.type === "contact") {
-    return prisma.formSubmission.create({
-      data: {
-        type: data.type,
-        name: data.name,
-        phone: data.phone || null,
-        email: data.email || null,
-        message: data.message,
-      },
+    return createFormSubmissionRecord({
+      type: data.type,
+      name: data.name,
+      phone: data.phone || null,
+      email: data.email || null,
+      message: data.message,
     });
   }
 
-  return prisma.formSubmission.create({
-    data: {
-      type: data.type,
-      name: data.name,
-      country: data.country || null,
-      email: data.email,
-      phone: data.phone,
-      medicalCondition: data.medicalCondition || null,
-      message: data.message,
-    },
+  return createFormSubmissionRecord({
+    type: data.type,
+    name: data.name,
+    country: data.country || null,
+    email: data.email,
+    phone: data.phone,
+    medicalCondition: data.medicalCondition || null,
+    message: data.message,
   });
 }
 
 export async function getInquiryCounts() {
   try {
-    const client = getPrismaClient();
-    if (typeof client.formSubmission?.count !== "function") {
-      return { total: 0, new: 0 };
-    }
-
     const [total, newCount] = await Promise.all([
-      client.formSubmission.count(),
-      client.formSubmission.count({ where: { status: "new" } }),
+      countFormSubmissions(),
+      countFormSubmissions({ status: "new" }),
     ]);
 
     return { total, new: newCount };

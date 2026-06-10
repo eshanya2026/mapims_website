@@ -4,16 +4,24 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import DeleteButton from "@/components/admin/DeleteButton";
+import { getInquiryNextActions } from "@/lib/inquiry-status";
 
 type InquiryActionsProps = {
   id: string;
+  type: string;
   status: string;
   onUpdated?: () => void | Promise<void>;
 };
 
-export default function InquiryActions({ id, status, onUpdated }: InquiryActionsProps) {
+export default function InquiryActions({
+  id,
+  type,
+  status,
+  onUpdated,
+}: InquiryActionsProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const actions = getInquiryNextActions(type, status);
 
   async function updateStatus(nextStatus: string) {
     setLoading(true);
@@ -34,28 +42,18 @@ export default function InquiryActions({ id, status, onUpdated }: InquiryActions
 
   return (
     <div className="flex flex-wrap gap-2">
-      {status === "new" ? (
+      {actions.map((action) => (
         <Button
+          key={action.status}
           type="button"
           size="sm"
           variant="outline"
           disabled={loading}
-          onClick={() => updateStatus("read")}
+          onClick={() => updateStatus(action.status)}
         >
-          Mark read
+          {action.label}
         </Button>
-      ) : null}
-      {status !== "archived" ? (
-        <Button
-          type="button"
-          size="sm"
-          variant="outline"
-          disabled={loading}
-          onClick={() => updateStatus("archived")}
-        >
-          Archive
-        </Button>
-      ) : null}
+      ))}
       <DeleteButton
         endpoint={`/api/admin/inquiries/${id}`}
         label="Delete"

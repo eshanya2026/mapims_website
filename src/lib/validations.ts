@@ -5,6 +5,26 @@ export const loginSchema = z.object({
   password: z.string().min(6),
 });
 
+export const adminRoleSchema = z.enum([
+  "super_admin",
+  "hr",
+  "marketing",
+  "front_office",
+]);
+
+export const createAdminUserSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+  name: z.string().trim().min(1).optional(),
+  role: adminRoleSchema,
+});
+
+export const updateAdminUserSchema = z.object({
+  name: z.string().trim().min(1).optional(),
+  role: adminRoleSchema.optional(),
+  password: z.string().min(6).optional(),
+});
+
 export const postSchema = z.object({
   title: z.string().min(3),
   slug: z.string().min(3),
@@ -75,7 +95,16 @@ export const formSubmissionSchema = z.discriminatedUnion("type", [
   internationalFormSchema,
 ]);
 
-export const inquiryStatusSchema = z.enum(["new", "read", "archived"]);
+export const inquiryStatusSchema = z.enum([
+  "new",
+  "contacted",
+  "confirmed",
+  "completed",
+  "cancelled",
+]);
+
+/** @deprecated Use inquiryStatusSchema */
+export const appointmentInquiryStatusSchema = inquiryStatusSchema;
 
 export const postReorderSchema = z.object({
   section: z.enum(["hospital-events", "hospital-news", "health-insights"]),

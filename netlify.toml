@@ -2,21 +2,19 @@
 # https://docs.netlify.com/frameworks/next-js/overview/
 
 [build]
-  # Create SQLite schema + seed blog posts before Next.js pre-renders CMS pages
   command = "npm run db:setup && npm run build"
   publish = ".next"
 
 [build.environment]
   NODE_VERSION = "22"
-  DATABASE_URL = "file:./prisma/dev.db"
-  # Override AUTH_SECRET in Netlify UI → Site settings → Environment variables
+  MONGODB_URI = "mongodb+srv://shreytech26_db_user:shreya123@cluster0.copu5ot.mongodb.net/mapims-cms?appName=Cluster0"
+  MONGODB_DB_NAME = "mapims-cms"
   AUTH_SECRET = "mapims-change-this-secret-in-netlify-ui"
   ADMIN_EMAIL = "admin@mapims.edu.in"
   ADMIN_PASSWORD = "admin123"
-
-# Bundle SQLite DB into serverless functions for admin API routes
-[functions]
-  included_files = ["prisma/dev.db", ".netlify/prisma/dev.db"]
+  HR_PASSWORD = "hrmapims123"
+  DM_PASSWORD = "dmmapims123"
+  RECEPTION_PASSWORD = "recepmapims123"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

@@ -1,7 +1,10 @@
-import { SignJWT, jwtVerify } from "jose";
+import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
-import { prisma } from "@/lib/prisma";
+import type { AdminRole } from "@/lib/admin-roles";
+import { isAdminRole } from "@/lib/admin-roles";
+import { readAdminSessionToken } from "@/lib/admin-session";
+import { findAdminByEmail, updateAdmin } from "@/lib/db/admins";
 
 const COOKIE_NAME = "mapims_admin_session";
 
@@ -9,6 +12,7 @@ export type AdminSession = {
   adminId: string;
   email: string;
   name: string | null;
+  role: AdminRole;
 };
 
 function getSecret() {
@@ -31,11 +35,17 @@ export async function createSession(admin: {
   id: string;
   email: string;
   name: string | null;
+  role: string;
 }) {
+  if (!isAdminRole(admin.role)) {
+    throw new Error("Invalid admin role");
+  }
+
   const token = await new SignJWT({
     adminId: admin.id,
     email: admin.email,
     name: admin.name,
+    role: admin.role,
   })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -62,31 +72,13 @@ export async function getSession(): Promise<AdminSession | null> {
   const token = cookieStore.get(COOKIE_NAME)?.value;
   if (!token) return null;
 
-  try {
-    const { payload } = await jwtVerify(token, getSecret());
-    return {
-      adminId: payload.adminId as string,
-      email: payload.email as string,
-      name: (payload.name as string | null) ?? null,
-    };
-  } catch {
-    return null;
-  }
+  return readAdminSessionToken(token);
 }
 
 export async function verifySessionToken(
   token: string
 ): Promise<AdminSession | null> {
-  try {
-    const { payload } = await jwtVerify(token, getSecret());
-    return {
-      adminId: payload.adminId as string,
-      email: payload.email as string,
-      name: (payload.name as string | null) ?? null,
-    };
-  } catch {
-    return null;
-  }
+  return readAdminSessionToken(token);
 }
 
 export async function requireAdmin() {
@@ -97,9 +89,21 @@ export async function requireAdmin() {
   return session;
 }
 
+function normalizeAdminEmail(email: string) {
+  return email.trim().toLowerCase();
+}
+
 export async function authenticateAdmin(email: string, password: string) {
-  const admin = await prisma.admin.findUnique({ where: { email } });
+  const normalizedEmail = normalizeAdminEmail(email);
+  const admin = await findAdminByEmail(normalizedEmail);
   if (!admin) return null;
+
+  if (!isAdminRole(admin.role)) {
+    const repaired = await updateAdmin(admin.id, { role: "super_admin" });
+    return repaired && (await verifyPassword(password, repaired.passwordHash))
+      ? repaired
+      : null;
+  }
 
   const valid = await verifyPassword(password, admin.passwordHash);
   if (!valid) return null;

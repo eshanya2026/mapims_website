@@ -1,5 +1,6 @@
 export type InquiryRecord = {
   id: string;
+  referenceId: string | null;
   type: string;
   name: string;
   email: string | null;

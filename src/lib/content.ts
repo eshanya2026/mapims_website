@@ -1,4 +1,5 @@
-import { prisma } from "@/lib/prisma";
+import { findJobs } from "@/lib/db/jobs";
+import { findPosts } from "@/lib/db/posts";
 import type { BlogSection } from "@/data/blog-posts";
 
 export type ContentPost = {
@@ -82,12 +83,9 @@ async function safeQuery<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
 
 export async function getPublishedPosts(section?: BlogSection) {
   return safeQuery(async () => {
-    const posts = await prisma.post.findMany({
-      where: {
-        published: true,
-        ...(section ? { section } : {}),
-      },
-      orderBy: [{ sortOrder: "asc" }, { publishedAt: "desc" }],
+    const posts = await findPosts({
+      published: true,
+      ...(section ? { section } : {}),
     });
     return posts.map(mapPost);
   }, []);
@@ -95,32 +93,25 @@ export async function getPublishedPosts(section?: BlogSection) {
 
 export async function getPublishedPostBySlug(slug: string) {
   return safeQuery(async () => {
-    const post = await prisma.post.findFirst({
-      where: { slug, published: true },
-    });
+    const { findPostBySlug } = await import("@/lib/db/posts");
+    const post = await findPostBySlug(slug, true);
     return post ? mapPost(post) : null;
   }, null);
 }
 
 export async function getAllPublishedPostSlugs() {
   return safeQuery(async () => {
-    const posts = await prisma.post.findMany({
-      where: { published: true },
-      select: { slug: true },
-    });
+    const posts = await findPosts({ published: true });
     return posts.map((post) => post.slug);
   }, []);
 }
 
 export async function getFeaturedNewsAndEvents(limit = 3) {
   return safeQuery(async () => {
-    const posts = await prisma.post.findMany({
-      where: {
-        published: true,
-        section: { in: ["hospital-news", "hospital-events"] },
-      },
-      orderBy: [{ sortOrder: "asc" }, { publishedAt: "desc" }],
-      take: limit,
+    const posts = await findPosts({
+      published: true,
+      sections: ["hospital-news", "hospital-events"],
+      limit,
     });
     return posts.map(mapPost);
   }, []);
@@ -128,29 +119,22 @@ export async function getFeaturedNewsAndEvents(limit = 3) {
 
 export async function getPublishedJobs() {
   return safeQuery(async () => {
-    const jobs = await prisma.job.findMany({
-      where: { published: true },
-      orderBy: { postedAt: "desc" },
-    });
+    const jobs = await findJobs({ published: true });
     return jobs.map(mapJob);
   }, []);
 }
 
 export async function getPublishedJobBySlug(slug: string) {
   return safeQuery(async () => {
-    const job = await prisma.job.findFirst({
-      where: { slug, published: true },
-    });
+    const { findJobBySlug } = await import("@/lib/db/jobs");
+    const job = await findJobBySlug(slug, true);
     return job ? mapJob(job) : null;
   }, null);
 }
 
 export async function getAllPublishedJobSlugs() {
   return safeQuery(async () => {
-    const jobs = await prisma.job.findMany({
-      where: { published: true },
-      select: { slug: true },
-    });
+    const jobs = await findJobs({ published: true });
     return jobs.map((job) => job.slug);
   }, []);
 }

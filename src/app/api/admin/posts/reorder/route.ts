@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { prisma } from "@/lib/prisma";
+import { findPosts, reorderPostsInSection } from "@/lib/db/posts";
 import { postReorderSchema } from "@/lib/validations";
 
 export async function PUT(request: Request) {
@@ -17,11 +17,7 @@ export async function PUT(request: Request) {
 
     const { section, orderedIds } = parsed.data;
 
-    const sectionPosts = await prisma.post.findMany({
-      where: { section },
-      select: { id: true },
-    });
-
+    const sectionPosts = await findPosts({ section });
     const sectionIds = new Set(sectionPosts.map((post) => post.id));
     const validIds = orderedIds.filter((id) => sectionIds.has(id));
 
@@ -32,14 +28,7 @@ export async function PUT(request: Request) {
       );
     }
 
-    await prisma.$transaction(
-      validIds.map((id, index) =>
-        prisma.post.update({
-          where: { id },
-          data: { sortOrder: index },
-        })
-      )
-    );
+    await reorderPostsInSection(section, validIds);
 
     revalidatePath("/");
     revalidatePath(`/blog/${section}`);

@@ -5,13 +5,6 @@ import type { NextConfig } from "next";
 const appRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
-  // Keep Prisma and native SQLite out of the Turbopack bundle (fixes
-  // "Cannot find module '.prisma/client/default'" in dev).
-  serverExternalPackages: [
-    "@prisma/client",
-    "@prisma/adapter-better-sqlite3",
-    "better-sqlite3",
-  ],
   async redirects() {
     return [
       {
@@ -25,12 +18,6 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["192.168.101.45"],
   turbopack: {
     root: appRoot,
-    resolveAlias: {
-      ".prisma/client/default": path.join(
-        appRoot,
-        "node_modules/.prisma/client/default.js"
-      ),
-    },
   },
   images: {
     remotePatterns: [

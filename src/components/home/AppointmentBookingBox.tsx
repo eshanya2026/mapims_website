@@ -57,6 +57,9 @@ export default function AppointmentBookingBox({
   className,
 }: AppointmentBookingBoxProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [appointmentReferenceId, setAppointmentReferenceId] = useState<string | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
@@ -76,7 +79,7 @@ export default function AppointmentBookingBox({
     const formData = new FormData(form);
 
     try {
-      await submitForm({
+      const result = await submitForm({
         type: "appointment",
         name: String(formData.get("name") ?? ""),
         phone: String(formData.get("phone") ?? ""),
@@ -88,6 +91,9 @@ export default function AppointmentBookingBox({
       });
 
       form.reset();
+      setAppointmentReferenceId(
+        typeof result.referenceId === "string" ? result.referenceId : null
+      );
       setSubmitted(true);
     } catch (submitError) {
       setError(
@@ -158,12 +164,28 @@ export default function AppointmentBookingBox({
                 Thank you. Our patient services team has received your request and
                 will contact you shortly to confirm your appointment.
               </p>
+              {appointmentReferenceId ? (
+                <div className="mt-5 rounded-xl border border-red-100 bg-red-50 px-4 py-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-red-600">
+                    Your appointment reference
+                  </p>
+                  <p className="mt-1 font-mono text-lg font-bold text-slate-900">
+                    {appointmentReferenceId}
+                  </p>
+                  <p className="mt-1 text-xs text-slate-500">
+                    Please quote this ID when you call the hospital.
+                  </p>
+                </div>
+              ) : null}
             </div>
             <Button
               type="button"
               variant="outline"
               className="h-11 rounded-xl px-6"
-              onClick={() => setSubmitted(false)}
+              onClick={() => {
+                setSubmitted(false);
+                setAppointmentReferenceId(null);
+              }}
             >
               Book another appointment
             </Button>

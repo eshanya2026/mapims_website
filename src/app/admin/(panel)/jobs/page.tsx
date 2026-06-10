@@ -1,13 +1,11 @@
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
+import { listJobs } from "@/lib/db/jobs";
 import { buttonVariants } from "@/components/ui/button";
 import DeleteButton from "@/components/admin/DeleteButton";
 import { Plus } from "lucide-react";
 
 export default async function AdminJobsPage() {
-  const jobs = await prisma.job.findMany({
-    orderBy: { updatedAt: "desc" },
-  });
+  const jobs = await listJobs();
 
   return (
     <div className="p-8">

@@ -31,8 +31,11 @@ export default function AdminLoginForm() {
       return;
     }
 
-    const from = searchParams.get("from") ?? "/admin";
-    router.push(from);
+    const data = await response.json();
+    const from = searchParams.get("from");
+    const destination =
+      from && from !== "/admin/login" ? from : (data.defaultPath ?? "/admin");
+    router.push(destination);
     router.refresh();
   }
 

@@ -2,6 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { formTypeLabels } from "@/lib/form-type-labels";
+import {
+  getInquiryStatusClassName,
+  getInquiryStatusLabel,
+} from "@/lib/inquiry-status";
 import InquiryActions from "@/components/admin/InquiryActions";
 import type { InquiryRecord } from "@/types/inquiry";
 import { cn } from "@/lib/utils";
@@ -163,6 +167,7 @@ export default function InquiriesWorkspace({
             <tr>
               <th className="px-4 py-3 font-medium">Date</th>
               <th className="px-4 py-3 font-medium">Type</th>
+              <th className="px-4 py-3 font-medium">Appointment ID</th>
               <th className="px-4 py-3 font-medium">Name</th>
               <th className="px-4 py-3 font-medium">Contact</th>
               <th className="px-4 py-3 font-medium">Details</th>
@@ -184,6 +189,15 @@ export default function InquiriesWorkspace({
                 </td>
                 <td className="px-4 py-3 text-slate-600">
                   {formTypeLabels[inquiry.type] ?? inquiry.type}
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap">
+                  {inquiry.type === "appointment" && inquiry.referenceId ? (
+                    <span className="font-mono text-xs font-semibold text-red-700">
+                      {inquiry.referenceId}
+                    </span>
+                  ) : (
+                    <span className="text-slate-400">—</span>
+                  )}
                 </td>
                 <td className="px-4 py-3 font-medium text-slate-900">{inquiry.name}</td>
                 <td className="px-4 py-3 text-slate-600">
@@ -222,18 +236,17 @@ export default function InquiriesWorkspace({
                 <td className="px-4 py-3">
                   <span
                     className={cn(
-                      "inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize",
-                      inquiry.status === "new" && "bg-amber-100 text-amber-700",
-                      inquiry.status === "read" && "bg-blue-100 text-blue-700",
-                      inquiry.status === "archived" && "bg-slate-100 text-slate-600"
+                      "inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold",
+                      getInquiryStatusClassName(inquiry.type, inquiry.status)
                     )}
                   >
-                    {inquiry.status}
+                    {getInquiryStatusLabel(inquiry.type, inquiry.status)}
                   </span>
                 </td>
                 <td className="px-4 py-3">
                   <InquiryActions
                     id={inquiry.id}
+                    type={inquiry.type}
                     status={inquiry.status}
                     onUpdated={fetchInquiries}
                   />

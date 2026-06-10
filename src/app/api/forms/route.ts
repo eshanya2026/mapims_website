@@ -16,7 +16,11 @@ export async function POST(request: Request) {
     const submission = await createFormSubmission(parsed.data);
 
     return NextResponse.json(
-      { ok: true, id: submission.id },
+      {
+        ok: true,
+        id: submission.id,
+        referenceId: submission.referenceId ?? null,
+      },
       { status: 201 }
     );
   } catch (error) {

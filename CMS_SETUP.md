@@ -17,7 +17,8 @@ cp .env.example .env
 
 2. Edit `.env` and set:
 
-- `DATABASE_URL` — SQLite path (default: `file:./prisma/dev.db`)
+- `MONGODB_URI` — MongoDB Atlas connection string
+- `MONGODB_DB_NAME` — database name (default: `mapims-cms`)
 - `AUTH_SECRET` — long random string for signing admin sessions
 - `ADMIN_EMAIL` / `ADMIN_PASSWORD` — credentials used only by the seed script
 
@@ -25,13 +26,12 @@ cp .env.example .env
 
 ```bash
 npm install
-npx prisma generate
 npm run db:setup
 ```
 
-This project uses Prisma 7 with SQLite via `@prisma/adapter-better-sqlite3`. Connection settings live in `prisma.config.ts` and `.env`.
+This project uses MongoDB Atlas via the official `mongodb` driver. Connection settings live in `.env`.
 
-`db:setup` runs `prisma db push` and seeds the database with:
+`db:setup` seeds the database with:
 
 - A default admin account (from `ADMIN_EMAIL` / `ADMIN_PASSWORD`)
 - Existing health insights articles from the static blog data
@@ -41,8 +41,6 @@ This project uses Prisma 7 with SQLite via `@prisma/adapter-better-sqlite3`. Con
 ```bash
 npm run dev
 ```
-
-`npm run dev` runs `prisma generate` automatically before starting Next.js. If you see `Cannot find module '.prisma/client/default'`, stop the dev server, run `npx prisma generate`, delete `.next`, and start again.
 
 The site runs on [http://localhost:3001](http://localhost:3001).
 
@@ -66,8 +64,8 @@ Uploaded images are stored in `public/uploads/`.
 
 ## Production notes
 
-- **SQLite** works for a single VPS deployment.
-- For **Vercel** or serverless hosting, switch `DATABASE_URL` to PostgreSQL (Neon, Supabase, etc.) and use cloud storage for uploads instead of the local `public/uploads/` folder.
+- **MongoDB Atlas** is used for CMS data (works on Netlify/serverless).
+- Use cloud storage for uploads in production instead of the local `public/uploads/` folder.
 - Set a strong `AUTH_SECRET` in production.
 
 ### Netlify
@@ -76,15 +74,15 @@ In **Site settings → Environment variables**, add:
 
 | Variable | Example |
 |----------|---------|
-| `DATABASE_URL` | `postgresql://user:pass@host/db?sslmode=require` (Neon/Supabase) |
+| `MONGODB_URI` | `mongodb+srv://user:pass@cluster.mongodb.net/mapims-cms` |
+| `MONGODB_DB_NAME` | `mapims-cms` |
 | `AUTH_SECRET` | long random string |
 
-`prisma generate` runs on `npm install`. `netlify.toml` sets a default `DATABASE_URL` so builds succeed before you configure a production database. For a live CMS on Netlify, use PostgreSQL — SQLite does not persist on serverless.
+`netlify.toml` includes default MongoDB and CMS credentials for deploy builds.
 
 ## Useful commands
 
 ```bash
-npm run db:push   # Apply schema changes
 npm run db:seed   # Re-seed admin + default posts
 npm run build     # Production build
 ```

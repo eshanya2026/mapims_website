@@ -2,19 +2,49 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, Newspaper, Briefcase, Inbox, LogOut } from "lucide-react";
+import {
+  LayoutDashboard,
+  Newspaper,
+  Briefcase,
+  Inbox,
+  Users,
+  Settings,
+  LogOut,
+} from "lucide-react";
+import {
+  ADMIN_ROLES,
+  ROLE_PERMISSIONS,
+  type AdminPermission,
+  type AdminRole,
+} from "@/lib/admin-roles";
 import { cn } from "@/lib/utils";
 
-const links = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { href: "/admin/posts", label: "Posts", icon: Newspaper },
-  { href: "/admin/jobs", label: "Careers", icon: Briefcase },
-  { href: "/admin/inquiries", label: "Inquiries", icon: Inbox },
+const links: {
+  href: string;
+  label: string;
+  icon: typeof LayoutDashboard;
+  exact?: boolean;
+  permission: AdminPermission;
+}[] = [
+  { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true, permission: "dashboard" },
+  { href: "/admin/posts", label: "Posts", icon: Newspaper, permission: "posts" },
+  { href: "/admin/jobs", label: "Careers", icon: Briefcase, permission: "jobs" },
+  { href: "/admin/inquiries", label: "Inquiries", icon: Inbox, permission: "inquiries" },
+  { href: "/admin/users", label: "Users", icon: Users, permission: "users" },
+  { href: "/admin/settings", label: "Settings", icon: Settings, permission: "settings" },
 ];
 
-export default function AdminSidebar() {
+type AdminSidebarProps = {
+  role: AdminRole;
+  email: string;
+  name: string | null;
+};
+
+export default function AdminSidebar({ role, email, name }: AdminSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const allowed = new Set(ROLE_PERMISSIONS[role]);
+  const visibleLinks = links.filter((link) => allowed.has(link.permission));
 
   async function handleLogout() {
     await fetch("/api/admin/auth/logout", { method: "POST" });
@@ -29,10 +59,14 @@ export default function AdminSidebar() {
           MAPIMS CMS
         </p>
         <h1 className="mt-1 text-lg font-bold">Admin Panel</h1>
+        <p className="mt-2 text-xs text-slate-400">{name ?? email}</p>
+        <p className="mt-1 text-[11px] font-medium uppercase tracking-wide text-slate-500">
+          {ADMIN_ROLES[role]}
+        </p>
       </div>
 
       <nav className="flex-1 space-y-1 p-4">
-        {links.map((link) => {
+        {visibleLinks.map((link) => {
           const active = link.exact
             ? pathname === link.href
             : pathname.startsWith(link.href);

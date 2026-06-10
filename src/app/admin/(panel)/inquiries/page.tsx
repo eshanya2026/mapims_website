@@ -1,4 +1,6 @@
-import { prisma } from "@/lib/prisma";
+import { hydrateMissingAppointmentReferences } from "@/lib/appointment-reference-id";
+import { listFormSubmissions } from "@/lib/db/form-submissions";
+import type { FormSubmissionRecord } from "@/lib/db/types";
 import InquiriesWorkspace from "@/components/admin/InquiriesWorkspace";
 import type { InquiryRecord } from "@/types/inquiry";
 
@@ -8,11 +10,10 @@ type InquiriesPageProps = {
   searchParams: Promise<{ type?: string }>;
 };
 
-function serializeInquiries(
-  inquiries: Awaited<ReturnType<typeof prisma.formSubmission.findMany>>
-): InquiryRecord[] {
+function serializeInquiries(inquiries: FormSubmissionRecord[]): InquiryRecord[] {
   return inquiries.map((inquiry) => ({
     id: inquiry.id,
+    referenceId: inquiry.referenceId,
     type: inquiry.type,
     name: inquiry.name,
     email: inquiry.email,
@@ -34,10 +35,11 @@ export default async function AdminInquiriesPage({ searchParams }: InquiriesPage
     ? (type as (typeof filters)[number])
     : "all";
 
-  const inquiries = await prisma.formSubmission.findMany({
-    where: activeFilter === "all" ? undefined : { type: activeFilter },
-    orderBy: { createdAt: "desc" },
-  });
+  const inquiries = await hydrateMissingAppointmentReferences(
+    await listFormSubmissions(
+      activeFilter === "all" ? undefined : { type: activeFilter }
+    )
+  );
 
   return (
     <InquiriesWorkspace

@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { hydrateMissingAppointmentReferences } from "@/lib/appointment-reference-id";
+import { listFormSubmissions } from "@/lib/db/form-submissions";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const type = searchParams.get("type");
 
-  const inquiries = await prisma.formSubmission.findMany({
-    where: type ? { type } : undefined,
-    orderBy: { createdAt: "desc" },
-  });
+  const inquiries = await hydrateMissingAppointmentReferences(
+    await listFormSubmissions(type ? { type } : undefined)
+  );
 
   return NextResponse.json(inquiries, {
     headers: {

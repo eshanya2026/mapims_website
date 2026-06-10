@@ -1,12 +1,16 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import {
+  deleteFormSubmission,
+  findFormSubmissionById,
+  updateFormSubmission,
+} from "@/lib/db/form-submissions";
 import { inquiryStatusSchema } from "@/lib/validations";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
 export async function GET(_request: Request, context: RouteContext) {
   const { id } = await context.params;
-  const inquiry = await prisma.formSubmission.findUnique({ where: { id } });
+  const inquiry = await findFormSubmissionById(id);
 
   if (!inquiry) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -20,21 +24,23 @@ export async function PATCH(request: Request, context: RouteContext) {
 
   try {
     const body = await request.json();
+
+    const existing = await findFormSubmissionById(id);
+    if (!existing) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+
     const parsed = inquiryStatusSchema.safeParse(body.status);
 
     if (!parsed.success) {
       return NextResponse.json({ error: "Invalid status" }, { status: 400 });
     }
 
-    const existing = await prisma.formSubmission.findUnique({ where: { id } });
-    if (!existing) {
+    const inquiry = await updateFormSubmission(id, { status: parsed.data });
+
+    if (!inquiry) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
-
-    const inquiry = await prisma.formSubmission.update({
-      where: { id },
-      data: { status: parsed.data },
-    });
 
     return NextResponse.json(inquiry);
   } catch (error) {
@@ -46,11 +52,11 @@ export async function PATCH(request: Request, context: RouteContext) {
 export async function DELETE(_request: Request, context: RouteContext) {
   const { id } = await context.params;
 
-  const existing = await prisma.formSubmission.findUnique({ where: { id } });
+  const existing = await findFormSubmissionById(id);
   if (!existing) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  await prisma.formSubmission.delete({ where: { id } });
+  await deleteFormSubmission(id);
   return NextResponse.json({ ok: true });
 }
