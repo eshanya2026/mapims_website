@@ -52,7 +52,7 @@ export default function DepartmentsGrid() {
                 <p className="text-sm text-slate-500 leading-relaxed mb-6 flex-1 line-clamp-4">
                   {dept.description}
                 </p>
-                <div className="flex flex-col gap-2">
+                <div className="mt-auto border-t border-slate-100 pt-4">
                   {(dept.slug === "multi-organ-transplant" ||
                     dept.slug === "cardiology" ||
                     dept.slug === "orthopaedics" ||
@@ -71,10 +71,12 @@ export default function DepartmentsGrid() {
                     dept.slug === "neurology") && (
                     <Link
                       href={`/departments/${dept.slug}`}
-                      className="inline-flex items-center justify-center gap-2 bg-red-600 text-white font-semibold text-sm rounded-lg px-4 py-2.5 hover:bg-red-700 transition-colors"
+                      className="inline-flex w-full items-center justify-center gap-3 text-sm font-semibold text-slate-700 transition-colors group-hover:text-red-600"
                     >
                       Explore More
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-all duration-300 group-hover:bg-red-600 group-hover:text-white group-hover:shadow-lg group-hover:shadow-red-600/25">
+                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                      </span>
                     </Link>
                   )}
                 </div>

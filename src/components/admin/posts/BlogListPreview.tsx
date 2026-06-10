@@ -67,8 +67,6 @@ function PostPreviewCard({
 }) {
   const content = (
     <>
-      {dragHandle}
-
       <div className="relative h-44 overflow-hidden sm:h-52">
         <img
           src={post.image || BLOG_PLACEHOLDER_IMAGE}
@@ -123,6 +121,7 @@ function PostPreviewCard({
         isOverlay && "cursor-grabbing shadow-2xl ring-2 ring-red-200"
       )}
     >
+      {dragHandle}
       {onSelect ? (
         <button type="button" onClick={onSelect} className="flex flex-1 flex-col text-left">
           {content}
