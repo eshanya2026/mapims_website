@@ -1,7 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Reorder, useDragControls } from "framer-motion";
+import {
+  DndContext,
+  DragOverlay,
+  KeyboardSensor,
+  PointerSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+  type DragStartEvent,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  arrayMove,
+  rectSortingStrategy,
+  sortableKeyboardCoordinates,
+  useSortable,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { ArrowRight, Calendar, GripVertical } from "lucide-react";
 import BlogHero from "@/components/blog/BlogHero";
 import { blogSections, type BlogSection } from "@/data/blog-posts";
@@ -37,68 +55,81 @@ function PostPreviewCard({
   isSelected,
   onSelect,
   dragHandle,
+  isOverlay,
 }: {
   post: ContentPost;
   isDraft?: boolean;
   isUnpublished?: boolean;
   isSelected?: boolean;
-  onSelect: () => void;
+  onSelect?: () => void;
   dragHandle?: React.ReactNode;
+  isOverlay?: boolean;
 }) {
+  const content = (
+    <>
+      {dragHandle}
+
+      <div className="relative h-44 overflow-hidden sm:h-52">
+        <img
+          src={post.image || BLOG_PLACEHOLDER_IMAGE}
+          alt={post.title}
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div className="absolute left-3 top-3 flex flex-wrap gap-2 sm:left-4 sm:top-4">
+          {isDraft ? (
+            <span className="rounded-full bg-amber-500 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white sm:text-xs">
+              Draft preview
+            </span>
+          ) : null}
+          {isUnpublished ? (
+            <span className="rounded-full bg-slate-700 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white sm:text-xs">
+              Unpublished
+            </span>
+          ) : null}
+          <span className="whitespace-nowrap rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-red-600 backdrop-blur-sm sm:px-3 sm:text-xs">
+            {post.category}
+          </span>
+        </div>
+      </div>
+      <div className="flex flex-1 flex-col p-4 sm:p-6">
+        <div className="mb-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 sm:mb-3 sm:text-sm">
+          <span className="inline-flex items-center">
+            <Calendar className="mr-1.5 h-3.5 w-3.5 shrink-0 sm:mr-2 sm:h-4 sm:w-4" />
+            {post.date}
+          </span>
+          {post.author ? <span className="text-slate-400">· {post.author}</span> : null}
+        </div>
+        <h2 className="mb-2 line-clamp-3 text-lg font-bold leading-snug text-slate-900 transition-colors group-hover:text-red-600 sm:mb-3 sm:line-clamp-2 sm:text-xl">
+          {post.title}
+        </h2>
+        <p className="mb-4 line-clamp-3 flex-1 text-sm leading-relaxed text-slate-600 sm:mb-5">
+          {post.excerpt}
+        </p>
+        <span className="inline-flex min-h-11 items-center text-sm font-semibold text-red-600 sm:min-h-0">
+          {isDraft ? "Editing" : "Edit post"}
+          <ArrowRight className="ml-1 h-4 w-4" />
+        </span>
+      </div>
+    </>
+  );
+
   return (
     <div
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-xl border bg-white text-left shadow-sm transition-all duration-300 hover:shadow-xl sm:rounded-2xl",
+        "group relative flex h-full w-full flex-col overflow-hidden rounded-xl border bg-white text-left shadow-sm transition-shadow duration-300 hover:shadow-xl sm:rounded-2xl",
         isSelected
           ? "border-red-400 ring-2 ring-red-200"
-          : "border-slate-100 hover:border-red-100"
+          : "border-slate-100 hover:border-red-100",
+        isOverlay && "cursor-grabbing shadow-2xl ring-2 ring-red-200"
       )}
     >
-      {dragHandle}
-
-      <button type="button" onClick={onSelect} className="flex flex-1 flex-col text-left">
-        <div className="relative h-44 overflow-hidden sm:h-52">
-          <img
-            src={post.image || BLOG_PLACEHOLDER_IMAGE}
-            alt={post.title}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          <div className="absolute left-3 top-3 flex flex-wrap gap-2 sm:left-4 sm:top-4">
-            {isDraft ? (
-              <span className="rounded-full bg-amber-500 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white sm:text-xs">
-                Draft preview
-              </span>
-            ) : null}
-            {isUnpublished ? (
-              <span className="rounded-full bg-slate-700 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white sm:text-xs">
-                Unpublished
-              </span>
-            ) : null}
-            <span className="max-w-[calc(100%-1.5rem)] rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-red-600 backdrop-blur-sm sm:px-3 sm:text-xs">
-              {post.category}
-            </span>
-          </div>
-        </div>
-        <div className="flex flex-1 flex-col p-4 sm:p-6">
-          <div className="mb-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 sm:mb-3 sm:text-sm">
-            <span className="inline-flex items-center">
-              <Calendar className="mr-1.5 h-3.5 w-3.5 shrink-0 sm:mr-2 sm:h-4 sm:w-4" />
-              {post.date}
-            </span>
-            {post.author ? <span className="text-slate-400">· {post.author}</span> : null}
-          </div>
-          <h2 className="mb-2 line-clamp-3 text-lg font-bold leading-snug text-slate-900 transition-colors group-hover:text-red-600 sm:mb-3 sm:line-clamp-2 sm:text-xl">
-            {post.title}
-          </h2>
-          <p className="mb-4 line-clamp-3 flex-1 text-sm leading-relaxed text-slate-600 sm:mb-5">
-            {post.excerpt}
-          </p>
-          <span className="inline-flex min-h-11 items-center text-sm font-semibold text-red-600 sm:min-h-0">
-            {isDraft ? "Editing" : "Edit post"}
-            <ArrowRight className="ml-1 h-4 w-4" />
-          </span>
-        </div>
-      </button>
+      {onSelect ? (
+        <button type="button" onClick={onSelect} className="flex flex-1 flex-col text-left">
+          {content}
+        </button>
+      ) : (
+        <div className="flex flex-1 flex-col">{content}</div>
+      )}
     </div>
   );
 }
@@ -112,14 +143,25 @@ function SortablePostCard({
   isSelected: boolean;
   onSelectPost: (slug: string) => void;
 }) {
-  const controls = useDragControls();
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: item.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
 
   return (
-    <Reorder.Item
-      value={item}
-      dragListener={false}
-      dragControls={controls}
-      className="list-none"
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={cn("h-full touch-none", isDragging && "opacity-40")}
     >
       <PostPreviewCard
         post={item.post}
@@ -131,16 +173,15 @@ function SortablePostCard({
             type="button"
             aria-label="Drag to reorder"
             className="absolute right-3 top-3 z-10 cursor-grab rounded-lg bg-white/95 p-1.5 shadow-md transition-colors hover:bg-white active:cursor-grabbing"
-            onPointerDown={(event) => {
-              event.stopPropagation();
-              controls.start(event);
-            }}
+            {...attributes}
+            {...listeners}
+            onClick={(event) => event.stopPropagation()}
           >
             <GripVertical className="h-4 w-4 text-slate-500" />
           </button>
         }
       />
-    </Reorder.Item>
+    </div>
   );
 }
 
@@ -166,8 +207,19 @@ export default function BlogListPreview({
       isUnpublished: !item.published,
     }))
   );
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const [activeWidth, setActiveWidth] = useState<number | null>(null);
 
   const sectionOrderKey = sectionPosts.map((item) => item.content.id).join("|");
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: 8 },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   useEffect(() => {
     setSortableItems(
@@ -181,13 +233,39 @@ export default function BlogListPreview({
     );
   }, [posts, section, sectionOrderKey]);
 
-  function handleReorder(nextItems: SortableGridItem[]) {
-    setSortableItems(nextItems);
-    onReorder(
-      section,
-      nextItems.map((item) => item.id)
-    );
+  function handleDragStart(event: DragStartEvent) {
+    setActiveId(String(event.active.id));
+    const width = event.active.rect.current.initial?.width;
+    setActiveWidth(width ?? null);
   }
+
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+    setActiveId(null);
+    setActiveWidth(null);
+
+    if (!over || active.id === over.id) return;
+
+    setSortableItems((items) => {
+      const oldIndex = items.findIndex((item) => item.id === active.id);
+      const newIndex = items.findIndex((item) => item.id === over.id);
+      const nextItems = arrayMove(items, oldIndex, newIndex);
+
+      onReorder(
+        section,
+        nextItems.map((item) => item.id)
+      );
+
+      return nextItems;
+    });
+  }
+
+  function handleDragCancel() {
+    setActiveId(null);
+    setActiveWidth(null);
+  }
+
+  const activeItem = sortableItems.find((item) => item.id === activeId) ?? null;
 
   return (
     <div className="min-h-full bg-white">
@@ -240,21 +318,46 @@ export default function BlogListPreview({
                 ) : null}
 
                 {sortableItems.length > 0 ? (
-                  <Reorder.Group
-                    axis="y"
-                    values={sortableItems}
-                    onReorder={handleReorder}
-                    className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3"
+                  <DndContext
+                    sensors={sensors}
+                    collisionDetection={closestCenter}
+                    onDragStart={handleDragStart}
+                    onDragEnd={handleDragEnd}
+                    onDragCancel={handleDragCancel}
                   >
-                    {sortableItems.map((item) => (
-                      <SortablePostCard
-                        key={item.id}
-                        item={item}
-                        isSelected={selectedSlug === item.post.slug}
-                        onSelectPost={onSelectPost}
-                      />
-                    ))}
-                  </Reorder.Group>
+                    <SortableContext
+                      items={sortableItems.map((item) => item.id)}
+                      strategy={rectSortingStrategy}
+                    >
+                      <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+                        {sortableItems.map((item) => (
+                          <SortablePostCard
+                            key={item.id}
+                            item={item}
+                            isSelected={selectedSlug === item.post.slug}
+                            onSelectPost={onSelectPost}
+                          />
+                        ))}
+                      </div>
+                    </SortableContext>
+
+                    <DragOverlay adjustScale={false} dropAnimation={null}>
+                      {activeItem ? (
+                        <div style={activeWidth ? { width: activeWidth } : undefined}>
+                          <PostPreviewCard
+                            post={activeItem.post}
+                            isUnpublished={activeItem.isUnpublished}
+                            isOverlay
+                            dragHandle={
+                              <div className="absolute right-3 top-3 z-10 rounded-lg bg-white/95 p-1.5 shadow-md">
+                                <GripVertical className="h-4 w-4 text-slate-500" />
+                              </div>
+                            }
+                          />
+                        </div>
+                      ) : null}
+                    </DragOverlay>
+                  </DndContext>
                 ) : null}
               </div>
             </>
