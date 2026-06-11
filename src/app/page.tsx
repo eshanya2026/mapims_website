@@ -10,8 +10,11 @@ import HealthPackages from "@/components/home/HealthPackages";
 import Testimonials from "@/components/home/Testimonials";
 import NewsEventsSection from "@/components/home/NewsEventsSection";
 import HealthInsightsSection from "@/components/home/HealthInsightsSection";
+import { getHomeDoctors } from "@/lib/doctors-content";
 
-export default function Home() {
+export default async function Home() {
+  const doctors = await getHomeDoctors();
+
   return (
     <main className="min-h-screen">
       <Hero />
@@ -20,7 +23,7 @@ export default function Home() {
       <BookAppointmentSection />
       <CentersOfExcellence />
       <WhyChooseUs />
-      <DoctorShowcase />
+      <DoctorShowcase doctors={doctors} />
       <DigitalPatientExperience />
       <HealthPackages />
       <Testimonials />

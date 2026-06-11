@@ -16,6 +16,13 @@ export async function ensureDbIndexes() {
       .collection("formSubmissions")
       .createIndex({ referenceId: 1 }, { unique: true, sparse: true }),
     db.collection("formSubmissions").createIndex({ type: 1, createdAt: -1 }),
+    db
+      .collection("newsletterSubscribers")
+      .createIndex({ email: 1 }, { unique: true }),
+    db.collection("doctors").createIndex({ slug: 1 }, { unique: true }),
+    db.collection("doctors").createIndex({ departmentSlug: 1, sortOrder: 1 }),
+    db.collection("doctors").createIndex({ showOnHome: 1, homeSortOrder: 1 }),
+    db.collection("doctors").createIndex({ showOnAbout: 1, aboutSortOrder: 1 }),
   ]);
 
   indexesEnsured = true;

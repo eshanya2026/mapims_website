@@ -47,6 +47,37 @@ export type JobRecord = {
   updatedAt: Date;
 };
 
+export type DoctorRecord = {
+  id: string;
+  slug: string;
+  name: string;
+  designation: string;
+  specialty: string;
+  departmentSlug: string;
+  degree: string;
+  experience: string;
+  bio: string;
+  image: string;
+  accent: "primary" | "deep";
+  showOnHome: boolean;
+  showOnAbout: boolean;
+  sortOrder: number;
+  homeSortOrder: number;
+  aboutSortOrder: number;
+  published: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type NewsletterSubscriberRecord = {
+  id: string;
+  email: string;
+  status: "active" | "unsubscribed";
+  subscribedAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 export type FormSubmissionRecord = {
   id: string;
   referenceId: string | null;

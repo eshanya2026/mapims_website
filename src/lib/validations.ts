@@ -106,6 +106,37 @@ export const inquiryStatusSchema = z.enum([
 /** @deprecated Use inquiryStatusSchema */
 export const appointmentInquiryStatusSchema = inquiryStatusSchema;
 
+export const newsletterSubscribeSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .min(1, "Please enter your email address")
+    .email("Please enter a valid email address")
+    .transform((value) => value.toLowerCase()),
+});
+
+export const doctorSchema = z.object({
+  name: z.string().trim().min(2),
+  slug: z.string().trim().min(2),
+  designation: z.string().trim().min(2),
+  specialty: z.string().trim().min(2),
+  departmentSlug: z.string().optional().default(""),
+  degree: z.string().optional().default(""),
+  experience: z.string().optional().default(""),
+  bio: z.string().optional().default(""),
+  image: z.string().min(1),
+  accent: z.enum(["primary", "deep"]).default("primary"),
+  showOnHome: z.boolean().default(false),
+  showOnAbout: z.boolean().default(false),
+  sortOrder: z.coerce.number().int().min(0).optional(),
+  published: z.boolean().default(false),
+});
+
+export const doctorReorderSchema = z.object({
+  placement: z.enum(["home", "about", "all"]).default("all"),
+  orderedIds: z.array(z.string().min(1)).min(1),
+});
+
 export const postReorderSchema = z.object({
   section: z.enum(["hospital-events", "hospital-news", "health-insights"]),
   orderedIds: z.array(z.string().min(1)).min(1),

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { countDoctors } from "@/lib/db/doctors";
 import { countJobs } from "@/lib/db/jobs";
 import { countPosts } from "@/lib/db/posts";
 import { getInquiryCounts } from "@/lib/form-submissions";
@@ -7,20 +8,23 @@ import { getSession } from "@/lib/auth";
 import { ADMIN_ROLES, hasPermission } from "@/lib/admin-roles";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
-import { Newspaper, Briefcase, Inbox, Plus } from "lucide-react";
+import { Newspaper, Briefcase, Inbox, Plus, Stethoscope } from "lucide-react";
 
 export default async function AdminDashboardPage() {
   const session = await getSession();
   if (!session) redirect("/admin/login");
 
   const canPosts = hasPermission(session.role, "posts");
+  const canDoctors = hasPermission(session.role, "doctors");
   const canJobs = hasPermission(session.role, "jobs");
   const canInquiries = hasPermission(session.role, "inquiries");
 
-  const [postCount, publishedPosts, jobCount, publishedJobs, inquiryCounts] =
+  const [postCount, publishedPosts, doctorCount, publishedDoctors, jobCount, publishedJobs, inquiryCounts] =
     await Promise.all([
       canPosts ? countPosts() : Promise.resolve(0),
       canPosts ? countPosts({ published: true }) : Promise.resolve(0),
+      canDoctors ? countDoctors() : Promise.resolve(0),
+      canDoctors ? countDoctors({ published: true }) : Promise.resolve(0),
       canJobs ? countJobs() : Promise.resolve(0),
       canJobs ? countJobs({ published: true }) : Promise.resolve(0),
       canInquiries ? getInquiryCounts() : Promise.resolve({ total: 0, new: 0 }),
@@ -48,6 +52,20 @@ export default async function AdminDashboardPage() {
             <CardContent>
               <p className="text-3xl font-bold text-slate-900">{postCount}</p>
               <p className="mt-1 text-xs text-slate-500">{publishedPosts} published</p>
+            </CardContent>
+          </Card>
+        ) : null}
+
+        {canDoctors ? (
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-slate-500">
+                Doctors
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-3xl font-bold text-slate-900">{doctorCount}</p>
+              <p className="mt-1 text-xs text-slate-500">{publishedDoctors} published</p>
             </CardContent>
           </Card>
         ) : null}
@@ -91,6 +109,15 @@ export default async function AdminDashboardPage() {
             New post
           </Link>
         ) : null}
+        {canDoctors ? (
+          <Link
+            href="/admin/doctors/new"
+            className={buttonVariants({ variant: "default" })}
+          >
+            <Stethoscope className="mr-2 h-4 w-4" />
+            New doctor
+          </Link>
+        ) : null}
         {canJobs ? (
           <Link
             href="/admin/jobs/new"
@@ -116,6 +143,15 @@ export default async function AdminDashboardPage() {
           >
             <Newspaper className="mr-2 h-4 w-4" />
             Manage posts
+          </Link>
+        ) : null}
+        {canDoctors ? (
+          <Link
+            href="/admin/doctors"
+            className={buttonVariants({ variant: "outline" })}
+          >
+            <Stethoscope className="mr-2 h-4 w-4" />
+            Manage doctors
           </Link>
         ) : null}
       </div>

@@ -3,44 +3,11 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Stethoscope } from "lucide-react";
 import { useState, useEffect } from "react";
+import type { ContentDoctor } from "@/lib/doctors-content";
 
-const doctors = [
-  {
-    id: 1,
-    name: "Dr.T.Ramesh",
-    specialty: "Medical Director",
-    image: "/images/doctor/ramesh.jpg",
-    bio: "Leads MAPIMS with a focus on clinical excellence, patient safety, and coordinated care across all specialties.",
-  },
-  {
-    id: 2,
-    name: "Dr. S. KUMARESAN",
-    specialty: "Head of Transplant Anesthesia",
-    image: "/images/doctor/Dr.Kumaresan.jpg",
-    bio: "Specialises in anaesthesia for organ transplant and high-risk surgeries, ensuring safe perioperative care at every stage.",
-  },
-  {
-    id: 3,
-    name: "DR.R. RAMA KRISHNAN",
-    specialty: "Consultant Urologist",
-    image: "/images/doctor/ramakrishan.jpg",
-    bio: "Provides expert diagnosis and treatment for urological conditions, from kidney stones to advanced endoscopic procedures.",
-  },
-  {
-    id: 4,
-    name: "Dr. Umesh Raj Somasundaram",
-    specialty: "Advanced Laparoscopic & General Surgery",
-    image: "/images/doctor/Dr.UmeshRaj.jpg",
-    bio: "Performs minimally invasive laparoscopic and general surgical procedures with a focus on faster recovery and precise outcomes.",
-  },
-  {
-    id: 5,
-    name: "Dr A. Rekha",
-    specialty: "Medical Superintendent",
-    image: "/images/doctor/rekha.jpg",
-    bio: "Oversees hospital operations and quality standards, ensuring smooth, compassionate care for every patient who walks through our doors.",
-  },
-];
+type DoctorShowcaseProps = {
+  doctors: ContentDoctor[];
+};
 
 function DoctorPortrait({ image, name }: { image: string; name: string }) {
   return (
@@ -66,7 +33,7 @@ function DoctorPortrait({ image, name }: { image: string; name: string }) {
   );
 }
 
-export default function DoctorShowcase() {
+export default function DoctorShowcase({ doctors }: DoctorShowcaseProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(2);
 
@@ -90,6 +57,10 @@ export default function DoctorShowcase() {
   const goToSlide = (index: number) => {
     setCurrentIndex(Math.max(0, Math.min(index, maxIndex)));
   };
+
+  if (doctors.length === 0) {
+    return null;
+  }
 
   return (
     <section className="section-padding relative overflow-hidden bg-slate-50">
@@ -153,7 +124,7 @@ export default function DoctorShowcase() {
                           {doctor.name}
                         </h3>
                         <p className="mt-2 text-sm font-semibold text-red-600 sm:text-base">
-                          {doctor.specialty}
+                          {doctor.designation}
                         </p>
                         <p className="mt-3 text-sm leading-relaxed text-slate-500">
                           {doctor.bio}

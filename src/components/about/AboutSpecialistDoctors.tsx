@@ -4,69 +4,11 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Calendar, Stethoscope } from "lucide-react";
 import { useState, useEffect } from "react";
+import type { ContentDoctor } from "@/lib/doctors-content";
 
-const doctors = [
-  {
-    name: "Dr.T.Ramesh",
-    designation: "Medical Director",
-    specialty: "General Medicine",
-    image: "/images/doctor/ramesh.jpg",
-  },
-  {
-    name: "Dr. Kapali Neelamekam",
-    designation: "Advisor - Multi organ Transplant",
-    specialty: "Transplant",
-    image: "/images/doctor/kapali.jpg",
-  },
-  {
-    name: "Vaseekaran",
-    designation: "Chief Operating officer (COO)",
-    specialty: "Administration",
-    image: "/images/doctor/vasee.jpg",
-  },
-  {
-    name: "Dr.T.R. RAJKUMAR",
-    designation: "Transplant surgeon & Consultant urologist",
-    specialty: "Urology",
-    image: "/images/doctor/raj.jpg",
-  },
-  {
-    name: "Dr A. Rekha",
-    designation: "Medical Superintendent",
-    specialty: "Hospital Administration",
-    image: "/images/doctor/rekha.jpg",
-  },
-  {
-    name: "DR.R. RAMA KRISHNAN",
-    designation: "Consultant Urologist",
-    specialty: "Urology",
-    image: "/images/doctor/ramakrishan.jpg",
-  },
-  {
-    name: "Dr. S. KUMARESAN",
-    designation: "Head of Transplant Anesthesia",
-    specialty: "Anesthesiology",
-    image: "/images/doctor/Dr.Kumaresan.jpg",
-  },
-  {
-    name: "Dr. Umesh Raj Somasundaram",
-    designation: "Advanced Laparoscopic & General Surgery",
-    specialty: "General Surgery",
-    image: "/images/doctor/Dr.UmeshRaj.jpg",
-  },
-  {
-    name: "Dr. Mahendra Varman L",
-    designation: "Lead consultant Transplant Sciences & Nephrology",
-    specialty: "Nephrology",
-    image: "/images/doctor/mahendran%20.png",
-  },
-  {
-    name: "Dr S Bhaskaran",
-    designation: "Senior Consultant Department Nephrology & Renal Transplant",
-    specialty: "Nephrology",
-    image: "/images/doctor/bhaskaran.png",
-  },
-];
+type AboutSpecialistDoctorsProps = {
+  doctors: ContentDoctor[];
+};
 
 function DoctorPortrait({ image, name }: { image: string; name: string }) {
   return (
@@ -90,7 +32,7 @@ function DoctorPortrait({ image, name }: { image: string; name: string }) {
   );
 }
 
-export default function AboutSpecialistDoctors() {
+export default function AboutSpecialistDoctors({ doctors }: AboutSpecialistDoctorsProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(2);
 
@@ -114,6 +56,10 @@ export default function AboutSpecialistDoctors() {
   const goToSlide = (index: number) => {
     setCurrentIndex(Math.max(0, Math.min(index, maxIndex)));
   };
+
+  if (doctors.length === 0) {
+    return null;
+  }
 
   return (
     <section className="section-padding relative overflow-hidden bg-white">
@@ -161,7 +107,7 @@ export default function AboutSpecialistDoctors() {
             >
               {doctors.map((doctor, index) => (
                 <div
-                  key={doctor.name}
+                  key={doctor.id}
                   className="flex-shrink-0 px-3"
                   style={{ width: `${100 / itemsPerView}%` }}
                 >

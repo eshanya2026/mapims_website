@@ -6,6 +6,7 @@ import {
   LayoutDashboard,
   Newspaper,
   Briefcase,
+  Stethoscope,
   Inbox,
   Users,
   Settings,
@@ -28,6 +29,7 @@ const links: {
 }[] = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true, permission: "dashboard" },
   { href: "/admin/posts", label: "Posts", icon: Newspaper, permission: "posts" },
+  { href: "/admin/doctors", label: "Doctors", icon: Stethoscope, permission: "doctors" },
   { href: "/admin/jobs", label: "Careers", icon: Briefcase, permission: "jobs" },
   { href: "/admin/inquiries", label: "Inquiries", icon: Inbox, permission: "inquiries" },
   { href: "/admin/users", label: "Users", icon: Users, permission: "users" },

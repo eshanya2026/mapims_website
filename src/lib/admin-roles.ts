@@ -11,6 +11,7 @@ export type AdminPermission =
   | "dashboard"
   | "posts"
   | "jobs"
+  | "doctors"
   | "inquiries"
   | "users"
   | "settings";
@@ -20,12 +21,13 @@ export const ROLE_PERMISSIONS: Record<AdminRole, readonly AdminPermission[]> = {
     "dashboard",
     "posts",
     "jobs",
+    "doctors",
     "inquiries",
     "users",
     "settings",
   ],
   hr: ["dashboard", "jobs"],
-  marketing: ["dashboard", "posts"],
+  marketing: ["dashboard", "posts", "doctors"],
   front_office: ["dashboard", "inquiries"],
 };
 
@@ -58,6 +60,7 @@ export function getPathPermission(pathname: string): AdminPermission | null {
   if (pathname === "/admin" || pathname === "/admin/") return "dashboard";
   if (pathname.startsWith("/admin/posts")) return "posts";
   if (pathname.startsWith("/admin/jobs")) return "jobs";
+  if (pathname.startsWith("/admin/doctors")) return "doctors";
   if (pathname.startsWith("/admin/inquiries")) return "inquiries";
   if (pathname.startsWith("/admin/users")) return "users";
   if (pathname.startsWith("/admin/settings")) return "settings";
@@ -67,6 +70,7 @@ export function getPathPermission(pathname: string): AdminPermission | null {
 export function getApiPermission(pathname: string): AdminPermission | null {
   if (pathname.startsWith("/api/admin/posts")) return "posts";
   if (pathname.startsWith("/api/admin/jobs")) return "jobs";
+  if (pathname.startsWith("/api/admin/doctors")) return "doctors";
   if (pathname.startsWith("/api/admin/inquiries")) return "inquiries";
   if (pathname.startsWith("/api/admin/users")) return "users";
   if (pathname.startsWith("/api/admin/upload")) return null;
@@ -81,7 +85,7 @@ export function canAccessAdminPath(role: AdminRole, pathname: string) {
 
 export function canAccessAdminApi(role: AdminRole, pathname: string) {
   if (pathname.startsWith("/api/admin/upload")) {
-    return hasAnyPermission(role, ["posts", "jobs"]);
+    return hasAnyPermission(role, ["posts", "jobs", "doctors"]);
   }
 
   const permission = getApiPermission(pathname);

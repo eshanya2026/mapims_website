@@ -7,6 +7,7 @@ import AboutValueAddedServices from "@/components/about/AboutValueAddedServices"
 import CertificationSection from "@/components/about/CertificationSection";
 import AboutFAQ from "@/components/about/AboutFAQ";
 import AboutSpecialistDoctors from "@/components/about/AboutSpecialistDoctors";
+import { getAboutDoctors } from "@/lib/doctors-content";
 
 export const metadata: Metadata = {
   title: "About Us | Adhiparasakthi Hospital",
@@ -14,7 +15,9 @@ export const metadata: Metadata = {
     "Learn about Adhiparasakthi Hospital — established in 1986, NABH certified, 1000-bed tertiary care multispecialty hospital at Melmaruvathur.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const doctors = await getAboutDoctors();
+
   return (
     <main className="min-h-screen">
       <AboutHero />
@@ -24,7 +27,7 @@ export default function AboutPage() {
       <AboutHighlights />
       <CertificationSection />
       <AboutFAQ />
-      <AboutSpecialistDoctors />
+      <AboutSpecialistDoctors doctors={doctors} />
     </main>
   );
 }

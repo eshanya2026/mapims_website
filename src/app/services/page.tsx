@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ServicesHero from "@/components/services/ServicesHero";
 import ServicesGrid from "@/components/services/ServicesGrid";
+
 export const metadata: Metadata = {
   title: "Hospital Services | Adhiparasakthi Hospital",
   description:

@@ -1,9 +1,11 @@
 import "dotenv/config";
 import bcrypt from "bcryptjs";
 import { upsertAdmin } from "../src/lib/db/admins";
+import { upsertDoctorBySlug } from "../src/lib/db/doctors";
 import { upsertPostBySlug } from "../src/lib/db/posts";
 import { ensureDbIndexes } from "../src/lib/db/indexes";
 import { blogPosts } from "../src/data/blog-posts";
+import { seedDoctors } from "../src/data/doctors-seed";
 
 const cmsUsers = [
   {
@@ -70,8 +72,20 @@ async function main() {
     });
   }
 
+  let homeIndex = 0;
+  let aboutIndex = 0;
+
+  for (const doctor of seedDoctors) {
+    await upsertDoctorBySlug(doctor.slug, {
+      ...doctor,
+      homeSortOrder: doctor.showOnHome ? homeIndex++ : 0,
+      aboutSortOrder: doctor.showOnAbout ? aboutIndex++ : 0,
+      published: true,
+    });
+  }
+
   console.log(
-    `Seeded ${cmsUsers.length} CMS users (${cmsUsers.map((user) => user.email).join(", ")}) and ${blogPosts.length} blog posts.`
+    `Seeded ${cmsUsers.length} CMS users (${cmsUsers.map((user) => user.email).join(", ")}), ${blogPosts.length} blog posts, and ${seedDoctors.length} doctors.`
   );
 
   process.exit(0);
