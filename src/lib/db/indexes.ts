@@ -7,6 +7,11 @@ export async function ensureDbIndexes() {
 
   const db = await getDb();
 
+  // Sparse unique index ignores missing fields, but multiple explicit nulls violate uniqueness.
+  await db
+    .collection("formSubmissions")
+    .updateMany({ referenceId: null }, { $unset: { referenceId: "" } });
+
   await Promise.all([
     db.collection("admins").createIndex({ email: 1 }, { unique: true }),
     db.collection("posts").createIndex({ slug: 1 }, { unique: true }),

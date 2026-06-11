@@ -71,7 +71,7 @@ export async function createFormSubmission(data: FormSubmissionInput) {
     type: data.type,
     name: data.name,
     country: data.country || null,
-    email: data.email,
+    email: data.email || null,
     phone: data.phone,
     medicalCondition: data.medicalCondition || null,
     message: data.message,

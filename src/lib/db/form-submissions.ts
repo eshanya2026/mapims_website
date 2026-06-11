@@ -66,8 +66,8 @@ export async function createFormSubmissionRecord(data: {
   referenceId?: string | null;
 }) {
   const collection = await formSubmissionsCollection();
-  const result = await collection.insertOne({
-    referenceId: data.referenceId ?? null,
+  const timestamp = now();
+  const insertDoc: FormSubmissionDoc = {
     type: data.type,
     name: data.name,
     email: data.email ?? null,
@@ -79,8 +79,17 @@ export async function createFormSubmissionRecord(data: {
     country: data.country ?? null,
     medicalCondition: data.medicalCondition ?? null,
     status: data.status ?? "new",
-    createdAt: now(),
-  });
+    referenceId: null,
+    createdAt: timestamp,
+  };
+
+  if (data.referenceId) {
+    insertDoc.referenceId = data.referenceId;
+  } else {
+    delete (insertDoc as { referenceId?: string | null }).referenceId;
+  }
+
+  const result = await collection.insertOne(insertDoc);
 
   const doc = await collection.findOne({ _id: result.insertedId });
   if (!doc) {
@@ -157,7 +166,7 @@ export async function findRecentDuplicateSubmission(data: FormSubmissionInput) {
     {
       type: data.type,
       name,
-      email: data.email.trim(),
+      email: data.email?.trim() || null,
       phone: data.phone.trim(),
       country: data.country || null,
       medicalCondition: data.medicalCondition || null,

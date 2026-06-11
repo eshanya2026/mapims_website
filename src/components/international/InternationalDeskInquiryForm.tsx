@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import { Send, MessageCircle } from "lucide-react";
+import { Phone, Send } from "lucide-react";
 import { internationalDesk } from "@/data/international-patients";
 import { cn } from "@/lib/utils";
 import { submitForm } from "@/lib/submit-form";
@@ -42,7 +42,7 @@ export default function InternationalDeskInquiryForm() {
     message: false,
   });
   const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
   const [submitError, setSubmitError] = useState("");
   const submittingRef = useRef(false);
   const savedInquiryKeyRef = useRef<string | null>(null);
@@ -57,21 +57,33 @@ export default function InternationalDeskInquiryForm() {
       name: name.length < 2 ? "Please enter your name." : "",
       country: "",
       email:
-        email.length < 1
-          ? "Please enter your email."
-          : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-            ? "Please enter a valid email."
-            : "",
+        email.length > 0 && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+          ? "Please enter a valid email."
+          : "",
       phone:
         phone.length < 7 || !/^[0-9+() -]{7,}$/.test(phone)
-          ? "Please enter a valid phone or WhatsApp number."
+          ? "Please enter a valid phone number."
           : "",
       medicalCondition: "",
       message: message.length < 10 ? "Please add your message." : "",
     };
   }, [state]);
 
+  const callbackErrors = useMemo(() => {
+    const name = trim(state.name);
+    const phone = trim(state.phone);
+
+    return {
+      name: name.length < 2 ? "Please enter your name." : "",
+      phone:
+        phone.length < 7 || !/^[0-9+() -]{7,}$/.test(phone)
+          ? "Please enter a valid phone number."
+          : "",
+    };
+  }, [state]);
+
   const hasError = Object.values(errors).some(Boolean);
+  const hasCallbackError = Object.values(callbackErrors).some(Boolean);
 
   const markAllTouched = () =>
     setTouched({
@@ -83,21 +95,17 @@ export default function InternationalDeskInquiryForm() {
       message: true,
     });
 
-  const buildBody = () =>
-    [
-      "International Patient Desk — website inquiry",
-      "",
-      `Name: ${trim(state.name)}`,
-      `Country: ${trim(state.country) || "-"}`,
-      `Email: ${trim(state.email)}`,
-      `Phone/WhatsApp: ${trim(state.phone)}`,
-      `Medical condition: ${trim(state.medicalCondition) || "-"}`,
-      "",
-      "Message:",
-      trim(state.message),
-    ].join("\n");
+  const markCallbackTouched = () =>
+    setTouched((prev) => ({ ...prev, name: true, phone: true }));
 
-  function inquiryPayload() {
+  function inquiryPayload(options?: { callback?: boolean }) {
+    const message = trim(state.message);
+    const callbackNote = "[Callback requested — please call the patient back]";
+    const body =
+      options?.callback && message.length < 10
+        ? "Please call me back regarding my international patient inquiry."
+        : message;
+
     return {
       type: "international" as const,
       name: trim(state.name),
@@ -105,22 +113,35 @@ export default function InternationalDeskInquiryForm() {
       email: trim(state.email),
       phone: trim(state.phone),
       medicalCondition: trim(state.medicalCondition),
-      message: trim(state.message),
+      message: options?.callback ? `${callbackNote}\n\n${body}` : body,
     };
   }
 
-  function inquiryKey() {
-    return JSON.stringify(inquiryPayload());
+  function inquiryKey(options?: { callback?: boolean }) {
+    return JSON.stringify(inquiryPayload(options));
   }
 
-  async function saveInquiry() {
-    const key = inquiryKey();
+  async function saveInquiry(options?: { callback?: boolean }) {
+    const key = inquiryKey(options);
     if (savedInquiryKeyRef.current === key) {
       return;
     }
 
-    await submitForm(inquiryPayload());
+    await submitForm(inquiryPayload(options));
     savedInquiryKeyRef.current = key;
+  }
+
+  function resetForm() {
+    savedInquiryKeyRef.current = null;
+    setState(INITIAL);
+    setTouched({
+      name: false,
+      country: false,
+      email: false,
+      phone: false,
+      medicalCondition: false,
+      message: false,
+    });
   }
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -131,21 +152,15 @@ export default function InternationalDeskInquiryForm() {
     submittingRef.current = true;
     setLoading(true);
     setSubmitError("");
+    setSuccessMessage("");
 
     try {
       await saveInquiry();
-      setSubmitted(true);
-      savedInquiryKeyRef.current = null;
-      setState(INITIAL);
-      setTouched({
-        name: false,
-        country: false,
-        email: false,
-        phone: false,
-        medicalCondition: false,
-        message: false,
-      });
-      setTimeout(() => setSubmitted(false), 5000);
+      setSuccessMessage(
+        "Thank you. Our international patient desk has received your inquiry."
+      );
+      resetForm();
+      setTimeout(() => setSuccessMessage(""), 6000);
     } catch (error) {
       setSubmitError(
         error instanceof Error ? error.message : "Unable to submit your inquiry."
@@ -156,21 +171,25 @@ export default function InternationalDeskInquiryForm() {
     }
   };
 
-  const onWhatsApp = async () => {
-    markAllTouched();
-    if (hasError || submittingRef.current || loading) return;
+  const onRequestCallback = async () => {
+    markCallbackTouched();
+    if (hasCallbackError || submittingRef.current || loading) return;
 
     submittingRef.current = true;
     setLoading(true);
     setSubmitError("");
+    setSuccessMessage("");
 
     try {
-      await saveInquiry();
-      const text = encodeURIComponent(buildBody());
-      window.open(`${internationalDesk.whatsappUrl}?text=${text}`, "_blank");
+      await saveInquiry({ callback: true });
+      setSuccessMessage(
+        `Thank you! Our international desk will call you back shortly at ${trim(state.phone)}.`
+      );
+      resetForm();
+      setTimeout(() => setSuccessMessage(""), 8000);
     } catch (error) {
       setSubmitError(
-        error instanceof Error ? error.message : "Unable to submit your inquiry."
+        error instanceof Error ? error.message : "Unable to submit your callback request."
       );
     } finally {
       submittingRef.current = false;
@@ -179,6 +198,8 @@ export default function InternationalDeskInquiryForm() {
   };
 
   const err = (key: keyof FormState) => (touched[key] ? errors[key] : "");
+  const callbackErr = (key: keyof typeof callbackErrors) =>
+    touched[key] ? callbackErrors[key] : "";
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-lg shadow-slate-200/40 sm:p-6 md:p-7">
@@ -186,7 +207,8 @@ export default function InternationalDeskInquiryForm() {
         Inquiry Form
       </h3>
       <p className="mt-1 text-sm text-slate-600">
-        Share your details and our international coordinators will respond.
+        Share your details and our international coordinators will respond. You
+        can also request a call back at {internationalDesk.phoneDisplay}.
       </p>
 
       <form onSubmit={onSubmit} className="mt-6 space-y-4" aria-busy={loading}>
@@ -203,7 +225,9 @@ export default function InternationalDeskInquiryForm() {
               className={inputClass}
               autoComplete="name"
             />
-            {err("name") ? <p className="mt-1 text-xs text-red-600">{err("name")}</p> : null}
+            {err("name") || callbackErr("name") ? (
+              <p className="mt-1 text-xs text-red-600">{err("name") || callbackErr("name")}</p>
+            ) : null}
           </div>
 
           <div>
@@ -222,7 +246,7 @@ export default function InternationalDeskInquiryForm() {
 
           <div>
             <label className="mb-1 block text-sm font-semibold text-slate-900" htmlFor="intl-inq-email">
-              Email <span className="text-red-600">*</span>
+              Email
             </label>
             <input
               id="intl-inq-email"
@@ -238,7 +262,7 @@ export default function InternationalDeskInquiryForm() {
 
           <div>
             <label className="mb-1 block text-sm font-semibold text-slate-900" htmlFor="intl-inq-phone">
-              Phone / WhatsApp <span className="text-red-600">*</span>
+              Phone <span className="text-red-600">*</span>
             </label>
             <input
               id="intl-inq-phone"
@@ -249,7 +273,9 @@ export default function InternationalDeskInquiryForm() {
               autoComplete="tel"
               inputMode="tel"
             />
-            {err("phone") ? <p className="mt-1 text-xs text-red-600">{err("phone")}</p> : null}
+            {err("phone") || callbackErr("phone") ? (
+              <p className="mt-1 text-xs text-red-600">{err("phone") || callbackErr("phone")}</p>
+            ) : null}
           </div>
 
           <div className="sm:col-span-2">
@@ -289,9 +315,9 @@ export default function InternationalDeskInquiryForm() {
         {submitError ? (
           <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{submitError}</p>
         ) : null}
-        {submitted ? (
+        {successMessage ? (
           <p className="rounded-lg bg-green-50 px-3 py-2 text-sm text-green-700">
-            Thank you. Our international patient desk has received your inquiry.
+            {successMessage}
           </p>
         ) : null}
 
@@ -306,12 +332,12 @@ export default function InternationalDeskInquiryForm() {
           </button>
           <button
             type="button"
-            onClick={onWhatsApp}
+            onClick={onRequestCallback}
             disabled={loading}
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-emerald-600 bg-emerald-50 px-6 py-3 text-sm font-semibold text-emerald-800 transition hover:bg-emerald-100 disabled:cursor-not-allowed disabled:opacity-70"
+            className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-800 transition hover:border-red-200 hover:bg-red-50 hover:text-red-700 disabled:cursor-not-allowed disabled:opacity-70"
           >
-            <MessageCircle className="h-4 w-4" />
-            WhatsApp Us
+            <Phone className="h-4 w-4" />
+            {loading ? "Submitting..." : "Request a Call Back"}
           </button>
         </div>
       </form>
