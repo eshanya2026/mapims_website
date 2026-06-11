@@ -59,11 +59,19 @@ export async function countJobs(filter?: { published?: boolean }) {
 export async function createJob(data: Omit<JobDoc, "createdAt" | "updatedAt">) {
   const collection = await jobsCollection();
   const timestamp = now();
-  const result = await collection.insertOne({
-    ...data,
+  const { jobRefNo, ...rest } = data;
+  const insertDoc: JobDoc = {
+    ...rest,
+    jobRefNo: jobRefNo ?? null,
     createdAt: timestamp,
     updatedAt: timestamp,
-  });
+  };
+
+  if (!jobRefNo) {
+    delete (insertDoc as { jobRefNo?: string | null }).jobRefNo;
+  }
+
+  const result = await collection.insertOne(insertDoc);
 
   const doc = await collection.findOne({ _id: result.insertedId });
   if (!doc) {
@@ -81,11 +89,23 @@ export async function updateJob(
   if (!objectId) return null;
 
   const collection = await jobsCollection();
-  const doc = await collection.findOneAndUpdate(
-    { _id: objectId },
-    { $set: { ...data, updatedAt: now() } },
-    { returnDocument: "after" }
-  );
+  const { jobRefNo, ...rest } = data;
+  const update: Partial<JobDoc> = { ...rest, updatedAt: now() };
+
+  if (jobRefNo !== undefined) {
+    if (jobRefNo) {
+      update.jobRefNo = jobRefNo;
+    }
+  }
+
+  const updateDoc =
+    jobRefNo !== undefined && !jobRefNo
+      ? { $set: update, $unset: { jobRefNo: "" as const } }
+      : { $set: update };
+
+  const doc = await collection.findOneAndUpdate({ _id: objectId }, updateDoc, {
+    returnDocument: "after",
+  });
 
   return doc ? toJobRecord(doc) : null;
 }

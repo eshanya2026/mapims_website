@@ -11,6 +11,7 @@ type JobFormData = {
   id?: string;
   title: string;
   slug: string;
+  jobRefNo: string;
   department: string;
   location: string;
   employmentType: string;
@@ -37,6 +38,7 @@ export default function JobForm({ initial, mode }: JobFormProps) {
   const [form, setForm] = useState<JobFormData>({
     title: initial?.title ?? "",
     slug: initial?.slug ?? "",
+    jobRefNo: initial?.jobRefNo ?? "",
     department: initial?.department ?? "",
     location: initial?.location ?? "Melmaruvathur, Tamil Nadu",
     employmentType: initial?.employmentType ?? "Full-time",
@@ -116,6 +118,15 @@ export default function JobForm({ initial, mode }: JobFormProps) {
             onChange={(e) => updateField("slug", e.target.value)}
             required
           />
+        </div>
+        <div>
+          <label className="mb-1.5 block text-sm font-medium">Job ref. no.</label>
+          <Input
+            value={form.jobRefNo}
+            onChange={(e) => updateField("jobRefNo", e.target.value)}
+            placeholder="e.g. JOB-2026-001"
+          />
+          <p className="mt-1 text-xs text-slate-500">Optional internal reference for HR.</p>
         </div>
         <div>
           <label className="mb-1.5 block text-sm font-medium">Department</label>

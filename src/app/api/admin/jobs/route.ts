@@ -30,6 +30,7 @@ export async function POST(request: Request) {
     const job = await createJob({
       title: data.title,
       slug: data.slug,
+      jobRefNo: data.jobRefNo || null,
       department: data.department,
       location: data.location,
       employmentType: data.employmentType,
@@ -51,7 +52,9 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("[admin/jobs POST]", error);
     const message = isDuplicateKeyError(error)
-      ? "A job with this slug already exists"
+      ? (error as { keyPattern?: Record<string, unknown> }).keyPattern?.jobRefNo
+        ? "A job with this reference number already exists"
+        : "A job with this slug already exists"
       : "Failed to create job";
     return NextResponse.json({ error: message }, { status: 500 });
   }

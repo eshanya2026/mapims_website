@@ -29,6 +29,7 @@ export type PostRecord = {
 export type JobRecord = {
   id: string;
   slug: string;
+  jobRefNo: string | null;
   title: string;
   department: string;
   location: string;

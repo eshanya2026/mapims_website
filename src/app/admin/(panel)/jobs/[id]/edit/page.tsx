@@ -21,6 +21,7 @@ export default async function EditJobPage({ params }: EditJobPageProps) {
         id: job.id,
         title: job.title,
         slug: job.slug,
+        jobRefNo: job.jobRefNo ?? "",
         department: job.department,
         location: job.location,
         employmentType: job.employmentType,

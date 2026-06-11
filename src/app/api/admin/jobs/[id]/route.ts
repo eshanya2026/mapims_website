@@ -43,6 +43,7 @@ export async function PUT(request: Request, context: RouteContext) {
     const job = await updateJob(id, {
       title: data.title,
       slug: data.slug,
+      jobRefNo: data.jobRefNo || null,
       department: data.department,
       location: data.location,
       employmentType: data.employmentType,
@@ -68,7 +69,9 @@ export async function PUT(request: Request, context: RouteContext) {
   } catch (error) {
     console.error("[admin/jobs PUT]", error);
     const message = isDuplicateKeyError(error)
-      ? "A job with this slug already exists"
+      ? (error as { keyPattern?: Record<string, unknown> }).keyPattern?.jobRefNo
+        ? "A job with this reference number already exists"
+        : "A job with this slug already exists"
       : "Failed to update job";
     return NextResponse.json({ error: message }, { status: 500 });
   }

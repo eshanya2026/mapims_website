@@ -30,6 +30,7 @@ export default async function AdminJobsPage() {
           <thead className="border-b border-slate-200 bg-slate-50 text-slate-600">
             <tr>
               <th className="px-4 py-3 font-medium">Title</th>
+              <th className="px-4 py-3 font-medium">Job ref.</th>
               <th className="px-4 py-3 font-medium">Department</th>
               <th className="px-4 py-3 font-medium">Vacancy</th>
               <th className="px-4 py-3 font-medium">Status</th>
@@ -41,6 +42,9 @@ export default async function AdminJobsPage() {
             {jobs.map((job) => (
               <tr key={job.id} className="border-b border-slate-100 last:border-0">
                 <td className="px-4 py-3 font-medium text-slate-900">{job.title}</td>
+                <td className="px-4 py-3 font-mono text-xs text-slate-600">
+                  {job.jobRefNo ?? "—"}
+                </td>
                 <td className="px-4 py-3 text-slate-600">{job.department}</td>
                 <td className="px-4 py-3 text-slate-600">{job.vacancy ?? 1}</td>
                 <td className="px-4 py-3">

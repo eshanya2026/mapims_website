@@ -17,6 +17,7 @@ export async function ensureDbIndexes() {
     db.collection("posts").createIndex({ slug: 1 }, { unique: true }),
     db.collection("posts").createIndex({ section: 1, sortOrder: 1 }),
     db.collection("jobs").createIndex({ slug: 1 }, { unique: true }),
+    db.collection("jobs").createIndex({ jobRefNo: 1 }, { unique: true, sparse: true }),
     db
       .collection("formSubmissions")
       .createIndex({ referenceId: 1 }, { unique: true, sparse: true }),

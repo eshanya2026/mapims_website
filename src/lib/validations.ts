@@ -160,6 +160,7 @@ export const jobSchema = z
   .object({
     title: z.string().min(3),
     slug: z.string().min(3),
+    jobRefNo: z.string().optional().default(""),
     department: z.string().min(2),
     location: z.string().min(2),
     employmentType: z.string().min(2),
@@ -177,5 +178,6 @@ export const jobSchema = z
   })
   .transform((data) => ({
     ...data,
+    jobRefNo: data.jobRefNo.trim(),
     summary: deriveJobSummary(data.description),
   }));

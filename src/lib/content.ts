@@ -19,6 +19,7 @@ export type ContentPost = {
 export type ContentJob = {
   id: string;
   slug: string;
+  jobRefNo: string | null;
   title: string;
   department: string;
   location: string;
@@ -142,6 +143,7 @@ export async function getAllPublishedJobSlugs() {
 function mapJob(job: {
   id: string;
   slug: string;
+  jobRefNo?: string | null;
   title: string;
   department: string;
   location: string;
@@ -159,6 +161,7 @@ function mapJob(job: {
   return {
     id: job.id,
     slug: job.slug,
+    jobRefNo: job.jobRefNo ?? null,
     title: job.title,
     department: job.department,
     location: job.location,
