@@ -1,3 +1,5 @@
+"use client";
+
 import {
   MapPin,
   Phone,
@@ -8,6 +10,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ScrollReveal, StaggerItem, StaggerReveal } from "@/components/ui/scroll-reveal";
 
 const ADDRESS =
   "Adhiparasakthi Hospitals, Melmaruvathur, Kancheepuram District, Tamil Nadu, India 603319";
@@ -55,7 +58,7 @@ const details = [
 export default function ContactInfo() {
   return (
     <div className="flex h-full flex-col">
-      <div>
+      <ScrollReveal>
         <p className="text-sm font-semibold uppercase tracking-wider text-red-600">
           Get in touch
         </p>
@@ -67,13 +70,13 @@ export default function ContactInfo() {
           <span className="font-semibold text-red-600">1066</span> — available
           24/7.
         </p>
-      </div>
+      </ScrollReveal>
 
-      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <StaggerReveal className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
         {primaryContacts.map(
           ({ icon: Icon, label, value, href, hint, external }) => (
+          <StaggerItem key={label}>
           <a
-            key={label}
             href={href}
             target={external ? "_blank" : undefined}
             rel={external ? "noopener noreferrer" : undefined}
@@ -99,25 +102,29 @@ export default function ContactInfo() {
               <ArrowUpRight className="h-4 w-4 shrink-0 text-slate-300 transition-colors group-hover:text-red-500" />
             </div>
           </a>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerReveal>
 
-      <ul className="mt-8 divide-y divide-slate-200/80">
-        {details.map(({ icon: Icon, label, value }) => (
-          <li key={label} className="flex gap-4 py-5 first:pt-0 last:pb-0">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-600">
-              <Icon className="h-4 w-4" />
-            </span>
-            <div className="min-w-0 pt-0.5">
-              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                {label}
-              </p>
-              <p className="mt-1 text-sm leading-relaxed text-slate-800">{value}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <ScrollReveal delay={0.1}>
+        <ul className="mt-8 divide-y divide-slate-200/80">
+          {details.map(({ icon: Icon, label, value }) => (
+            <li key={label} className="flex gap-4 py-5 first:pt-0 last:pb-0">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-600">
+                <Icon className="h-4 w-4" />
+              </span>
+              <div className="min-w-0 pt-0.5">
+                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  {label}
+                </p>
+                <p className="mt-1 text-sm leading-relaxed text-slate-800">{value}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </ScrollReveal>
 
+      <ScrollReveal delay={0.15}>
       <a
         href="tel:1066"
         className={cn(
@@ -145,6 +152,7 @@ export default function ContactInfo() {
           <Phone className="h-4 w-4" />
         </span>
       </a>
+      </ScrollReveal>
     </div>
   );
 }

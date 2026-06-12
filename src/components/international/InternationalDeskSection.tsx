@@ -1,6 +1,9 @@
+"use client";
+
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import InternationalDeskInquiryForm from "@/components/international/InternationalDeskInquiryForm";
 import { internationalDesk } from "@/data/international-patients";
+import { ScrollReveal, StaggerItem, StaggerReveal } from "@/components/ui/scroll-reveal";
 
 const contactItems = [
   {
@@ -36,7 +39,7 @@ export default function InternationalDeskSection() {
       aria-labelledby="international-desk-heading"
     >
       <div className="container mx-auto px-4">
-        <div className="mx-auto mb-10 max-w-2xl text-center md:mb-12">
+        <ScrollReveal className="mx-auto mb-10 max-w-2xl text-center md:mb-12">
           <p className="text-sm font-semibold uppercase tracking-wider text-red-600">
             Get in touch
           </p>
@@ -46,52 +49,53 @@ export default function InternationalDeskSection() {
           >
             Contact International Desk
           </h2>
-        </div>
+        </ScrollReveal>
 
         <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-12">
-          <div className="space-y-4">
+          <StaggerReveal className="space-y-4">
             {contactItems.map(({ icon: Icon, label, lines }) => (
-              <div
-                key={label}
-                className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
-              >
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-red-50 text-red-600">
-                  <Icon className="h-5 w-5" aria-hidden />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold text-slate-900">{label}</p>
-                  <div className="mt-1.5 space-y-1">
-                    {lines.map((line) =>
-                      line.href ? (
-                        <a
-                          key={line.text}
-                          href={line.href}
-                          target={"external" in line && line.external ? "_blank" : undefined}
-                          rel={
-                            "external" in line && line.external
-                              ? "noopener noreferrer"
-                              : undefined
-                          }
-                          className="block text-sm leading-relaxed text-slate-600 transition hover:text-red-600"
-                        >
-                          {line.text}
-                        </a>
-                      ) : (
-                        <p
-                          key={line.text}
-                          className="text-sm leading-relaxed text-slate-600"
-                        >
-                          {line.text}
-                        </p>
-                      )
-                    )}
+              <StaggerItem key={label}>
+                <div className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-red-100 hover:shadow-md">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-red-50 text-red-600">
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-slate-900">{label}</p>
+                    <div className="mt-1.5 space-y-1">
+                      {lines.map((line) =>
+                        line.href ? (
+                          <a
+                            key={line.text}
+                            href={line.href}
+                            target={"external" in line && line.external ? "_blank" : undefined}
+                            rel={
+                              "external" in line && line.external
+                                ? "noopener noreferrer"
+                                : undefined
+                            }
+                            className="block text-sm leading-relaxed text-slate-600 transition hover:text-red-600"
+                          >
+                            {line.text}
+                          </a>
+                        ) : (
+                          <p
+                            key={line.text}
+                            className="text-sm leading-relaxed text-slate-600"
+                          >
+                            {line.text}
+                          </p>
+                        )
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerReveal>
 
-          <InternationalDeskInquiryForm />
+          <ScrollReveal direction="left" delay={0.15}>
+            <InternationalDeskInquiryForm />
+          </ScrollReveal>
         </div>
       </div>
     </section>

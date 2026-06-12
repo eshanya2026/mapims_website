@@ -4,6 +4,7 @@ import { useMemo, useRef, useState } from "react";
 import { Send } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { submitForm } from "@/lib/submit-form";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 type FormState = {
   name: string;
@@ -102,9 +103,11 @@ export default function ContactForm({ className }: ContactFormProps) {
     touched[key] ? errors[key] : "";
 
   return (
-    <div
+    <ScrollReveal
+      direction="left"
+      delay={0.1}
       className={cn(
-        "flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 md:p-7",
+        "flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-shadow duration-300 hover:shadow-md sm:p-6 md:p-7",
         className
       )}
     >
@@ -235,6 +238,6 @@ export default function ContactForm({ className }: ContactFormProps) {
           </button>
         </div>
       </form>
-    </div>
+    </ScrollReveal>
   );
 }

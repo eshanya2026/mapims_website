@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Stethoscope } from "lucide-react";
 import { useState, useEffect } from "react";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import type { ContentDoctor } from "@/lib/doctors-content";
 
 type DoctorShowcaseProps = {
@@ -66,22 +67,22 @@ export default function DoctorShowcase({ doctors }: DoctorShowcaseProps) {
     <section className="section-padding relative overflow-hidden bg-slate-50">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(220,38,38,0.05),transparent_50%)]" />
       <div
-        className="pointer-events-none absolute -right-24 top-20 h-72 w-72 rounded-full bg-red-600/10 blur-3xl"
+        className="pointer-events-none absolute -right-24 top-20 h-72 w-72 animate-float-slow rounded-full bg-red-600/10 blur-3xl"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -left-16 bottom-10 h-56 w-56 rounded-full bg-red-500/10 blur-3xl"
+        className="pointer-events-none absolute -left-16 bottom-10 h-56 w-56 animate-float rounded-full bg-red-500/10 blur-3xl"
         aria-hidden
       />
 
       <div className="page-container relative z-10">
-        <div className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
+        <ScrollReveal className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
           <div className="mb-4 flex items-center justify-center gap-2">
-            <div className="h-0.5 w-12 bg-red-600" />
+            <div className="h-0.5 w-12 origin-left animate-shimmer-line bg-red-600" />
             <span className="text-sm font-semibold uppercase tracking-wider text-red-600">
               Our Experts
             </span>
-            <div className="h-0.5 w-12 bg-red-600" />
+            <div className="h-0.5 w-12 origin-right animate-shimmer-line bg-red-600" style={{ animationDelay: "0.15s" }} />
           </div>
           <h2 className="text-4xl font-bold text-slate-900 md:text-5xl">
             Meet Our <span className="text-red-600">Specialists</span>
@@ -90,9 +91,9 @@ export default function DoctorShowcase({ doctors }: DoctorShowcaseProps) {
             Highly qualified physicians and surgeons delivering compassionate,
             patient-centred care across every specialty at MAPIMS.
           </p>
-        </div>
+        </ScrollReveal>
 
-        <div className="relative">
+        <ScrollReveal delay={0.1} className="relative">
           <div className="overflow-hidden py-2">
             <div
               className="flex transition-transform duration-500 ease-in-out"
@@ -106,7 +107,7 @@ export default function DoctorShowcase({ doctors }: DoctorShowcaseProps) {
                   className="flex-shrink-0 px-3"
                   style={{ width: `${100 / itemsPerView}%` }}
                 >
-                  <article className="group relative flex h-full min-h-[300px] flex-col items-center gap-5 overflow-hidden rounded-3xl border border-slate-100 bg-white p-5 shadow-sm transition-shadow duration-300 hover:border-red-100 hover:shadow-xl hover:shadow-slate-200/50 sm:flex-row sm:items-stretch sm:gap-6 sm:p-6">
+                  <article className="group relative flex h-full min-h-[300px] flex-col items-center gap-5 overflow-hidden rounded-3xl border border-slate-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-100 hover:shadow-xl hover:shadow-slate-200/50 sm:flex-row sm:items-stretch sm:gap-6 sm:p-6">
                     <div
                       className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-red-600/5 transition-transform duration-500 group-hover:scale-150"
                       aria-hidden
@@ -183,7 +184,7 @@ export default function DoctorShowcase({ doctors }: DoctorShowcaseProps) {
               </button>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

@@ -294,7 +294,7 @@ export default function Navbar() {
       className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300",
         isScrolled
-          ? "bg-white/90 backdrop-blur-md shadow-sm border-b"
+          ? "border-b border-slate-200/80 bg-white/95 shadow-md shadow-slate-200/40 backdrop-blur-md"
           : "bg-white"
       )}
     >

@@ -1,25 +1,27 @@
+"use client";
+
 import { internationalFeatures } from "@/data/international-patients";
+import { StaggerItem, StaggerReveal } from "@/components/ui/scroll-reveal";
 
 export default function InternationalFeatures() {
   return (
-    <section className="py-10 bg-white border-b border-slate-100 -mt-1 relative z-20">
+    <section className="relative z-20 -mt-1 border-b border-slate-100 bg-white py-10">
       <div className="container mx-auto px-4">
-        <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <StaggerReveal className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-3">
           {internationalFeatures.map(({ title, description, icon: Icon }) => (
-            <div
-              key={title}
-              className="flex flex-col items-center text-center p-6 rounded-2xl border-2 border-red-100 bg-white shadow-sm"
-            >
-              <div className="w-14 h-14 rounded-full border-2 border-red-600 flex items-center justify-center mb-4">
-                <Icon className="w-7 h-7 text-red-600" strokeWidth={1.5} />
+            <StaggerItem key={title}>
+              <div className="flex h-full flex-col items-center rounded-2xl border-2 border-red-100 bg-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-md">
+                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full border-2 border-red-600">
+                  <Icon className="h-7 w-7 text-red-600" strokeWidth={1.5} />
+                </div>
+                <h3 className="font-bold text-slate-900">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-500">
+                  {description}
+                </p>
               </div>
-              <h3 className="font-bold text-slate-900">{title}</h3>
-              <p className="text-sm text-slate-500 mt-2 leading-relaxed">
-                {description}
-              </p>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerReveal>
       </div>
     </section>
   );

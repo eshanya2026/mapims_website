@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { CircleHelp, Phone } from "lucide-react";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 export default function DepartmentHelpCTA() {
   return (
@@ -10,7 +11,8 @@ export default function DepartmentHelpCTA() {
       <div className="absolute inset-0 z-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10" />
 
       <div className="container relative z-10 mx-auto px-4">
-        <div className="flex flex-col items-center justify-between gap-3 rounded-2xl border border-white/20 bg-white/10 px-5 py-4 backdrop-blur-md sm:min-h-[120px] sm:max-h-[150px] sm:flex-row sm:gap-4 sm:overflow-hidden md:px-8">
+        <ScrollReveal>
+        <div className="flex flex-col items-center justify-between gap-3 rounded-2xl border border-white/20 bg-white/10 px-5 py-4 backdrop-blur-md transition-shadow duration-300 hover:shadow-lg sm:min-h-[120px] sm:max-h-[150px] sm:flex-row sm:gap-4 sm:overflow-hidden md:px-8">
           <div className="min-w-0 flex-1 text-center md:text-left">
             <h2 className="inline-flex items-center gap-2 text-base font-bold leading-snug text-white sm:text-lg md:text-xl">
               <CircleHelp
@@ -40,6 +42,7 @@ export default function DepartmentHelpCTA() {
             </a>
           </div>
         </div>
+        </ScrollReveal>
       </div>
     </section>
   );
