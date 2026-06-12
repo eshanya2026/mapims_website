@@ -115,7 +115,7 @@ export default function ContactForm({ className }: ContactFormProps) {
         <h2 className="text-xl font-bold text-slate-900 sm:text-2xl">
           Send a Message
         </h2>
-        <p className="mt-1.5 text-sm text-slate-600 leading-relaxed">
+        <p className="mt-1.5 text-left text-sm leading-relaxed text-slate-600">
           Fill in the form and we will get back to you. You can also call or
           email us directly using the details on the left.
         </p>
