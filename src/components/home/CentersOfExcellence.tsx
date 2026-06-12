@@ -3,16 +3,17 @@
 import { motion } from "framer-motion";
 import { Heart, Brain, Bone, Activity, Stethoscope, Baby, Wind, Eye, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { getDepartmentHref } from "@/data/departments";
 
 const centers = [
-  { icon: Heart, name: "Cardiology", desc: "Advanced heart care and surgeries" },
-  { icon: Brain, name: "Neurology", desc: "Comprehensive brain and spine care" },
-  { icon: Bone, name: "Orthopaedics", desc: "Joint replacement and sports medicine" },
-  { icon: Activity, name: "Oncology", desc: "State-of-the-art cancer treatment" },
-  { icon: Stethoscope, name: "Gastroenterology", desc: "Digestive system disorders" },
-  { icon: Baby, name: "Pediatrics", desc: "Expert care for infants and children" },
-  { icon: Wind, name: "Pulmonology", desc: "Respiratory and lung diseases" },
-  { icon: Eye, name: "Ophthalmology", desc: "Advanced eye care and surgeries" },
+  { icon: Heart, name: "Cardiology", slug: "cardiology", desc: "Advanced heart care and surgeries" },
+  { icon: Brain, name: "Neurology", slug: "neurology", desc: "Comprehensive brain and spine care" },
+  { icon: Bone, name: "Orthopaedics", slug: "orthopaedics", desc: "Joint replacement and sports medicine" },
+  { icon: Activity, name: "Oncology", slug: "oncology", desc: "State-of-the-art cancer treatment" },
+  { icon: Stethoscope, name: "Gastroenterology", slug: "medical-gastroenterology", desc: "Digestive system disorders" },
+  { icon: Baby, name: "Pediatrics", slug: "paediatric", desc: "Expert care for infants and children" },
+  { icon: Wind, name: "Pulmonology", slug: "general-medicine", desc: "Respiratory and lung diseases" },
+  { icon: Eye, name: "Ophthalmology", slug: "ophthalmology", desc: "Advanced eye care and surgeries" },
 ];
 
 export default function CentersOfExcellence() {
@@ -36,13 +37,13 @@ export default function CentersOfExcellence() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {centers.map((center, index) => (
             <motion.div
-              key={index}
+              key={center.slug}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Link href="#" className="block group">
+              <Link href={getDepartmentHref(center.slug)} className="block group">
                 <div className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 h-full relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/5 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-500" />
                   

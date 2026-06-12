@@ -150,19 +150,11 @@ export default function Footer() {
 
         <FooterFindUs />
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-800 pt-8 md:flex-row">
-          <p className="text-sm text-slate-500 text-center md:text-left">
+        <div className="mt-12 border-t border-slate-800 pt-8">
+          <p className="text-sm text-slate-500 text-center">
             &copy; {new Date().getFullYear()} Adhiparasakthi Hospital. All
             rights reserved.
           </p>
-          <div className="flex gap-6 text-sm text-slate-500">
-            <Link href="#" className="hover:text-white transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="#" className="hover:text-white transition-colors">
-              Terms of Service
-            </Link>
-          </div>
         </div>
       </div>
     </footer>
