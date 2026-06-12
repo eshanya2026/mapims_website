@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Search, Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import BookAppointmentLink from "@/components/layout/BookAppointmentLink";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -371,10 +371,7 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden lg:flex items-center space-x-4">
-            <button className="p-2 text-slate-600 hover:text-red-600 transition-colors rounded-full hover:bg-slate-50">
-              <Search className="w-5 h-5" />
-            </button>
+          <div className="hidden lg:flex items-center">
             <BookAppointmentLink
               className={cn(
                 buttonVariants(),
