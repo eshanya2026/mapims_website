@@ -261,5 +261,66 @@
     .animate-shimmer-line {
       animation: none;
     }
+
+    .group:hover .doctor-blob-frame,
+    .group:hover .doctor-blob-inner {
+      animation: none;
+    }
+  }
+
+  @keyframes doctor-blob-morph {
+    0%,
+    100% {
+      border-radius: 58% 42% 38% 62% / 48% 52% 48% 52%;
+    }
+    20% {
+      border-radius: 45% 55% 65% 35% / 55% 45% 50% 50%;
+    }
+    40% {
+      border-radius: 72% 28% 42% 58% / 38% 58% 54% 46%;
+    }
+    60% {
+      border-radius: 32% 68% 58% 42% / 58% 38% 32% 68%;
+    }
+    80% {
+      border-radius: 52% 48% 28% 72% / 44% 56% 68% 32%;
+    }
+  }
+
+  @keyframes doctor-blob-inner-morph {
+    0%,
+    100% {
+      border-radius: 55% 45% 40% 60% / 50% 50% 46% 54%;
+    }
+    20% {
+      border-radius: 48% 52% 58% 42% / 52% 48% 48% 52%;
+    }
+    40% {
+      border-radius: 64% 36% 44% 56% / 42% 70% 50% 50%;
+    }
+    60% {
+      border-radius: 38% 62% 54% 46% / 70% 42% 38% 62%;
+    }
+    80% {
+      border-radius: 50% 50% 34% 66% / 46% 54% 62% 38%;
+    }
+  }
+
+  .doctor-blob-frame {
+    border-radius: 58% 42% 38% 62% / 48% 52% 48% 52%;
+    transition: 0.3s;
+  }
+
+  .doctor-blob-inner {
+    border-radius: 58% 42% 38% 62% / 48% 52% 48% 52%;
+    transition: 0.3s;
+  }
+
+  .group:hover .doctor-blob-frame {
+    animation: doctor-blob-morph 15s linear infinite;
+  }
+
+  .group:hover .doctor-blob-inner {
+    animation: doctor-blob-morph 15s linear infinite;
   }
 }

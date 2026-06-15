@@ -12,16 +12,12 @@ type DoctorShowcaseProps = {
 
 function DoctorPortrait({ image, name }: { image: string; name: string }) {
   return (
-    <div className="relative mx-auto h-[220px] w-[170px] shrink-0 overflow-hidden sm:mx-0 sm:h-[240px] sm:w-[185px]">
+    <div className="relative mx-auto h-[220px] w-[170px] shrink-0 overflow-visible sm:mx-0 sm:h-[240px] sm:w-[185px]">
       <div
-        className="absolute inset-0 bg-gradient-to-br from-red-500 via-red-600 to-rose-700 opacity-95 transition-opacity duration-300 group-hover:opacity-100"
-        style={{ borderRadius: "58% 42% 38% 62% / 48% 52% 48% 52%" }}
+        className="doctor-blob-frame absolute inset-0 bg-gradient-to-br from-red-500 via-red-600 to-rose-700 opacity-95 group-hover:opacity-100"
         aria-hidden
       />
-      <div
-        className="absolute inset-[6px] overflow-hidden bg-white/10"
-        style={{ borderRadius: "55% 45% 40% 60% / 50% 50% 46% 54%" }}
-      >
+      <div className="doctor-blob-inner absolute inset-[6px] overflow-hidden bg-white/10">
         <img
           src={image}
           alt={name}

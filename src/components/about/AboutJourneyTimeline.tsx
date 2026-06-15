@@ -1,11 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const milestones = [
@@ -43,43 +39,112 @@ const milestones = [
 
 function MilestoneCard({
   item,
-  isLast,
+  isActive,
+  isReached,
   alignRight,
 }: {
   item: (typeof milestones)[number];
-  isLast: boolean;
+  isActive: boolean;
+  isReached: boolean;
   alignRight?: boolean;
 }) {
   return (
-    <div
+    <motion.div
+      layout
+      animate={{
+        opacity: isReached ? 1 : 0.45,
+        scale: isActive ? 1 : isReached ? 1 : 0.98,
+      }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
       className={cn(
-        "rounded-2xl border bg-white p-5 shadow-sm md:p-6",
-        isLast
-          ? "border-red-200 shadow-md ring-1 ring-red-100"
-          : "border-slate-200"
+        "rounded-2xl border bg-white p-5 shadow-sm transition-colors duration-300 md:p-6",
+        isActive
+          ? "border-red-300 shadow-md ring-2 ring-red-100"
+          : isReached
+            ? "border-red-100"
+            : "border-slate-200"
       )}
     >
       <div className={cn(alignRight && "md:text-right")}>
-        <p className="text-sm font-bold uppercase tracking-wider text-red-600">
+        <p
+          className={cn(
+            "text-sm font-bold uppercase tracking-wider transition-colors duration-300",
+            isActive || isReached ? "text-red-600" : "text-slate-400"
+          )}
+        >
           {item.year}
         </p>
-        <h3 className="mt-1 text-lg font-bold text-slate-900 md:text-xl">
+        <h3
+          className={cn(
+            "mt-1 text-lg font-bold md:text-xl transition-colors duration-300",
+            isActive || isReached ? "text-slate-900" : "text-slate-500"
+          )}
+        >
           {item.title}
         </h3>
       </div>
-      <p className="mt-2 text-pretty text-sm normal-case leading-relaxed tracking-normal text-slate-600 [word-spacing:normal] md:text-base">
+      <p
+        className={cn(
+          "mt-2 text-pretty text-sm normal-case leading-relaxed tracking-normal [word-spacing:normal] md:text-base transition-colors duration-300",
+          isActive || isReached ? "text-slate-600" : "text-slate-400"
+        )}
+      >
         {item.description}
       </p>
-    </div>
+    </motion.div>
+  );
+}
+
+function MilestoneNode({
+  year,
+  isActive,
+  isReached,
+  compact,
+}: {
+  year: string;
+  isActive: boolean;
+  isReached: boolean;
+  compact?: boolean;
+}) {
+  return (
+    <motion.span
+      animate={{
+        scale: isActive ? 1.12 : 1,
+      }}
+      transition={{ type: "spring", stiffness: 380, damping: 22 }}
+      className={cn(
+        "relative z-10 flex items-center justify-center rounded-full border-[3px] border-slate-50 font-bold shadow-lg transition-colors duration-300",
+        compact ? "h-9 w-9 text-[11px]" : "h-14 w-14 text-sm",
+        isActive
+          ? "bg-red-600 text-white shadow-red-600/40 ring-4 ring-red-200"
+          : isReached
+            ? "bg-red-600 text-white shadow-red-600/25 ring-2 ring-red-100"
+            : "bg-white text-slate-400 ring-2 ring-slate-100"
+      )}
+    >
+      {compact ? year.slice(2) : year}
+      {isActive ? (
+        <span
+          className="absolute inset-0 animate-ping rounded-full bg-red-500/30"
+          aria-hidden
+        />
+      ) : null}
+    </motion.span>
   );
 }
 
 export default function AboutJourneyTimeline() {
   const journeyRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLOListElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const nodeRefs = useRef<(HTMLLIElement | null)[]>([]);
+
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [lineHeight, setLineHeight] = useState(0);
 
   const { scrollYProgress } = useScroll({
-    target: journeyRef,
-    offset: ["start 0.85", "end 0.15"],
+    target: timelineRef,
+    offset: ["start 0.55", "end 0.45"],
   });
 
   const objectPosition = useTransform(
@@ -87,6 +152,74 @@ export default function AboutJourneyTimeline() {
     [0, 1],
     ["center 38%", "center 58%"]
   );
+
+  const syncTimeline = useCallback(() => {
+    const track = trackRef.current;
+    const nodes = nodeRefs.current;
+    if (!track || nodes.some((node) => !node)) return;
+
+    const viewportCenter = window.innerHeight * 0.5;
+    const trackRect = track.getBoundingClientRect();
+
+    let closestIndex = 0;
+    let closestDistance = Number.POSITIVE_INFINITY;
+
+    nodes.forEach((node, index) => {
+      if (!node) return;
+      const rect = node.getBoundingClientRect();
+      const nodeCenter = rect.top + rect.height / 2;
+      const distance = Math.abs(nodeCenter - viewportCenter);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    setActiveIndex(closestIndex);
+
+    const firstNode = nodes[0]!;
+    const lastNode = nodes[nodes.length - 1]!;
+    const firstRect = firstNode.getBoundingClientRect();
+    const lastRect = lastNode.getBoundingClientRect();
+    const firstCenter = firstRect.top + firstRect.height / 2 - trackRect.top;
+    const lastCenter = lastRect.top + lastRect.height / 2 - trackRect.top;
+
+    const headY = Math.min(
+      lastCenter,
+      Math.max(firstCenter, viewportCenter - trackRect.top)
+    );
+
+    setLineHeight(Math.max(firstCenter, headY));
+  }, []);
+
+  useEffect(() => {
+    const nodes = nodeRefs.current.filter(Boolean) as HTMLLIElement[];
+    if (!nodes.length) return;
+
+    const observer = new IntersectionObserver(
+      () => {
+        syncTimeline();
+      },
+      {
+        root: null,
+        rootMargin: "-42% 0px -42% 0px",
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+      }
+    );
+
+    nodes.forEach((node) => observer.observe(node));
+
+    syncTimeline();
+    window.addEventListener("scroll", syncTimeline, { passive: true });
+    window.addEventListener("resize", syncTimeline);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", syncTimeline);
+      window.removeEventListener("resize", syncTimeline);
+    };
+  }, [syncTimeline]);
 
   return (
     <section
@@ -158,55 +291,58 @@ export default function AboutJourneyTimeline() {
           </motion.div>
 
           <div className="lg:col-span-7">
-            <ol className="relative">
+            <ol ref={timelineRef} className="relative">
               <div
-                className="absolute bottom-4 left-[1.125rem] top-4 w-0.5 bg-gradient-to-b from-red-200 via-red-500 to-red-600 md:left-1/2 md:-translate-x-px"
+                ref={trackRef}
+                className="absolute bottom-4 left-[1.125rem] top-4 w-0.5 overflow-hidden rounded-full bg-red-100 md:left-1/2 md:-translate-x-px"
                 aria-hidden
-              />
+              >
+                <motion.div
+                  className="w-full origin-top bg-gradient-to-b from-red-400 via-red-500 to-red-600"
+                  animate={{ height: lineHeight }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                />
+              </div>
 
               {milestones.map((item, index) => {
-                const isLast = index === milestones.length - 1;
+                const isActive = index === activeIndex;
+                const isReached = index <= activeIndex;
                 const isRight = index % 2 === 1;
 
                 return (
-                  <motion.li
+                  <li
                     key={item.year}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-40px" }}
-                    transition={{ duration: 0.45, delay: index * 0.06 }}
+                    ref={(el) => {
+                      nodeRefs.current[index] = el;
+                    }}
+                    data-index={index}
                     className="relative pb-10 last:pb-0 md:pb-12"
                   >
                     <div className="flex gap-4 md:hidden">
                       <div className="relative z-10 shrink-0 pt-1">
-                        <span
-                          className={cn(
-                            "flex h-9 w-9 items-center justify-center rounded-full border-[3px] border-white text-[11px] font-bold shadow-md",
-                            isLast
-                              ? "bg-red-600 text-white ring-4 ring-red-100"
-                              : "bg-white text-red-600 ring-2 ring-red-100"
-                          )}
-                        >
-                          {item.year.slice(2)}
-                        </span>
+                        <MilestoneNode
+                          year={item.year}
+                          isActive={isActive}
+                          isReached={isReached}
+                          compact
+                        />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <MilestoneCard item={item} isLast={isLast} />
+                        <MilestoneCard
+                          item={item}
+                          isActive={isActive}
+                          isReached={isReached}
+                        />
                       </div>
                     </div>
 
                     <div className="relative hidden md:block md:min-h-[6.5rem]">
                       <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
-                        <span
-                          className={cn(
-                            "flex h-14 w-14 items-center justify-center rounded-full border-[3px] border-slate-50 text-sm font-bold shadow-lg",
-                            isLast
-                              ? "bg-red-600 text-white shadow-red-600/30 ring-4 ring-red-100"
-                              : "bg-white text-red-600 ring-2 ring-red-100"
-                          )}
-                        >
-                          {item.year}
-                        </span>
+                        <MilestoneNode
+                          year={item.year}
+                          isActive={isActive}
+                          isReached={isReached}
+                        />
                       </div>
                       <div
                         className={cn(
@@ -216,12 +352,13 @@ export default function AboutJourneyTimeline() {
                       >
                         <MilestoneCard
                           item={item}
-                          isLast={isLast}
+                          isActive={isActive}
+                          isReached={isReached}
                           alignRight={!isRight}
                         />
                       </div>
                     </div>
-                  </motion.li>
+                  </li>
                 );
               })}
             </ol>
