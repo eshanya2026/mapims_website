@@ -38,7 +38,7 @@ export default function Hero() {
               World-Class Healthcare
             </span>
             <h1 className="mb-4 text-2xl font-bold leading-tight text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
-              Healing Lives, <br />
+              Healing Lives 2, <br />
               <span className="text-red-600">Building Trust</span>
             </h1>
             <p className="mb-6 max-w-2xl text-base leading-relaxed text-slate-200 sm:mb-8 sm:text-lg md:text-xl">
