@@ -70,7 +70,7 @@ function NavDropdown({
     <div className="relative group">
       <Link
         href={href}
-        className="inline-flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-700 hover:text-red-600 transition-colors rounded-md hover:bg-slate-50"
+        className="inline-flex items-center gap-1 px-2.5 py-2 text-sm font-medium text-slate-700 hover:text-red-600 transition-colors rounded-md hover:bg-slate-50 whitespace-nowrap"
       >
         {label}
         <ChevronDown className="w-3.5 h-3.5 opacity-70 transition-transform duration-200 group-hover:rotate-180" />
@@ -118,7 +118,7 @@ function NavDropdownGrouped({
     <div className="relative group">
       <Link
         href={href}
-        className="inline-flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-700 hover:text-red-600 transition-colors rounded-md hover:bg-slate-50"
+        className="inline-flex items-center gap-1 px-2.5 py-2 text-sm font-medium text-slate-700 hover:text-red-600 transition-colors rounded-md hover:bg-slate-50 whitespace-nowrap"
       >
         {label}
         <ChevronDown className="w-3.5 h-3.5 opacity-70 transition-transform duration-200 group-hover:rotate-180" />
@@ -318,12 +318,12 @@ export default function Navbar() {
             />
           </Link>
 
-          <nav className="hidden lg:flex items-center space-x-1">
+          <nav className="hidden nav:flex items-center flex-1 justify-center min-w-0 gap-0.5">
             {simpleNavLinks.slice(0, 2).map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="px-3 py-2 text-sm font-medium text-slate-700 hover:text-red-600 transition-colors rounded-md hover:bg-slate-50"
+                className="px-2.5 py-2 text-sm font-medium text-slate-700 hover:text-red-600 transition-colors rounded-md hover:bg-slate-50 whitespace-nowrap"
               >
                 {link.name}
               </Link>
@@ -353,7 +353,7 @@ export default function Navbar() {
               href={careersNavLink.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-2 text-sm font-medium text-slate-700 hover:text-red-600 transition-colors rounded-md hover:bg-slate-50"
+              className="px-2.5 py-2 text-sm font-medium text-slate-700 hover:text-red-600 transition-colors rounded-md hover:bg-slate-50 whitespace-nowrap"
             >
               {careersNavLink.name}
             </Link>
@@ -364,18 +364,18 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="px-3 py-2 text-sm font-medium text-slate-700 hover:text-red-600 transition-colors rounded-md hover:bg-slate-50"
+                className="px-2.5 py-2 text-sm font-medium text-slate-700 hover:text-red-600 transition-colors rounded-md hover:bg-slate-50 whitespace-nowrap"
               >
                 {link.name}
               </Link>
             ))}
           </nav>
 
-          <div className="hidden lg:flex items-center">
+          <div className="hidden nav:flex items-center shrink-0">
             <BookAppointmentLink
               className={cn(
                 buttonVariants(),
-                "h-9 rounded-full bg-red-600 px-6 text-white shadow-md shadow-red-600/20 transition-all hover:bg-red-700 hover:shadow-lg hover:-translate-y-0.5"
+                "h-9 rounded-full bg-red-600 px-5 text-sm text-white shadow-md shadow-red-600/20 transition-all hover:bg-red-700 hover:shadow-lg hover:-translate-y-0.5 whitespace-nowrap"
               )}
             >
               Book Appointment
@@ -383,7 +383,7 @@ export default function Navbar() {
           </div>
 
           <button
-            className="lg:hidden p-2 text-slate-600"
+            className="nav:hidden p-2 text-slate-600"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -392,7 +392,7 @@ export default function Navbar() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-20 left-0 w-full bg-white border-b shadow-lg py-4 px-4 flex flex-col space-y-3 max-h-[calc(100vh-5rem)] overflow-y-auto">
+        <div className="nav:hidden absolute top-20 left-0 w-full bg-white border-b shadow-lg py-4 px-4 flex flex-col space-y-3 max-h-[calc(100vh-5rem)] overflow-y-auto">
           <Link
             href="/"
             className="px-4 py-2 text-base font-medium text-slate-700 hover:text-red-600 hover:bg-slate-50 rounded-md"

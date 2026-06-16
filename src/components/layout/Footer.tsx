@@ -5,25 +5,6 @@ import FooterFindUs from "@/components/layout/FooterFindUs";
 import FooterQuickLinks from "@/components/layout/FooterQuickLinks";
 import { socialLinks } from "@/data/site-social";
 
-const departments = [
-  "Multi Organ Transplant",
-  "Oncology",
-  "Neurology",
-  "Cardiology",
-  "Joint replacement",
-  "Orthopaedics",
-  "Obstetrics & Gynaecology",
-  "Nephrology",
-  "Paediatric",
-  "Diabetology",
-  "General Medicine",
-  "Medical Gastroenterology",
-  "Plastic Surgery",
-  "Ophthalmology",
-  "Otorhinolaryngology - ENT",
-  "Urology",
-];
-
 function FooterHeading({ children }: { children: React.ReactNode }) {
   return (
     <h3 className="text-sm font-semibold uppercase tracking-wider text-white mb-5">
@@ -38,8 +19,8 @@ export default function Footer() {
     <footer className="bg-slate-950 text-slate-300 border-t border-slate-800">
       <div className="container mx-auto px-4 pt-14 pb-10">
         {/* Main link columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-10 xl:gap-8">
-          <div className="space-y-5 sm:col-span-2 xl:col-span-1">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1.6fr)_minmax(0,1fr)] gap-10 lg:gap-8 lg:items-start">
+          <div className="space-y-5 min-w-0">
             <Link href="/" className="inline-flex items-center gap-3 group max-w-full flex-wrap sm:flex-nowrap">
               <span className="flex items-center gap-1.5 sm:gap-2 shrink-0 min-w-0 transition-transform group-hover:scale-[1.02]">
                 <img
@@ -57,42 +38,7 @@ export default function Footer() {
                 className="h-11 sm:h-12 w-auto max-w-[120px] sm:max-w-[140px] object-contain shrink-0 border-l border-slate-700 pl-3"
               />
             </Link>
-            <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
-              Melmaruvathur Adhiparasakthi Institute of Medical Sciences and
-              Research was established in 2008. The Hospital attached to the
-              College is being run from the year 1986, later evolved as
-              Adhiparasakthi Hospitals by His Holiness &quot;Padmashri&quot;
-              Bangaru Adigalar and runs by non-profitable ACMEC Trust.
-            </p>
-          </div>
 
-          <div>
-            <FooterHeading>Departments</FooterHeading>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-x-4 gap-y-2">
-              {departments.map((item) => (
-                <li key={item}>
-                  <Link
-                    href={
-                      item === "Multi Organ Transplant"
-                        ? "/departments/multi-organ-transplant"
-                        : "/departments"
-                    }
-                    className="text-sm text-slate-400 hover:text-white transition-colors"
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <FooterHeading>Quick Links</FooterHeading>
-            <FooterQuickLinks />
-          </div>
-
-          <div>
-            <FooterHeading>Contact Details</FooterHeading>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
@@ -121,12 +67,7 @@ export default function Footer() {
               </li>
             </ul>
 
-            <div className="mt-6">
-              <FooterHeading>Newsletter</FooterHeading>
-              <FooterNewsletter />
-            </div>
-
-            <div className="mt-6">
+            <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
                 Follow us
               </p>
@@ -145,6 +86,16 @@ export default function Footer() {
                 ))}
               </div>
             </div>
+          </div>
+
+          <div className="min-w-0">
+            <FooterHeading>Quick Links</FooterHeading>
+            <FooterQuickLinks />
+          </div>
+
+          <div className="min-w-0">
+            <FooterHeading>Newsletter</FooterHeading>
+            <FooterNewsletter />
           </div>
         </div>
 
