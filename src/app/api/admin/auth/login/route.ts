@@ -29,7 +29,23 @@ export async function POST(request: Request) {
       defaultPath: getDefaultAdminPath(admin.role),
     });
   } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
     console.error("[admin/login]", error);
+
+    if (message.includes("MONGODB_URI")) {
+      return NextResponse.json(
+        { error: "Server misconfigured: database connection is not set up." },
+        { status: 503 }
+      );
+    }
+
+    if (message.includes("AUTH_SECRET")) {
+      return NextResponse.json(
+        { error: "Server misconfigured: authentication secret is not set up." },
+        { status: 503 }
+      );
+    }
+
     return NextResponse.json({ error: "Login failed" }, { status: 500 });
   }
 }
