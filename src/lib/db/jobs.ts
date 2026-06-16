@@ -49,6 +49,32 @@ export async function findJobBySlug(slug: string, published?: boolean) {
   return doc ? toJobRecord(doc) : null;
 }
 
+export async function ensureUniqueJobSlug(baseSlug: string, excludeId?: string) {
+  const collection = await jobsCollection();
+  let slug = baseSlug;
+  let suffix = 2;
+
+  while (true) {
+    const query = mergeNotDeleted({ slug });
+    if (excludeId) {
+      const objectId = toObjectId(excludeId);
+      if (objectId) {
+        const existing = await collection.findOne({ ...query, _id: { $ne: objectId } });
+        if (!existing) return slug;
+        slug = `${baseSlug}-${suffix}`;
+        suffix += 1;
+        continue;
+      }
+    }
+
+    const existing = await collection.findOne(query);
+    if (!existing) return slug;
+
+    slug = `${baseSlug}-${suffix}`;
+    suffix += 1;
+  }
+}
+
 export async function findJobs(filter?: { published?: boolean }) {
   const collection = await jobsCollection();
   const docs = await collection

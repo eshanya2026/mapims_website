@@ -14,7 +14,7 @@ function referenceItems(
   const items: Array<{ label: string; value: string }> = [];
 
   if (submission.referenceId) {
-    items.push({ label: "Application ID", value: submission.referenceId });
+    items.push({ label: "Reference No.", value: submission.referenceId });
   }
   if (submission.jobTitle) {
     items.push({ label: "Position", value: submission.jobTitle });

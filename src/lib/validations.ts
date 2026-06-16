@@ -104,8 +104,15 @@ export const jobApplicationFormSchema = z.object({
   name: z.string().trim().min(2),
   phone: phoneField,
   email: z.string().trim().email("Please enter a valid email"),
-  address: z.string().optional().transform((value) => value?.trim() ?? ""),
-  message: z.string().trim().min(10, "Please add a short message"),
+  currentLocation: z.string().optional().transform((value) => value?.trim() ?? ""),
+  qualification: z.string().trim().min(2, "Please enter your qualification"),
+  totalExperience: z.string().trim().min(1, "Please enter your total experience"),
+  medicalCouncilRegistrationNo: z
+    .string()
+    .optional()
+    .transform((value) => value?.trim() ?? ""),
+  noticePeriod: z.string().optional().transform((value) => value?.trim() ?? ""),
+  message: z.string().optional().transform((value) => value?.trim() ?? ""),
   resumeUrl: z.string().trim().min(1, "Please upload your resume"),
 });
 
@@ -151,11 +158,13 @@ export const inquiryStatusSchema = z.union([
 
 export const scheduleInterviewSchema = z.object({
   status: z.literal("interview_scheduled"),
+  reschedule: z.boolean().optional(),
   interview: z.object({
     date: z.string().min(1, "Please select a date"),
     time: z.string().trim().min(1, "Please select a time"),
     interviewer: z.string().trim().min(2, "Please enter the interviewer name"),
     mode: z.enum(["online", "offline"]),
+    address: z.string().optional().transform((value) => value?.trim() ?? ""),
     notifyCandidate: z.boolean().default(true),
   }),
 });

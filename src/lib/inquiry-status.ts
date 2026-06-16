@@ -8,8 +8,8 @@ export const GENERAL_INQUIRY_STATUSES = [
 
 export const RECRUITMENT_STATUSES = [
   "new",
-  "interview_scheduled",
   "shortlisted",
+  "interview_scheduled",
   "selected",
   "joined",
   "rejected",
@@ -133,14 +133,21 @@ function getGeneralInquiryNextActions(status: string): InquiryStatusAction[] {
 function getRecruitmentNextActions(status: string): InquiryStatusAction[] {
   switch (status) {
     case "new":
-      return [{ status: "interview_scheduled", label: "Schedule interview" }];
-    case "interview_scheduled":
       return [
         { status: "shortlisted", label: "Shortlist" },
         { status: "rejected", label: "Reject" },
       ];
     case "shortlisted":
-      return [{ status: "selected", label: "Mark selected" }];
+      return [
+        { status: "interview_scheduled", label: "Schedule interview" },
+        { status: "rejected", label: "Reject" },
+      ];
+    case "interview_scheduled":
+      return [
+        { status: "reschedule_interview", label: "Reschedule interview" },
+        { status: "selected", label: "Mark selected" },
+        { status: "rejected", label: "Reject" },
+      ];
     case "selected":
       return [{ status: "joined", label: "Mark joined" }];
     case "joined":
@@ -148,7 +155,7 @@ function getRecruitmentNextActions(status: string): InquiryStatusAction[] {
       return [];
     case "screening":
       return [
-        { status: "interview_scheduled", label: "Schedule interview" },
+        { status: "shortlisted", label: "Shortlist" },
         { status: "rejected", label: "Reject" },
       ];
     case "contacted":
@@ -157,7 +164,10 @@ function getRecruitmentNextActions(status: string): InquiryStatusAction[] {
     case "cancelled":
     case "read":
     case "archived":
-      return [{ status: "interview_scheduled", label: "Schedule interview" }];
+      return [
+        { status: "shortlisted", label: "Shortlist" },
+        { status: "rejected", label: "Reject" },
+      ];
     default:
       return [];
   }

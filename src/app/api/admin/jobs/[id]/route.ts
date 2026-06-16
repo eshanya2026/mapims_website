@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { deleteJob, findJobById, updateJob } from "@/lib/db/jobs";
-import { isDuplicateKeyError } from "@/lib/db/utils";
+import { deleteJob, ensureUniqueJobSlug, findJobById, updateJob } from "@/lib/db/jobs";
+import { isDuplicateKeyError, duplicateKeyErrorMessage } from "@/lib/db/utils";
 import { jobSchema } from "@/lib/validations";
 
 type RouteContext = { params: Promise<{ id: string }> };
@@ -40,9 +40,13 @@ export async function PUT(request: Request, context: RouteContext) {
     }
 
     const data = parsed.data;
+    const slug =
+      data.slug === existing.slug
+        ? existing.slug
+        : await ensureUniqueJobSlug(data.slug, id);
     const job = await updateJob(id, {
       title: data.title,
-      slug: data.slug,
+      slug,
       jobRefNo: data.jobRefNo || null,
       department: data.department,
       location: data.location,
@@ -69,9 +73,7 @@ export async function PUT(request: Request, context: RouteContext) {
   } catch (error) {
     console.error("[admin/jobs PUT]", error);
     const message = isDuplicateKeyError(error)
-      ? (error as { keyPattern?: Record<string, unknown> }).keyPattern?.jobRefNo
-        ? "A job with this reference number already exists"
-        : "A job with this slug already exists"
+      ? duplicateKeyErrorMessage(error, { default: "Failed to update job" })
       : "Failed to update job";
     return NextResponse.json({ error: message }, { status: 500 });
   }

@@ -7,7 +7,10 @@ import {
   updateFormSubmission,
 } from "@/lib/db/form-submissions";
 import { isRecruitmentInquiry, isValidInquiryStatusForType } from "@/lib/inquiry-status";
-import { notifyCandidateOfRecruitmentStatusChange } from "@/lib/recruitment-status-notifications";
+import {
+  notifyCandidateOfInterviewReschedule,
+  notifyCandidateOfRecruitmentStatusChange,
+} from "@/lib/recruitment-status-notifications";
 import { updateInquiryPatchSchema } from "@/lib/validations";
 
 type RouteContext = { params: Promise<{ id: string }> };
@@ -63,6 +66,14 @@ export async function PATCH(request: Request, context: RouteContext) {
 
       const { interview } = payload;
       const notifyCandidate = interview.notifyCandidate;
+      const isReschedule = payload.reschedule === true;
+
+      if (isReschedule && existing.status !== "interview_scheduled") {
+        return NextResponse.json(
+          { error: "Interview can only be rescheduled while it is scheduled" },
+          { status: 400 }
+        );
+      }
 
       const inquiry = await updateFormSubmission(id, {
         status: "interview_scheduled",
@@ -70,6 +81,7 @@ export async function PATCH(request: Request, context: RouteContext) {
         interviewTime: interview.time,
         interviewInterviewer: interview.interviewer,
         interviewMode: interview.mode,
+        interviewAddress: interview.address || null,
       });
 
       if (!inquiry) {
@@ -77,12 +89,18 @@ export async function PATCH(request: Request, context: RouteContext) {
       }
 
       try {
-        await notifyCandidateOfRecruitmentStatusChange(
-          inquiry,
-          existing.status,
-          "interview_scheduled",
-          { sendEmail: notifyCandidate }
-        );
+        if (isReschedule) {
+          await notifyCandidateOfInterviewReschedule(inquiry, {
+            sendEmail: notifyCandidate,
+          });
+        } else {
+          await notifyCandidateOfRecruitmentStatusChange(
+            inquiry,
+            existing.status,
+            "interview_scheduled",
+            { sendEmail: notifyCandidate }
+          );
+        }
       } catch (emailError) {
         console.error("[admin/inquiries PATCH] candidate email failed:", emailError);
       }

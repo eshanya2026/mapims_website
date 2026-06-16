@@ -17,7 +17,11 @@ type FormState = {
   name: string;
   email: string;
   phone: string;
-  address: string;
+  currentLocation: string;
+  qualification: string;
+  totalExperience: string;
+  medicalCouncilRegistrationNo: string;
+  noticePeriod: string;
   message: string;
 };
 
@@ -25,7 +29,11 @@ const INITIAL_STATE: FormState = {
   name: "",
   email: "",
   phone: "",
-  address: "",
+  currentLocation: "",
+  qualification: "",
+  totalExperience: "",
+  medicalCouncilRegistrationNo: "",
+  noticePeriod: "",
   message: "",
 };
 
@@ -52,7 +60,11 @@ export default function CareerApplyModal({
     name: false,
     email: false,
     phone: false,
-    address: false,
+    currentLocation: false,
+    qualification: false,
+    totalExperience: false,
+    medicalCouncilRegistrationNo: false,
+    noticePeriod: false,
     message: false,
     resume: false,
   });
@@ -67,7 +79,8 @@ export default function CareerApplyModal({
     const name = normalizeSpaces(state.name);
     const phone = normalizeSpaces(state.phone);
     const email = normalizeSpaces(state.email);
-    const message = normalizeSpaces(state.message);
+    const qualification = normalizeSpaces(state.qualification);
+    const totalExperience = normalizeSpaces(state.totalExperience);
 
     return {
       name: name.length < 2 ? "Please enter your name." : "",
@@ -79,8 +92,14 @@ export default function CareerApplyModal({
         email.length === 0 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
           ? "Please enter a valid email."
           : "",
-      address: "",
-      message: message.length < 10 ? "Please add a short message." : "",
+      currentLocation: "",
+      qualification:
+        qualification.length < 2 ? "Please enter your qualification." : "",
+      totalExperience:
+        totalExperience.length < 1 ? "Please enter your total experience." : "",
+      medicalCouncilRegistrationNo: "",
+      noticePeriod: "",
+      message: "",
       resume: resumeFile ? "" : "Please upload your resume.",
     };
   }, [state, resumeFile]);
@@ -94,7 +113,11 @@ export default function CareerApplyModal({
       name: false,
       email: false,
       phone: false,
-      address: false,
+      currentLocation: false,
+      qualification: false,
+      totalExperience: false,
+      medicalCouncilRegistrationNo: false,
+      noticePeriod: false,
       message: false,
       resume: false,
     });
@@ -119,7 +142,11 @@ export default function CareerApplyModal({
       name: true,
       email: true,
       phone: true,
-      address: true,
+      currentLocation: true,
+      qualification: true,
+      totalExperience: true,
+      medicalCouncilRegistrationNo: true,
+      noticePeriod: true,
       message: true,
       resume: true,
     });
@@ -140,7 +167,11 @@ export default function CareerApplyModal({
         name: normalizeSpaces(state.name),
         phone: normalizeSpaces(state.phone),
         email: normalizeSpaces(state.email),
-        address: normalizeSpaces(state.address),
+        currentLocation: normalizeSpaces(state.currentLocation),
+        qualification: normalizeSpaces(state.qualification),
+        totalExperience: normalizeSpaces(state.totalExperience),
+        medicalCouncilRegistrationNo: normalizeSpaces(state.medicalCouncilRegistrationNo),
+        noticePeriod: normalizeSpaces(state.noticePeriod),
         message: normalizeSpaces(state.message),
         resumeUrl,
       });
@@ -175,9 +206,12 @@ export default function CareerApplyModal({
   const inputClass =
     "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none transition-colors focus:border-red-500 focus:ring-2 focus:ring-red-600/15";
 
+  const labelClass = "mb-1.5 block text-sm font-semibold text-slate-900";
+  const requiredMark = <span className="text-red-600">*</span>;
+
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-xl">
         <DialogHeader>
           <DialogTitle className="text-lg font-bold text-slate-900">
             Apply for this role
@@ -189,8 +223,8 @@ export default function CareerApplyModal({
 
         <form onSubmit={onSubmit} className="space-y-4">
           <div>
-            <label className="mb-1.5 block text-sm font-semibold text-slate-900" htmlFor="apply-name">
-              Full name <span className="text-red-600">*</span>
+            <label className={labelClass} htmlFor="apply-name">
+              Full Name {requiredMark}
             </label>
             <input
               id="apply-name"
@@ -208,8 +242,8 @@ export default function CareerApplyModal({
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1.5 block text-sm font-semibold text-slate-900" htmlFor="apply-email">
-                Email <span className="text-red-600">*</span>
+              <label className={labelClass} htmlFor="apply-email">
+                Email {requiredMark}
               </label>
               <input
                 id="apply-email"
@@ -227,8 +261,8 @@ export default function CareerApplyModal({
             </div>
 
             <div>
-              <label className="mb-1.5 block text-sm font-semibold text-slate-900" htmlFor="apply-phone">
-                Phone <span className="text-red-600">*</span>
+              <label className={labelClass} htmlFor="apply-phone">
+                Phone {requiredMark}
               </label>
               <input
                 id="apply-phone"
@@ -246,41 +280,119 @@ export default function CareerApplyModal({
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-semibold text-slate-900" htmlFor="apply-address">
-              Address <span className="text-xs font-normal text-slate-500">(optional)</span>
+            <label className={labelClass} htmlFor="apply-location">
+              Current Location
             </label>
             <input
-              id="apply-address"
-              value={state.address}
-              onChange={(e) => setState((prev) => ({ ...prev, address: e.target.value }))}
-              onBlur={() => setTouched((prev) => ({ ...prev, address: true }))}
+              id="apply-location"
+              value={state.currentLocation}
+              onChange={(e) =>
+                setState((prev) => ({ ...prev, currentLocation: e.target.value }))
+              }
+              onBlur={() => setTouched((prev) => ({ ...prev, currentLocation: true }))}
               className={inputClass}
-              autoComplete="street-address"
               placeholder="City, state"
             />
           </div>
 
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label className={labelClass} htmlFor="apply-qualification">
+                Qualification {requiredMark}
+              </label>
+              <input
+                id="apply-qualification"
+                value={state.qualification}
+                onChange={(e) =>
+                  setState((prev) => ({ ...prev, qualification: e.target.value }))
+                }
+                onBlur={() => setTouched((prev) => ({ ...prev, qualification: true }))}
+                className={inputClass}
+                placeholder="e.g. MBBS, MD Radiology"
+              />
+              {fieldError("qualification") ? (
+                <p className="mt-1 text-xs text-red-600">{fieldError("qualification")}</p>
+              ) : null}
+            </div>
+
+            <div>
+              <label className={labelClass} htmlFor="apply-experience">
+                Total Experience {requiredMark}
+              </label>
+              <input
+                id="apply-experience"
+                value={state.totalExperience}
+                onChange={(e) =>
+                  setState((prev) => ({ ...prev, totalExperience: e.target.value }))
+                }
+                onBlur={() => setTouched((prev) => ({ ...prev, totalExperience: true }))}
+                className={inputClass}
+                placeholder="e.g. 8 years"
+              />
+              {fieldError("totalExperience") ? (
+                <p className="mt-1 text-xs text-red-600">{fieldError("totalExperience")}</p>
+              ) : null}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label className={labelClass} htmlFor="apply-mci">
+                Medical Council Registration No.
+              </label>
+              <p className="mb-1.5 text-xs text-slate-500">Doctors only</p>
+              <input
+                id="apply-mci"
+                value={state.medicalCouncilRegistrationNo}
+                onChange={(e) =>
+                  setState((prev) => ({
+                    ...prev,
+                    medicalCouncilRegistrationNo: e.target.value,
+                  }))
+                }
+                onBlur={() =>
+                  setTouched((prev) => ({ ...prev, medicalCouncilRegistrationNo: true }))
+                }
+                className={inputClass}
+                placeholder="Registration number"
+              />
+            </div>
+
+            <div>
+              <label className={labelClass} htmlFor="apply-notice">
+                Notice Period
+              </label>
+              <input
+                id="apply-notice"
+                value={state.noticePeriod}
+                onChange={(e) =>
+                  setState((prev) => ({ ...prev, noticePeriod: e.target.value }))
+                }
+                onBlur={() => setTouched((prev) => ({ ...prev, noticePeriod: true }))}
+                className={inputClass}
+                placeholder="e.g. 30 days"
+              />
+            </div>
+          </div>
+
           <div>
-            <label className="mb-1.5 block text-sm font-semibold text-slate-900" htmlFor="apply-message">
-              Message <span className="text-red-600">*</span>
+            <label className={labelClass} htmlFor="apply-message">
+              Message
             </label>
             <textarea
               id="apply-message"
               value={state.message}
               onChange={(e) => setState((prev) => ({ ...prev, message: e.target.value }))}
               onBlur={() => setTouched((prev) => ({ ...prev, message: true }))}
-              rows={4}
+              rows={3}
               className={cn(inputClass, "resize-y")}
-              placeholder="Briefly tell us why you are a good fit for this role..."
+              placeholder="Any additional information (optional)"
             />
-            {fieldError("message") ? (
-              <p className="mt-1 text-xs text-red-600">{fieldError("message")}</p>
-            ) : null}
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-semibold text-slate-900" htmlFor="apply-resume">
-              Resume <span className="text-red-600">*</span>
+            <label className={labelClass} htmlFor="apply-resume">
+              Resume Upload {requiredMark}
             </label>
             <div
               className={cn(
@@ -349,16 +461,17 @@ export default function CareerApplyModal({
               {applicationReferenceId ? (
                 <div className="mt-3 rounded-lg border border-emerald-200 bg-white px-3 py-2.5 text-slate-800">
                   <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                    Your reference
+                    Your application
                   </p>
-                  <p className="mt-1 font-mono text-sm font-bold text-red-700">
-                    Application ID: {applicationReferenceId}
+                  <p className="mt-2 font-mono text-sm font-bold text-red-700">
+                    Reference No.: {applicationReferenceId}
                   </p>
-                  <p className="mt-1 text-sm">
+                  <p className="mt-1 text-sm text-slate-800">
                     Position: <span className="font-medium">{jobTitle}</span>
                   </p>
                   <p className="mt-2 text-xs text-slate-600">
-                    Save this ID and quote it when you contact HR. A confirmation email has been sent to you.
+                    Save this reference number and quote it when you contact HR. A confirmation
+                    email has been sent to you.
                   </p>
                 </div>
               ) : (

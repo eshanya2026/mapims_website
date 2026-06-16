@@ -12,6 +12,11 @@ export type InquiryRecord = {
   country: string | null;
   medicalCondition: string | null;
   address: string | null;
+  currentLocation: string | null;
+  qualification: string | null;
+  totalExperience: string | null;
+  medicalCouncilRegistrationNo: string | null;
+  noticePeriod: string | null;
   resumeUrl: string | null;
   jobSlug: string | null;
   jobTitle: string | null;
@@ -19,6 +24,7 @@ export type InquiryRecord = {
   interviewTime: string | null;
   interviewInterviewer: string | null;
   interviewMode: "online" | "offline" | null;
+  interviewAddress: string | null;
   status: string;
   createdAt: string;
 };

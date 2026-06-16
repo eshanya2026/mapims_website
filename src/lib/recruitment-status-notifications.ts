@@ -1,14 +1,35 @@
 import type { FormSubmissionRecord } from "@/lib/db/types";
-import {
-  applicationReferenceHtml,
-  applicationReferenceText,
-} from "@/lib/application-reference";
 import { formatDisplayDateLong } from "@/lib/format-display-date";
 import { getHrNotificationEmail, getSiteUrl, sendMail } from "@/lib/mail";
 import { isRecruitmentInquiry, isRecruitmentStatus } from "@/lib/inquiry-status";
 
 const HR_CONTACT_EMAIL = "contact@mapims.online";
 const HR_CONTACT_PHONE = "+91 94990 59959";
+
+function hrEmailSignatureText(options?: { includeContact?: boolean }) {
+  const lines = [
+    "Regards,",
+    "Human Resources",
+    "Adhiparasakthi Hospitals (MAPIMS)",
+  ];
+  if (options?.includeContact) {
+    lines.push(`Email: ${HR_CONTACT_EMAIL}`, `Phone: ${HR_CONTACT_PHONE}`);
+  }
+  return lines.join("\n");
+}
+
+function hrEmailSignatureHtml(options?: { includeContact?: boolean }) {
+  const contactHtml = options?.includeContact
+    ? `<br />Email: <a href="mailto:${HR_CONTACT_EMAIL}" style="color:#dc2626;text-decoration:none;">${HR_CONTACT_EMAIL}</a><br />Phone: ${HR_CONTACT_PHONE}`
+    : "";
+
+  return `
+      <p style="margin:0;color:#475569;line-height:1.6;">
+        Regards,<br />
+        Human Resources<br />
+        Adhiparasakthi Hospitals (MAPIMS)${contactHtml}
+      </p>`;
+}
 
 type StatusEmailContent = {
   subject: string;
@@ -74,13 +95,16 @@ function interviewDetailLines(inquiry: FormSubmissionRecord) {
   const mode = formatInterviewMode(inquiry.interviewMode);
   if (mode) lines.push(`Mode: ${mode}`);
 
+  if (inquiry.interviewAddress) {
+    lines.push(`Address: ${inquiry.interviewAddress}`);
+  }
+
   return lines;
 }
 
 function interviewScheduledEmailContent(inquiry: FormSubmissionRecord): StatusEmailContent {
   const name = inquiry.name.trim();
   const role = applicationLabel(inquiry);
-  const referenceLines = applicationReferenceText(inquiry);
   const detailLines = interviewDetailLines(inquiry);
 
   const text = [
@@ -88,8 +112,6 @@ function interviewScheduledEmailContent(inquiry: FormSubmissionRecord): StatusEm
     "",
     `We are pleased to inform you that your interview for the position of ${role} at MAPIMS has been scheduled.`,
     "",
-    referenceLines || undefined,
-    referenceLines ? "" : undefined,
     "Interview Details",
     "",
     ...detailLines,
@@ -100,12 +122,7 @@ function interviewScheduledEmailContent(inquiry: FormSubmissionRecord): StatusEm
     "",
     "We look forward to speaking with you.",
     "",
-    "Regards,",
-    "",
-    "Human Resources",
-    "MAPIMS Hospital",
-    `Email: ${HR_CONTACT_EMAIL}`,
-    `Phone: ${HR_CONTACT_PHONE}`,
+    hrEmailSignatureText({ includeContact: true }),
   ]
     .filter((line) => line !== undefined)
     .join("\n");
@@ -120,8 +137,6 @@ function interviewScheduledEmailContent(inquiry: FormSubmissionRecord): StatusEm
     })
     .join("");
 
-  const referenceHtml = applicationReferenceHtml(inquiry);
-
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:640px;color:#0f172a;line-height:1.7;">
       <p style="margin:0 0 20px;">Dear ${escapeHtml(name)},</p>
@@ -129,7 +144,6 @@ function interviewScheduledEmailContent(inquiry: FormSubmissionRecord): StatusEm
         We are pleased to inform you that your interview for the position of
         <strong>${escapeHtml(role)}</strong> at MAPIMS has been scheduled.
       </p>
-      ${referenceHtml}
       <div style="margin:0 0 24px;padding:16px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;">
         <p style="margin:0 0 12px;font-size:14px;font-weight:700;color:#0c4a6e;">Interview Details</p>
         ${detailRowsHtml || `<p style="margin:0;color:#475569;">Our HR team will share the interview schedule with you shortly.</p>`}
@@ -143,19 +157,11 @@ function interviewScheduledEmailContent(inquiry: FormSubmissionRecord): StatusEm
       <p style="margin:0 0 24px;color:#475569;">
         We look forward to speaking with you.
       </p>
-      <p style="margin:0;color:#475569;">
-        Regards,<br /><br />
-        <strong>Human Resources</strong><br />
-        MAPIMS Hospital<br />
-        Email: <a href="mailto:${HR_CONTACT_EMAIL}" style="color:#dc2626;text-decoration:none;">${HR_CONTACT_EMAIL}</a><br />
-        Phone: ${HR_CONTACT_PHONE}
-      </p>
+      ${hrEmailSignatureHtml({ includeContact: true })}
     </div>
   `.trim();
 
-  const subject = inquiry.referenceId
-    ? `MAPIMS — Interview scheduled (${inquiry.referenceId})`
-    : "MAPIMS — Interview scheduled";
+  const subject = "MAPIMS — Interview scheduled";
 
   return {
     subject,
@@ -166,10 +172,74 @@ function interviewScheduledEmailContent(inquiry: FormSubmissionRecord): StatusEm
   };
 }
 
+function interviewRescheduledEmailContent(inquiry: FormSubmissionRecord): StatusEmailContent {
+  const name = inquiry.name.trim();
+  const role = applicationLabel(inquiry);
+  const detailLines = interviewDetailLines(inquiry);
+
+  const text = [
+    `Dear ${name},`,
+    "",
+    `Your interview for the position of ${role} at MAPIMS has been rescheduled. Please note the updated details below.`,
+    "",
+    "Updated Interview Details",
+    "",
+    ...detailLines,
+    "",
+    "Please be available at the new scheduled time and keep your phone and email accessible for any further updates.",
+    "",
+    "If you have any questions or require assistance, please contact our HR team.",
+    "",
+    hrEmailSignatureText({ includeContact: true }),
+  ]
+    .filter((line) => line !== undefined)
+    .join("\n");
+
+  const detailRowsHtml = detailLines
+    .map((line) => {
+      const separator = line.indexOf(": ");
+      if (separator === -1) return "";
+      const label = line.slice(0, separator);
+      const value = line.slice(separator + 2);
+      return `<p style="margin:0 0 8px;color:#475569;"><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value)}</p>`;
+    })
+    .join("");
+
+  const html = `
+    <div style="font-family:Arial,sans-serif;max-width:640px;color:#0f172a;line-height:1.7;">
+      <p style="margin:0 0 20px;">Dear ${escapeHtml(name)},</p>
+      <p style="margin:0 0 20px;color:#475569;">
+        Your interview for the position of
+        <strong>${escapeHtml(role)}</strong> at MAPIMS has been rescheduled. Please note the updated details below.
+      </p>
+      <div style="margin:0 0 24px;padding:16px;background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;">
+        <p style="margin:0 0 12px;font-size:14px;font-weight:700;color:#9a3412;">Updated Interview Details</p>
+        ${detailRowsHtml || `<p style="margin:0;color:#475569;">Our HR team will share the updated interview schedule with you shortly.</p>`}
+      </div>
+      <p style="margin:0 0 16px;color:#475569;">
+        Please be available at the new scheduled time and keep your phone and email accessible for any further updates.
+      </p>
+      <p style="margin:0 0 24px;color:#475569;">
+        If you have any questions or require assistance, please contact our HR team.
+      </p>
+      ${hrEmailSignatureHtml({ includeContact: true })}
+    </div>
+  `.trim();
+
+  const subject = "MAPIMS — Interview rescheduled";
+
+  return {
+    subject,
+    headline: "Interview rescheduled",
+    body: `Your interview for ${escapeHtml(role)} at MAPIMS has been rescheduled.`,
+    textBody: text,
+    htmlBody: html,
+  };
+}
+
 function shortlistedEmailContent(inquiry: FormSubmissionRecord): StatusEmailContent {
   const name = inquiry.name.trim();
   const role = applicationLabel(inquiry);
-  const referenceLines = applicationReferenceText(inquiry);
 
   const text = [
     `Dear ${name},`,
@@ -177,8 +247,6 @@ function shortlistedEmailContent(inquiry: FormSubmissionRecord): StatusEmailCont
     `We are pleased to inform you that you have been shortlisted for the position of ${role} at Adhiparasakthi Hospitals (MAPIMS).`,
     "",
     "Your application has been reviewed successfully, and our HR team will contact you shortly regarding the next stage of the recruitment process.",
-    referenceLines ? "" : undefined,
-    referenceLines || undefined,
     "",
     "HR Contact",
     "",
@@ -187,15 +255,10 @@ function shortlistedEmailContent(inquiry: FormSubmissionRecord): StatusEmailCont
     "",
     "Thank you for your interest in joining MAPIMS.",
     "",
-    "Regards,",
-    "",
-    "Human Resources",
-    "Adhiparasakthi Hospitals (MAPIMS)",
+    hrEmailSignatureText(),
   ]
     .filter((line) => line !== undefined)
     .join("\n");
-
-  const referenceHtml = applicationReferenceHtml(inquiry);
 
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:640px;color:#0f172a;line-height:1.7;">
@@ -207,7 +270,6 @@ function shortlistedEmailContent(inquiry: FormSubmissionRecord): StatusEmailCont
       <p style="margin:0 0 20px;color:#475569;">
         Your application has been reviewed successfully, and our HR team will contact you shortly regarding the next stage of the recruitment process.
       </p>
-      ${referenceHtml}
       <div style="margin:0 0 24px;padding:16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;">
         <p style="margin:0 0 10px;font-size:14px;font-weight:700;color:#334155;">HR Contact</p>
         <p style="margin:0;color:#475569;">
@@ -218,17 +280,11 @@ function shortlistedEmailContent(inquiry: FormSubmissionRecord): StatusEmailCont
       <p style="margin:0 0 24px;color:#475569;">
         Thank you for your interest in joining MAPIMS.
       </p>
-      <p style="margin:0;color:#475569;">
-        Regards,<br /><br />
-        <strong>Human Resources</strong><br />
-        Adhiparasakthi Hospitals (MAPIMS)
-      </p>
+      ${hrEmailSignatureHtml()}
     </div>
   `.trim();
 
-  const subject = inquiry.referenceId
-    ? `MAPIMS — You've been shortlisted (${inquiry.referenceId})`
-    : "MAPIMS — You've been shortlisted";
+  const subject = "MAPIMS — You've been shortlisted";
 
   return {
     subject,
@@ -242,7 +298,6 @@ function shortlistedEmailContent(inquiry: FormSubmissionRecord): StatusEmailCont
 function selectedEmailContent(inquiry: FormSubmissionRecord): StatusEmailContent {
   const name = inquiry.name.trim();
   const role = applicationLabel(inquiry);
-  const referenceLines = applicationReferenceText(inquiry);
 
   const text = [
     `Dear ${name},`,
@@ -252,8 +307,6 @@ function selectedEmailContent(inquiry: FormSubmissionRecord): StatusEmailContent
     `We are pleased to inform you that you have been selected for the position of ${role} at Adhiparasakthi Hospitals (MAPIMS).`,
     "",
     "Our HR team will contact you shortly regarding offer documentation, onboarding requirements, and joining formalities.",
-    referenceLines ? "" : undefined,
-    referenceLines || undefined,
     "",
     "HR Contact",
     "",
@@ -262,15 +315,10 @@ function selectedEmailContent(inquiry: FormSubmissionRecord): StatusEmailContent
     "",
     "We look forward to welcoming you to the MAPIMS family.",
     "",
-    "Regards,",
-    "",
-    "Human Resources",
-    "Adhiparasakthi Hospitals (MAPIMS)",
+    hrEmailSignatureText(),
   ]
     .filter((line) => line !== undefined)
     .join("\n");
-
-  const referenceHtml = applicationReferenceHtml(inquiry);
 
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:640px;color:#0f172a;line-height:1.7;">
@@ -283,7 +331,6 @@ function selectedEmailContent(inquiry: FormSubmissionRecord): StatusEmailContent
       <p style="margin:0 0 20px;color:#475569;">
         Our HR team will contact you shortly regarding offer documentation, onboarding requirements, and joining formalities.
       </p>
-      ${referenceHtml}
       <div style="margin:0 0 24px;padding:16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;">
         <p style="margin:0 0 10px;font-size:14px;font-weight:700;color:#334155;">HR Contact</p>
         <p style="margin:0;color:#475569;">
@@ -294,17 +341,11 @@ function selectedEmailContent(inquiry: FormSubmissionRecord): StatusEmailContent
       <p style="margin:0 0 24px;color:#475569;">
         We look forward to welcoming you to the MAPIMS family.
       </p>
-      <p style="margin:0;color:#475569;">
-        Regards,<br /><br />
-        <strong>Human Resources</strong><br />
-        Adhiparasakthi Hospitals (MAPIMS)
-      </p>
+      ${hrEmailSignatureHtml()}
     </div>
   `.trim();
 
-  const subject = inquiry.referenceId
-    ? `MAPIMS — Congratulations! You have been selected (${inquiry.referenceId})`
-    : "MAPIMS — Congratulations! You have been selected";
+  const subject = "MAPIMS — Congratulations! You have been selected";
 
   return {
     subject,
@@ -318,7 +359,6 @@ function selectedEmailContent(inquiry: FormSubmissionRecord): StatusEmailContent
 function rejectedEmailContent(inquiry: FormSubmissionRecord): StatusEmailContent {
   const name = inquiry.name.trim();
   const role = applicationLabel(inquiry);
-  const referenceLines = applicationReferenceText(inquiry);
 
   const text = [
     `Dear ${name},`,
@@ -330,8 +370,6 @@ function rejectedEmailContent(inquiry: FormSubmissionRecord): StatusEmailContent
     "We sincerely appreciate the time and effort you invested in the application and interview process. Your qualifications and experience were reviewed thoroughly, and this decision was made after careful evaluation of all candidates.",
     "",
     "We encourage you to apply for future opportunities that match your skills and experience. We wish you success in your professional career and future endeavors.",
-    referenceLines ? "" : undefined,
-    referenceLines || undefined,
     "",
     "HR Contact",
     "",
@@ -340,15 +378,10 @@ function rejectedEmailContent(inquiry: FormSubmissionRecord): StatusEmailContent
     "",
     "Thank you for considering MAPIMS as a potential employer.",
     "",
-    "Regards,",
-    "",
-    "Human Resources",
-    "Adhiparasakthi Hospitals (MAPIMS)",
+    hrEmailSignatureText(),
   ]
     .filter((line) => line !== undefined)
     .join("\n");
-
-  const referenceHtml = applicationReferenceHtml(inquiry);
 
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:640px;color:#0f172a;line-height:1.7;">
@@ -366,7 +399,6 @@ function rejectedEmailContent(inquiry: FormSubmissionRecord): StatusEmailContent
       <p style="margin:0 0 20px;color:#475569;">
         We encourage you to apply for future opportunities that match your skills and experience. We wish you success in your professional career and future endeavors.
       </p>
-      ${referenceHtml}
       <div style="margin:0 0 24px;padding:16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;">
         <p style="margin:0 0 10px;font-size:14px;font-weight:700;color:#334155;">HR Contact</p>
         <p style="margin:0;color:#475569;">
@@ -377,17 +409,11 @@ function rejectedEmailContent(inquiry: FormSubmissionRecord): StatusEmailContent
       <p style="margin:0 0 24px;color:#475569;">
         Thank you for considering MAPIMS as a potential employer.
       </p>
-      <p style="margin:0;color:#475569;">
-        Regards,<br /><br />
-        <strong>Human Resources</strong><br />
-        Adhiparasakthi Hospitals (MAPIMS)
-      </p>
+      ${hrEmailSignatureHtml()}
     </div>
   `.trim();
 
-  const subject = inquiry.referenceId
-    ? `MAPIMS — Update on your application (${inquiry.referenceId})`
-    : "MAPIMS — Update on your application";
+  const subject = "MAPIMS — Update on your application";
 
   return {
     subject,
@@ -444,28 +470,20 @@ function buildCandidateEmail(
 
   const name = escapeHtml(inquiry.name.trim());
   const careersUrl = `${getSiteUrl()}/careers`;
-  const referenceText = applicationReferenceText(inquiry);
-  const referenceHtml = applicationReferenceHtml(inquiry);
 
   const text = [
     `Dear ${inquiry.name.trim()},`,
     "",
     content.headline,
     "",
-    referenceText || undefined,
-    "",
     content.textBody ?? content.body.replace(/<[^>]+>/g, ""),
     "",
     `HR contact: ${HR_CONTACT_EMAIL}`,
     `Phone: ${HR_CONTACT_PHONE}`,
     "",
-    "When contacting HR, please quote your Application ID.",
-    "",
     "Adhiparasakthi Hospitals (MAPIMS)",
     careersUrl,
-  ]
-    .filter((line) => line !== undefined)
-    .join("\n");
+  ].join("\n");
 
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:640px;color:#0f172a;line-height:1.6;">
@@ -474,16 +492,12 @@ function buildCandidateEmail(
         <h1 style="margin:8px 0 0;font-size:22px;color:#0f172a;">${escapeHtml(content.headline)}</h1>
       </div>
       <p style="margin:0 0 16px;">Dear ${name},</p>
-      ${referenceHtml}
       <p style="margin:0 0 16px;color:#475569;">${content.body}</p>
       <div style="margin:24px 0;padding:16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;">
         <p style="margin:0 0 8px;font-size:13px;font-weight:600;color:#334155;">HR contact</p>
         <p style="margin:0;color:#475569;">
           Email: <a href="mailto:${HR_CONTACT_EMAIL}" style="color:#dc2626;">${HR_CONTACT_EMAIL}</a><br />
           Phone: ${HR_CONTACT_PHONE}
-        </p>
-        <p style="margin:12px 0 0;font-size:13px;color:#64748b;">
-          When you contact HR, please quote your Application ID.
         </p>
       </div>
       <p style="margin:0;color:#64748b;font-size:13px;">
@@ -550,5 +564,44 @@ export async function notifyCandidateOfRecruitmentStatusChange(
 
   console.info(
     `[recruitment-status-notifications] sent "${nextStatus}" email to ${candidateEmail}`
+  );
+}
+
+export async function notifyCandidateOfInterviewReschedule(
+  inquiry: FormSubmissionRecord,
+  options?: { sendEmail?: boolean }
+) {
+  if (options?.sendEmail === false) {
+    console.info(
+      `[recruitment-status-notifications] skipped reschedule email for ${inquiry.id}`
+    );
+    return;
+  }
+  if (!isRecruitmentInquiry(inquiry.type)) {
+    console.warn("[recruitment-status-notifications] skipped: not a recruitment inquiry");
+    return;
+  }
+
+  const candidateEmail = inquiry.email?.trim();
+  if (!candidateEmail) {
+    console.warn(
+      `[recruitment-status-notifications] skipped: no email for inquiry ${inquiry.id}`
+    );
+    return;
+  }
+
+  const content = interviewRescheduledEmailContent(inquiry);
+  const { subject, text, html } = buildCandidateEmail(inquiry, content);
+
+  await sendMail({
+    to: candidateEmail,
+    subject,
+    text,
+    html,
+    replyTo: getHrNotificationEmail(),
+  });
+
+  console.info(
+    `[recruitment-status-notifications] sent reschedule email to ${candidateEmail}`
   );
 }

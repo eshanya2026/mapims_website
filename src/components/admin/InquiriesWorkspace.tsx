@@ -131,6 +131,12 @@ function InterviewBlock({ enquiry }: { enquiry: InquiryRecord }) {
           <span className="text-slate-500">Mode</span>
           <span className="font-medium">{formatInterviewMode(enquiry.interviewMode)}</span>
         </div>
+        {enquiry.interviewAddress ? (
+          <div className="flex justify-between gap-4">
+            <span className="shrink-0 text-slate-500">Address</span>
+            <span className="text-right font-medium">{enquiry.interviewAddress}</span>
+          </div>
+        ) : null}
       </dl>
     </div>
   );
@@ -569,7 +575,7 @@ export default function EnquiriesWorkspace({
                     {selected.type === "job_application" ? (
                       <>
                         <DetailRow
-                          label="Application ID"
+                          label="Reference No."
                           value={
                             selected.referenceId ? (
                               <span className="font-mono text-red-700">{selected.referenceId}</span>
@@ -577,7 +583,14 @@ export default function EnquiriesWorkspace({
                           }
                         />
                         <DetailRow label="Position" value={selected.jobTitle} />
-                        <DetailRow label="Address" value={selected.address} />
+                        <DetailRow label="Current location" value={selected.currentLocation} />
+                        <DetailRow label="Qualification" value={selected.qualification} />
+                        <DetailRow label="Total experience" value={selected.totalExperience} />
+                        <DetailRow
+                          label="Medical council reg. no."
+                          value={selected.medicalCouncilRegistrationNo}
+                        />
+                        <DetailRow label="Notice period" value={selected.noticePeriod} />
                         <DetailRow
                           label="Resume"
                           value={
@@ -621,6 +634,13 @@ export default function EnquiriesWorkspace({
                     type={selected.type}
                     status={selected.status}
                     candidateName={selected.name}
+                    interview={{
+                      interviewDate: selected.interviewDate,
+                      interviewTime: selected.interviewTime,
+                      interviewInterviewer: selected.interviewInterviewer,
+                      interviewMode: selected.interviewMode,
+                      interviewAddress: selected.interviewAddress,
+                    }}
                     onUpdated={handleInquiryUpdated}
                   />
                 </div>

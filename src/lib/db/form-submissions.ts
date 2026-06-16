@@ -34,6 +34,11 @@ function toFormSubmissionRecord(
   return {
     ...record,
     address: record.address ?? null,
+    currentLocation: record.currentLocation ?? null,
+    qualification: record.qualification ?? null,
+    totalExperience: record.totalExperience ?? null,
+    medicalCouncilRegistrationNo: record.medicalCouncilRegistrationNo ?? null,
+    noticePeriod: record.noticePeriod ?? null,
     resumeUrl: record.resumeUrl ?? null,
     jobSlug: record.jobSlug ?? null,
     jobTitle: record.jobTitle ?? null,
@@ -41,6 +46,7 @@ function toFormSubmissionRecord(
     interviewTime: record.interviewTime ?? null,
     interviewInterviewer: record.interviewInterviewer ?? null,
     interviewMode: record.interviewMode ?? null,
+    interviewAddress: record.interviewAddress ?? null,
     deletedAt: record.deletedAt ?? null,
   };
 }
@@ -104,6 +110,11 @@ export async function createFormSubmissionRecord(data: {
   country?: string | null;
   medicalCondition?: string | null;
   address?: string | null;
+  currentLocation?: string | null;
+  qualification?: string | null;
+  totalExperience?: string | null;
+  medicalCouncilRegistrationNo?: string | null;
+  noticePeriod?: string | null;
   resumeUrl?: string | null;
   jobSlug?: string | null;
   jobTitle?: string | null;
@@ -111,6 +122,7 @@ export async function createFormSubmissionRecord(data: {
   interviewTime?: string | null;
   interviewInterviewer?: string | null;
   interviewMode?: "online" | "offline" | null;
+  interviewAddress?: string | null;
   status?: string;
   referenceId?: string | null;
 }) {
@@ -128,6 +140,11 @@ export async function createFormSubmissionRecord(data: {
     country: data.country ?? null,
     medicalCondition: data.medicalCondition ?? null,
     address: data.address ?? null,
+    currentLocation: data.currentLocation ?? null,
+    qualification: data.qualification ?? null,
+    totalExperience: data.totalExperience ?? null,
+    medicalCouncilRegistrationNo: data.medicalCouncilRegistrationNo ?? null,
+    noticePeriod: data.noticePeriod ?? null,
     resumeUrl: data.resumeUrl ?? null,
     jobSlug: data.jobSlug ?? null,
     jobTitle: data.jobTitle ?? null,
@@ -135,6 +152,7 @@ export async function createFormSubmissionRecord(data: {
     interviewTime: data.interviewTime ?? null,
     interviewInterviewer: data.interviewInterviewer ?? null,
     interviewMode: data.interviewMode ?? null,
+    interviewAddress: data.interviewAddress ?? null,
     status: data.status ?? "new",
     referenceId: null,
     createdAt: timestamp,
@@ -167,6 +185,7 @@ export async function updateFormSubmission(
       | "interviewTime"
       | "interviewInterviewer"
       | "interviewMode"
+      | "interviewAddress"
     >
   >
 ) {

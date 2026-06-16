@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CalendarClock, Send } from "lucide-react";
 import {
   Dialog,
@@ -11,11 +11,21 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
+type InterviewInitialValues = {
+  interviewDate: string | null;
+  interviewTime: string | null;
+  interviewInterviewer: string | null;
+  interviewMode: "online" | "offline" | null;
+  interviewAddress: string | null;
+};
+
 type ScheduleInterviewModalProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   inquiryId: string;
   candidateName: string;
+  mode?: "schedule" | "reschedule";
+  initialInterview?: InterviewInitialValues;
   onScheduled?: (updated?: Record<string, unknown>) => void | Promise<void>;
 };
 
@@ -24,27 +34,75 @@ type FormState = {
   time: string;
   interviewer: string;
   mode: "online" | "offline";
+  address: string;
   notifyCandidate: boolean;
 };
+
+const DEFAULT_OFFLINE_ADDRESS =
+  "Adhiparasakthi Hospitals, Melmaruvathur, Kancheepuram District, Tamilnadu, India 603319";
 
 const INITIAL_STATE: FormState = {
   date: "",
   time: "",
   interviewer: "",
   mode: "offline",
+  address: DEFAULT_OFFLINE_ADDRESS,
   notifyCandidate: true,
 };
+
+function toDateInputValue(value: string | null) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function buildFormStateFromInterview(
+  initialInterview?: InterviewInitialValues
+): FormState {
+  if (!initialInterview) return INITIAL_STATE;
+
+  const mode = initialInterview.interviewMode ?? "offline";
+
+  return {
+    date: toDateInputValue(initialInterview.interviewDate),
+    time: initialInterview.interviewTime ?? "",
+    interviewer: initialInterview.interviewInterviewer ?? "",
+    mode,
+    address:
+      initialInterview.interviewAddress?.trim() ||
+      (mode === "offline" ? DEFAULT_OFFLINE_ADDRESS : ""),
+    notifyCandidate: true,
+  };
+}
 
 export default function ScheduleInterviewModal({
   open,
   onOpenChange,
   inquiryId,
   candidateName,
+  mode = "schedule",
+  initialInterview,
   onScheduled,
 }: ScheduleInterviewModalProps) {
+  const isReschedule = mode === "reschedule";
   const [state, setState] = useState<FormState>(INITIAL_STATE);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (open) {
+      setState(
+        isReschedule
+          ? buildFormStateFromInterview(initialInterview)
+          : INITIAL_STATE
+      );
+      setError("");
+    }
+  }, [open, isReschedule, initialInterview]);
 
   function resetForm() {
     setState(INITIAL_STATE);
@@ -67,6 +125,11 @@ export default function ScheduleInterviewModal({
       return;
     }
 
+    if (state.mode === "offline" && state.address.trim().length < 5) {
+      setError("Please enter the interview venue address.");
+      return;
+    }
+
     setLoading(true);
 
     const response = await fetch(`/api/admin/inquiries/${inquiryId}`, {
@@ -74,11 +137,13 @@ export default function ScheduleInterviewModal({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         status: "interview_scheduled",
+        reschedule: isReschedule,
         interview: {
           date: state.date,
           time: state.time,
           interviewer: state.interviewer.trim(),
           mode: state.mode,
+          address: state.address.trim(),
           notifyCandidate: state.notifyCandidate,
         },
       }),
@@ -88,7 +153,13 @@ export default function ScheduleInterviewModal({
 
     if (!response.ok) {
       const data = await response.json().catch(() => ({}));
-      setError(typeof data.error === "string" ? data.error : "Unable to schedule interview.");
+      setError(
+        typeof data.error === "string"
+          ? data.error
+          : isReschedule
+            ? "Unable to reschedule interview."
+            : "Unable to schedule interview."
+      );
       return;
     }
 
@@ -106,7 +177,7 @@ export default function ScheduleInterviewModal({
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
           <DialogTitle className="text-lg font-bold text-slate-900">
-            Schedule interview
+            {isReschedule ? "Reschedule interview" : "Schedule interview"}
           </DialogTitle>
           <DialogDescription className="text-slate-600">
             {candidateName}
@@ -163,12 +234,12 @@ export default function ScheduleInterviewModal({
               Mode <span className="text-red-600">*</span>
             </legend>
             <div className="grid grid-cols-2 gap-3">
-              {(["online", "offline"] as const).map((mode) => (
+              {(["online", "offline"] as const).map((interviewMode) => (
                 <label
-                  key={mode}
+                  key={interviewMode}
                   className={cn(
                     "flex cursor-pointer items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium transition-colors",
-                    state.mode === mode
+                    state.mode === interviewMode
                       ? "border-red-500 bg-red-50 text-red-700"
                       : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
                   )}
@@ -176,16 +247,44 @@ export default function ScheduleInterviewModal({
                   <input
                     type="radio"
                     name="interview-mode"
-                    value={mode}
-                    checked={state.mode === mode}
-                    onChange={() => setState((prev) => ({ ...prev, mode }))}
+                    value={interviewMode}
+                    checked={state.mode === interviewMode}
+                    onChange={() =>
+                      setState((prev) => ({
+                        ...prev,
+                        mode: interviewMode,
+                        address:
+                          interviewMode === "offline"
+                            ? prev.address || DEFAULT_OFFLINE_ADDRESS
+                            : prev.address,
+                      }))
+                    }
                     className="sr-only"
                   />
-                  {mode === "online" ? "Online" : "Offline"}
+                  {interviewMode === "online" ? "Online" : "Offline"}
                 </label>
               ))}
             </div>
           </fieldset>
+
+          <div>
+            <label className="mb-1.5 block text-sm font-semibold text-slate-900" htmlFor="interview-address">
+              Address {state.mode === "offline" ? <span className="text-red-600">*</span> : null}
+            </label>
+            <textarea
+              id="interview-address"
+              value={state.address}
+              onChange={(e) => setState((prev) => ({ ...prev, address: e.target.value }))}
+              rows={3}
+              className={cn(inputClass, "resize-y")}
+              placeholder={
+                state.mode === "online"
+                  ? "Meeting link or online instructions (optional)"
+                  : "Interview venue address"
+              }
+              required={state.mode === "offline"}
+            />
+          </div>
 
           <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
             <input
@@ -197,7 +296,9 @@ export default function ScheduleInterviewModal({
               className="mt-0.5 h-4 w-4 rounded border-slate-300 text-red-600 focus:ring-red-500"
             />
             <span className="text-sm text-slate-700">
-              Send email notification to candidate with interview details
+              {isReschedule
+                ? "Send email notification to candidate with updated interview details"
+                : "Send email notification to candidate with interview details"}
             </span>
           </label>
 
@@ -220,7 +321,7 @@ export default function ScheduleInterviewModal({
             ) : (
               <>
                 <Send className="h-4 w-4" />
-                Save & mark interview scheduled
+                {isReschedule ? "Save rescheduled interview" : "Save & mark interview scheduled"}
               </>
             )}
           </button>

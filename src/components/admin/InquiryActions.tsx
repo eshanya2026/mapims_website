@@ -7,11 +7,20 @@ import DeleteButton from "@/components/admin/DeleteButton";
 import ScheduleInterviewModal from "@/components/admin/ScheduleInterviewModal";
 import { getInquiryNextActions } from "@/lib/inquiry-status";
 
+type InterviewDetails = {
+  interviewDate: string | null;
+  interviewTime: string | null;
+  interviewInterviewer: string | null;
+  interviewMode: "online" | "offline" | null;
+  interviewAddress: string | null;
+};
+
 type InquiryActionsProps = {
   id: string;
   type: string;
   status: string;
   candidateName: string;
+  interview?: InterviewDetails;
   onUpdated?: (updated?: Record<string, unknown>) => void | Promise<void>;
 };
 
@@ -20,11 +29,13 @@ export default function InquiryActions({
   type,
   status,
   candidateName,
+  interview,
   onUpdated,
 }: InquiryActionsProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [scheduleOpen, setScheduleOpen] = useState(false);
+  const [scheduleMode, setScheduleMode] = useState<"schedule" | "reschedule">("schedule");
   const actions = getInquiryNextActions(type, status);
 
   async function updateStatus(nextStatus: string) {
@@ -47,6 +58,12 @@ export default function InquiryActions({
 
   function handleAction(actionStatus: string) {
     if (actionStatus === "interview_scheduled") {
+      setScheduleMode("schedule");
+      setScheduleOpen(true);
+      return;
+    }
+    if (actionStatus === "reschedule_interview") {
+      setScheduleMode("reschedule");
       setScheduleOpen(true);
       return;
     }
@@ -81,6 +98,8 @@ export default function InquiryActions({
         onOpenChange={setScheduleOpen}
         inquiryId={id}
         candidateName={candidateName}
+        mode={scheduleMode}
+        initialInterview={scheduleMode === "reschedule" ? interview : undefined}
         onScheduled={onUpdated}
       />
     </>

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { createJob, listJobs } from "@/lib/db/jobs";
-import { isDuplicateKeyError } from "@/lib/db/utils";
+import { createJob, ensureUniqueJobSlug, listJobs } from "@/lib/db/jobs";
+import { isDuplicateKeyError, duplicateKeyErrorMessage } from "@/lib/db/utils";
 import { jobSchema } from "@/lib/validations";
 
 export async function GET() {
@@ -27,9 +27,10 @@ export async function POST(request: Request) {
     }
 
     const data = parsed.data;
+    const slug = await ensureUniqueJobSlug(data.slug);
     const job = await createJob({
       title: data.title,
-      slug: data.slug,
+      slug,
       jobRefNo: data.jobRefNo || null,
       department: data.department,
       location: data.location,
@@ -52,9 +53,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("[admin/jobs POST]", error);
     const message = isDuplicateKeyError(error)
-      ? (error as { keyPattern?: Record<string, unknown> }).keyPattern?.jobRefNo
-        ? "A job with this reference number already exists"
-        : "A job with this slug already exists"
+      ? duplicateKeyErrorMessage(error, { default: "Failed to create job" })
       : "Failed to create job";
     return NextResponse.json({ error: message }, { status: 500 });
   }

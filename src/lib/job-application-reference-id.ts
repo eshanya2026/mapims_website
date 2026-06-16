@@ -4,24 +4,15 @@ import {
 } from "@/lib/db/form-submissions";
 import { isDuplicateKeyError } from "@/lib/db/utils";
 
-const TIME_ZONE = "Asia/Kolkata";
-
-export function formatJobApplicationYearKey(date: Date) {
-  return new Intl.DateTimeFormat("en-CA", {
-    timeZone: TIME_ZONE,
-    year: "numeric",
-  }).format(date);
-}
-
 export async function generateJobApplicationReferenceId(date = new Date()) {
-  const year = formatJobApplicationYearKey(date);
-  const prefix = `JOB-${year}-`;
+  void date;
+  const prefix = "APP-";
 
   const latestReferenceId = await findLatestReferenceId(prefix);
 
   let next = 1;
   if (latestReferenceId) {
-    const sequence = Number.parseInt(latestReferenceId.slice(-5), 10);
+    const sequence = Number.parseInt(latestReferenceId.slice(prefix.length), 10);
     if (!Number.isNaN(sequence)) {
       next = sequence + 1;
     }

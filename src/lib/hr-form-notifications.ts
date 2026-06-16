@@ -26,6 +26,11 @@ function fieldLine(label: string, value: string | null | undefined) {
   return `${label}: ${value.trim()}\n`;
 }
 
+function fieldParagraph(label: string, value: string | null | undefined) {
+  if (!value?.trim()) return "";
+  return `<p style="margin:8px 0 0;color:#475569;"><strong>${escapeHtml(label)}:</strong> ${escapeHtml(value.trim())}</p>`;
+}
+
 function buildHrJobApplicationEmail(submission: FormSubmissionRecord) {
   const name = submission.name.trim();
   const position = submission.jobTitle?.trim() ?? "—";
@@ -43,6 +48,15 @@ function buildHrJobApplicationEmail(submission: FormSubmissionRecord) {
     `Position Applied: ${position}`,
     `Email: ${email}`,
     `Phone: ${phone}`,
+    fieldLine("Current Location", submission.currentLocation),
+    fieldLine("Qualification", submission.qualification),
+    fieldLine("Total Experience", submission.totalExperience),
+    fieldLine(
+      "Medical Council Registration No.",
+      submission.medicalCouncilRegistrationNo
+    ),
+    fieldLine("Notice Period", submission.noticePeriod),
+    submission.message ? `Message:\n${submission.message.trim()}\n` : undefined,
     "",
     "Resume: attached to this email",
     "",
@@ -68,7 +82,18 @@ function buildHrJobApplicationEmail(submission: FormSubmissionRecord) {
           <strong>Email:</strong>
           <a href="mailto:${escapeHtml(email)}" style="color:#dc2626;text-decoration:none;">${escapeHtml(email)}</a>
         </p>
-        <p style="margin:0;color:#475569;"><strong>Phone:</strong> ${escapeHtml(phone)}</p>
+        <p style="margin:0 0 8px;color:#475569;"><strong>Phone:</strong> ${escapeHtml(phone)}</p>
+        ${fieldParagraph("Current Location", submission.currentLocation)}
+        ${fieldParagraph("Qualification", submission.qualification)}
+        ${fieldParagraph("Total Experience", submission.totalExperience)}
+        ${fieldParagraph(
+          "Medical Council Registration No.",
+          submission.medicalCouncilRegistrationNo
+        )}
+        ${fieldParagraph("Notice Period", submission.noticePeriod)}
+        ${submission.message?.trim()
+          ? `<p style="margin:12px 0 0;color:#475569;white-space:pre-wrap;"><strong>Message:</strong><br />${escapeHtml(submission.message.trim())}</p>`
+          : ""}
       </div>
       <p style="margin:0 0 16px;color:#475569;">Resume: attached to this email</p>
       <p style="margin:0 0 24px;color:#475569;">
@@ -108,7 +133,7 @@ function buildHrEmailContent(submission: FormSubmissionRecord) {
   }
 
   if (submission.referenceId) {
-    rows.push(fieldRow("Application ID", submission.referenceId));
+    rows.push(fieldRow("Reference No.", submission.referenceId));
   }
 
   rows.push(fieldRow("Name", submission.name));
@@ -160,8 +185,6 @@ const HR_CONTACT_PHONE = "+91 94990 59959";
 function buildCandidateConfirmationEmail(submission: FormSubmissionRecord) {
   const name = submission.name.trim();
   const role = submission.jobTitle?.trim() ?? "the role you applied for";
-  const referenceLines = applicationReferenceText(submission);
-  const referenceHtml = applicationReferenceHtml(submission);
 
   const text = [
     `Dear ${name},`,
@@ -173,21 +196,15 @@ function buildCandidateConfirmationEmail(submission: FormSubmissionRecord) {
     "If your qualifications and experience match our requirements, we will contact you regarding the next stage of the recruitment process.",
     "",
     "We appreciate your interest in joining MAPIMS and wish you the very best.",
-    referenceLines ? "" : undefined,
-    referenceLines || undefined,
     "",
     "HR Contact",
-    "",
     `Email: ${HR_CONTACT_EMAIL}`,
     `Phone: ${HR_CONTACT_PHONE}`,
     "",
     "Regards,",
-    "",
     "Human Resources",
     "Adhiparasakthi Hospitals (MAPIMS)",
-  ]
-    .filter((line) => line !== undefined)
-    .join("\n");
+  ].join("\n");
 
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:640px;color:#0f172a;line-height:1.7;">
@@ -205,7 +222,6 @@ function buildCandidateConfirmationEmail(submission: FormSubmissionRecord) {
       <p style="margin:0 0 20px;color:#475569;">
         We appreciate your interest in joining MAPIMS and wish you the very best.
       </p>
-      ${referenceHtml}
       <div style="margin:0 0 24px;padding:16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;">
         <p style="margin:0 0 10px;font-size:14px;font-weight:700;color:#334155;">HR Contact</p>
         <p style="margin:0;color:#475569;">
@@ -213,17 +229,15 @@ function buildCandidateConfirmationEmail(submission: FormSubmissionRecord) {
           Phone: ${HR_CONTACT_PHONE}
         </p>
       </div>
-      <p style="margin:0;color:#475569;">
-        Regards,<br /><br />
-        <strong>Human Resources</strong><br />
+      <p style="margin:0;color:#475569;line-height:1.6;">
+        Regards,<br />
+        Human Resources<br />
         Adhiparasakthi Hospitals (MAPIMS)
       </p>
     </div>
   `.trim();
 
-  const subject = submission.referenceId
-    ? `MAPIMS — Application received (${submission.referenceId})`
-    : `MAPIMS — Application received for ${role}`;
+  const subject = `MAPIMS — Application received for ${role}`;
 
   return { subject, text, html };
 }
