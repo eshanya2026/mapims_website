@@ -37,19 +37,27 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) notFound();
 
   const section = blogSections.find((item) => item.slug === post.section);
+  const isNewsOrEvent =
+    post.section === "hospital-news" || post.section === "hospital-events";
 
   return (
     <main className="min-h-screen bg-slate-50 py-6 sm:py-10 md:py-14">
       <div className="container mx-auto px-4 sm:px-6">
         <article className="mx-auto max-w-4xl overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm sm:rounded-3xl">
-          <img
-            src={post.image}
-            alt={post.title}
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-            className="h-48 w-full object-cover sm:h-60 md:h-72 lg:h-80"
-          />
+          <div className="overflow-hidden">
+            <img
+              src={post.image}
+              alt={post.title}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              className={
+                isNewsOrEvent
+                  ? "block w-full h-auto"
+                  : "h-48 w-full object-cover sm:h-60 md:h-72 lg:h-80"
+              }
+            />
+          </div>
 
           <div className="p-5 sm:p-8 md:p-10">
             <Link

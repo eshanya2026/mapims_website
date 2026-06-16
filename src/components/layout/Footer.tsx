@@ -1,4 +1,4 @@
-import Link from "next/link";
+import ScrollToTopLink from "@/components/layout/ScrollToTopLink";
 import { MapPin, Phone, Mail } from "lucide-react";
 import FooterNewsletter from "@/components/layout/FooterNewsletter";
 import FooterFindUs from "@/components/layout/FooterFindUs";
@@ -21,7 +21,7 @@ export default function Footer() {
         {/* Main link columns */}
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1.6fr)_minmax(0,1fr)] gap-10 lg:gap-8 lg:items-start">
           <div className="space-y-5 min-w-0">
-            <Link href="/" className="inline-flex items-center gap-3 group max-w-full flex-wrap sm:flex-nowrap">
+            <ScrollToTopLink href="/" className="inline-flex items-center gap-3 group max-w-full flex-wrap sm:flex-nowrap">
               <span className="flex items-center gap-1.5 sm:gap-2 shrink-0 min-w-0 transition-transform group-hover:scale-[1.02]">
                 <img
                   src="/images/adhiparasakthi-hospitals-emblem.png"
@@ -37,7 +37,7 @@ export default function Footer() {
                 alt="NABH and NABL certified"
                 className="h-11 sm:h-12 w-auto max-w-[120px] sm:max-w-[140px] object-contain shrink-0 border-l border-slate-700 pl-3"
               />
-            </Link>
+            </ScrollToTopLink>
 
             <ul className="space-y-4">
               <li className="flex items-start gap-3">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ImagePlus, Loader2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -45,6 +45,13 @@ export default function PostEditorPanel({
     section: initial?.section ?? defaultSection,
   }));
 
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
+
+  useEffect(() => {
+    onChangeRef.current(form);
+  }, [form]);
+
   const updateField = useCallback(
     <K extends keyof PostFormData>(key: K, value: PostFormData[K]) => {
       setForm((prev) => {
@@ -52,11 +59,10 @@ export default function PostEditorPanel({
         if (key === "title" && mode === "create") {
           next.slug = slugify(String(value));
         }
-        onChange(next);
         return next;
       });
     },
-    [mode, onChange]
+    [mode]
   );
 
   async function uploadImage(file: File) {

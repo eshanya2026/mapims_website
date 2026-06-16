@@ -217,6 +217,11 @@ export default function PostsCmsWorkspace({ posts }: PostsCmsWorkspaceProps) {
     return draftPreview;
   }, [draft, draftPreview, editorMode, editingId, localPosts]);
 
+  const handleDraftChange = useCallback((data: PostFormData) => {
+    setDraft(data);
+    setActiveSection(data.section);
+  }, []);
+
   return (
     <div className="flex h-[calc(100vh)] flex-col overflow-hidden">
       <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 py-3 sm:px-6">
@@ -300,10 +305,7 @@ export default function PostsCmsWorkspace({ posts }: PostsCmsWorkspaceProps) {
               mode={editorMode}
               initial={editorMode === "edit" ? draft : undefined}
               defaultSection={activeSection}
-              onChange={(data) => {
-                setDraft(data);
-                setActiveSection(data.section);
-              }}
+              onChange={handleDraftChange}
               onClose={closePanel}
               onSaved={handleSaved}
             />
