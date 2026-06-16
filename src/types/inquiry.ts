@@ -11,6 +11,14 @@ export type InquiryRecord = {
   preferredTime: string | null;
   country: string | null;
   medicalCondition: string | null;
+  address: string | null;
+  resumeUrl: string | null;
+  jobSlug: string | null;
+  jobTitle: string | null;
+  interviewDate: string | null;
+  interviewTime: string | null;
+  interviewInterviewer: string | null;
+  interviewMode: "online" | "offline" | null;
   status: string;
   createdAt: string;
 };

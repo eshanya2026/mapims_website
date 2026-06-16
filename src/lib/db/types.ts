@@ -24,6 +24,7 @@ export type PostRecord = {
   publishedAt: Date;
   createdAt: Date;
   updatedAt: Date;
+  deletedAt?: Date | null;
 };
 
 export type JobRecord = {
@@ -46,6 +47,7 @@ export type JobRecord = {
   closingDate: Date | null;
   createdAt: Date;
   updatedAt: Date;
+  deletedAt?: Date | null;
 };
 
 export type DoctorRecord = {
@@ -68,6 +70,7 @@ export type DoctorRecord = {
   published: boolean;
   createdAt: Date;
   updatedAt: Date;
+  deletedAt?: Date | null;
 };
 
 export type NewsletterSubscriberRecord = {
@@ -92,6 +95,15 @@ export type FormSubmissionRecord = {
   preferredTime: string | null;
   country: string | null;
   medicalCondition: string | null;
+  address: string | null;
+  resumeUrl: string | null;
+  jobSlug: string | null;
+  jobTitle: string | null;
+  interviewDate: Date | null;
+  interviewTime: string | null;
+  interviewInterviewer: string | null;
+  interviewMode: "online" | "offline" | null;
   status: string;
   createdAt: Date;
+  deletedAt?: Date | null;
 };

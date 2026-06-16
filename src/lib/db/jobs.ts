@@ -1,5 +1,6 @@
 import { getDb } from "@/lib/mongodb";
 import { ensureDbIndexes } from "@/lib/db/indexes";
+import { deletedOnlyFilter, mergeNotDeleted, notDeletedFilter, softDeleteFields } from "@/lib/db/soft-delete";
 import type { JobRecord } from "@/lib/db/types";
 import { mapId, now, toObjectId } from "@/lib/db/utils";
 
@@ -15,11 +16,15 @@ function toJobRecord(doc: JobDoc & { _id: import("mongodb").ObjectId }): JobReco
   return mapId(doc) as JobRecord;
 }
 
-export async function listJobs(sort?: Record<string, 1 | -1>) {
+export async function listJobs(options?: {
+  sort?: Record<string, 1 | -1>;
+  trashed?: boolean;
+}) {
   const collection = await jobsCollection();
+  const query = options?.trashed ? deletedOnlyFilter : notDeletedFilter;
   const docs = await collection
-    .find()
-    .sort(sort ?? { updatedAt: -1 })
+    .find(query)
+    .sort(options?.sort ?? { updatedAt: -1 })
     .toArray();
   return docs.map(toJobRecord);
 }
@@ -29,31 +34,36 @@ export async function findJobById(id: string) {
   if (!objectId) return null;
 
   const collection = await jobsCollection();
-  const doc = await collection.findOne({ _id: objectId });
+  const doc = await collection.findOne(mergeNotDeleted({ _id: objectId }));
   return doc ? toJobRecord(doc) : null;
 }
 
 export async function findJobBySlug(slug: string, published?: boolean) {
   const collection = await jobsCollection();
-  const doc = await collection.findOne({
-    slug,
-    ...(published === undefined ? {} : { published }),
-  });
+  const doc = await collection.findOne(
+    mergeNotDeleted({
+      slug,
+      ...(published === undefined ? {} : { published }),
+    })
+  );
   return doc ? toJobRecord(doc) : null;
 }
 
 export async function findJobs(filter?: { published?: boolean }) {
   const collection = await jobsCollection();
   const docs = await collection
-    .find(filter ?? {})
+    .find(mergeNotDeleted(filter ?? {}))
     .sort({ postedAt: -1 })
     .toArray();
   return docs.map(toJobRecord);
 }
 
-export async function countJobs(filter?: { published?: boolean }) {
+export async function countJobs(filter?: { published?: boolean; trashed?: boolean }) {
   const collection = await jobsCollection();
-  return collection.countDocuments(filter ?? {});
+  const query = filter?.trashed
+    ? deletedOnlyFilter
+    : mergeNotDeleted(filter?.published !== undefined ? { published: filter.published } : {});
+  return collection.countDocuments(query);
 }
 
 export async function createJob(data: Omit<JobDoc, "createdAt" | "updatedAt">) {
@@ -103,7 +113,7 @@ export async function updateJob(
       ? { $set: update, $unset: { jobRefNo: "" as const } }
       : { $set: update };
 
-  const doc = await collection.findOneAndUpdate({ _id: objectId }, updateDoc, {
+  const doc = await collection.findOneAndUpdate(mergeNotDeleted({ _id: objectId }), updateDoc, {
     returnDocument: "after",
   });
 
@@ -115,6 +125,30 @@ export async function deleteJob(id: string) {
   if (!objectId) return false;
 
   const collection = await jobsCollection();
-  const result = await collection.deleteOne({ _id: objectId });
+  const result = await collection.updateOne(mergeNotDeleted({ _id: objectId }), {
+    $set: { ...softDeleteFields(), published: false, updatedAt: now() },
+  });
+  return result.matchedCount === 1;
+}
+
+export async function restoreJob(id: string) {
+  const objectId = toObjectId(id);
+  if (!objectId) return null;
+
+  const collection = await jobsCollection();
+  const doc = await collection.findOneAndUpdate(
+    { _id: objectId, ...deletedOnlyFilter },
+    { $unset: { deletedAt: "" }, $set: { updatedAt: now() } },
+    { returnDocument: "after" }
+  );
+  return doc ? toJobRecord(doc) : null;
+}
+
+export async function purgeJob(id: string) {
+  const objectId = toObjectId(id);
+  if (!objectId) return false;
+
+  const collection = await jobsCollection();
+  const result = await collection.deleteOne({ _id: objectId, ...deletedOnlyFilter });
   return result.deletedCount === 1;
 }

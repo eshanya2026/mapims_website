@@ -16,6 +16,18 @@ export type AdminPermission =
   | "users"
   | "settings";
 
+export type EnquiryFilter = "all" | "appointment" | "contact" | "international" | "career";
+
+export const ENQUIRY_TYPES_BY_FILTER: Record<
+  Exclude<EnquiryFilter, "all">,
+  readonly string[]
+> = {
+  appointment: ["appointment"],
+  contact: ["contact"],
+  international: ["international"],
+  career: ["career", "job_application"],
+};
+
 export const ROLE_PERMISSIONS: Record<AdminRole, readonly AdminPermission[]> = {
   super_admin: [
     "dashboard",
@@ -26,9 +38,17 @@ export const ROLE_PERMISSIONS: Record<AdminRole, readonly AdminPermission[]> = {
     "users",
     "settings",
   ],
-  hr: ["dashboard", "jobs"],
-  marketing: ["dashboard", "posts", "doctors"],
+  hr: ["dashboard", "jobs", "inquiries"],
+  marketing: ["dashboard", "posts"],
   front_office: ["dashboard", "inquiries"],
+};
+
+/** Which enquiry tabs each role may use in the admin panel. */
+export const ROLE_ENQUIRY_FILTERS: Record<AdminRole, readonly EnquiryFilter[]> = {
+  super_admin: ["all", "appointment", "contact", "international", "career"],
+  hr: ["career"],
+  marketing: [],
+  front_office: ["all", "appointment", "contact", "international"],
 };
 
 export function isAdminRole(value: string): value is AdminRole {
@@ -43,10 +63,62 @@ export function hasAnyPermission(role: AdminRole, permissions: AdminPermission[]
   return permissions.some((permission) => hasPermission(role, permission));
 }
 
+export function getAllowedEnquiryFilters(role: AdminRole) {
+  return ROLE_ENQUIRY_FILTERS[role];
+}
+
+export function canAccessEnquiryType(role: AdminRole, type: string) {
+  if (role === "super_admin") return true;
+  if (role === "hr") {
+    return type === "career" || type === "job_application";
+  }
+  if (role === "front_office") {
+    return type === "appointment" || type === "contact" || type === "international";
+  }
+  return false;
+}
+
+export function resolveEnquiryFilterForRole(
+  role: AdminRole,
+  filter?: string | null
+): EnquiryFilter {
+  const allowed = getAllowedEnquiryFilters(role);
+  if (allowed.length === 0) return "all";
+  if (filter && allowed.includes(filter as EnquiryFilter)) {
+    return filter as EnquiryFilter;
+  }
+  return allowed[0];
+}
+
+export function enquiryTypesForFilter(filter: EnquiryFilter): string[] | null {
+  if (filter === "all") return null;
+  return [...ENQUIRY_TYPES_BY_FILTER[filter]];
+}
+
+export function enquiryTypesForRole(role: AdminRole, filter: EnquiryFilter): string[] | null {
+  if (role === "super_admin") {
+    return enquiryTypesForFilter(filter);
+  }
+
+  if (role === "hr") {
+    return ["career", "job_application"];
+  }
+
+  if (role === "front_office") {
+    if (filter === "all") {
+      return ["appointment", "contact", "international"];
+    }
+    if (filter === "career") return [];
+    return enquiryTypesForFilter(filter);
+  }
+
+  return [];
+}
+
 export function getDefaultAdminPath(role: AdminRole) {
   switch (role) {
     case "hr":
-      return "/admin/jobs";
+      return "/admin/inquiries?type=career";
     case "marketing":
       return "/admin/posts";
     case "front_office":
@@ -54,6 +126,10 @@ export function getDefaultAdminPath(role: AdminRole) {
     default:
       return "/admin";
   }
+}
+
+export function canAccessTrash(role: AdminRole) {
+  return hasAnyPermission(role, ["posts", "jobs", "doctors", "inquiries"]);
 }
 
 export function getPathPermission(pathname: string): AdminPermission | null {
@@ -78,6 +154,10 @@ export function getApiPermission(pathname: string): AdminPermission | null {
 }
 
 export function canAccessAdminPath(role: AdminRole, pathname: string) {
+  if (pathname.startsWith("/admin/trash")) {
+    return canAccessTrash(role);
+  }
+
   const permission = getPathPermission(pathname);
   if (!permission) return true;
   return hasPermission(role, permission);
@@ -86,6 +166,10 @@ export function canAccessAdminPath(role: AdminRole, pathname: string) {
 export function canAccessAdminApi(role: AdminRole, pathname: string) {
   if (pathname.startsWith("/api/admin/upload")) {
     return hasAnyPermission(role, ["posts", "jobs", "doctors"]);
+  }
+
+  if (pathname.startsWith("/api/admin/trash")) {
+    return canAccessTrash(role);
   }
 
   const permission = getApiPermission(pathname);

@@ -11,49 +11,42 @@ type BlogGridProps = {
 
 export default function BlogGrid({ posts }: BlogGridProps) {
   return (
-    <section className="bg-slate-50 py-10 sm:py-16 md:py-24">
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+    <section className="section-padding bg-white">
+      <div className="page-container">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, index) => (
             <motion.article
               key={post.slug}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="group flex flex-col overflow-hidden rounded-xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:shadow-xl sm:rounded-2xl"
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:shadow-xl"
             >
-              <div className="relative h-44 overflow-hidden sm:h-52">
+              <div className="relative h-56 overflow-hidden">
                 <img
                   src={post.image}
                   alt={post.title}
                   loading="lazy"
                   decoding="async"
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute left-3 top-3 max-w-[calc(100%-1.5rem)] rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-red-600 backdrop-blur-sm sm:left-4 sm:top-4 sm:px-3 sm:text-xs">
+                <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-red-600 shadow-sm backdrop-blur-sm">
                   {post.category}
                 </div>
               </div>
-              <div className="flex flex-1 flex-col p-4 sm:p-6">
-                <div className="mb-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 sm:mb-3 sm:text-sm">
-                  <span className="inline-flex items-center">
-                    <Calendar className="mr-1.5 h-3.5 w-3.5 shrink-0 sm:mr-2 sm:h-4 sm:w-4" />
-                    {post.date}
-                  </span>
-                  {post.author ? (
-                    <span className="text-slate-400">· {post.author}</span>
-                  ) : null}
+              <div className="p-6">
+                <div className="mb-3 flex items-center text-sm text-slate-500">
+                  <Calendar className="mr-2 h-4 w-4" />
+                  {post.date}
                 </div>
-                <h2 className="mb-2 line-clamp-3 text-lg font-bold leading-snug text-slate-900 transition-colors group-hover:text-red-600 sm:mb-3 sm:line-clamp-2 sm:text-xl">
+                <h2 className="mb-3 line-clamp-2 text-xl font-bold text-slate-900 transition-colors group-hover:text-red-600">
                   {post.title}
                 </h2>
-                <p className="mb-4 line-clamp-3 flex-1 text-sm leading-relaxed text-slate-600 sm:mb-5">
-                  {post.excerpt}
-                </p>
+                <p className="mb-4 line-clamp-2 text-sm text-slate-600">{post.excerpt}</p>
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="inline-flex min-h-11 items-center text-sm font-semibold text-red-600 hover:underline sm:min-h-0"
+                  className="inline-flex items-center text-sm font-medium text-red-600 group-hover:underline"
                 >
                   Read More <ArrowRight className="ml-1 h-4 w-4" />
                 </Link>
@@ -62,9 +55,9 @@ export default function BlogGrid({ posts }: BlogGridProps) {
           ))}
         </div>
 
-        {posts.length === 0 && (
+        {posts.length === 0 ? (
           <p className="py-12 text-center text-slate-500">No articles published yet.</p>
-        )}
+        ) : null}
       </div>
     </section>
   );

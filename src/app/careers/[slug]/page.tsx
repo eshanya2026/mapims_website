@@ -16,6 +16,7 @@ import {
   getAllPublishedJobSlugs,
   getPublishedJobBySlug,
 } from "@/lib/content";
+import JobApplyButton from "@/components/careers/JobApplyButton";
 
 type CareerDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -160,16 +161,18 @@ export default async function CareerDetailPage({ params }: CareerDetailPageProps
                   </div>
                 ) : null}
 
+                <JobApplyButton jobSlug={job.slug} jobTitle={job.title} />
+
                 {applyHref ? (
                   <a
                     href={applyHref}
                     target={job.applyUrl ? "_blank" : undefined}
                     rel={job.applyUrl ? "noopener noreferrer" : undefined}
-                    className="mt-2 flex w-full items-center justify-center gap-2 rounded-full bg-red-600 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-red-700"
+                    className="flex w-full items-center justify-center gap-2 rounded-full border-2 border-red-600 bg-white px-6 py-3 text-sm font-semibold text-red-600 transition-colors hover:bg-red-50"
                   >
                     {job.applyUrl ? (
                       <>
-                        Apply now
+                        External application
                         <ExternalLink className="h-4 w-4" />
                       </>
                     ) : (
@@ -181,7 +184,7 @@ export default async function CareerDetailPage({ params }: CareerDetailPageProps
                   </a>
                 ) : (
                   <p className="rounded-lg bg-slate-50 px-4 py-3 text-sm text-slate-600">
-                    Contact HR at{" "}
+                    Or email HR at{" "}
                     <a href="mailto:contact@mapims.edu.in" className="font-medium text-red-600">
                       contact@mapims.edu.in
                     </a>

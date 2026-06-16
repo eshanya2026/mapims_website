@@ -5,6 +5,8 @@ import { Calendar, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import type { ContentPost } from "@/lib/content";
 
+const MotionLink = motion(Link);
+
 type HealthInsightsProps = {
   posts: ContentPost[];
 };
@@ -37,13 +39,14 @@ export default function HealthInsights({ posts }: HealthInsightsProps) {
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {posts.map((item, index) => (
-            <motion.div
+            <MotionLink
               key={item.slug}
+              href={`/blog/${item.slug}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:shadow-xl"
+              className="group block overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:shadow-xl"
             >
               <div className="relative h-56 overflow-hidden">
                 <img
@@ -66,14 +69,11 @@ export default function HealthInsights({ posts }: HealthInsightsProps) {
                   {item.title}
                 </h3>
                 <p className="mb-4 line-clamp-2 text-sm text-slate-600">{item.excerpt}</p>
-                <Link
-                  href={`/blog/${item.slug}`}
-                  className="inline-flex items-center text-sm font-medium text-red-600 group-hover:underline"
-                >
+                <span className="inline-flex items-center text-sm font-medium text-red-600 group-hover:underline">
                   Read More <ArrowRight className="ml-1 h-4 w-4" />
-                </Link>
+                </span>
               </div>
-            </motion.div>
+            </MotionLink>
           ))}
         </div>
       </div>

@@ -89,13 +89,35 @@ export const internationalFormSchema = z.object({
   message: z.string().trim().min(10),
 });
 
+export const careerApplicationFormSchema = z.object({
+  type: z.literal("career"),
+  name: z.string().trim().min(2),
+  phone: phoneField,
+  email: z.string().trim().email("Please enter a valid email"),
+  message: z.string().trim().min(10, "Please add a short message"),
+});
+
+export const jobApplicationFormSchema = z.object({
+  type: z.literal("job_application"),
+  jobSlug: z.string().trim().min(1),
+  jobTitle: z.string().trim().min(1),
+  name: z.string().trim().min(2),
+  phone: phoneField,
+  email: z.string().trim().email("Please enter a valid email"),
+  address: z.string().optional().transform((value) => value?.trim() ?? ""),
+  message: z.string().trim().min(10, "Please add a short message"),
+  resumeUrl: z.string().trim().min(1, "Please upload your resume"),
+});
+
 export const formSubmissionSchema = z.discriminatedUnion("type", [
   appointmentFormSchema,
   contactFormSchema,
   internationalFormSchema,
+  careerApplicationFormSchema,
+  jobApplicationFormSchema,
 ]);
 
-export const inquiryStatusSchema = z.enum([
+export const generalInquiryStatusSchema = z.enum([
   "new",
   "contacted",
   "confirmed",
@@ -103,8 +125,50 @@ export const inquiryStatusSchema = z.enum([
   "cancelled",
 ]);
 
+export const recruitmentStatusSchema = z.enum([
+  "new",
+  "interview_scheduled",
+  "shortlisted",
+  "selected",
+  "joined",
+  "rejected",
+  "screening",
+]);
+
+export const recruitmentStatusWithoutInterviewSchema = z.enum([
+  "new",
+  "screening",
+  "shortlisted",
+  "selected",
+  "joined",
+  "rejected",
+]);
+
+export const inquiryStatusSchema = z.union([
+  generalInquiryStatusSchema,
+  recruitmentStatusSchema,
+]);
+
+export const scheduleInterviewSchema = z.object({
+  status: z.literal("interview_scheduled"),
+  interview: z.object({
+    date: z.string().min(1, "Please select a date"),
+    time: z.string().trim().min(1, "Please select a time"),
+    interviewer: z.string().trim().min(2, "Please enter the interviewer name"),
+    mode: z.enum(["online", "offline"]),
+    notifyCandidate: z.boolean().default(true),
+  }),
+});
+
+export const updateInquiryPatchSchema = z.union([
+  scheduleInterviewSchema,
+  z.object({
+    status: z.union([generalInquiryStatusSchema, recruitmentStatusWithoutInterviewSchema]),
+  }),
+]);
+
 /** @deprecated Use inquiryStatusSchema */
-export const appointmentInquiryStatusSchema = inquiryStatusSchema;
+export const appointmentInquiryStatusSchema = generalInquiryStatusSchema;
 
 export const newsletterSubscribeSchema = z.object({
   email: z

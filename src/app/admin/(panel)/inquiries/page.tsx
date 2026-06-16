@@ -1,50 +1,37 @@
-import { hydrateMissingAppointmentReferences } from "@/lib/appointment-reference-id";
-import { listFormSubmissions } from "@/lib/db/form-submissions";
-import type { FormSubmissionRecord } from "@/lib/db/types";
-import InquiriesWorkspace from "@/components/admin/InquiriesWorkspace";
-import type { InquiryRecord } from "@/types/inquiry";
-
-const filters = ["all", "appointment", "contact", "international"] as const;
+import { redirect } from "next/navigation";
+import { hydrateMissingSubmissionReferences } from "@/lib/appointment-reference-id";
+import {
+  getAllowedEnquiryFilters,
+  hasPermission,
+  resolveEnquiryFilterForRole,
+} from "@/lib/admin-roles";
+import { getSession } from "@/lib/auth";
+import { listEnquiriesForRole } from "@/lib/enquiry-access";
+import { toInquiryRecords } from "@/lib/inquiry-record";
+import EnquiriesWorkspace from "@/components/admin/InquiriesWorkspace";
 
 type InquiriesPageProps = {
   searchParams: Promise<{ type?: string }>;
 };
 
-function serializeInquiries(inquiries: FormSubmissionRecord[]): InquiryRecord[] {
-  return inquiries.map((inquiry) => ({
-    id: inquiry.id,
-    referenceId: inquiry.referenceId,
-    type: inquiry.type,
-    name: inquiry.name,
-    email: inquiry.email,
-    phone: inquiry.phone,
-    message: inquiry.message,
-    department: inquiry.department,
-    preferredDate: inquiry.preferredDate?.toISOString() ?? null,
-    preferredTime: inquiry.preferredTime,
-    country: inquiry.country,
-    medicalCondition: inquiry.medicalCondition,
-    status: inquiry.status,
-    createdAt: inquiry.createdAt.toISOString(),
-  }));
-}
-
 export default async function AdminInquiriesPage({ searchParams }: InquiriesPageProps) {
-  const { type } = await searchParams;
-  const activeFilter = filters.includes(type as (typeof filters)[number])
-    ? (type as (typeof filters)[number])
-    : "all";
+  const session = await getSession();
+  if (!session) redirect("/admin/login");
+  if (!hasPermission(session.role, "inquiries")) redirect("/admin");
 
-  const inquiries = await hydrateMissingAppointmentReferences(
-    await listFormSubmissions(
-      activeFilter === "all" ? undefined : { type: activeFilter }
-    )
+  const { type } = await searchParams;
+  const activeFilter = resolveEnquiryFilterForRole(session.role, type);
+  const allowedFilters = [...getAllowedEnquiryFilters(session.role)];
+
+  const inquiries = await hydrateMissingSubmissionReferences(
+    await listEnquiriesForRole(session.role, activeFilter)
   );
 
   return (
-    <InquiriesWorkspace
-      initialInquiries={serializeInquiries(inquiries)}
+    <EnquiriesWorkspace
+      initialEnquiries={toInquiryRecords(inquiries)}
       initialFilter={activeFilter}
+      allowedFilters={allowedFilters}
     />
   );
 }

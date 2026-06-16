@@ -27,10 +27,15 @@ export default async function AdminDashboardPage() {
       canDoctors ? countDoctors({ published: true }) : Promise.resolve(0),
       canJobs ? countJobs() : Promise.resolve(0),
       canJobs ? countJobs({ published: true }) : Promise.resolve(0),
-      canInquiries ? getInquiryCounts() : Promise.resolve({ total: 0, new: 0 }),
+      canInquiries ? getInquiryCounts(session.role) : Promise.resolve({ total: 0, new: 0 }),
     ]);
 
   const { total: inquiryCount, new: newInquiries } = inquiryCounts;
+
+  const enquiriesHref =
+    session.role === "hr"
+      ? "/admin/inquiries?type=career"
+      : "/admin/inquiries";
 
   return (
     <div className="p-8">
@@ -88,7 +93,7 @@ export default async function AdminDashboardPage() {
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-slate-500">
-                Inquiries
+                Enquiries
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -129,11 +134,11 @@ export default async function AdminDashboardPage() {
         ) : null}
         {canInquiries ? (
           <Link
-            href="/admin/inquiries"
+            href={enquiriesHref}
             className={buttonVariants({ variant: "outline" })}
           >
             <Inbox className="mr-2 h-4 w-4" />
-            View inquiries
+            View enquiries
           </Link>
         ) : null}
         {canPosts ? (

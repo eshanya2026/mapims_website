@@ -1,12 +1,25 @@
 import { ObjectId } from "mongodb";
 
 export function isDuplicateKeyError(error: unknown) {
-  return (
+  if (
     typeof error === "object" &&
     error !== null &&
     "code" in error &&
     (error as { code?: number }).code === 11000
-  );
+  ) {
+    return true;
+  }
+
+  if (
+    typeof error === "object" &&
+    error !== null &&
+    "cause" in error &&
+    isDuplicateKeyError((error as { cause?: unknown }).cause)
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 export function toObjectId(id: string) {

@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
 import { createFormSubmission } from "@/lib/form-submissions";
+import {
+  notifyCandidateOfJobApplication,
+  notifyHrOfFormSubmission,
+} from "@/lib/hr-form-notifications";
 import { formSubmissionSchema } from "@/lib/validations";
 
 export async function POST(request: Request) {
@@ -15,11 +19,22 @@ export async function POST(request: Request) {
 
     const submission = await createFormSubmission(parsed.data);
 
+    if (submission.type === "job_application") {
+      try {
+        await notifyHrOfFormSubmission(submission);
+        await notifyCandidateOfJobApplication(submission);
+      } catch (emailError) {
+        console.error("[forms POST] notification email failed:", emailError);
+      }
+    }
+
     return NextResponse.json(
       {
         ok: true,
         id: submission.id,
         referenceId: submission.referenceId ?? null,
+        jobTitle:
+          submission.type === "job_application" ? submission.jobTitle ?? null : null,
       },
       { status: 201 }
     );

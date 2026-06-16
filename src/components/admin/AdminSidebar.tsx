@@ -11,10 +11,12 @@ import {
   Users,
   Settings,
   LogOut,
+  Trash2,
 } from "lucide-react";
 import {
   ADMIN_ROLES,
   ROLE_PERMISSIONS,
+  canAccessTrash,
   type AdminPermission,
   type AdminRole,
 } from "@/lib/admin-roles";
@@ -31,7 +33,7 @@ const links: {
   { href: "/admin/posts", label: "Posts", icon: Newspaper, permission: "posts" },
   { href: "/admin/doctors", label: "Doctors", icon: Stethoscope, permission: "doctors" },
   { href: "/admin/jobs", label: "Careers", icon: Briefcase, permission: "jobs" },
-  { href: "/admin/inquiries", label: "Inquiries", icon: Inbox, permission: "inquiries" },
+  { href: "/admin/inquiries", label: "Enquiries", icon: Inbox, permission: "inquiries" },
   { href: "/admin/users", label: "Users", icon: Users, permission: "users" },
   { href: "/admin/settings", label: "Settings", icon: Settings, permission: "settings" },
 ];
@@ -47,6 +49,7 @@ export default function AdminSidebar({ role, email, name }: AdminSidebarProps) {
   const router = useRouter();
   const allowed = new Set(ROLE_PERMISSIONS[role]);
   const visibleLinks = links.filter((link) => allowed.has(link.permission));
+  const showTrash = canAccessTrash(role);
 
   async function handleLogout() {
     await fetch("/api/admin/auth/logout", { method: "POST" });
@@ -90,6 +93,20 @@ export default function AdminSidebar({ role, email, name }: AdminSidebarProps) {
             </Link>
           );
         })}
+        {showTrash ? (
+          <Link
+            href="/admin/trash"
+            className={cn(
+              "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+              pathname.startsWith("/admin/trash")
+                ? "bg-red-600 text-white"
+                : "text-slate-300 hover:bg-slate-800 hover:text-white"
+            )}
+          >
+            <Trash2 className="h-4 w-4" />
+            Trash
+          </Link>
+        ) : null}
       </nav>
 
       <div className="border-t border-slate-800 p-4">

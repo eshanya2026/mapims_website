@@ -3,7 +3,7 @@ import { getPublishedJobs } from "@/lib/content";
 import CareersHero from "@/components/careers/CareersHero";
 import CareersIntro from "@/components/careers/CareersIntro";
 import CareersJobList from "@/components/careers/CareersJobList";
-import CareersContact from "@/components/careers/CareersContact";
+import CareersApplicationForm from "@/components/careers/CareersApplicationForm";
 
 export const metadata: Metadata = {
   title: "Careers | Adhiparasakthi Hospital",
@@ -19,7 +19,7 @@ export default async function CareersPage() {
       <CareersHero jobCount={jobs.length} />
       <CareersIntro />
       <CareersJobList jobs={jobs} />
-      <CareersContact />
+      <CareersApplicationForm />
     </main>
   );
 }

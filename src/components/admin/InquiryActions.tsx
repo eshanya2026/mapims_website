@@ -4,23 +4,27 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import DeleteButton from "@/components/admin/DeleteButton";
+import ScheduleInterviewModal from "@/components/admin/ScheduleInterviewModal";
 import { getInquiryNextActions } from "@/lib/inquiry-status";
 
 type InquiryActionsProps = {
   id: string;
   type: string;
   status: string;
-  onUpdated?: () => void | Promise<void>;
+  candidateName: string;
+  onUpdated?: (updated?: Record<string, unknown>) => void | Promise<void>;
 };
 
 export default function InquiryActions({
   id,
   type,
   status,
+  candidateName,
   onUpdated,
 }: InquiryActionsProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [scheduleOpen, setScheduleOpen] = useState(false);
   const actions = getInquiryNextActions(type, status);
 
   async function updateStatus(nextStatus: string) {
@@ -33,33 +37,52 @@ export default function InquiryActions({
     setLoading(false);
 
     if (response.ok) {
-      await onUpdated?.();
+      const updated = await response.json();
+      await onUpdated?.(updated);
       if (!onUpdated) {
         router.refresh();
       }
     }
   }
 
+  function handleAction(actionStatus: string) {
+    if (actionStatus === "interview_scheduled") {
+      setScheduleOpen(true);
+      return;
+    }
+    void updateStatus(actionStatus);
+  }
+
   return (
-    <div className="flex flex-wrap gap-2">
-      {actions.map((action) => (
-        <Button
-          key={action.status}
-          type="button"
-          size="sm"
-          variant="outline"
-          disabled={loading}
-          onClick={() => updateStatus(action.status)}
-        >
-          {action.label}
-        </Button>
-      ))}
-      <DeleteButton
-        endpoint={`/api/admin/inquiries/${id}`}
-        label="Delete"
-        onDeleted={onUpdated}
-        skipRefresh={Boolean(onUpdated)}
+    <>
+      <div className="flex flex-wrap gap-2">
+        {actions.map((action) => (
+          <Button
+            key={action.status}
+            type="button"
+            size="sm"
+            variant="outline"
+            disabled={loading}
+            onClick={() => handleAction(action.status)}
+          >
+            {action.label}
+          </Button>
+        ))}
+        <DeleteButton
+          endpoint={`/api/admin/inquiries/${id}`}
+          label="Delete"
+          onDeleted={onUpdated}
+          skipRefresh={Boolean(onUpdated)}
+        />
+      </div>
+
+      <ScheduleInterviewModal
+        open={scheduleOpen}
+        onOpenChange={setScheduleOpen}
+        inquiryId={id}
+        candidateName={candidateName}
+        onScheduled={onUpdated}
       />
-    </div>
+    </>
   );
 }

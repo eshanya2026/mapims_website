@@ -1,9 +1,10 @@
 import {
-  findLatestAppointmentReferenceId,
+  findLatestReferenceId,
   updateFormSubmission,
 } from "@/lib/db/form-submissions";
 import { isDuplicateKeyError } from "@/lib/db/utils";
 import type { FormSubmissionRecord } from "@/lib/db/types";
+import { assignJobApplicationReferenceId } from "@/lib/job-application-reference-id";
 
 const TIME_ZONE = "Asia/Kolkata";
 
@@ -22,7 +23,7 @@ export async function generateAppointmentReferenceId(date = new Date()) {
   const dateKey = formatAppointmentDateKey(date);
   const prefix = `APT-${dateKey}-`;
 
-  const latestReferenceId = await findLatestAppointmentReferenceId(prefix);
+  const latestReferenceId = await findLatestReferenceId(prefix);
 
   let next = 1;
   if (latestReferenceId) {
@@ -58,16 +59,44 @@ export async function assignAppointmentReferenceId(
   throw new Error("Unable to generate a unique appointment reference ID");
 }
 
+export async function hydrateMissingSubmissionReferences<
+  T extends Pick<FormSubmissionRecord, "id" | "type" | "referenceId" | "createdAt">,
+>(submissions: T[]) {
+  const hydrated: T[] = [];
+
+  for (const submission of submissions) {
+    if (submission.referenceId) {
+      hydrated.push(submission);
+      continue;
+    }
+
+    if (submission.type === "appointment") {
+      const updated = await assignAppointmentReferenceId(
+        submission.id,
+        submission.createdAt
+      );
+      hydrated.push({ ...submission, ...updated });
+      continue;
+    }
+
+    if (submission.type === "job_application") {
+      const updated = await assignJobApplicationReferenceId(
+        submission.id,
+        submission.createdAt
+      );
+      hydrated.push({ ...submission, ...updated });
+      continue;
+    }
+
+    hydrated.push(submission);
+  }
+
+  return hydrated;
+}
+
+/** @deprecated Use hydrateMissingSubmissionReferences */
 export async function hydrateMissingAppointmentReferences<
   T extends Pick<FormSubmissionRecord, "id" | "type" | "referenceId" | "createdAt">,
 >(submissions: T[]) {
-  return Promise.all(
-    submissions.map(async (submission) => {
-      if (submission.type !== "appointment" || submission.referenceId) {
-        return submission;
-      }
-
-      return assignAppointmentReferenceId(submission.id, submission.createdAt);
-    })
-  );
+  return hydrateMissingSubmissionReferences(submissions);
 }

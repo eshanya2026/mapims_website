@@ -21,7 +21,7 @@ export default function DeleteButton({
   const [loading, setLoading] = useState(false);
 
   async function handleDelete() {
-    if (!confirm("Are you sure you want to delete this item?")) return;
+    if (!confirm("Move this item to trash? You can restore it later from Trash.")) return;
 
     setLoading(true);
     const response = await fetch(endpoint, { method: "DELETE" });
@@ -44,7 +44,7 @@ export default function DeleteButton({
       disabled={loading}
       className="border-red-200 text-red-600 hover:bg-red-50"
     >
-      {loading ? "Deleting..." : label}
+      {loading ? "Moving..." : label}
     </Button>
   );
 }

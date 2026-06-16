@@ -1,5 +1,6 @@
 import { getDb } from "@/lib/mongodb";
 import { ensureDbIndexes } from "@/lib/db/indexes";
+import { deletedOnlyFilter, mergeNotDeleted, notDeletedFilter, softDeleteFields } from "@/lib/db/soft-delete";
 import type { PostRecord } from "@/lib/db/types";
 import { mapId, now, toObjectId } from "@/lib/db/utils";
 
@@ -15,16 +16,29 @@ function toPostRecord(doc: PostDoc & { _id: import("mongodb").ObjectId }): PostR
   return mapId(doc) as PostRecord;
 }
 
-export async function listPosts(sort?: Record<string, 1 | -1>) {
+export async function listPosts(options?: {
+  sort?: Record<string, 1 | -1>;
+  trashed?: boolean;
+}) {
   const collection = await postsCollection();
+  const query = options?.trashed ? deletedOnlyFilter : notDeletedFilter;
   const docs = await collection
-    .find()
-    .sort(sort ?? { section: 1, sortOrder: 1, publishedAt: -1 })
+    .find(query)
+    .sort(options?.sort ?? { section: 1, sortOrder: 1, publishedAt: -1 })
     .toArray();
   return docs.map(toPostRecord);
 }
 
 export async function findPostById(id: string) {
+  const objectId = toObjectId(id);
+  if (!objectId) return null;
+
+  const collection = await postsCollection();
+  const doc = await collection.findOne(mergeNotDeleted({ _id: objectId }));
+  return doc ? toPostRecord(doc) : null;
+}
+
+export async function findPostByIdIncludingTrashed(id: string) {
   const objectId = toObjectId(id);
   if (!objectId) return null;
 
@@ -35,10 +49,12 @@ export async function findPostById(id: string) {
 
 export async function findPostBySlug(slug: string, published?: boolean) {
   const collection = await postsCollection();
-  const doc = await collection.findOne({
-    slug,
-    ...(published === undefined ? {} : { published }),
-  });
+  const doc = await collection.findOne(
+    mergeNotDeleted({
+      slug,
+      ...(published === undefined ? {} : { published }),
+    })
+  );
   return doc ? toPostRecord(doc) : null;
 }
 
@@ -49,11 +65,17 @@ export async function findPosts(filter: {
   limit?: number;
 }) {
   const collection = await postsCollection();
-  const query: Record<string, unknown> = {};
-
-  if (filter.published !== undefined) query.published = filter.published;
-  if (filter.section) query.section = filter.section;
-  if (filter.sections) query.section = { $in: filter.sections };
+  const query = mergeNotDeleted(
+    filter.published !== undefined ||
+      filter.section ||
+      filter.sections
+      ? {
+          ...(filter.published !== undefined ? { published: filter.published } : {}),
+          ...(filter.section ? { section: filter.section } : {}),
+          ...(filter.sections ? { section: { $in: filter.sections } } : {}),
+        }
+      : {}
+  );
 
   let cursor = collection
     .find(query)
@@ -67,15 +89,18 @@ export async function findPosts(filter: {
   return docs.map(toPostRecord);
 }
 
-export async function countPosts(filter?: { published?: boolean }) {
+export async function countPosts(filter?: { published?: boolean; trashed?: boolean }) {
   const collection = await postsCollection();
-  return collection.countDocuments(filter ?? {});
+  const query = filter?.trashed
+    ? deletedOnlyFilter
+    : mergeNotDeleted(filter?.published !== undefined ? { published: filter.published } : {});
+  return collection.countDocuments(query);
 }
 
 export async function getMaxSortOrderInSection(section: string) {
   const collection = await postsCollection();
   const doc = await collection
-    .find({ section })
+    .find(mergeNotDeleted({ section }))
     .sort({ sortOrder: -1 })
     .limit(1)
     .next();
@@ -110,7 +135,7 @@ export async function updatePost(
 
   const collection = await postsCollection();
   const doc = await collection.findOneAndUpdate(
-    { _id: objectId },
+    mergeNotDeleted({ _id: objectId }),
     { $set: { ...data, updatedAt: now() } },
     { returnDocument: "after" }
   );
@@ -123,13 +148,39 @@ export async function deletePost(id: string) {
   if (!objectId) return false;
 
   const collection = await postsCollection();
-  const result = await collection.deleteOne({ _id: objectId });
+  const result = await collection.updateOne(mergeNotDeleted({ _id: objectId }), {
+    $set: { ...softDeleteFields(), published: false, updatedAt: now() },
+  });
+  return result.matchedCount === 1;
+}
+
+export async function restorePost(id: string) {
+  const objectId = toObjectId(id);
+  if (!objectId) return null;
+
+  const collection = await postsCollection();
+  const doc = await collection.findOneAndUpdate(
+    { _id: objectId, ...deletedOnlyFilter },
+    { $unset: { deletedAt: "" }, $set: { updatedAt: now() } },
+    { returnDocument: "after" }
+  );
+  return doc ? toPostRecord(doc) : null;
+}
+
+export async function purgePost(id: string) {
+  const objectId = toObjectId(id);
+  if (!objectId) return false;
+
+  const collection = await postsCollection();
+  const result = await collection.deleteOne({ _id: objectId, ...deletedOnlyFilter });
   return result.deletedCount === 1;
 }
 
 export async function reorderPostsInSection(section: string, orderedIds: string[]) {
   const collection = await postsCollection();
-  const sectionPosts = await collection.find({ section }, { projection: { _id: 1 } }).toArray();
+  const sectionPosts = await collection
+    .find(mergeNotDeleted({ section }), { projection: { _id: 1 } })
+    .toArray();
   const sectionIds = new Set(sectionPosts.map((post) => post._id.toString()));
 
   const updates = orderedIds

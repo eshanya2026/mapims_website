@@ -1,5 +1,6 @@
 import { getDb } from "@/lib/mongodb";
 import { ensureDbIndexes } from "@/lib/db/indexes";
+import { deletedOnlyFilter, mergeNotDeleted, notDeletedFilter, softDeleteFields } from "@/lib/db/soft-delete";
 import type { DoctorRecord } from "@/lib/db/types";
 import { mapId, now, toObjectId } from "@/lib/db/utils";
 
@@ -25,16 +26,19 @@ export async function listDoctors(
     showOnHome?: boolean;
     showOnAbout?: boolean;
     departmentSlug?: string;
+    trashed?: boolean;
   },
   options?: { sortBy?: DoctorSortField }
 ) {
   const collection = await doctorsCollection();
-  const query: Record<string, unknown> = {};
+  const baseQuery: Record<string, unknown> = {};
 
-  if (filter?.published !== undefined) query.published = filter.published;
-  if (filter?.showOnHome !== undefined) query.showOnHome = filter.showOnHome;
-  if (filter?.showOnAbout !== undefined) query.showOnAbout = filter.showOnAbout;
-  if (filter?.departmentSlug) query.departmentSlug = filter.departmentSlug;
+  if (filter?.published !== undefined) baseQuery.published = filter.published;
+  if (filter?.showOnHome !== undefined) baseQuery.showOnHome = filter.showOnHome;
+  if (filter?.showOnAbout !== undefined) baseQuery.showOnAbout = filter.showOnAbout;
+  if (filter?.departmentSlug) baseQuery.departmentSlug = filter.departmentSlug;
+
+  const query = filter?.trashed ? { ...baseQuery, ...deletedOnlyFilter } : mergeNotDeleted(baseQuery);
 
   const sortBy = options?.sortBy ?? "sortOrder";
   const docs = await collection.find(query).sort({ [sortBy]: 1, name: 1 }).toArray();
@@ -46,19 +50,22 @@ export async function findDoctorById(id: string) {
   if (!objectId) return null;
 
   const collection = await doctorsCollection();
-  const doc = await collection.findOne({ _id: objectId });
+  const doc = await collection.findOne(mergeNotDeleted({ _id: objectId }));
   return doc ? toDoctorRecord(doc) : null;
 }
 
 export async function findDoctorBySlug(slug: string) {
   const collection = await doctorsCollection();
-  const doc = await collection.findOne({ slug });
+  const doc = await collection.findOne(mergeNotDeleted({ slug }));
   return doc ? toDoctorRecord(doc) : null;
 }
 
-export async function countDoctors(filter?: { published?: boolean }) {
+export async function countDoctors(filter?: { published?: boolean; trashed?: boolean }) {
   const collection = await doctorsCollection();
-  return collection.countDocuments(filter ?? {});
+  const query = filter?.trashed
+    ? deletedOnlyFilter
+    : mergeNotDeleted(filter?.published !== undefined ? { published: filter.published } : {});
+  return collection.countDocuments(query);
 }
 
 export async function getMaxDoctorSortOrder(field: DoctorSortField = "sortOrder") {
@@ -134,7 +141,7 @@ export async function updateDoctor(
 
   const collection = await doctorsCollection();
   const doc = await collection.findOneAndUpdate(
-    { _id: objectId },
+    mergeNotDeleted({ _id: objectId }),
     { $set: { ...data, updatedAt: now() } },
     { returnDocument: "after" }
   );
@@ -147,7 +154,31 @@ export async function deleteDoctor(id: string) {
   if (!objectId) return false;
 
   const collection = await doctorsCollection();
-  const result = await collection.deleteOne({ _id: objectId });
+  const result = await collection.updateOne(mergeNotDeleted({ _id: objectId }), {
+    $set: { ...softDeleteFields(), published: false, updatedAt: now() },
+  });
+  return result.matchedCount === 1;
+}
+
+export async function restoreDoctor(id: string) {
+  const objectId = toObjectId(id);
+  if (!objectId) return null;
+
+  const collection = await doctorsCollection();
+  const doc = await collection.findOneAndUpdate(
+    { _id: objectId, ...deletedOnlyFilter },
+    { $unset: { deletedAt: "" }, $set: { updatedAt: now() } },
+    { returnDocument: "after" }
+  );
+  return doc ? toDoctorRecord(doc) : null;
+}
+
+export async function purgeDoctor(id: string) {
+  const objectId = toObjectId(id);
+  if (!objectId) return false;
+
+  const collection = await doctorsCollection();
+  const result = await collection.deleteOne({ _id: objectId, ...deletedOnlyFilter });
   return result.deletedCount === 1;
 }
 
