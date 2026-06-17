@@ -2,12 +2,18 @@ import { mkdir, writeFile } from "fs/promises";
 import path from "path";
 import { put } from "@vercel/blob";
 
-function useBlobStorage() {
-  return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+function hasBlobCredentials() {
+  return Boolean(
+    process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID
+  );
 }
 
 function isVercelRuntime() {
   return Boolean(process.env.VERCEL);
+}
+
+function shouldUseBlobStorage() {
+  return isVercelRuntime() || hasBlobCredentials();
 }
 
 function localUploadPath(...segments: string[]) {
@@ -22,8 +28,7 @@ async function saveLocalFile(
   const uploadDir = localUploadPath(...segments);
   await mkdir(uploadDir, { recursive: true });
   await writeFile(path.join(uploadDir, filename), buffer);
-  const publicPath = path.posix.join("/", ...segments, filename);
-  return publicPath;
+  return path.posix.join("/", ...segments, filename);
 }
 
 export async function storeUploadedFile(options: {
@@ -33,20 +38,25 @@ export async function storeUploadedFile(options: {
   folder: "uploads" | "uploads/resumes";
 }) {
   const { buffer, filename, contentType, folder } = options;
+  const pathname = `${folder}/${filename}`;
 
-  if (useBlobStorage()) {
-    const blob = await put(`${folder}/${filename}`, buffer, {
-      access: "public",
-      contentType,
-      addRandomSuffix: false,
-    });
-    return blob.url;
-  }
-
-  if (isVercelRuntime()) {
-    throw new Error(
-      "File storage is not configured on Vercel. Open your Vercel project → Storage → Create Blob store → connect it to this app, then redeploy."
-    );
+  if (shouldUseBlobStorage()) {
+    try {
+      const { url } = await put(pathname, buffer, {
+        access: "public",
+        contentType,
+      });
+      return url;
+    } catch (error) {
+      if (isVercelRuntime()) {
+        throw new Error(
+          error instanceof Error
+            ? `${error.message} Connect Vercel Blob: Project → Storage → Create Blob → link to this app, then redeploy.`
+            : "Vercel Blob upload failed. Connect Blob storage and redeploy."
+        );
+      }
+      throw error;
+    }
   }
 
   const segments = folder.split("/");
