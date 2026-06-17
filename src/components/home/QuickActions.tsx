@@ -20,18 +20,20 @@ export default function QuickActions() {
         <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-5 lg:gap-5">
           {actions.map((action, index) => {
             const cardClass =
-              "flex h-full min-h-[108px] cursor-pointer flex-col items-center justify-center rounded-xl border border-slate-100 bg-white p-3 text-center shadow-lg shadow-slate-200/40 transition-shadow group sm:min-h-0 sm:rounded-2xl sm:p-5 sm:shadow-xl";
+              "group flex h-full min-h-[108px] cursor-pointer flex-col items-center justify-center rounded-xl border border-slate-100 bg-white p-3 text-center shadow-lg shadow-slate-200/40 transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:bg-white hover:shadow-xl hover:shadow-red-600/10 active:translate-y-0 active:scale-[0.98] sm:min-h-0 sm:rounded-2xl sm:p-5 sm:shadow-xl sm:hover:-translate-y-1.5 sm:hover:shadow-2xl";
             const content = (
               <>
                 <div
-                  className={`mb-2 flex h-10 w-10 items-center justify-center rounded-full transition-transform group-hover:scale-110 sm:mb-3 sm:h-14 sm:w-14 ${action.color}`}
+                  className={`mb-2 flex h-10 w-10 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110 sm:mb-3 sm:h-14 sm:w-14 ${action.color}`}
                 >
-                  <action.icon className="h-5 w-5 sm:h-7 sm:w-7" />
+                  <action.icon className="h-5 w-5 transition-transform duration-300 group-hover:scale-105 sm:h-7 sm:w-7" />
                 </div>
-                <h3 className="text-[11px] font-semibold leading-tight text-slate-900 sm:text-sm md:text-base">
+                <h3 className="text-[11px] font-semibold leading-tight text-slate-900 transition-colors duration-300 group-hover:text-red-600 sm:text-sm md:text-base">
                   {action.title}
                 </h3>
-                <p className="mt-1 hidden text-xs text-slate-500 md:block">{action.desc}</p>
+                <p className="mt-1 hidden text-xs text-slate-500 transition-colors duration-300 group-hover:text-slate-600 md:block">
+                  {action.desc}
+                </p>
               </>
             );
             return (
@@ -41,7 +43,6 @@ export default function QuickActions() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
               >
                 {"external" in action && action.external ? (
                   <a
