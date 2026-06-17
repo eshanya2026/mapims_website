@@ -19,7 +19,7 @@ function toSubscriberRecord(
 
 export async function findNewsletterSubscriberByEmail(email: string) {
   const collection = await newsletterSubscribersCollection();
-  const doc = await collection.findOne({ email });
+  const doc = await collection.findOne({ email: email.trim().toLowerCase() });
   return doc ? toSubscriberRecord(doc) : null;
 }
 
@@ -80,6 +80,25 @@ export async function subscribeToNewsletter(email: string) {
 
     throw error;
   }
+}
+
+export async function unsubscribeFromNewsletter(email: string) {
+  const collection = await newsletterSubscribersCollection();
+  const timestamp = now();
+  const normalized = email.trim().toLowerCase();
+
+  const doc = await collection.findOneAndUpdate(
+    { email: normalized, status: "active" },
+    {
+      $set: {
+        status: "unsubscribed",
+        updatedAt: timestamp,
+      },
+    },
+    { returnDocument: "after" }
+  );
+
+  return doc ? toSubscriberRecord(doc) : null;
 }
 
 export async function listActiveNewsletterSubscriberEmails() {

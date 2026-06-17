@@ -10,6 +10,7 @@ type SendMailOptions = {
   html: string;
   replyTo?: string;
   attachments?: Attachment[];
+  headers?: Record<string, string>;
 };
 
 function isSmtpConfigured() {
@@ -73,6 +74,7 @@ export async function sendMail(options: SendMailOptions) {
     text: options.text,
     html: options.html,
     attachments: options.attachments,
+    headers: options.headers,
   });
 
   return true;

@@ -82,6 +82,23 @@ export function formatDisplayDateLong(value: string | Date | null): string {
   return `${read("weekday")}, ${read("day")} ${read("month")} ${read("year")}`;
 }
 
+export function formatNewsletterPublishDate(value: string | Date): string {
+  const date = parseDate(value);
+  if (!date) return "—";
+
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: IST_TIMEZONE,
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).formatToParts(date);
+
+  const read = (type: Intl.DateTimeFormatPartTypes) =>
+    parts.find((part) => part.type === type)?.value ?? "";
+
+  return `${read("day")} ${read("month")} ${read("year")}`;
+}
+
 export function formatDisplayListTime(value: string | Date): string {
   const date = parseDate(value);
   if (!date) return "—";
