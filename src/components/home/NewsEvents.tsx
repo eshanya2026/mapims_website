@@ -8,7 +8,7 @@ import type { ContentPost } from "@/lib/content";
 const BLOG_PLACEHOLDER_IMAGE =
   "/images/blog/579502f2-f668-42e9-be7a-995936f42cfa.png";
 
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 
 type NewsEventsProps = {
   posts: ContentPost[];
