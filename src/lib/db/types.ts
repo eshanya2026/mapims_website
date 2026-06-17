@@ -109,6 +109,7 @@ export type FormSubmissionRecord = {
   interviewInterviewer: string | null;
   interviewMode: "online" | "offline" | null;
   interviewAddress: string | null;
+  documentUrls: string[];
   status: string;
   createdAt: Date;
   deletedAt?: Date | null;

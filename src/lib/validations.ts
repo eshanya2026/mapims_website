@@ -87,6 +87,20 @@ export const internationalFormSchema = z.object({
   phone: phoneField,
   medicalCondition: z.string().optional().transform((value) => value?.trim() ?? ""),
   message: z.string().trim().min(10),
+  documentUrls: z
+    .array(
+      z
+        .string()
+        .trim()
+        .min(1)
+        .refine(
+          (value) => value.startsWith("/") || /^https?:\/\//i.test(value),
+          "Invalid document URL"
+        )
+    )
+    .max(10, "You can upload up to 10 documents")
+    .optional()
+    .default([]),
 });
 
 export const careerApplicationFormSchema = z.object({
@@ -159,14 +173,48 @@ export const inquiryStatusSchema = z.union([
 export const scheduleInterviewSchema = z.object({
   status: z.literal("interview_scheduled"),
   reschedule: z.boolean().optional(),
-  interview: z.object({
-    date: z.string().min(1, "Please select a date"),
-    time: z.string().trim().min(1, "Please select a time"),
-    interviewer: z.string().trim().min(2, "Please enter the interviewer name"),
-    mode: z.enum(["online", "offline"]),
-    address: z.string().optional().transform((value) => value?.trim() ?? ""),
-    notifyCandidate: z.boolean().default(true),
-  }),
+  interview: z
+    .object({
+      date: z.string().min(1, "Please select a date"),
+      time: z.string().trim().min(1, "Please select a time"),
+      interviewer: z.string().trim().min(2, "Please enter the interviewer name"),
+      mode: z.enum(["online", "offline"]),
+      address: z.string().optional().transform((value) => value?.trim() ?? ""),
+      notifyCandidate: z.boolean().default(true),
+    })
+    .superRefine((interview, ctx) => {
+      if (interview.mode === "offline" && interview.address.length < 5) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Please enter the interview venue address.",
+          path: ["address"],
+        });
+      }
+
+      if (interview.mode === "online") {
+        if (!interview.address) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Please enter the online meeting link.",
+            path: ["address"],
+          });
+          return;
+        }
+
+        try {
+          const url = new URL(interview.address);
+          if (url.protocol !== "http:" && url.protocol !== "https:") {
+            throw new Error("Invalid protocol");
+          }
+        } catch {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Please enter a valid meeting URL.",
+            path: ["address"],
+          });
+        }
+      }
+    }),
 });
 
 export const updateInquiryPatchSchema = z.union([

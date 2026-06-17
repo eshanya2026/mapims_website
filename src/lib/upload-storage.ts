@@ -35,7 +35,7 @@ export async function storeUploadedFile(options: {
   buffer: Buffer;
   filename: string;
   contentType: string;
-  folder: "uploads" | "uploads/resumes";
+  folder: "uploads" | "uploads/resumes" | "uploads/international-documents";
 }) {
   const { buffer, filename, contentType, folder } = options;
   const pathname = `${folder}/${filename}`;

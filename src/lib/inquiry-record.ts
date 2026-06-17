@@ -39,6 +39,7 @@ export function toInquiryRecord(
     interviewInterviewer: record.interviewInterviewer ?? null,
     interviewMode: record.interviewMode ?? null,
     interviewAddress: record.interviewAddress ?? null,
+    documentUrls: Array.isArray(record.documentUrls) ? record.documentUrls : [],
     status: record.status,
     createdAt: toIsoString(record.createdAt) ?? new Date().toISOString(),
   };

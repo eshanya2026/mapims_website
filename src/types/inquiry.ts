@@ -25,6 +25,7 @@ export type InquiryRecord = {
   interviewInterviewer: string | null;
   interviewMode: "online" | "offline" | null;
   interviewAddress: string | null;
+  documentUrls: string[];
   status: string;
   createdAt: string;
 };

@@ -96,7 +96,9 @@ function interviewDetailLines(inquiry: FormSubmissionRecord) {
   if (mode) lines.push(`Mode: ${mode}`);
 
   if (inquiry.interviewAddress) {
-    lines.push(`Address: ${inquiry.interviewAddress}`);
+    const locationLabel =
+      inquiry.interviewMode === "online" ? "Meeting link" : "Address";
+    lines.push(`${locationLabel}: ${inquiry.interviewAddress}`);
   }
 
   return lines;

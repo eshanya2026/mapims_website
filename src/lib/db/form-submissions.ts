@@ -47,6 +47,7 @@ function toFormSubmissionRecord(
     interviewInterviewer: record.interviewInterviewer ?? null,
     interviewMode: record.interviewMode ?? null,
     interviewAddress: record.interviewAddress ?? null,
+    documentUrls: Array.isArray(record.documentUrls) ? record.documentUrls : [],
     deletedAt: record.deletedAt ?? null,
   };
 }
@@ -123,6 +124,7 @@ export async function createFormSubmissionRecord(data: {
   interviewInterviewer?: string | null;
   interviewMode?: "online" | "offline" | null;
   interviewAddress?: string | null;
+  documentUrls?: string[];
   status?: string;
   referenceId?: string | null;
 }) {
@@ -153,6 +155,7 @@ export async function createFormSubmissionRecord(data: {
     interviewInterviewer: data.interviewInterviewer ?? null,
     interviewMode: data.interviewMode ?? null,
     interviewAddress: data.interviewAddress ?? null,
+    documentUrls: data.documentUrls ?? [],
     status: data.status ?? "new",
     referenceId: null,
     createdAt: timestamp,

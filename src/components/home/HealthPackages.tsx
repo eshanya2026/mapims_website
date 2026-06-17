@@ -92,11 +92,11 @@ export default function HealthPackages() {
 
                 <div className="flex-1">
                   <p className="font-semibold text-red-600 mb-3 text-sm">Includes</p>
-                  <ul className="space-y-2.5 mb-4">
+                  <ul className="space-y-3 mb-4">
                     {visibleTests.map((test) => (
-                      <li key={test} className="flex items-start gap-2.5">
-                        <CheckCircle2 className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
-                        <span className="text-slate-700 text-sm leading-snug">{test}</span>
+                      <li key={test} className="flex items-start gap-3">
+                        <CheckCircle2 className="w-4 h-4 text-red-600 shrink-0 mt-1" />
+                        <span className="text-slate-700 text-sm leading-relaxed">{test}</span>
                       </li>
                     ))}
                   </ul>

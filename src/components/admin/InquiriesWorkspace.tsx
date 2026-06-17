@@ -133,8 +133,23 @@ function InterviewBlock({ enquiry }: { enquiry: InquiryRecord }) {
         </div>
         {enquiry.interviewAddress ? (
           <div className="flex justify-between gap-4">
-            <span className="shrink-0 text-slate-500">Address</span>
-            <span className="text-right font-medium">{enquiry.interviewAddress}</span>
+            <span className="shrink-0 text-slate-500">
+              {enquiry.interviewMode === "online" ? "Meeting link" : "Address"}
+            </span>
+            <span className="text-right font-medium break-all">
+              {enquiry.interviewMode === "online" ? (
+                <a
+                  href={enquiry.interviewAddress}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-red-600 hover:underline"
+                >
+                  {enquiry.interviewAddress}
+                </a>
+              ) : (
+                enquiry.interviewAddress
+              )}
+            </span>
           </div>
         ) : null}
       </dl>
@@ -569,6 +584,35 @@ export default function EnquiriesWorkspace({
                       <>
                         <DetailRow label="Country" value={selected.country} />
                         <DetailRow label="Condition" value={selected.medicalCondition} />
+                        {selected.documentUrls?.length ? (
+                          <DetailRow
+                            label="Documents"
+                            value={
+                              <ul className="space-y-2 text-right">
+                                {selected.documentUrls.map((url, index) => {
+                                  const label =
+                                    decodeURIComponent(
+                                      url.split("/").pop() ?? `Document ${index + 1}`
+                                    ) || `Document ${index + 1}`;
+
+                                  return (
+                                    <li key={url}>
+                                      <a
+                                        href={url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center justify-end gap-1.5 font-medium text-red-600 hover:underline break-all"
+                                      >
+                                        <FileText className="h-4 w-4 shrink-0" />
+                                        {label}
+                                      </a>
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                            }
+                          />
+                        ) : null}
                       </>
                     ) : null}
 

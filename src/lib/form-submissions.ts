@@ -122,6 +122,7 @@ export async function createFormSubmission(
     phone: data.phone,
     medicalCondition: data.medicalCondition || null,
     message: data.message,
+    documentUrls: data.documentUrls ?? [],
   });
 }
 

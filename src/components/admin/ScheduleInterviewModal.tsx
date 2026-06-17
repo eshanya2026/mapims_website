@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CalendarClock, Send } from "lucide-react";
 import {
   Dialog,
@@ -34,7 +34,8 @@ type FormState = {
   time: string;
   interviewer: string;
   mode: "online" | "offline";
-  address: string;
+  offlineAddress: string;
+  meetingUrl: string;
   notifyCandidate: boolean;
 };
 
@@ -46,9 +47,36 @@ const INITIAL_STATE: FormState = {
   time: "",
   interviewer: "",
   mode: "offline",
-  address: DEFAULT_OFFLINE_ADDRESS,
+  offlineAddress: DEFAULT_OFFLINE_ADDRESS,
+  meetingUrl: "",
   notifyCandidate: true,
 };
+
+function isValidMeetingUrl(value: string) {
+  try {
+    const url = new URL(value.trim());
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+function selectInterviewMode(
+  prev: FormState,
+  interviewMode: "online" | "offline"
+): FormState {
+  if (prev.mode === interviewMode) return prev;
+
+  return {
+    ...prev,
+    mode: interviewMode,
+    offlineAddress:
+      interviewMode === "offline"
+        ? prev.offlineAddress || DEFAULT_OFFLINE_ADDRESS
+        : prev.offlineAddress,
+    meetingUrl: interviewMode === "online" ? prev.meetingUrl : "",
+  };
+}
 
 function toDateInputValue(value: string | null) {
   if (!value) return "";
@@ -66,15 +94,18 @@ function buildFormStateFromInterview(
   if (!initialInterview) return INITIAL_STATE;
 
   const mode = initialInterview.interviewMode ?? "offline";
+  const storedLocation = initialInterview.interviewAddress?.trim() ?? "";
 
   return {
     date: toDateInputValue(initialInterview.interviewDate),
     time: initialInterview.interviewTime ?? "",
     interviewer: initialInterview.interviewInterviewer ?? "",
     mode,
-    address:
-      initialInterview.interviewAddress?.trim() ||
-      (mode === "offline" ? DEFAULT_OFFLINE_ADDRESS : ""),
+    offlineAddress:
+      mode === "offline"
+        ? storedLocation || DEFAULT_OFFLINE_ADDRESS
+        : DEFAULT_OFFLINE_ADDRESS,
+    meetingUrl: mode === "online" ? storedLocation : "",
     notifyCandidate: true,
   };
 }
@@ -92,9 +123,13 @@ export default function ScheduleInterviewModal({
   const [state, setState] = useState<FormState>(INITIAL_STATE);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const wasOpenRef = useRef(false);
 
   useEffect(() => {
-    if (open) {
+    const justOpened = open && !wasOpenRef.current;
+    wasOpenRef.current = open;
+
+    if (justOpened) {
       setState(
         isReschedule
           ? buildFormStateFromInterview(initialInterview)
@@ -125,10 +160,26 @@ export default function ScheduleInterviewModal({
       return;
     }
 
-    if (state.mode === "offline" && state.address.trim().length < 5) {
+    if (state.mode === "offline" && state.offlineAddress.trim().length < 5) {
       setError("Please enter the interview venue address.");
       return;
     }
+
+    if (state.mode === "online") {
+      if (!state.meetingUrl.trim()) {
+        setError("Please enter the online meeting link.");
+        return;
+      }
+      if (!isValidMeetingUrl(state.meetingUrl)) {
+        setError("Please enter a valid meeting URL (https://...).");
+        return;
+      }
+    }
+
+    const interviewLocation =
+      state.mode === "online"
+        ? state.meetingUrl.trim()
+        : state.offlineAddress.trim();
 
     setLoading(true);
 
@@ -143,7 +194,7 @@ export default function ScheduleInterviewModal({
           time: state.time,
           interviewer: state.interviewer.trim(),
           mode: state.mode,
-          address: state.address.trim(),
+          address: interviewLocation,
           notifyCandidate: state.notifyCandidate,
         },
       }),
@@ -235,8 +286,12 @@ export default function ScheduleInterviewModal({
             </legend>
             <div className="grid grid-cols-2 gap-3">
               {(["online", "offline"] as const).map((interviewMode) => (
-                <label
+                <button
                   key={interviewMode}
+                  type="button"
+                  onClick={() =>
+                    setState((prev) => selectInterviewMode(prev, interviewMode))
+                  }
                   className={cn(
                     "flex cursor-pointer items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-medium transition-colors",
                     state.mode === interviewMode
@@ -244,47 +299,56 @@ export default function ScheduleInterviewModal({
                       : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
                   )}
                 >
-                  <input
-                    type="radio"
-                    name="interview-mode"
-                    value={interviewMode}
-                    checked={state.mode === interviewMode}
-                    onChange={() =>
-                      setState((prev) => ({
-                        ...prev,
-                        mode: interviewMode,
-                        address:
-                          interviewMode === "offline"
-                            ? prev.address || DEFAULT_OFFLINE_ADDRESS
-                            : prev.address,
-                      }))
-                    }
-                    className="sr-only"
-                  />
                   {interviewMode === "online" ? "Online" : "Offline"}
-                </label>
+                </button>
               ))}
             </div>
           </fieldset>
 
-          <div>
-            <label className="mb-1.5 block text-sm font-semibold text-slate-900" htmlFor="interview-address">
-              Address {state.mode === "offline" ? <span className="text-red-600">*</span> : null}
-            </label>
-            <textarea
-              id="interview-address"
-              value={state.address}
-              onChange={(e) => setState((prev) => ({ ...prev, address: e.target.value }))}
-              rows={3}
-              className={cn(inputClass, "resize-y")}
-              placeholder={
-                state.mode === "online"
-                  ? "Meeting link or online instructions (optional)"
-                  : "Interview venue address"
-              }
-              required={state.mode === "offline"}
-            />
-          </div>
+          {state.mode === "offline" ? (
+            <div>
+              <label
+                className="mb-1.5 block text-sm font-semibold text-slate-900"
+                htmlFor="interview-address"
+              >
+                Address <span className="text-red-600">*</span>
+              </label>
+              <textarea
+                id="interview-address"
+                value={state.offlineAddress}
+                onChange={(e) =>
+                  setState((prev) => ({ ...prev, offlineAddress: e.target.value }))
+                }
+                rows={3}
+                className={cn(inputClass, "resize-y")}
+                placeholder="Interview venue address"
+                required
+              />
+            </div>
+          ) : (
+            <div>
+              <label
+                className="mb-1.5 block text-sm font-semibold text-slate-900"
+                htmlFor="interview-meeting-url"
+              >
+                Meeting link <span className="text-red-600">*</span>
+              </label>
+              <input
+                id="interview-meeting-url"
+                type="url"
+                value={state.meetingUrl}
+                onChange={(e) =>
+                  setState((prev) => ({ ...prev, meetingUrl: e.target.value }))
+                }
+                className={inputClass}
+                placeholder="https://meet.google.com/abc-defg-hij"
+                required
+              />
+              <p className="mt-1.5 text-xs text-slate-500">
+                Paste the Google Meet, Zoom, or Teams link for the online interview.
+              </p>
+            </div>
+          )}
 
           <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
             <input

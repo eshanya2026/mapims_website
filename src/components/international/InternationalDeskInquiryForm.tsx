@@ -1,8 +1,14 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import { Phone, Send } from "lucide-react";
+import { FileUp, Phone, Send, X } from "lucide-react";
 import { internationalDesk } from "@/data/international-patients";
+import {
+  INTERNATIONAL_DOCUMENT_MAX_FILES,
+  INTERNATIONAL_DOCUMENT_MAX_SIZE,
+  uploadInternationalDocument,
+  validateInternationalDocument,
+} from "@/lib/international-document-upload";
 import { cn } from "@/lib/utils";
 import { submitForm } from "@/lib/submit-form";
 
@@ -13,6 +19,11 @@ type FormState = {
   phone: string;
   medicalCondition: string;
   message: string;
+};
+
+type PendingDocument = {
+  id: string;
+  file: File;
 };
 
 const INITIAL: FormState = {
@@ -28,11 +39,20 @@ function trim(value: string) {
   return value.replace(/\s+/g, " ").trim();
 }
 
+function formatFileSize(bytes: number) {
+  if (bytes < 1024 * 1024) {
+    return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+  }
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 const inputClass =
   "w-full rounded-lg border border-slate-200 bg-slate-50/50 px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-red-500 focus:bg-white focus:ring-2 focus:ring-red-600/15";
 
 export default function InternationalDeskInquiryForm() {
   const [state, setState] = useState<FormState>(INITIAL);
+  const [documents, setDocuments] = useState<PendingDocument[]>([]);
+  const [documentError, setDocumentError] = useState("");
   const [touched, setTouched] = useState<Record<keyof FormState, boolean>>({
     name: false,
     country: false,
@@ -46,6 +66,7 @@ export default function InternationalDeskInquiryForm() {
   const [submitError, setSubmitError] = useState("");
   const submittingRef = useRef(false);
   const savedInquiryKeyRef = useRef<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const errors = useMemo(() => {
     const name = trim(state.name);
@@ -98,7 +119,10 @@ export default function InternationalDeskInquiryForm() {
   const markCallbackTouched = () =>
     setTouched((prev) => ({ ...prev, name: true, phone: true }));
 
-  function inquiryPayload(options?: { callback?: boolean }) {
+  function inquiryPayload(
+    documentUrls: string[],
+    options?: { callback?: boolean }
+  ) {
     const message = trim(state.message);
     const callbackNote = "[Callback requested — please call the patient back]";
     const body =
@@ -114,26 +138,42 @@ export default function InternationalDeskInquiryForm() {
       phone: trim(state.phone),
       medicalCondition: trim(state.medicalCondition),
       message: options?.callback ? `${callbackNote}\n\n${body}` : body,
+      documentUrls,
     };
   }
 
-  function inquiryKey(options?: { callback?: boolean }) {
-    return JSON.stringify(inquiryPayload(options));
+  function inquiryKey(documentUrls: string[], options?: { callback?: boolean }) {
+    return JSON.stringify(inquiryPayload(documentUrls, options));
+  }
+
+  async function uploadSelectedDocuments() {
+    const urls: string[] = [];
+
+    for (const document of documents) {
+      const url = await uploadInternationalDocument(document.file);
+      urls.push(url);
+    }
+
+    return urls;
   }
 
   async function saveInquiry(options?: { callback?: boolean }) {
-    const key = inquiryKey(options);
+    const documentUrls = documents.length > 0 ? await uploadSelectedDocuments() : [];
+    const key = inquiryKey(documentUrls, options);
+
     if (savedInquiryKeyRef.current === key) {
       return;
     }
 
-    await submitForm(inquiryPayload(options));
+    await submitForm(inquiryPayload(documentUrls, options));
     savedInquiryKeyRef.current = key;
   }
 
   function resetForm() {
     savedInquiryKeyRef.current = null;
     setState(INITIAL);
+    setDocuments([]);
+    setDocumentError("");
     setTouched({
       name: false,
       country: false,
@@ -142,6 +182,61 @@ export default function InternationalDeskInquiryForm() {
       medicalCondition: false,
       message: false,
     });
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }
+
+  function addDocuments(fileList: FileList | null) {
+    if (!fileList?.length) return;
+
+    setDocumentError("");
+    const next: PendingDocument[] = [];
+    const errors: string[] = [];
+
+    for (const file of Array.from(fileList)) {
+      if (documents.length + next.length >= INTERNATIONAL_DOCUMENT_MAX_FILES) {
+        errors.push(`You can upload up to ${INTERNATIONAL_DOCUMENT_MAX_FILES} documents.`);
+        break;
+      }
+
+      const validationError = validateInternationalDocument(file);
+      if (validationError) {
+        errors.push(`${file.name}: ${validationError}`);
+        continue;
+      }
+
+      const duplicate = [...documents, ...next].some(
+        (item) =>
+          item.file.name === file.name &&
+          item.file.size === file.size &&
+          item.file.lastModified === file.lastModified
+      );
+
+      if (duplicate) continue;
+
+      next.push({
+        id: `${file.name}-${file.lastModified}-${Math.random().toString(36).slice(2)}`,
+        file,
+      });
+    }
+
+    if (next.length > 0) {
+      setDocuments((prev) => [...prev, ...next]);
+    }
+
+    if (errors.length > 0) {
+      setDocumentError(errors[0]);
+    }
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }
+
+  function removeDocument(id: string) {
+    setDocuments((prev) => prev.filter((item) => item.id !== id));
+    setDocumentError("");
   }
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -153,6 +248,7 @@ export default function InternationalDeskInquiryForm() {
     setLoading(true);
     setSubmitError("");
     setSuccessMessage("");
+    setDocumentError("");
 
     try {
       await saveInquiry();
@@ -179,6 +275,7 @@ export default function InternationalDeskInquiryForm() {
     setLoading(true);
     setSubmitError("");
     setSuccessMessage("");
+    setDocumentError("");
 
     try {
       await saveInquiry({ callback: true });
@@ -308,6 +405,71 @@ export default function InternationalDeskInquiryForm() {
             />
             {err("message") ? (
               <p className="mt-1 text-xs text-red-600">{err("message")}</p>
+            ) : null}
+          </div>
+
+          <div className="sm:col-span-2">
+            <label className="mb-1 block text-sm font-semibold text-slate-900" htmlFor="intl-inq-documents">
+              Medical reports &amp; documents
+            </label>
+            <p className="mb-2 text-xs text-slate-500">
+              Upload multiple files in any format (PDF, images, Word, ZIP, DICOM, etc.). Up to{" "}
+              {INTERNATIONAL_DOCUMENT_MAX_FILES} files, {formatFileSize(INTERNATIONAL_DOCUMENT_MAX_SIZE)} each.
+            </p>
+            <div
+              className={cn(
+                "rounded-xl border border-dashed px-4 py-4 transition-colors",
+                documentError ? "border-red-300 bg-red-50/50" : "border-slate-200 bg-slate-50/50"
+              )}
+            >
+              <input
+                ref={fileInputRef}
+                id="intl-inq-documents"
+                type="file"
+                multiple
+                className="sr-only"
+                onChange={(e) => addDocuments(e.target.files)}
+              />
+
+              {documents.length > 0 ? (
+                <ul className="space-y-2">
+                  {documents.map((document) => (
+                    <li
+                      key={document.id}
+                      className="flex items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white px-3 py-2"
+                    >
+                      <div className="flex min-w-0 items-center gap-2 text-sm text-slate-700">
+                        <FileUp className="h-4 w-4 shrink-0 text-red-600" />
+                        <span className="truncate">{document.file.name}</span>
+                        <span className="shrink-0 text-xs text-slate-400">
+                          {formatFileSize(document.file.size)}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => removeDocument(document.id)}
+                        className="shrink-0 rounded-full p-1 text-slate-400 hover:bg-slate-200 hover:text-slate-600"
+                        aria-label={`Remove ${document.file.name}`}
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={documents.length >= INTERNATIONAL_DOCUMENT_MAX_FILES || loading}
+                className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition-colors hover:border-red-200 hover:text-red-600 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                <FileUp className="h-4 w-4" />
+                {documents.length > 0 ? "Add more documents" : "Choose documents"}
+              </button>
+            </div>
+            {documentError ? (
+              <p className="mt-1 text-xs text-red-600">{documentError}</p>
             ) : null}
           </div>
         </div>
