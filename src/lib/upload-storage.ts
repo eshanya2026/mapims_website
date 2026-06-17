@@ -6,6 +6,10 @@ function useBlobStorage() {
   return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 }
 
+function isVercelRuntime() {
+  return Boolean(process.env.VERCEL);
+}
+
 function localUploadPath(...segments: string[]) {
   return path.join(process.cwd(), "public", ...segments);
 }
@@ -37,6 +41,12 @@ export async function storeUploadedFile(options: {
       addRandomSuffix: false,
     });
     return blob.url;
+  }
+
+  if (isVercelRuntime()) {
+    throw new Error(
+      "File storage is not configured on Vercel. Open your Vercel project → Storage → Create Blob store → connect it to this app, then redeploy."
+    );
   }
 
   const segments = folder.split("/");

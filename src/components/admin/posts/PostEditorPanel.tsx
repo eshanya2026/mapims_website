@@ -86,7 +86,10 @@ export default function PostEditorPanel({
       const data = await response.json();
       updateField("image", data.url);
     } else {
-      setError("Image upload failed");
+      const data = await response.json().catch(() => ({}));
+      setError(
+        typeof data.error === "string" ? data.error : "Image upload failed"
+      );
     }
 
     setUploading(false);
