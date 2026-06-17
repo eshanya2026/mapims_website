@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
+import { storeUploadedFile } from "@/lib/upload-storage";
 
 const MAX_SIZE = 5 * 1024 * 1024;
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
@@ -26,13 +25,17 @@ export async function POST(request: Request) {
     const buffer = Buffer.from(bytes);
     const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
     const filename = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
 
-    await mkdir(uploadDir, { recursive: true });
-    await writeFile(path.join(uploadDir, filename), buffer);
+    const url = await storeUploadedFile({
+      buffer,
+      filename,
+      contentType: file.type,
+      folder: "uploads",
+    });
 
-    return NextResponse.json({ url: `/uploads/${filename}` });
-  } catch {
+    return NextResponse.json({ url });
+  } catch (error) {
+    console.error("[admin/upload]", error);
     return NextResponse.json({ error: "Upload failed" }, { status: 500 });
   }
 }

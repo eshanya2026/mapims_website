@@ -37,14 +37,35 @@ export async function buildResumeAttachment(
   resumeUrl: string,
   applicantName: string
 ): Promise<Attachment | null> {
+  const extFromUrl = path.extname(resumeUrl).slice(1).toLowerCase();
+  const safeName = sanitizeFilename(applicantName);
+  const filename = `${safeName}-resume.${extFromUrl || "pdf"}`;
+
+  if (resumeUrl.startsWith("http://") || resumeUrl.startsWith("https://")) {
+    try {
+      const response = await fetch(resumeUrl);
+      if (!response.ok) return null;
+      const content = Buffer.from(await response.arrayBuffer());
+      return {
+        filename,
+        content,
+        contentType:
+          response.headers.get("content-type") ??
+          MIME_BY_EXT[extFromUrl] ??
+          "application/octet-stream",
+      };
+    } catch (error) {
+      console.error("[resume-attachment] Unable to fetch remote resume:", error);
+      return null;
+    }
+  }
+
   const localPath = resumeUrlToLocalPath(resumeUrl);
   if (!localPath) return null;
 
   try {
     const content = await readFile(localPath);
     const ext = path.extname(localPath).slice(1).toLowerCase();
-    const safeName = sanitizeFilename(applicantName);
-    const filename = `${safeName}-resume.${ext || "pdf"}`;
 
     return {
       filename,
