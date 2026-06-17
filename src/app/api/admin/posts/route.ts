@@ -6,6 +6,7 @@ import {
   listPosts,
 } from "@/lib/db/posts";
 import { isDuplicateKeyError } from "@/lib/db/utils";
+import { scheduleNewsletterAnnouncement } from "@/lib/schedule-newsletter-announcement";
 import { postSchema } from "@/lib/validations";
 
 export async function GET() {
@@ -42,6 +43,7 @@ export async function POST(request: Request) {
     });
 
     revalidateBlogPaths(data.section, post.slug);
+    scheduleNewsletterAnnouncement(post, { wasPublished: false });
 
     return NextResponse.json(post, { status: 201 });
   } catch (error) {

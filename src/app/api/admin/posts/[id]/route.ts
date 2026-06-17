@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { deletePost, findPostById, updatePost } from "@/lib/db/posts";
 import { isDuplicateKeyError } from "@/lib/db/utils";
+import { scheduleNewsletterAnnouncement } from "@/lib/schedule-newsletter-announcement";
 import { postSchema } from "@/lib/validations";
 
 type RouteContext = { params: Promise<{ id: string }> };
@@ -52,6 +53,7 @@ export async function PUT(request: Request, context: RouteContext) {
     }
 
     revalidateBlogPaths(existing.section, data.section, post.slug);
+    scheduleNewsletterAnnouncement(post, { wasPublished: existing.published });
 
     return NextResponse.json(post);
   } catch (error) {

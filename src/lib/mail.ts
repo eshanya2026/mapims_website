@@ -16,6 +16,10 @@ function isSmtpConfigured() {
   return Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS);
 }
 
+export function isMailConfigured() {
+  return isSmtpConfigured();
+}
+
 export function getHrNotificationEmail() {
   return process.env.HR_NOTIFICATION_EMAIL?.trim() || DEFAULT_HR_EMAIL;
 }

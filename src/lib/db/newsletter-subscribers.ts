@@ -81,3 +81,13 @@ export async function subscribeToNewsletter(email: string) {
     throw error;
   }
 }
+
+export async function listActiveNewsletterSubscriberEmails() {
+  const collection = await newsletterSubscribersCollection();
+  const docs = await collection
+    .find({ status: "active" })
+    .project({ email: 1 })
+    .toArray();
+
+  return docs.map((doc) => doc.email).filter(Boolean);
+}
