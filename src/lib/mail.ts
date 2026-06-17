@@ -25,15 +25,48 @@ export function getHrNotificationEmail() {
   return process.env.HR_NOTIFICATION_EMAIL?.trim() || DEFAULT_HR_EMAIL;
 }
 
+function isLocalhostUrl(url: string) {
+  try {
+    const parsed = new URL(url.includes("://") ? url : `http://${url}`);
+    return parsed.hostname === "localhost" || parsed.hostname === "127.0.0.1";
+  } catch {
+    return false;
+  }
+}
+
+function normalizeSiteUrl(url: string) {
+  const trimmed = url.trim().replace(/\/$/, "");
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  return `https://${trimmed}`;
+}
+
 export function getSiteUrl() {
   const explicit = process.env.SITE_URL?.trim();
-  if (explicit) return explicit.replace(/\/$/, "");
+  const onVercel = process.env.VERCEL === "1";
 
-  const netlify = process.env.URL?.trim() || process.env.DEPLOY_PRIME_URL?.trim();
-  if (netlify) return netlify.replace(/\/$/, "");
+  // Ignore localhost SITE_URL on Vercel — common when env was copied from .env.example
+  if (explicit && !(onVercel && isLocalhostUrl(explicit))) {
+    return normalizeSiteUrl(explicit);
+  }
+
+  const productionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+  if (productionUrl) {
+    return normalizeSiteUrl(productionUrl);
+  }
 
   const vercel = process.env.VERCEL_URL?.trim();
-  if (vercel) return `https://${vercel.replace(/\/$/, "")}`;
+  if (vercel) {
+    return `https://${vercel.replace(/\/$/, "")}`;
+  }
+
+  const netlify = process.env.URL?.trim() || process.env.DEPLOY_PRIME_URL?.trim();
+  if (netlify) {
+    return normalizeSiteUrl(netlify);
+  }
+
+  if (explicit) {
+    return normalizeSiteUrl(explicit);
+  }
 
   return "http://localhost:3001";
 }
