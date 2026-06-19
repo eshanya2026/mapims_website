@@ -9,21 +9,47 @@ const testimonials = [
     name: "Rahul Krishnan",
     role: "Patient",
     text: "The care I received at Adhiparasakthi Hospital was exceptional. The doctors were attentive, and the nursing staff was incredibly compassionate. The facilities are truly world-class.",
-    rating: 5,
+    rating: 4,
   },
   {
     name: "Meera Reddy",
     role: "Patient's Family",
     text: "My father underwent a complex cardiac surgery here. The expertise of the surgical team and the post-operative care in the advanced ICU gave us immense confidence and peace of mind.",
-    rating: 5,
+    rating: 4.5,
   },
   {
     name: "Suresh Menon",
     role: "Patient",
-    text: "From booking the appointment on their app to the consultation and getting reports via WhatsApp, the entire digital experience is seamless and highly convenient.",
-    rating: 4,
+    text: "The appointment booking process was simple and efficient. From consultation to receiving reports, everything was handled smoothly and professionally.",
+    rating: 5,
   },
 ];
+
+function StarRating({ rating }: { rating: number }) {
+  return (
+    <div className="mb-4 flex gap-0.5" aria-label={`${rating} out of 5 stars`}>
+      {Array.from({ length: 5 }, (_, index) => {
+        const starValue = index + 1;
+        const filled = rating >= starValue;
+        const half = !filled && rating >= starValue - 0.5;
+
+        return (
+          <span key={index} className="relative inline-block h-5 w-5">
+            <Star className="h-5 w-5 fill-slate-200 text-slate-200" />
+            {filled || half ? (
+              <span
+                className="absolute inset-0 overflow-hidden"
+                style={{ width: filled ? "100%" : "50%" }}
+              >
+                <Star className="h-5 w-5 fill-amber-400 text-amber-400" />
+              </span>
+            ) : null}
+          </span>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function Testimonials() {
   return (
@@ -62,21 +88,7 @@ export default function Testimonials() {
               </div>
 
               <div className="mt-8 mb-6">
-                <div
-                  className="mb-4 flex gap-0.5"
-                  aria-label={`${testimonial.rating} out of 5 stars`}
-                >
-                  {Array.from({ length: 5 }, (_, i) => (
-                    <Star
-                      key={i}
-                      className={`h-5 w-5 ${
-                        i < testimonial.rating
-                          ? "fill-amber-400 text-amber-400"
-                          : "fill-slate-200 text-slate-200"
-                      }`}
-                    />
-                  ))}
-                </div>
+                <StarRating rating={testimonial.rating} />
                 <p className="text-slate-600 italic leading-relaxed">
                   &quot;{testimonial.text}&quot;
                 </p>

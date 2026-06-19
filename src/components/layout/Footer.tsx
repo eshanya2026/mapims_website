@@ -26,11 +26,11 @@ export default function Footer() {
                 <img
                   src="/images/adhiparasakthi-hospitals-emblem.png"
                   alt="Adhiparasakthi Hospitals emblem"
-                  className="h-12 w-auto max-h-14 max-w-[3rem] object-contain object-center shrink-0 sm:max-w-[3.5rem]"
+                  className="h-[5rem] w-[12rem] max-h-[6rem] max-w-[12rem] object-contain object-center shrink-0 sm:h-16 sm:max-w-[12rem] transform -translate-y-[5px]"
                 />
-                <span className="text-base sm:text-lg font-bold leading-tight text-white whitespace-nowrap">
+                {/* <span className="text-base sm:text-lg font-bold leading-tight text-white whitespace-nowrap">
                   Adhiparasakthi Hospital
-                </span>
+                </span> */}
               </span>
               <img
                 src="/images/nabh-nabl-certifications.png"
