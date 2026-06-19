@@ -67,43 +67,43 @@ function PostPreviewCard({
 }) {
   const content = (
     <>
-      <div className="relative h-44 overflow-hidden sm:h-52">
+      <div className="relative h-56 overflow-hidden">
         <img
           src={post.image || BLOG_PLACEHOLDER_IMAGE}
           alt={post.title}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
-        <div className="absolute left-3 top-3 flex flex-wrap gap-2 sm:left-4 sm:top-4">
+        <div className="absolute left-4 top-4 flex flex-wrap gap-2">
           {isDraft ? (
-            <span className="rounded-full bg-amber-500 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white sm:text-xs">
+            <span className="rounded-full bg-amber-500 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm">
               Draft preview
             </span>
           ) : null}
           {isUnpublished ? (
-            <span className="rounded-full bg-slate-700 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white sm:text-xs">
+            <span className="rounded-full bg-slate-700 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm">
               Unpublished
             </span>
           ) : null}
-          <span className="whitespace-nowrap rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-red-600 backdrop-blur-sm sm:px-3 sm:text-xs">
+          <span className="whitespace-nowrap rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-red-600 shadow-sm backdrop-blur-sm">
             {post.category}
           </span>
         </div>
       </div>
-      <div className="flex flex-1 flex-col p-4 sm:p-6">
-        <div className="mb-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500 sm:mb-3 sm:text-sm">
+      <div className="flex flex-1 flex-col p-6">
+        <div className="mb-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-slate-500">
           <span className="inline-flex items-center">
-            <Calendar className="mr-1.5 h-3.5 w-3.5 shrink-0 sm:mr-2 sm:h-4 sm:w-4" />
+            <Calendar className="mr-2 h-4 w-4 shrink-0" />
             {post.date}
           </span>
           {post.author ? <span className="text-slate-400">· {post.author}</span> : null}
         </div>
-        <h2 className="mb-2 line-clamp-3 text-lg font-bold leading-snug text-slate-900 transition-colors group-hover:text-red-600 sm:mb-3 sm:line-clamp-2 sm:text-xl">
+        <h2 className="mb-3 line-clamp-2 text-xl font-bold leading-snug text-slate-900 transition-colors group-hover:text-red-600">
           {post.title}
         </h2>
-        <p className="mb-4 line-clamp-3 flex-1 text-sm leading-relaxed text-slate-600 sm:mb-5">
+        <p className="mb-4 line-clamp-2 flex-1 text-sm leading-relaxed text-slate-600">
           {post.excerpt}
         </p>
-        <span className="inline-flex min-h-11 items-center text-sm font-semibold text-red-600 sm:min-h-0">
+        <span className="inline-flex items-center text-sm font-medium text-red-600 group-hover:underline">
           {isDraft ? "Editing" : "Edit post"}
           <ArrowRight className="ml-1 h-4 w-4" />
         </span>
@@ -114,7 +114,7 @@ function PostPreviewCard({
   return (
     <div
       className={cn(
-        "group relative flex h-full w-full flex-col overflow-hidden rounded-xl border bg-white text-left shadow-sm transition-shadow duration-300 hover:shadow-xl sm:rounded-2xl",
+        "group relative flex h-full w-full flex-col overflow-hidden rounded-3xl border bg-white text-left shadow-sm transition-all duration-300 hover:shadow-xl",
         isSelected
           ? "border-red-400 ring-2 ring-red-200"
           : "border-slate-100 hover:border-red-100",
@@ -306,59 +306,66 @@ export default function BlogListPreview({
                 </p>
               ) : null}
 
-              <div className="space-y-5 sm:space-y-6">
-                {showDraft ? (
+              {sortableItems.length > 0 ? (
+                <DndContext
+                  id="blog-posts-sortable"
+                  sensors={sensors}
+                  collisionDetection={closestCenter}
+                  onDragStart={handleDragStart}
+                  onDragEnd={handleDragEnd}
+                  onDragCancel={handleDragCancel}
+                >
+                  <SortableContext
+                    items={sortableItems.map((item) => item.id)}
+                    strategy={rectSortingStrategy}
+                  >
+                    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                      {showDraft ? (
+                        <PostPreviewCard
+                          post={draftPost}
+                          isDraft
+                          isSelected={selectedSlug === draftPost.slug}
+                          onSelect={() => onSelectPost(draftPost.slug)}
+                        />
+                      ) : null}
+                      {sortableItems.map((item) => (
+                        <SortablePostCard
+                          key={item.id}
+                          item={item}
+                          isSelected={selectedSlug === item.post.slug}
+                          onSelectPost={onSelectPost}
+                        />
+                      ))}
+                    </div>
+                  </SortableContext>
+
+                  <DragOverlay adjustScale={false} dropAnimation={null}>
+                    {activeItem ? (
+                      <div style={activeWidth ? { width: activeWidth } : undefined}>
+                        <PostPreviewCard
+                          post={activeItem.post}
+                          isUnpublished={activeItem.isUnpublished}
+                          isOverlay
+                          dragHandle={
+                            <div className="absolute right-3 top-3 z-10 rounded-lg bg-white/95 p-1.5 shadow-md">
+                              <GripVertical className="h-4 w-4 text-slate-500" />
+                            </div>
+                          }
+                        />
+                      </div>
+                    ) : null}
+                  </DragOverlay>
+                </DndContext>
+              ) : showDraft ? (
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                   <PostPreviewCard
                     post={draftPost}
                     isDraft
                     isSelected={selectedSlug === draftPost.slug}
                     onSelect={() => onSelectPost(draftPost.slug)}
                   />
-                ) : null}
-
-                {sortableItems.length > 0 ? (
-                  <DndContext
-                    sensors={sensors}
-                    collisionDetection={closestCenter}
-                    onDragStart={handleDragStart}
-                    onDragEnd={handleDragEnd}
-                    onDragCancel={handleDragCancel}
-                  >
-                    <SortableContext
-                      items={sortableItems.map((item) => item.id)}
-                      strategy={rectSortingStrategy}
-                    >
-                      <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-                        {sortableItems.map((item) => (
-                          <SortablePostCard
-                            key={item.id}
-                            item={item}
-                            isSelected={selectedSlug === item.post.slug}
-                            onSelectPost={onSelectPost}
-                          />
-                        ))}
-                      </div>
-                    </SortableContext>
-
-                    <DragOverlay adjustScale={false} dropAnimation={null}>
-                      {activeItem ? (
-                        <div style={activeWidth ? { width: activeWidth } : undefined}>
-                          <PostPreviewCard
-                            post={activeItem.post}
-                            isUnpublished={activeItem.isUnpublished}
-                            isOverlay
-                            dragHandle={
-                              <div className="absolute right-3 top-3 z-10 rounded-lg bg-white/95 p-1.5 shadow-md">
-                                <GripVertical className="h-4 w-4 text-slate-500" />
-                              </div>
-                            }
-                          />
-                        </div>
-                      ) : null}
-                    </DragOverlay>
-                  </DndContext>
-                ) : null}
-              </div>
+                </div>
+              ) : null}
             </>
           )}
         </div>

@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { getEditorJsContentLength } from "@/lib/editorjs-content";
 import { slugify } from "@/lib/slug";
 import type { BlogSection } from "@/data/blog-posts";
+import EditorJsField from "@/components/admin/posts/EditorJsField";
 
 type PostFormData = {
   id?: string;
@@ -88,6 +90,12 @@ export default function PostForm({ initial, mode }: PostFormProps) {
     event.preventDefault();
     setLoading(true);
     setError("");
+
+    if (getEditorJsContentLength(form.content) < 20) {
+      setError("Content must be at least 20 characters.");
+      setLoading(false);
+      return;
+    }
 
     const url =
       mode === "create" ? "/api/admin/posts" : `/api/admin/posts/${initial?.id}`;
@@ -178,11 +186,9 @@ export default function PostForm({ initial, mode }: PostFormProps) {
         </div>
         <div className="sm:col-span-2">
           <label className="mb-1.5 block text-sm font-medium">Content</label>
-          <Textarea
+          <EditorJsField
             value={form.content}
-            onChange={(e) => updateField("content", e.target.value)}
-            required
-            className="min-h-[240px]"
+            onChange={(content) => updateField("content", content)}
           />
         </div>
         <div className="sm:col-span-2">

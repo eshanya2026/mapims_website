@@ -1,3 +1,6 @@
+import { isEditorJsContent, parseEditorJsContent } from "@/lib/editorjs-content";
+import EditorJsRenderer from "@/components/blog/EditorJsRenderer";
+
 function isSectionHeading(block: string) {
   const trimmed = block.trim();
   return (
@@ -12,7 +15,7 @@ function isListBlock(block: string) {
   return lines.length > 1 && lines.every((line) => line.trim().length < 120);
 }
 
-export default function BlogArticleBody({ content }: { content: string }) {
+function PlainTextArticleBody({ content }: { content: string }) {
   const blocks = content.split(/\n\n+/).filter(Boolean);
 
   return (
@@ -45,4 +48,15 @@ export default function BlogArticleBody({ content }: { content: string }) {
       })}
     </div>
   );
+}
+
+export default function BlogArticleBody({ content }: { content: string }) {
+  if (isEditorJsContent(content)) {
+    const data = parseEditorJsContent(content);
+    if (data) {
+      return <EditorJsRenderer data={data} />;
+    }
+  }
+
+  return <PlainTextArticleBody content={content} />;
 }

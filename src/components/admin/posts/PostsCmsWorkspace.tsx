@@ -135,7 +135,7 @@ export default function PostsCmsWorkspace({ posts }: PostsCmsWorkspaceProps) {
       setDraft(empty);
       setActiveSection(section);
       setPanelOpen(true);
-      setPreviewMode("list");
+      setPreviewMode("article");
     },
     [activeSection]
   );

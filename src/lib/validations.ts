@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { normalizeTimeSlotInput } from "@/lib/appointment-schedule-config";
+import { getEditorJsContentLength } from "@/lib/editorjs-content";
 
 export const loginSchema = z.object({
   email: z.string().email(),
@@ -31,7 +32,12 @@ export const postSchema = z.object({
   title: z.string().min(3),
   slug: z.string().min(3),
   excerpt: z.string().min(10),
-  content: z.string().min(20),
+  content: z
+    .string()
+    .refine(
+      (value) => getEditorJsContentLength(value) >= 20,
+      "Content must be at least 20 characters."
+    ),
   image: z.string().min(1),
   author: z.string().optional(),
   category: z.string().min(2),

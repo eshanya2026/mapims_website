@@ -9,6 +9,8 @@ import { slugify } from "@/lib/slug";
 import type { BlogSection } from "@/data/blog-posts";
 import { cn } from "@/lib/utils";
 import DeleteButton from "@/components/admin/DeleteButton";
+import { getEditorJsContentLength } from "@/lib/editorjs-content";
+import EditorJsField from "./EditorJsField";
 import { createEmptyPost, type PostFormData } from "./types";
 
 type PostEditorPanelProps = {
@@ -111,6 +113,12 @@ export default function PostEditorPanel({
     event.preventDefault();
     setLoading(true);
     setError("");
+
+    if (getEditorJsContentLength(form.content) < 20) {
+      setError("Content must be at least 20 characters.");
+      setLoading(false);
+      return;
+    }
 
     const url =
       mode === "create" ? "/api/admin/posts" : `/api/admin/posts/${initial?.id}`;
@@ -265,13 +273,13 @@ export default function PostEditorPanel({
 
         <div>
           <label className="mb-1.5 block text-sm font-medium">Content</label>
-          <Textarea
+          <EditorJsField
             value={form.content}
-            onChange={(e) => updateField("content", e.target.value)}
-            required
-            className="min-h-[200px]"
-            placeholder="Write article content. Use blank lines between paragraphs."
+            onChange={(content) => updateField("content", content)}
           />
+          <p className="mt-1.5 text-xs text-slate-500">
+            Use blocks for headings, lists, quotes, images, and paragraphs.
+          </p>
         </div>
 
         <div className="flex flex-wrap gap-4">

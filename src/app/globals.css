@@ -325,3 +325,37 @@
     animation: doctor-blob-morph 15s linear infinite;
   }
 }
+
+/* Editor.js — CMS blog content field */
+.editorjs-field .codex-editor {
+  z-index: 0;
+}
+
+.editorjs-field .codex-editor__redactor {
+  padding-bottom: 80px !important;
+}
+
+.editorjs-field .ce-block__content,
+.editorjs-field .ce-toolbar__content {
+  max-width: 100%;
+}
+
+.editorjs-field .ce-paragraph {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.editorjs-field .cdx-block {
+  padding: 0.35rem 0;
+}
+
+.editorjs-field .ce-toolbar__plus,
+.editorjs-field .ce-toolbar__settings-btn {
+  color: #475569;
+}
+
+.editorjs-field .ce-inline-toolbar,
+.editorjs-field .ce-settings,
+.editorjs-field .ce-conversion-toolbar {
+  z-index: 20;
+}
