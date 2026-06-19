@@ -66,6 +66,15 @@ export async function ensureDbIndexes() {
       .createIndex({ referenceId: 1 }, { unique: true, sparse: true }),
     db.collection("formSubmissions").createIndex({ type: 1, createdAt: -1 }),
     db
+      .collection("formSubmissions")
+      .createIndex({ type: 1, phoneNormalized: 1, status: 1, preferredDate: 1 }),
+    db
+      .collection("formSubmissions")
+      .createIndex({ type: 1, emailNormalized: 1, status: 1, preferredDate: 1 }),
+    db
+      .collection("formSubmissions")
+      .createIndex({ type: 1, clientIp: 1, createdAt: -1 }),
+    db
       .collection("newsletterSubscribers")
       .createIndex({ email: 1 }, { unique: true }),
     ensureActiveSlugIndex("doctors"),

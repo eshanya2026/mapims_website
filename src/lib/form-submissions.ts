@@ -1,13 +1,25 @@
+import {
+  ACTIVE_APPOINTMENT_EXISTS_MESSAGE,
+  APPOINTMENT_IP_RATE_LIMIT_MAX,
+  APPOINTMENT_IP_RATE_LIMIT_WINDOW_MS,
+  APPOINTMENT_RATE_LIMIT_MESSAGE,
+} from "@/lib/appointment-identity-guard";
 import { assignAppointmentReferenceId } from "@/lib/appointment-reference-id";
 import { assignJobApplicationReferenceId } from "@/lib/job-application-reference-id";
 import {
   countFormSubmissions,
+  countRecentAppointmentSubmissionsByIp,
   createFormSubmissionRecord,
+  findActiveAppointmentByIdentity,
   findAppointmentBookingConflict,
   findRecentDuplicateSubmission,
 } from "@/lib/db/form-submissions";
 import type { FormSubmissionRecord } from "@/lib/db/types";
 import { getDepartmentNameBySlug } from "@/lib/department-utils";
+import {
+  normalizeEmailForMatch,
+  normalizePhoneForMatch,
+} from "@/lib/identity-normalize";
 import { enquiryTypesForRole } from "@/lib/admin-roles";
 import type { AdminRole } from "@/lib/admin-roles";
 import { formTypeLabels } from "@/lib/form-type-labels";
@@ -53,8 +65,13 @@ async function ensureSubmissionReference(
   return submission;
 }
 
+export type FormSubmissionContext = {
+  clientIp?: string | null;
+};
+
 export async function createFormSubmission(
-  data: FormSubmissionInput
+  data: FormSubmissionInput,
+  context: FormSubmissionContext = {}
 ): Promise<FormSubmissionRecord> {
   const duplicate = await findRecentDuplicateSubmission(data);
   if (duplicate) {
@@ -62,6 +79,24 @@ export async function createFormSubmission(
   }
 
   if (data.type === "appointment") {
+    const clientIp = context.clientIp?.trim() || null;
+
+    if (clientIp) {
+      const since = new Date(Date.now() - APPOINTMENT_IP_RATE_LIMIT_WINDOW_MS);
+      const recentCount = await countRecentAppointmentSubmissionsByIp(clientIp, since);
+      if (recentCount >= APPOINTMENT_IP_RATE_LIMIT_MAX) {
+        throw new Error(APPOINTMENT_RATE_LIMIT_MESSAGE);
+      }
+    }
+
+    const activeAppointment = await findActiveAppointmentByIdentity({
+      phone: data.phone,
+      email: data.email,
+    });
+    if (activeAppointment) {
+      throw new Error(ACTIVE_APPOINTMENT_EXISTS_MESSAGE);
+    }
+
     const conflict = await findAppointmentBookingConflict(
       data.date,
       data.time,
@@ -78,6 +113,9 @@ export async function createFormSubmission(
       name: data.name,
       phone: data.phone,
       email: data.email || null,
+      phoneNormalized: normalizePhoneForMatch(data.phone) || null,
+      emailNormalized: data.email ? normalizeEmailForMatch(data.email) : null,
+      clientIp,
       department: getDepartmentNameBySlug(data.departmentSlug),
       departmentSlug: data.departmentSlug,
       preferredDate: new Date(`${data.date}T00:00:00`),

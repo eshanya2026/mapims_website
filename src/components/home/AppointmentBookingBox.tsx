@@ -174,7 +174,8 @@ export default function AppointmentBookingBox({
                 Appointment request received
               </h4>
               <p className="mt-2 text-sm leading-relaxed text-slate-600 sm:text-base">
-                Thank you. Our patient services team has received your request and
+                Thank you. A confirmation email has been sent to you — please check your
+                inbox and spam folder if you don&apos;t see it. Our patient services team
                 will contact you shortly to confirm your appointment.
               </p>
               {appointmentReferenceId ? (
@@ -272,6 +273,7 @@ export default function AppointmentBookingBox({
                 id={fieldId("patient-email")}
                 name="email"
                 type="email"
+                required
                 placeholder="your@email.com"
                 className="pl-10 h-11 rounded-xl border-slate-200 bg-slate-50 focus:bg-white"
               />

@@ -6,8 +6,15 @@ import {
   dateKeyToPreferredDateRange,
   isAppointmentSlotOccupied,
   preferredDateToDateKey,
+  startOfTodayIST,
   type BookedSlotsByDate,
 } from "@/lib/appointment-bookings";
+import { APPOINTMENT_ACTIVE_IDENTITY_STATUSES } from "@/lib/appointment-identity-guard";
+import {
+  normalizeEmailForMatch,
+  normalizePhoneForMatch,
+  phoneLookupVariants,
+} from "@/lib/identity-normalize";
 import { getDepartmentNameBySlug } from "@/lib/department-utils";
 import { mapId, now, toObjectId } from "@/lib/db/utils";
 import type { z } from "zod";
@@ -56,6 +63,9 @@ function toFormSubmissionRecord(
     interviewAddress: record.interviewAddress ?? null,
     documentUrls: Array.isArray(record.documentUrls) ? record.documentUrls : [],
     departmentSlug: record.departmentSlug ?? null,
+    phoneNormalized: record.phoneNormalized ?? null,
+    emailNormalized: record.emailNormalized ?? null,
+    clientIp: record.clientIp ?? null,
     deletedAt: record.deletedAt ?? null,
   };
 }
@@ -136,6 +146,9 @@ export async function createFormSubmissionRecord(data: {
   documentUrls?: string[];
   status?: string;
   referenceId?: string | null;
+  phoneNormalized?: string | null;
+  emailNormalized?: string | null;
+  clientIp?: string | null;
 }) {
   const collection = await formSubmissionsCollection();
   const timestamp = now();
@@ -170,6 +183,18 @@ export async function createFormSubmissionRecord(data: {
     referenceId: null,
     createdAt: timestamp,
   };
+
+  if (data.phoneNormalized) {
+    insertDoc.phoneNormalized = data.phoneNormalized;
+  }
+
+  if (data.emailNormalized) {
+    insertDoc.emailNormalized = data.emailNormalized;
+  }
+
+  if (data.clientIp) {
+    insertDoc.clientIp = data.clientIp;
+  }
 
   if (data.referenceId) {
     insertDoc.referenceId = data.referenceId;
@@ -445,4 +470,59 @@ export async function findAppointmentBookingConflict(
   );
 
   return doc ? toFormSubmissionRecord(doc) : null;
+}
+
+export async function findActiveAppointmentByIdentity(params: {
+  phone: string;
+  email: string;
+}) {
+  const phoneNormalized = normalizePhoneForMatch(params.phone);
+  const emailNormalized = normalizeEmailForMatch(params.email);
+  const phoneVariants = phoneLookupVariants(params.phone);
+  const todayStart = startOfTodayIST();
+
+  const identityConditions: Record<string, unknown>[] = [];
+
+  if (phoneNormalized) {
+    identityConditions.push({ phoneNormalized });
+    if (phoneVariants.length > 0) {
+      identityConditions.push({ phone: { $in: phoneVariants } });
+    }
+  }
+
+  if (emailNormalized) {
+    identityConditions.push({ emailNormalized });
+    identityConditions.push({ email: emailNormalized });
+  }
+
+  if (identityConditions.length === 0) {
+    return null;
+  }
+
+  const collection = await formSubmissionsCollection();
+  const doc = await collection.findOne(
+    mergeNotDeleted({
+      type: "appointment",
+      status: { $in: [...APPOINTMENT_ACTIVE_IDENTITY_STATUSES] },
+      preferredDate: { $gte: todayStart },
+      $or: identityConditions,
+    }),
+    { sort: { preferredDate: 1, createdAt: -1 } }
+  );
+
+  return doc ? toFormSubmissionRecord(doc) : null;
+}
+
+export async function countRecentAppointmentSubmissionsByIp(
+  clientIp: string,
+  since: Date
+) {
+  const collection = await formSubmissionsCollection();
+  return collection.countDocuments(
+    mergeNotDeleted({
+      type: "appointment",
+      clientIp,
+      createdAt: { $gte: since },
+    })
+  );
 }

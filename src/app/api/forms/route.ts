@@ -1,10 +1,31 @@
 import { NextResponse } from "next/server";
+import {
+  ACTIVE_APPOINTMENT_EXISTS_MESSAGE,
+  APPOINTMENT_RATE_LIMIT_MESSAGE,
+} from "@/lib/appointment-identity-guard";
+import { notifyPatientOfAppointment } from "@/lib/appointment-notifications";
 import { createFormSubmission } from "@/lib/form-submissions";
 import {
   notifyCandidateOfJobApplication,
   notifyHrOfFormSubmission,
 } from "@/lib/hr-form-notifications";
+import { getClientIpFromRequest } from "@/lib/request-client-ip";
 import { formSubmissionSchema } from "@/lib/validations";
+
+function formSubmissionErrorStatus(message: string) {
+  if (
+    message.includes("time slot was just booked") ||
+    message === ACTIVE_APPOINTMENT_EXISTS_MESSAGE
+  ) {
+    return 409;
+  }
+
+  if (message === APPOINTMENT_RATE_LIMIT_MESSAGE) {
+    return 429;
+  }
+
+  return 500;
+}
 
 export async function POST(request: Request) {
   try {
@@ -17,7 +38,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: message }, { status: 400 });
     }
 
-    const submission = await createFormSubmission(parsed.data);
+    const submission = await createFormSubmission(parsed.data, {
+      clientIp: getClientIpFromRequest(request),
+    });
 
     if (submission.type === "job_application") {
       try {
@@ -25,6 +48,14 @@ export async function POST(request: Request) {
         await notifyCandidateOfJobApplication(submission);
       } catch (emailError) {
         console.error("[forms POST] notification email failed:", emailError);
+      }
+    }
+
+    if (submission.type === "appointment") {
+      try {
+        await notifyPatientOfAppointment(submission);
+      } catch (emailError) {
+        console.error("[forms POST] appointment confirmation email failed:", emailError);
       }
     }
 
@@ -44,7 +75,7 @@ export async function POST(request: Request) {
       error instanceof Error
         ? error.message
         : "Unable to submit the form right now. Please try again.";
-    const status = message.includes("time slot was just booked") ? 409 : 500;
+    const status = formSubmissionErrorStatus(message);
     return NextResponse.json({ error: message }, { status });
   }
 }

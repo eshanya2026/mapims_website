@@ -191,8 +191,9 @@ export default function BookAppointmentSection() {
                   Appointment request received
                 </h4>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600 sm:text-base">
-                  Thank you. Our patient services team will contact you shortly to confirm
-                  your appointment.
+                  Thank you. A confirmation email has been sent to you — please check your
+                  inbox and spam folder if you don&apos;t see it. Our patient services team
+                  will contact you shortly to confirm your appointment.
                 </p>
                 {appointmentReferenceId ? (
                   <div className="mt-5 rounded-xl border border-red-100 bg-red-50 px-4 py-3">
@@ -320,6 +321,7 @@ export default function BookAppointmentSection() {
                           id="section-patient-email"
                           name="email"
                           type="email"
+                          required
                           placeholder="your@email.com"
                           className="h-11 rounded-xl border-slate-200 bg-slate-50 pl-10 focus:bg-white"
                         />

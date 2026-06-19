@@ -66,7 +66,7 @@ export const appointmentFormSchema = z.object({
   type: z.literal("appointment"),
   name: z.string().trim().min(2),
   phone: phoneField,
-  email: optionalEmailField,
+  email: z.string().trim().email("Please enter a valid email"),
   departmentSlug: z.string().trim().min(1, "Please select a department"),
   date: z.string().min(1),
   time: z.string().trim().min(1),

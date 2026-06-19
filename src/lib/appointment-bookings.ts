@@ -25,4 +25,19 @@ export function dateKeyToPreferredDateRange(dateKey: string) {
   return { start, end };
 }
 
+const IST_TIMEZONE = "Asia/Kolkata";
+
+export function getTodayDateKeyInIST() {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: IST_TIMEZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
+}
+
+export function startOfTodayIST() {
+  return dateKeyToPreferredDateRange(getTodayDateKeyInIST()).start;
+}
+
 export type BookedSlotsByDate = Record<string, string[]>;

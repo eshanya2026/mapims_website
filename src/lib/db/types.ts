@@ -137,4 +137,7 @@ export type FormSubmissionRecord = {
   status: string;
   createdAt: Date;
   deletedAt?: Date | null;
+  phoneNormalized?: string | null;
+  emailNormalized?: string | null;
+  clientIp?: string | null;
 };
