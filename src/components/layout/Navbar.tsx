@@ -305,11 +305,11 @@ export default function Navbar() {
               <img
                 src="/images/adhiparasakthi-hospitals-emblem.png"
                 alt="Adhiparasakthi Hospitals emblem"
-                className="h-11 w-auto max-h-12 max-w-[2.75rem] object-contain object-center shrink-0 sm:h-12 sm:max-w-[3.25rem]"
+                className="h-[5rem] w-[12rem] max-h-[6rem] max-w-[12rem] object-contain object-center shrink-0 sm:h-16 sm:max-w-[12rem] transform -translate-y-[5px]"
               />
-              <span className="text-sm sm:text-lg font-bold leading-tight text-slate-900 whitespace-nowrap">
+              {/* <span className="text-sm sm:text-lg font-bold leading-tight text-slate-900 whitespace-nowrap">
                 Adhiparasakthi Hospital
-              </span>
+              </span> */}
             </span>
             <img
               src="/images/nabh-nabl-certifications.png"
