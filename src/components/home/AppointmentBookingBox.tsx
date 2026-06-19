@@ -16,6 +16,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import {
+  getAvailableTimeSlotsForDate,
+  getDefaultAppointmentDate,
+} from "@/data/appointment-slots";
 
 const departments = [
   "General Medicine",
@@ -34,27 +38,30 @@ const departments = [
   "Emergency",
 ];
 
-const timeSlots = [
-  "09:00 AM",
-  "10:00 AM",
-  "11:00 AM",
-  "12:00 PM",
-  "02:00 PM",
-  "03:00 PM",
-  "04:00 PM",
-  "05:00 PM",
-];
-
 type AppointmentBookingBoxProps = {
   idPrefix?: string;
   variant?: "hero" | "section";
   className?: string;
+  selectedDate?: string;
+  selectedTime?: string;
+  availableTimeSlots?: string[];
+  onDateChange?: (date: string) => void;
+  onTimeChange?: (time: string) => void;
+  onSubmitted?: () => void;
+  hideDateTimeFields?: boolean;
 };
 
 export default function AppointmentBookingBox({
   idPrefix = "",
   variant = "hero",
   className,
+  selectedDate,
+  selectedTime,
+  availableTimeSlots,
+  onDateChange,
+  onTimeChange,
+  onSubmitted,
+  hideDateTimeFields = false,
 }: AppointmentBookingBoxProps) {
   const [submitted, setSubmitted] = useState(false);
   const [appointmentReferenceId, setAppointmentReferenceId] = useState<string | null>(
@@ -94,6 +101,7 @@ export default function AppointmentBookingBox({
       setAppointmentReferenceId(
         typeof result.referenceId === "string" ? result.referenceId : null
       );
+      onSubmitted?.();
       setSubmitted(true);
     } catch (submitError) {
       setError(
@@ -122,6 +130,11 @@ export default function AppointmentBookingBox({
           viewport: { once: true },
           transition: { duration: 0.6 },
         };
+
+  const timeOptions =
+    variant === "section" && availableTimeSlots?.length
+      ? availableTimeSlots
+      : getAvailableTimeSlotsForDate(selectedDate || getDefaultAppointmentDate());
 
   return (
     <motion.div {...wrapperProps} className={cn("w-full", className)}>
@@ -194,11 +207,28 @@ export default function AppointmentBookingBox({
         <form
           ref={formRef}
           onSubmit={handleSubmit}
-          className="space-y-4 p-4 sm:p-6"
+          className="space-y-4 p-4 sm:space-y-5 sm:p-6"
           aria-busy={loading}
         >
+          {hideDateTimeFields && selectedDate && selectedTime ? (
+            <>
+              <input type="hidden" name="date" value={selectedDate} />
+              <input type="hidden" name="time" value={selectedTime} />
+              <div className="rounded-2xl border border-slate-100 bg-slate-50 px-4 py-3">
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                  Preferred slot
+                </p>
+                <p className="mt-1 text-sm font-semibold text-slate-900">
+                  {selectedDate} · {selectedTime}
+                </p>
+                <p className="mt-1 text-xs text-slate-500">
+                  Update your slot using the date &amp; time picker above.
+                </p>
+              </div>
+            </>
+          ) : null}
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
               <label htmlFor={fieldId("patient-name")} className="text-xs font-semibold text-slate-600 uppercase tracking-wider">
                 Full Name *
@@ -270,7 +300,8 @@ export default function AppointmentBookingBox({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {!hideDateTimeFields ? (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
               <label htmlFor={fieldId("appointment-date")} className="text-xs font-semibold text-slate-600 uppercase tracking-wider">
                 Preferred Date *
@@ -283,6 +314,8 @@ export default function AppointmentBookingBox({
                   type="date"
                   required
                   min={new Date().toISOString().split("T")[0]}
+                  value={selectedDate ?? undefined}
+                  onChange={(event) => onDateChange?.(event.target.value)}
                   className="pl-10 h-11 rounded-xl border-slate-200 bg-slate-50 focus:bg-white"
                 />
               </div>
@@ -297,10 +330,12 @@ export default function AppointmentBookingBox({
                   id={fieldId("time-slot")}
                   name="time"
                   required
+                  value={selectedTime ?? ""}
+                  onChange={(event) => onTimeChange?.(event.target.value)}
                   className="w-full h-11 pl-10 pr-4 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 text-sm appearance-none focus:outline-none focus:ring-3 focus:ring-red-600/20 focus:border-red-600 transition-colors"
                 >
                   <option value="">Select time</option>
-                  {timeSlots.map((slot) => (
+                  {timeOptions.map((slot) => (
                     <option key={slot} value={slot}>
                       {slot}
                     </option>
@@ -309,6 +344,7 @@ export default function AppointmentBookingBox({
               </div>
             </div>
           </div>
+          ) : null}
 
           <div className="space-y-1.5">
             <label htmlFor={fieldId("message")} className="text-xs font-semibold text-slate-600 uppercase tracking-wider">
@@ -338,12 +374,16 @@ export default function AppointmentBookingBox({
             {loading ? "Submitting..." : "Confirm Appointment"}
           </Button>
 
-          <p className="text-center text-xs text-slate-500">
+          <p className="text-center text-xs leading-relaxed text-slate-500 sm:text-sm">
             For emergencies, call{" "}
             <a href="tel:1066" className="font-bold text-red-600 hover:underline">
               1066
-            </a>{" "}
-            or ambulance{" "}
+            </a>
+            <span className="hidden sm:inline"> or ambulance </span>
+            <span className="sm:hidden">
+              <br />
+              or ambulance{" "}
+            </span>
             <a href="tel:+919876543210" className="font-bold text-red-600 hover:underline">
               +91 98765 43210
             </a>

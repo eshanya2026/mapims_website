@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { normalizeTimeSlotInput } from "@/lib/appointment-schedule-config";
+
 export const loginSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
@@ -65,11 +67,52 @@ export const appointmentFormSchema = z.object({
   name: z.string().trim().min(2),
   phone: phoneField,
   email: optionalEmailField,
-  department: z.string().trim().min(1),
+  departmentSlug: z.string().trim().min(1, "Please select a department"),
   date: z.string().min(1),
   time: z.string().trim().min(1),
   message: z.string().optional().transform((value) => value?.trim() ?? ""),
 });
+
+const appointmentTimeSlotField = z
+  .string()
+  .trim()
+  .transform((value, ctx) => {
+    const normalized = normalizeTimeSlotInput(value);
+    if (!normalized) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Invalid time slot format. Use e.g. 08:30 AM",
+      });
+      return z.NEVER;
+    }
+    return normalized;
+  });
+
+const scheduleDaySlotsField = z.array(appointmentTimeSlotField);
+
+export const appointmentScheduleSchema = z
+  .object({
+    enabled: z.boolean(),
+    daySlots: z.object({
+      monday: scheduleDaySlotsField,
+      tuesday: scheduleDaySlotsField,
+      wednesday: scheduleDaySlotsField,
+      thursday: scheduleDaySlotsField,
+      friday: scheduleDaySlotsField,
+      saturday: scheduleDaySlotsField,
+      sunday: scheduleDaySlotsField,
+    }),
+    advanceDays: z.number().int().min(1).max(30),
+    notes: z
+      .string()
+      .optional()
+      .transform((value) => value?.trim() ?? "")
+      .pipe(z.string()),
+  })
+  .refine(
+    (value) => Object.values(value.daySlots).some((slots) => slots.length > 0),
+    { message: "At least one day must have available time slots.", path: ["daySlots"] }
+  );
 
 export const contactFormSchema = z.object({
   type: z.literal("contact"),

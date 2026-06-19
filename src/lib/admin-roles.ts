@@ -12,6 +12,7 @@ export type AdminPermission =
   | "posts"
   | "jobs"
   | "doctors"
+  | "appointment_schedules"
   | "inquiries"
   | "users"
   | "settings";
@@ -34,13 +35,14 @@ export const ROLE_PERMISSIONS: Record<AdminRole, readonly AdminPermission[]> = {
     "posts",
     "jobs",
     "doctors",
+    "appointment_schedules",
     "inquiries",
     "users",
     "settings",
   ],
   hr: ["dashboard", "jobs", "inquiries"],
   marketing: ["dashboard", "posts"],
-  front_office: ["dashboard", "inquiries"],
+  front_office: ["dashboard", "appointment_schedules", "inquiries"],
 };
 
 /** Which enquiry tabs each role may use in the admin panel. */
@@ -137,6 +139,7 @@ export function getPathPermission(pathname: string): AdminPermission | null {
   if (pathname.startsWith("/admin/posts")) return "posts";
   if (pathname.startsWith("/admin/jobs")) return "jobs";
   if (pathname.startsWith("/admin/doctors")) return "doctors";
+  if (pathname.startsWith("/admin/appointment-schedules")) return "appointment_schedules";
   if (pathname.startsWith("/admin/inquiries")) return "inquiries";
   if (pathname.startsWith("/admin/users")) return "users";
   if (pathname.startsWith("/admin/settings")) return "settings";
@@ -147,6 +150,7 @@ export function getApiPermission(pathname: string): AdminPermission | null {
   if (pathname.startsWith("/api/admin/posts")) return "posts";
   if (pathname.startsWith("/api/admin/jobs")) return "jobs";
   if (pathname.startsWith("/api/admin/doctors")) return "doctors";
+  if (pathname.startsWith("/api/admin/appointment-schedules")) return "appointment_schedules";
   if (pathname.startsWith("/api/admin/inquiries")) return "inquiries";
   if (pathname.startsWith("/api/admin/users")) return "users";
   if (pathname.startsWith("/api/admin/upload")) return null;

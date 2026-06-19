@@ -40,9 +40,11 @@ export async function POST(request: Request) {
     );
   } catch (error) {
     console.error("[forms POST]", error);
-    return NextResponse.json(
-      { error: "Unable to submit the form right now. Please try again." },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Unable to submit the form right now. Please try again.";
+    const status = message.includes("time slot was just booked") ? 409 : 500;
+    return NextResponse.json({ error: message }, { status });
   }
 }

@@ -72,6 +72,9 @@ export async function ensureDbIndexes() {
     db.collection("doctors").createIndex({ departmentSlug: 1, sortOrder: 1 }),
     db.collection("doctors").createIndex({ showOnHome: 1, homeSortOrder: 1 }),
     db.collection("doctors").createIndex({ showOnAbout: 1, aboutSortOrder: 1 }),
+    db
+      .collection("appointmentSchedules")
+      .createIndex({ departmentSlug: 1 }, { unique: true }),
   ]);
 
   indexesEnsured = true;

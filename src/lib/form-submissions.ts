@@ -3,9 +3,11 @@ import { assignJobApplicationReferenceId } from "@/lib/job-application-reference
 import {
   countFormSubmissions,
   createFormSubmissionRecord,
+  findAppointmentBookingConflict,
   findRecentDuplicateSubmission,
 } from "@/lib/db/form-submissions";
 import type { FormSubmissionRecord } from "@/lib/db/types";
+import { getDepartmentNameBySlug } from "@/lib/department-utils";
 import { enquiryTypesForRole } from "@/lib/admin-roles";
 import type { AdminRole } from "@/lib/admin-roles";
 import { formTypeLabels } from "@/lib/form-type-labels";
@@ -60,12 +62,24 @@ export async function createFormSubmission(
   }
 
   if (data.type === "appointment") {
+    const conflict = await findAppointmentBookingConflict(
+      data.date,
+      data.time,
+      data.departmentSlug
+    );
+    if (conflict) {
+      throw new Error(
+        "This time slot was just booked by another patient. Please choose a different slot."
+      );
+    }
+
     const created = await createFormSubmissionRecord({
       type: data.type,
       name: data.name,
       phone: data.phone,
       email: data.email || null,
-      department: data.department,
+      department: getDepartmentNameBySlug(data.departmentSlug),
+      departmentSlug: data.departmentSlug,
       preferredDate: new Date(`${data.date}T00:00:00`),
       preferredTime: data.time,
       message: data.message || null,

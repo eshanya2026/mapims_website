@@ -2,6 +2,13 @@ import { getDb } from "@/lib/mongodb";
 import { ensureDbIndexes } from "@/lib/db/indexes";
 import { deletedOnlyFilter, mergeNotDeleted, notDeletedFilter, softDeleteFields } from "@/lib/db/soft-delete";
 import type { FormSubmissionRecord } from "@/lib/db/types";
+import {
+  dateKeyToPreferredDateRange,
+  isAppointmentSlotOccupied,
+  preferredDateToDateKey,
+  type BookedSlotsByDate,
+} from "@/lib/appointment-bookings";
+import { getDepartmentNameBySlug } from "@/lib/department-utils";
 import { mapId, now, toObjectId } from "@/lib/db/utils";
 import type { z } from "zod";
 import type {
@@ -48,6 +55,7 @@ function toFormSubmissionRecord(
     interviewMode: record.interviewMode ?? null,
     interviewAddress: record.interviewAddress ?? null,
     documentUrls: Array.isArray(record.documentUrls) ? record.documentUrls : [],
+    departmentSlug: record.departmentSlug ?? null,
     deletedAt: record.deletedAt ?? null,
   };
 }
@@ -106,6 +114,7 @@ export async function createFormSubmissionRecord(data: {
   phone?: string | null;
   message?: string | null;
   department?: string | null;
+  departmentSlug?: string | null;
   preferredDate?: Date | null;
   preferredTime?: string | null;
   country?: string | null;
@@ -137,6 +146,7 @@ export async function createFormSubmissionRecord(data: {
     phone: data.phone ?? null,
     message: data.message ?? null,
     department: data.department ?? null,
+    departmentSlug: data.departmentSlug ?? null,
     preferredDate: data.preferredDate ?? null,
     preferredTime: data.preferredTime ?? null,
     country: data.country ?? null,
@@ -250,7 +260,7 @@ export async function findRecentDuplicateSubmission(data: FormSubmissionInput) {
         name,
         phone: data.phone.trim(),
         email: data.email?.trim() || null,
-        department: data.department,
+        departmentSlug: data.departmentSlug,
         preferredTime: data.time,
         preferredDate: new Date(`${data.date}T00:00:00`),
         createdAt: { $gte: since },
@@ -342,4 +352,97 @@ export async function findLatestReferenceId(prefix: string) {
 /** @deprecated Use findLatestReferenceId */
 export async function findLatestAppointmentReferenceId(prefix: string) {
   return findLatestReferenceId(prefix);
+}
+
+function buildDepartmentMatchFilter(departmentSlug?: string | null) {
+  if (!departmentSlug) return {};
+
+  const departmentName = getDepartmentNameBySlug(departmentSlug);
+  return {
+    $or: [
+      { departmentSlug },
+      {
+        $and: [
+          { $or: [{ departmentSlug: { $exists: false } }, { departmentSlug: null }] },
+          { department: departmentName },
+        ],
+      },
+    ],
+  };
+}
+
+export async function findBookedAppointmentSlotsByDates(
+  dateKeys: string[],
+  departmentSlug?: string | null
+): Promise<BookedSlotsByDate> {
+  const uniqueDates = [...new Set(dateKeys.filter(Boolean))];
+  if (uniqueDates.length === 0) return {};
+
+  const collection = await formSubmissionsCollection();
+  const dateFilter = {
+    $or: uniqueDates.map((dateKey) => {
+      const { start, end } = dateKeyToPreferredDateRange(dateKey);
+      return {
+        preferredDate: { $gte: start, $lt: end },
+      };
+    }),
+  };
+  const departmentFilter = buildDepartmentMatchFilter(departmentSlug);
+  const docs = await collection
+    .find(
+      mergeNotDeleted({
+        type: "appointment",
+        status: { $in: ["new", "contacted", "confirmed", "completed", "read"] },
+        ...(Object.keys(departmentFilter).length > 0
+          ? { $and: [departmentFilter, dateFilter] }
+          : dateFilter),
+      })
+    )
+    .project({ preferredDate: 1, preferredTime: 1, status: 1 })
+    .toArray();
+
+  const booked: BookedSlotsByDate = Object.fromEntries(
+    uniqueDates.map((dateKey) => [dateKey, [] as string[]])
+  );
+
+  for (const doc of docs) {
+    if (!doc.preferredDate || !doc.preferredTime || !isAppointmentSlotOccupied(doc.status)) {
+      continue;
+    }
+
+    const dateKey = preferredDateToDateKey(doc.preferredDate);
+    if (!booked[dateKey]) {
+      booked[dateKey] = [];
+    }
+
+    if (!booked[dateKey].includes(doc.preferredTime)) {
+      booked[dateKey].push(doc.preferredTime);
+    }
+  }
+
+  for (const dateKey of uniqueDates) {
+    booked[dateKey]?.sort();
+  }
+
+  return booked;
+}
+
+export async function findAppointmentBookingConflict(
+  dateKey: string,
+  time: string,
+  departmentSlug?: string | null
+) {
+  const { start, end } = dateKeyToPreferredDateRange(dateKey);
+  const collection = await formSubmissionsCollection();
+  const doc = await collection.findOne(
+    mergeNotDeleted({
+      type: "appointment",
+      preferredTime: time,
+      preferredDate: { $gte: start, $lt: end },
+      status: { $in: ["new", "contacted", "confirmed", "completed", "read"] },
+      ...buildDepartmentMatchFilter(departmentSlug),
+    })
+  );
+
+  return doc ? toFormSubmissionRecord(doc) : null;
 }

@@ -82,6 +82,29 @@ export type NewsletterSubscriberRecord = {
   updatedAt: Date;
 };
 
+export type AppointmentScheduleRecord = {
+  id: string;
+  departmentSlug: string;
+  enabled: boolean;
+  daySlots: {
+    monday: string[];
+    tuesday: string[];
+    wednesday: string[];
+    thursday: string[];
+    friday: string[];
+    saturday: string[];
+    sunday: string[];
+  };
+  /** @deprecated Legacy field — migrated into daySlots on read */
+  weekdaySlots?: string[];
+  /** @deprecated Legacy field — migrated into daySlots on read */
+  sundaySlots?: string[];
+  advanceDays: number;
+  notes: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 export type FormSubmissionRecord = {
   id: string;
   referenceId: string | null;
@@ -91,6 +114,7 @@ export type FormSubmissionRecord = {
   phone: string | null;
   message: string | null;
   department: string | null;
+  departmentSlug: string | null;
   preferredDate: Date | null;
   preferredTime: string | null;
   country: string | null;
