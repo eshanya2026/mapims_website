@@ -174,9 +174,8 @@ export default function AppointmentBookingBox({
                 Appointment request received
               </h4>
               <p className="mt-2 text-sm leading-relaxed text-slate-600 sm:text-base">
-                Thank you. A confirmation email has been sent to you — please check your
-                inbox and spam folder if you don&apos;t see it. Our patient services team
-                will contact you shortly to confirm your appointment.
+                Thank you. Our patient services team will contact you shortly to confirm
+                your appointment.
               </p>
               {appointmentReferenceId ? (
                 <div className="mt-5 rounded-xl border border-red-100 bg-red-50 px-4 py-3">

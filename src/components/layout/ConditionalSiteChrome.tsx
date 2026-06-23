@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import TopHeader from "@/components/layout/TopHeader";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import LiveChatWidget from "@/components/layout/LiveChatWidget";
 
 export default function ConditionalSiteChrome({
   children,
@@ -23,6 +24,7 @@ export default function ConditionalSiteChrome({
       <Navbar />
       {children}
       <Footer />
+      <LiveChatWidget />
     </>
   );
 }
