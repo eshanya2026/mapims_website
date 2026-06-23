@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Bot, MessageSquarePlus, X, Send, Loader2, Mic } from "lucide-react";
+import ChatTypingIndicator from "@/components/layout/ChatTypingIndicator";
 import {
   LIVE_CHAT_WELCOME,
   liveChatStarterOptions,
@@ -362,12 +363,7 @@ export default function LiveChatWidget() {
                 </div>
               ))}
 
-              {loading ? (
-                <div className="flex max-w-[92%] items-center gap-2 self-start rounded-2xl rounded-bl-md bg-white px-3.5 py-2.5 text-sm text-slate-500 shadow-sm">
-                  <Loader2 className="h-4 w-4 animate-spin text-red-600" />
-                  typing...
-                </div>
-              ) : null}
+              {loading ? <ChatTypingIndicator /> : null}
 
               {error ? (
                 <p className="whitespace-pre-wrap rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-xs leading-relaxed text-red-700">
