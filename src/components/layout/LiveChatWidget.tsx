@@ -454,29 +454,48 @@ export default function LiveChatWidget() {
           </div>
         ) : null}
 
-        <button
-          type="button"
-          onClick={() => setOpen((value) => !value)}
-          className={cn(
-            "relative box-border flex h-[3.75rem] w-[3.75rem] shrink-0 items-center justify-center rounded-full border-4 border-white bg-red-600 text-white shadow-lg shadow-red-900/25 transition-transform duration-200 hover:scale-105 hover:bg-red-700 active:scale-95",
-            open && "shadow-red-600/30"
-          )}
-          aria-label={open ? "Close patient support chat" : "Open MAPIMS Assist chat"}
-          aria-expanded={open}
-          title={open ? "Close chat" : "MAPIMS Assist"}
-        >
-          {open ? (
-            <X className="h-6 w-6 shrink-0" strokeWidth={2.5} />
-          ) : (
+        <div className="relative">
+          {!open ? (
             <>
-              <Bot className="h-7 w-7 shrink-0" strokeWidth={2} aria-hidden />
               <span
-                className="pointer-events-none absolute right-0.5 top-0.5 block h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-500"
+                className="chat-launcher-pulse absolute inset-0 rounded-full bg-red-500/50"
+                aria-hidden
+              />
+              <span
+                className="chat-launcher-pulse chat-launcher-pulse--delay absolute inset-0 rounded-full bg-red-400/35"
                 aria-hidden
               />
             </>
-          )}
-        </button>
+          ) : null}
+
+          <button
+            type="button"
+            onClick={() => setOpen((value) => !value)}
+            className={cn(
+              "relative z-10 box-border flex h-[3.75rem] w-[3.75rem] shrink-0 items-center justify-center rounded-full border-4 border-white bg-red-600 text-white shadow-lg shadow-red-900/25 transition-all duration-300 hover:scale-[1.04] hover:bg-red-700 hover:shadow-xl hover:shadow-red-600/35 active:scale-[0.98]",
+              !open && "chat-launcher-float",
+              open && "shadow-red-600/30"
+            )}
+            aria-label={open ? "Close patient support chat" : "Open MAPIMS Assist chat"}
+            aria-expanded={open}
+            title={open ? "Close chat" : "MAPIMS Assist"}
+          >
+            {open ? (
+              <X className="h-6 w-6 shrink-0 transition-transform duration-200" strokeWidth={2.5} />
+            ) : (
+              <>
+                <Bot className="h-7 w-7 shrink-0" strokeWidth={2} aria-hidden />
+                <span
+                  className="pointer-events-none absolute right-0.5 top-0.5 flex h-3.5 w-3.5 items-center justify-center"
+                  aria-hidden
+                >
+                  <span className="chat-launcher-online-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400/70" />
+                  <span className="relative block h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-500" />
+                </span>
+              </>
+            )}
+          </button>
+        </div>
       </div>
     </>
   );
