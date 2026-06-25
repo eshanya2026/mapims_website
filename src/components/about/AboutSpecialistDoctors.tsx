@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Calendar, Stethoscope } from "lucide-react";
+import { ArrowLeft, ArrowRight, Stethoscope } from "lucide-react";
 import { useState, useEffect } from "react";
 import type { ContentDoctor } from "@/lib/doctors-content";
 
@@ -116,7 +115,7 @@ export default function AboutSpecialistDoctors({ doctors }: AboutSpecialistDocto
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.45, delay: index * 0.04 }}
-                    className="group relative flex h-full min-h-[280px] flex-col items-center gap-5 overflow-hidden rounded-3xl border border-slate-100 bg-slate-50/80 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-red-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/60 sm:flex-row sm:items-stretch sm:gap-6 sm:p-6"
+                    className="group relative flex flex-col items-center gap-4 overflow-hidden rounded-3xl border border-slate-100 bg-slate-50/80 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-red-100 hover:bg-white hover:shadow-xl hover:shadow-slate-200/60 sm:flex-row sm:items-center sm:gap-5 sm:p-5"
                   >
                     <div
                       className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-red-600/5 transition-transform duration-500 group-hover:scale-150"
@@ -125,28 +124,17 @@ export default function AboutSpecialistDoctors({ doctors }: AboutSpecialistDocto
 
                     <DoctorPortrait image={doctor.image} name={doctor.name} />
 
-                    <div className="relative flex min-w-0 flex-1 flex-col justify-between text-center sm:text-left">
-                      <div>
-                        <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-red-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-red-600">
-                          <Stethoscope className="h-3.5 w-3.5" />
-                          {doctor.specialty}
-                        </div>
-                        <h3 className="text-lg font-bold leading-snug text-slate-900 transition-colors group-hover:text-red-600 sm:text-xl">
-                          {doctor.name}
-                        </h3>
-                        <p className="mt-2 text-sm font-medium leading-relaxed text-slate-600 sm:text-base">
-                          {doctor.designation}
-                        </p>
+                    <div className="relative flex min-w-0 flex-1 flex-col justify-center text-center sm:text-left">
+                      <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-red-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-red-600">
+                        <Stethoscope className="h-3.5 w-3.5" />
+                        {doctor.specialty}
                       </div>
-
-                      <Link
-                        href="/#book-appointment"
-                        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-red-600 px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-red-600/25 transition-all hover:-translate-y-0.5 hover:bg-red-700 hover:shadow-lg hover:shadow-red-600/30 sm:w-fit"
-                      >
-                        <Calendar className="h-4 w-4" />
-                        Book Appointment
-                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                      </Link>
+                      <h3 className="text-lg font-bold leading-snug text-slate-900 transition-colors group-hover:text-red-600 sm:text-xl">
+                        {doctor.name}
+                      </h3>
+                      <p className="mt-1.5 text-sm font-medium leading-relaxed text-slate-600 sm:text-base">
+                        {doctor.designation}
+                      </p>
                     </div>
                   </motion.article>
                 </div>

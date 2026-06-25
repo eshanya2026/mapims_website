@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Stethoscope } from "lucide-react";
+import { ArrowLeft, ArrowRight, Stethoscope } from "lucide-react";
 import { useState, useEffect } from "react";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import type { ContentDoctor } from "@/lib/doctors-content";
@@ -103,7 +102,7 @@ export default function DoctorShowcase({ doctors }: DoctorShowcaseProps) {
                   className="flex-shrink-0 px-3"
                   style={{ width: `${100 / itemsPerView}%` }}
                 >
-                  <article className="group relative flex h-full min-h-[300px] flex-col items-center gap-5 overflow-hidden rounded-3xl border border-slate-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-100 hover:shadow-xl hover:shadow-slate-200/50 sm:flex-row sm:items-stretch sm:gap-6 sm:p-6">
+                  <article className="group relative flex flex-col items-center gap-4 overflow-hidden rounded-3xl border border-slate-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-100 hover:shadow-xl hover:shadow-slate-200/50 sm:flex-row sm:items-center sm:gap-5 sm:p-5">
                     <div
                       className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-red-600/5 transition-transform duration-500 group-hover:scale-150"
                       aria-hidden
@@ -111,30 +110,20 @@ export default function DoctorShowcase({ doctors }: DoctorShowcaseProps) {
 
                     <DoctorPortrait image={doctor.image} name={doctor.name} />
 
-                    <div className="relative flex min-w-0 flex-1 flex-col justify-between text-center sm:text-left">
-                      <div>
-                        <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-red-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-red-600">
-                          <Stethoscope className="h-3.5 w-3.5" />
-                          MAPIMS Specialist
-                        </div>
-                        <h3 className="text-xl font-bold leading-snug text-slate-900 transition-colors group-hover:text-red-600 sm:text-2xl">
-                          {doctor.name}
-                        </h3>
-                        <p className="mt-2 text-sm font-semibold text-red-600 sm:text-base">
-                          {doctor.designation}
-                        </p>
-                        <p className="mt-3 text-sm leading-relaxed text-slate-500">
-                          {doctor.bio}
-                        </p>
+                    <div className="relative flex min-w-0 flex-1 flex-col justify-center text-center sm:text-left">
+                      <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-red-50 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-red-600">
+                        <Stethoscope className="h-3.5 w-3.5" />
+                        MAPIMS Specialist
                       </div>
-
-                      <Link
-                        href="/#book-appointment"
-                        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-red-600 bg-white px-6 py-3 text-sm font-semibold text-red-600 shadow-sm transition-all hover:bg-red-600 hover:text-white hover:shadow-lg hover:shadow-red-600/25 sm:w-fit"
-                      >
-                        Book Consult
-                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                      </Link>
+                      <h3 className="text-xl font-bold leading-snug text-slate-900 transition-colors group-hover:text-red-600 sm:text-2xl">
+                        {doctor.name}
+                      </h3>
+                      <p className="mt-1.5 text-sm font-semibold text-red-600 sm:text-base">
+                        {doctor.designation}
+                      </p>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-500">
+                        {doctor.bio}
+                      </p>
                     </div>
                   </article>
                 </div>

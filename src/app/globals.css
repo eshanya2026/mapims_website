@@ -394,28 +394,28 @@
   }
 }
 
-@keyframes chat-launcher-float {
+@keyframes chat-launcher-jump {
   0%,
   100% {
     transform: translateY(0);
   }
 
   50% {
-    transform: translateY(-1px);
+    transform: translateY(-8px);
   }
 }
 
 .chat-launcher-pulse {
   pointer-events: none;
-  animation: chat-launcher-pulse 3s ease-out infinite;
+  animation: chat-launcher-pulse 2.8s ease-out infinite;
 }
 
 .chat-launcher-pulse--delay {
-  animation-delay: 1.5s;
+  animation-delay: 1.4s;
 }
 
-.chat-launcher-float {
-  animation: chat-launcher-float 4.5s ease-in-out infinite;
+.chat-launcher-jump {
+  animation: chat-launcher-jump 2s ease-in-out infinite;
 }
 
 .chat-launcher-online-ping {
@@ -425,7 +425,7 @@
 @media (prefers-reduced-motion: reduce) {
   .chat-typing-dot,
   .chat-launcher-pulse,
-  .chat-launcher-float,
+  .chat-launcher-jump,
   .chat-launcher-online-ping {
     animation: none;
   }

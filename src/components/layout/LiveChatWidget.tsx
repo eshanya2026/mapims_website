@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Bot, MessageSquarePlus, X, Send, Loader2, Mic } from "lucide-react";
 import ChatTypingIndicator from "@/components/layout/ChatTypingIndicator";
 import {
@@ -9,6 +10,10 @@ import {
   type LiveChatStarterOption,
 } from "@/data/live-chat";
 import { getCannedReplyDelayMs, getStarterAnswer } from "@/lib/live-chat-answers";
+import {
+  getLiveChatRelatedActions,
+  type LiveChatRelatedAction,
+} from "@/lib/live-chat-related-actions";
 import { useSpeechRecognition } from "@/hooks/use-speech-recognition";
 import { cn } from "@/lib/utils";
 
@@ -56,6 +61,7 @@ function shouldShowAnswerFeedback(message: ChatMessage) {
 }
 
 export default function LiveChatWidget() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
@@ -63,6 +69,7 @@ export default function LiveChatWidget() {
   const [error, setError] = useState<string | null>(null);
   const [feedbackByMessageId, setFeedbackByMessageId] = useState<Record<string, MessageFeedback>>({});
   const scrollRef = useRef<HTMLDivElement>(null);
+  const lastUserMessageRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const voiceBaseInputRef = useRef("");
   const isVoiceTypingRef = useRef(false);
@@ -96,6 +103,35 @@ export default function LiveChatWidget() {
 
   const showStarterOptions = !loading && messages.length <= 1;
 
+  const lastUserMessageIndex = messages.reduce(
+    (lastIndex, message, index) => (message.role === "user" ? index : lastIndex),
+    -1
+  );
+
+  const lastAssistantMessageId = [...messages].reverse().find((message) => message.role === "assistant")?.id;
+
+  function handleRelatedAction(action: LiveChatRelatedAction) {
+    if (action.prompt) {
+      void sendUserMessage(action.prompt);
+      return;
+    }
+
+    if (!action.href) return;
+
+    if (action.external) {
+      window.open(action.href, "_blank", "noopener,noreferrer");
+      return;
+    }
+
+    if (action.href.startsWith("tel:") || action.href.startsWith("mailto:")) {
+      window.location.href = action.href;
+      return;
+    }
+
+    router.push(action.href);
+    setOpen(false);
+  }
+
   useEffect(() => {
     if (!open) return;
 
@@ -106,7 +142,22 @@ export default function LiveChatWidget() {
 
   useEffect(() => {
     if (!open || !scrollRef.current) return;
-    scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+
+    const container = scrollRef.current;
+
+    requestAnimationFrame(() => {
+      if (loading) {
+        container.scrollTop = container.scrollHeight;
+        return;
+      }
+
+      if (lastUserMessageRef.current) {
+        lastUserMessageRef.current.scrollIntoView({ block: "start", behavior: "smooth" });
+        return;
+      }
+
+      container.scrollTop = container.scrollHeight;
+    });
   }, [messages, open, loading, error]);
 
   useEffect(() => {
@@ -312,8 +363,9 @@ export default function LiveChatWidget() {
               {messages.map((message, messageIndex) => (
                 <div
                   key={message.id}
+                  ref={messageIndex === lastUserMessageIndex ? lastUserMessageRef : undefined}
                   className={cn(
-                    "flex max-w-[92%] flex-col gap-2",
+                    "flex max-w-[92%] flex-col gap-2 scroll-mt-3",
                     message.role === "assistant" ? "self-start" : "self-end"
                   )}
                 >
@@ -333,31 +385,55 @@ export default function LiveChatWidget() {
                       {feedbackByMessageId[message.id] ? (
                         <p className="text-[11px] text-slate-500">Thanks for your feedback!</p>
                       ) : (
-                        <>
-                          <div className="flex flex-wrap items-center gap-2">
-                            <button
-                              type="button"
-                              onClick={() =>
-                                void submitMessageFeedback(message, messageIndex, true)
-                              }
-                              className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-medium text-slate-600 transition-colors hover:border-green-300 hover:bg-green-50 hover:text-green-700"
-                            >
-                              <span aria-hidden>👍</span>
-                              Helpful
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() =>
-                                void submitMessageFeedback(message, messageIndex, false)
-                              }
-                              className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-medium text-slate-600 transition-colors hover:border-red-300 hover:bg-red-50 hover:text-red-700"
-                            >
-                              <span aria-hidden>👎</span>
-                              Not Helpful
-                            </button>
-                          </div>
-                        </>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              void submitMessageFeedback(message, messageIndex, true)
+                            }
+                            className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-medium text-slate-600 transition-colors hover:border-green-300 hover:bg-green-50 hover:text-green-700"
+                          >
+                            <span aria-hidden>👍</span>
+                            Helpful
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              void submitMessageFeedback(message, messageIndex, false)
+                            }
+                            className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-medium text-slate-600 transition-colors hover:border-red-300 hover:bg-red-50 hover:text-red-700"
+                          >
+                            <span aria-hidden>👎</span>
+                            Not Helpful
+                          </button>
+                        </div>
                       )}
+                    </div>
+                  ) : null}
+
+                  {!loading &&
+                  message.id === lastAssistantMessageId &&
+                  shouldShowAnswerFeedback(message) ? (
+                    <div className="flex flex-col gap-1.5 px-1 pt-0.5">
+                      <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-400">
+                        Related
+                      </p>
+                      {getLiveChatRelatedActions(
+                        getPreviousUserQuestion(messages, messageIndex),
+                        message.text
+                      ).map((action) => (
+                        <button
+                          key={action.id}
+                          type="button"
+                          onClick={() => handleRelatedAction(action)}
+                          className="flex w-full items-center gap-2 rounded-xl border border-red-200 bg-white px-3 py-2 text-left text-xs font-medium text-slate-700 transition-colors hover:border-red-400 hover:bg-red-50 hover:text-red-700"
+                        >
+                          <span className="text-red-600" aria-hidden>
+                            •
+                          </span>
+                          {action.label}
+                        </button>
+                      ))}
                     </div>
                   ) : null}
                 </div>
@@ -454,7 +530,7 @@ export default function LiveChatWidget() {
           </div>
         ) : null}
 
-        <div className="relative">
+        <div className={cn("relative", !open && "chat-launcher-jump")}>
           {!open ? (
             <>
               <span
@@ -472,8 +548,7 @@ export default function LiveChatWidget() {
             type="button"
             onClick={() => setOpen((value) => !value)}
             className={cn(
-              "relative z-10 box-border flex h-[3.75rem] w-[3.75rem] shrink-0 items-center justify-center rounded-full border-4 border-white bg-red-600 text-white shadow-lg shadow-red-900/25 transition-all duration-300 hover:scale-[1.04] hover:bg-red-700 hover:shadow-xl hover:shadow-red-600/35 active:scale-[0.98]",
-              !open && "chat-launcher-float",
+              "relative z-10 box-border flex h-[3.75rem] w-[3.75rem] shrink-0 items-center justify-center rounded-full border-4 border-white bg-red-600 text-white shadow-lg shadow-red-900/25 transition-all duration-300 hover:scale-105 hover:bg-red-700 hover:shadow-xl hover:shadow-red-600/40 active:scale-95",
               open && "shadow-red-600/30"
             )}
             aria-label={open ? "Close patient support chat" : "Open MAPIMS Assist chat"}

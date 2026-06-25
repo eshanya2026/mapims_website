@@ -339,7 +339,7 @@ export default function BookAppointmentSection() {
                         <textarea
                           id="section-message"
                           name="message"
-                          rows={3}
+                          rows={5}
                           placeholder="Briefly describe your symptoms or reason for visit..."
                           className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-4 text-sm text-slate-900 transition-colors placeholder:text-slate-400 focus:border-red-600 focus:outline-none focus:ring-3 focus:ring-red-600/20"
                         />
