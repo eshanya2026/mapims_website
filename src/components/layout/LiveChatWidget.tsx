@@ -71,8 +71,10 @@ export default function LiveChatWidget() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const lastUserMessageRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const voiceBaseInputRef = useRef("");
+  const loadingRef = useRef(false);
   const isVoiceTypingRef = useRef(false);
+
+  loadingRef.current = loading;
 
   const {
     isSupported: isVoiceSupported,
@@ -84,20 +86,18 @@ export default function LiveChatWidget() {
   } = useSpeechRecognition({
     onInterimTranscript: (transcript) => {
       isVoiceTypingRef.current = true;
-      const base = voiceBaseInputRef.current;
-      const combined = base ? `${base} ${transcript}` : transcript;
-      setInput(combined.slice(0, MAX_INPUT_LENGTH));
+      setInput(transcript.slice(0, MAX_INPUT_LENGTH));
       isVoiceTypingRef.current = false;
     },
     onFinalTranscript: (transcript) => {
       isVoiceTypingRef.current = true;
-      const base = voiceBaseInputRef.current;
-      const combined = (base ? `${base} ${transcript}` : transcript).trim();
-      voiceBaseInputRef.current = "";
-      setInput(combined.slice(0, MAX_INPUT_LENGTH));
+      const trimmed = transcript.trim();
+      setInput("");
       isVoiceTypingRef.current = false;
       clearVoiceError();
-      inputRef.current?.focus();
+      if (trimmed && !loadingRef.current) {
+        void sendUserMessage(trimmed);
+      }
     },
   });
 
@@ -231,7 +231,6 @@ export default function LiveChatWidget() {
 
   function handleReset() {
     stopListening();
-    voiceBaseInputRef.current = "";
     setMessages([createMessage("assistant", LIVE_CHAT_WELCOME)]);
     setInput("");
     setError(null);
@@ -289,10 +288,11 @@ export default function LiveChatWidget() {
 
     if (isListening) {
       stopListening();
+      setInput("");
       return;
     }
 
-    voiceBaseInputRef.current = input.trim();
+    setInput("");
     startListening();
   }
 
