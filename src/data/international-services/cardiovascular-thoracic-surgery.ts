@@ -9,7 +9,7 @@ export const cardiovascularThoracicService: InternationalServiceData = {
   sectionLabel: "Cardiac & Thoracic",
   title: "Cardiovascular &",
   titleHighlight: "Thoracic Surgery",
-  seoTitle: "Cardiovascular & Thoracic surgery hospitals in India",
+  seoTitle: "Cardiovascular & Thoracic surgery hospitalss in India",
   breadcrumbLabel: "Cardiovascular & Thoracic Surgery",
   heroBadge: "Heart & Chest Surgery",
   heroSubtitle:

@@ -8,7 +8,7 @@ export const hemodialysisService: InternationalServiceData = {
   sectionLabel: "Renal Care",
   title: "Hemodialysis &",
   titleHighlight: "Dialysis Centre",
-  seoTitle: "Hemodialysis hospitals in chennai",
+  seoTitle: "Hemodialysis hospitalss in chennai",
   breadcrumbLabel: "Hemodialysis",
   heroBadge: "24/7 Dialysis",
   heroSubtitle:

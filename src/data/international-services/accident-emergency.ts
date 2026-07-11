@@ -9,7 +9,7 @@ export const accidentEmergencyService: InternationalServiceData = {
   sectionLabel: "Emergency Care",
   title: "Accident",
   titleHighlight: "Emergency Services",
-  seoTitle: "Accident Emergency Services hospitals in India",
+  seoTitle: "Accident Emergency Services hospitalss in India",
   breadcrumbLabel: "Accident & Emergency Services",
   heroBadge: "24/7 Emergency",
   heroSubtitle:
@@ -31,7 +31,7 @@ export const accidentEmergencyService: InternationalServiceData = {
       items: [
         "Rapid Triage System: Our efficient triage system ensures that the most critical cases receive immediate attention, minimizing wait times and optimizing patient outcomes.",
         "On-site Diagnostic Facilities: Immediate access to X-rays, CT scans, and other diagnostic services allows for quick and accurate diagnosis.",
-        "Integrated Care Approach: Our emergency services are seamlessly integrated with other hospital departments, ensuring continuity of care and comprehensive treatment plans.",
+        "Integrated Care Approach: Our emergency services are seamlessly integrated with other hospitals departments, ensuring continuity of care and comprehensive treatment plans.",
         "Family Support Services: We provide counseling and support to families during stressful situations, keeping them informed and involved in the care process.",
       ],
     },

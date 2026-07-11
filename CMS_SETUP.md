@@ -1,6 +1,6 @@
-# Hospital CMS Setup
+# Hospitals CMS Setup
 
-This project includes a custom admin CMS at `/admin` for managing hospital news, events, health insights, and career openings.
+This project includes a custom admin CMS at `/admin` for managing hospitals news, events, health insights, and career openings.
 
 ## Prerequisites
 
@@ -55,8 +55,8 @@ The site runs on [http://localhost:3001](http://localhost:3001).
 
 | Content type | Public URL |
 |--------------|------------|
-| Hospital News | `/blog/hospital-news` |
-| Hospital Events | `/blog/hospital-events` |
+| Hospitals News | `/blog/hospitals-news` |
+| Hospitals Events | `/blog/hospitals-events` |
 | Health Insights | `/blog/health-insights` |
 | Career openings | `/careers` |
 

@@ -94,10 +94,10 @@ Would you like information about a specific department?`;
 export function buildEmergencyChatAnswer(): string {
   return `🚑 Emergency Care
 
-For medical emergencies, please call the hospital immediately.
+For medical emergencies, please call the hospitals immediately.
 
 📞 Emergency / Ambulance: ${liveChatContact.emergency}
-📞 Hospital Contact: ${liveChatContact.phone}
+📞 Hospitals Contact: ${liveChatContact.phone}
 
 Our emergency services are available 24/7.`;
 }

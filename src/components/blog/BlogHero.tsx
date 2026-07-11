@@ -59,14 +59,14 @@ export default function BlogHero({ section }: BlogHeroProps) {
               </>
             ) : (
               <>
-                Hospital <span className="text-red-500">Blog</span>
+                Hospitals <span className="text-red-500">Blog</span>
               </>
             )}
           </h1>
           <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-300 sm:mt-4 sm:text-lg">
             {activeSection
               ? activeSection.description
-              : "Stay informed with hospital events, news, and expert health guidance from Adhiparasakthi Hospitals, Melmaruvathur."}
+              : "Stay informed with hospitals events, news, and expert health guidance from Adhiparasakthi Hospitals, Melmaruvathur."}
           </p>
         </motion.div>
       </div>

@@ -151,7 +151,7 @@ export default function HealthPackages() {
             href="/#book-appointment"
             className="inline-flex items-center justify-center rounded-full border-2 border-red-600 text-red-600 hover:bg-red-50 px-8 h-12 font-medium transition-all"
           >
-            Book at Hospital
+            Book at Hospitals
           </Link>
         </div>
       </div>

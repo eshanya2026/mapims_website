@@ -100,7 +100,7 @@ export default function MissionVisionSection() {
             />
             <PanelBody>
               <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                The Adhiparasakthi medical family is selflessly working every day, dedicating their lives to improve the lives of people, many of whom are poor ones belonging to the lower socioeconomic class of surrounding villages from agricultural background. His Holiness Arul Thiru Bangaru Adigalar&apos;s mission of humane healthcare delivery is accomplished through several instruments: the super specialty hospitals, community care, medical camps, preventive healthcare, health maintenance and education. His teachings and exemplary life have inspired thousands of individuals who administer care for patients.
+                The Adhiparasakthi medical family is selflessly working every day, dedicating their lives to improve the lives of people, many of whom are poor ones belonging to the lower socioeconomic class of surrounding villages from agricultural background. His Holiness Arul Thiru Bangaru Adigalar&apos;s mission of humane healthcare delivery is accomplished through several instruments: the super specialty hospitalss, community care, medical camps, preventive healthcare, health maintenance and education. His teachings and exemplary life have inspired thousands of individuals who administer care for patients.
               </p>
               <ul className="space-y-3">
                 {missionPoints.map((item, i) => (

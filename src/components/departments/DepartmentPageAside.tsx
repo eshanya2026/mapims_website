@@ -24,7 +24,7 @@ export default function DepartmentPageAside() {
             </h3>
           </div>
           <nav
-            aria-label="All hospital departments"
+            aria-label="All hospitals departments"
             className="max-h-[min(28rem,calc(100vh-14rem))] overflow-y-auto overscroll-contain"
           >
             {getDepartmentsForAside().map((dept) => {

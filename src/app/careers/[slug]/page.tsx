@@ -35,7 +35,7 @@ export async function generateMetadata({
   if (!job) return {};
 
   return {
-    title: `${job.title} | Careers at Adhiparasakthi Hospital`,
+    title: `${job.title} | Careers at Adhiparasakthi Hospitals`,
     description: job.description.slice(0, 160),
   };
 }

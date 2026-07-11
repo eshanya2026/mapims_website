@@ -64,12 +64,12 @@ export default function PostsCmsWorkspace({ posts }: PostsCmsWorkspaceProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [activeSection, setActiveSection] = useState<BlogSection>("hospital-news");
+  const [activeSection, setActiveSection] = useState<BlogSection>("hospitals-news");
   const [previewMode, setPreviewMode] = useState<PreviewMode>("list");
   const [panelOpen, setPanelOpen] = useState(false);
   const [editorMode, setEditorMode] = useState<"create" | "edit">("create");
   const [editingId, setEditingId] = useState<string | undefined>();
-  const [draft, setDraft] = useState<PostFormData>(() => createEmptyPost("hospital-news"));
+  const [draft, setDraft] = useState<PostFormData>(() => createEmptyPost("hospitals-news"));
   const [localPosts, setLocalPosts] = useState<AdminPostRecord[]>(() => sortAdminPosts(posts));
   const [reordering, setReordering] = useState(false);
   const reorderTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -182,11 +182,11 @@ export default function PostsCmsWorkspace({ posts }: PostsCmsWorkspaceProps) {
     if (isNew) {
       const section = searchParams.get("section") as BlogSection | null;
       openNewPost(
-        section === "hospital-events" ||
-          section === "hospital-news" ||
+        section === "hospitals-events" ||
+          section === "hospitals-news" ||
           section === "health-insights"
           ? section
-          : "hospital-news"
+          : "hospitals-news"
       );
     }
   }, [openEditPost, openNewPost, searchParams]);

@@ -7,8 +7,8 @@ import ConditionalSiteChrome from "@/components/layout/ConditionalSiteChrome";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Adhiparasakthi Hospital | Advanced Healthcare With Compassion",
-  description: "A premium multispeciality hospital providing world-class healthcare, advanced treatments, and compassionate patient care.",
+  title: "Adhiparasakthi Hospitals | Advanced Healthcare With Compassion",
+  description: "A premium multispeciality hospitals providing world-class healthcare, advanced treatments, and compassionate patient care.",
 };
 
 export default function RootLayout({

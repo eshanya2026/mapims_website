@@ -10,8 +10,8 @@ import { buildPromoNewsletterEmail } from "@/lib/newsletter-promo-email";
 import { buildNewsletterListHeaders } from "@/lib/newsletter-token";
 
 const NEWSLETTER_SECTIONS = new Set<BlogSection>([
-  "hospital-news",
-  "hospital-events",
+  "hospitals-news",
+  "hospitals-events",
 ]);
 
 type PublishedPost = Pick<

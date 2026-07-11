@@ -186,7 +186,7 @@ export default function AppointmentBookingBox({
                     {appointmentReferenceId}
                   </p>
                   <p className="mt-1 text-xs text-slate-500">
-                    Please quote this ID when you call the hospital.
+                    Please quote this ID when you call the hospitals.
                   </p>
                 </div>
               ) : null}

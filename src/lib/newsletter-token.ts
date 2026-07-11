@@ -75,6 +75,6 @@ export function buildNewsletterListHeaders(email: string) {
   return {
     "List-Unsubscribe": `<${oneClickUrl}>, <${mailto}>`,
     "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
-    "List-ID": "mapims-hospital-news.mapims.edu.in",
+    "List-ID": "mapims-hospitals-news.mapims.edu.in",
   };
 }

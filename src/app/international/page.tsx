@@ -8,7 +8,7 @@ import InternationalTestimonials from "@/components/international/InternationalT
 import InternationalDeskSection from "@/components/international/InternationalDeskSection";
 
 export const metadata: Metadata = {
-  title: "International Patients | Adhiparasakthi Hospital",
+  title: "International Patients | Adhiparasakthi Hospitals",
   description:
     "International Patient Care at MAPIMS — airport-to-airport support, world-class treatment, travel assistance, and dedicated coordinators at Melmaruvathur.",
 };

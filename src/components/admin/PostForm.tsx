@@ -30,8 +30,8 @@ type PostFormProps = {
 };
 
 const sections: { value: BlogSection; label: string }[] = [
-  { value: "hospital-news", label: "Hospital News" },
-  { value: "hospital-events", label: "Hospital Events" },
+  { value: "hospitals-news", label: "Hospitals News" },
+  { value: "hospitals-events", label: "Hospitals Events" },
   { value: "health-insights", label: "Health Insights" },
 ];
 
@@ -49,7 +49,7 @@ export default function PostForm({ initial, mode }: PostFormProps) {
     image: initial?.image ?? "",
     author: initial?.author ?? "",
     category: initial?.category ?? "",
-    section: initial?.section ?? "hospital-news",
+    section: initial?.section ?? "hospitals-news",
     published: initial?.published ?? false,
     featured: initial?.featured ?? false,
   });
@@ -125,7 +125,7 @@ export default function PostForm({ initial, mode }: PostFormProps) {
           {mode === "create" ? "New Post" : "Edit Post"}
         </h1>
         <p className="mt-1 text-sm text-slate-500">
-          Manage hospital news, events, or health insights.
+          Manage hospitals news, events, or health insights.
         </p>
       </div>
 

@@ -26,7 +26,7 @@ export async function generateMetadata({
   if (!post) return {};
 
   return {
-    title: `${post.title} | Adhiparasakthi Hospital Blog`,
+    title: `${post.title} | Adhiparasakthi Hospitals Blog`,
     description: post.excerpt,
   };
 }
@@ -38,7 +38,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const section = blogSections.find((item) => item.slug === post.section);
   const isNewsOrEvent =
-    post.section === "hospital-news" || post.section === "hospital-events";
+    post.section === "hospitals-news" || post.section === "hospitals-events";
 
   return (
     <main className="min-h-screen bg-slate-50 py-6 sm:py-10 md:py-14">

@@ -46,11 +46,11 @@ export default function AboutHero() {
           </span>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
-            About <span className="text-red-500">Adhiparasakthi</span> Hospital
+            About <span className="text-red-500">Adhiparasakthi</span> Hospitals
           </h1>
 
           <p className="text-lg md:text-xl text-slate-300 leading-relaxed mb-8 max-w-2xl">
-            A NABH-certified, 1000-bed tertiary care multispecialty hospital dedicated to compassionate healthcare, medical excellence, and community service at Melmaruvathur.
+            A NABH-certified, 1000-bed tertiary care multispecialty hospitals dedicated to compassionate healthcare, medical excellence, and community service at Melmaruvathur.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">

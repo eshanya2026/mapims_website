@@ -21,7 +21,7 @@ const contactItems = [
   },
   {
     icon: MapPin,
-    label: "Hospital location",
+    label: "Hospitals location",
     lines: [{ text: internationalDesk.address, href: internationalDesk.mapsUrl, external: true }],
   },
   {

@@ -100,7 +100,7 @@ export default function AppointmentScheduleFields({
     return (
       <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-8 text-center text-sm text-amber-900">
         Online appointments are not available for this department right now. Please call the
-        hospital to book.
+        hospitals to book.
       </div>
     );
   }
@@ -255,7 +255,7 @@ export default function AppointmentScheduleFields({
         <div className="min-w-0 text-sm text-slate-600">
           <p className="font-semibold text-slate-900">Department OPD schedule</p>
           <p className="mt-1">
-            Mon–Sat slots and Sun slots are managed by the hospital for this department.
+            Mon–Sat slots and Sun slots are managed by the hospitals for this department.
           </p>
           <p className="mt-1 text-xs text-slate-500">
             Crossed-out slots are already booked by another patient.

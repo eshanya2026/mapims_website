@@ -23,14 +23,14 @@ export const valueAddedServices: ValueAddedService[] = [
     title: "Free shuttle bus services",
     icon: Bus,
     content:
-      "At Adhiparasakthi Hospitals, we are committed to ensuring the health and well-being of our community by making healthcare accessible to all. As part of our mission to serve the people with compassion, we are pleased to offer a free shuttle bus service for patients and their attendants. The service helps families travel comfortably to and from the hospital, reducing the burden of transport during times of medical need.",
+      "At Adhiparasakthi Hospitals, we are committed to ensuring the health and well-being of our community by making healthcare accessible to all. As part of our mission to serve the people with compassion, we are pleased to offer a free shuttle bus service for patients and their attendants. The service helps families travel comfortably to and from the hospitals, reducing the burden of transport during times of medical need.",
   },
   {
     id: "avail",
     title: "How to Avail the Service",
     icon: CircleHelp,
     content:
-      "Patients and attendants can enquire about the free shuttle service at the hospital reception or International Patient help desk. Our staff will guide you on pickup points, timings, and routes. Please carry your appointment or admission details when requesting the service so we can assist you promptly.",
+      "Patients and attendants can enquire about the free shuttle service at the hospitals reception or International Patient help desk. Our staff will guide you on pickup points, timings, and routes. Please carry your appointment or admission details when requesting the service so we can assist you promptly.",
   },
   {
     id: "pharmacy",
@@ -51,14 +51,14 @@ export const valueAddedServices: ValueAddedService[] = [
     title: "24/7 Security Services",
     icon: Shield,
     content:
-      "The hospital campus is protected by trained security personnel available around the clock. Our team monitors entry points, assists visitors, and ensures a safe environment for patients, staff, and families at all hours.",
+      "The hospitals campus is protected by trained security personnel available around the clock. Our team monitors entry points, assists visitors, and ensures a safe environment for patients, staff, and families at all hours.",
   },
   {
     id: "cctv",
     title: "CCTV Surveillance",
     icon: Cctv,
     content:
-      "Comprehensive CCTV coverage across key areas of the hospital enhances safety and helps our security team respond quickly to any concern. Surveillance is maintained in accordance with hospital policies and patient privacy guidelines.",
+      "Comprehensive CCTV coverage across key areas of the hospitals enhances safety and helps our security team respond quickly to any concern. Surveillance is maintained in accordance with hospitals policies and patient privacy guidelines.",
   },
   {
     id: "quality",

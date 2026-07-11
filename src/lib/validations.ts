@@ -41,7 +41,7 @@ export const postSchema = z.object({
   image: z.string().min(1),
   author: z.string().optional(),
   category: z.string().min(2),
-  section: z.enum(["hospital-events", "hospital-news", "health-insights"]),
+  section: z.enum(["hospitals-events", "hospitals-news", "health-insights"]),
   published: z.boolean().default(false),
   featured: z.boolean().default(false),
 });
@@ -308,7 +308,7 @@ export const doctorReorderSchema = z.object({
 });
 
 export const postReorderSchema = z.object({
-  section: z.enum(["hospital-events", "hospital-news", "health-insights"]),
+  section: z.enum(["hospitals-events", "hospitals-news", "health-insights"]),
   orderedIds: z.array(z.string().min(1)).min(1),
 });
 

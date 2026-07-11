@@ -12,9 +12,9 @@ export async function notifySubscriberOfNewsletterSignup(email: string) {
   const siteUrl = getSiteUrl();
 
   const text = [
-    "Thank you for subscribing to MAPIMS Hospital updates.",
+    "Thank you for subscribing to MAPIMS Hospitals updates.",
     "",
-    "You will receive health tips, hospital news, and event announcements in your inbox.",
+    "You will receive health tips, hospitals news, and event announcements in your inbox.",
     "",
     `Visit us: ${siteUrl}`,
     "",
@@ -23,9 +23,9 @@ export async function notifySubscriberOfNewsletterSignup(email: string) {
 
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:640px;color:#0f172a;line-height:1.7;">
-      <p style="margin:0 0 16px;">Thank you for subscribing to <strong>MAPIMS Hospital</strong> updates.</p>
+      <p style="margin:0 0 16px;">Thank you for subscribing to <strong>MAPIMS Hospitals</strong> updates.</p>
       <p style="margin:0 0 16px;color:#475569;">
-        You will receive health tips, hospital news, and event announcements in your inbox.
+        You will receive health tips, hospitals news, and event announcements in your inbox.
       </p>
       <p style="margin:0;color:#475569;">
         <a href="${siteUrl}" style="color:#dc2626;text-decoration:none;">Visit our website</a>

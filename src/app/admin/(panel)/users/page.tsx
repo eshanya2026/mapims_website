@@ -11,7 +11,7 @@ export default async function AdminUsersPage() {
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-slate-900">CMS users</h1>
         <p className="mt-1 text-sm text-slate-500">
-          Manage admin accounts and role-based access for the hospital CMS.
+          Manage admin accounts and role-based access for the hospitals CMS.
         </p>
       </div>
       <AdminUsersWorkspace currentAdminId={session.adminId} />

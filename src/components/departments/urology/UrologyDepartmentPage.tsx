@@ -45,7 +45,7 @@ export default function UrologyDepartmentPage() {
     <main className="min-h-screen">
       <DepartmentPageHero
         breadcrumbLabel="Urology"
-        badge="Best urology hospital in India"
+        badge="Best urology hospitals in India"
         title={
           <>
             Urology <span className="text-red-500">Department</span>

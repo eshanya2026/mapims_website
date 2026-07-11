@@ -43,7 +43,7 @@ export const whyIndiaPoints: InternationalWhyPoint[] = [
   {
     icon: Languages,
     title: "Easy Communication",
-    desc: "English is widely used in hospitals, making coordination simple for international patients and families.",
+    desc: "English is widely used in hospitalss, making coordination simple for international patients and families.",
   },
   {
     icon: Award,
@@ -66,7 +66,7 @@ export const whyUsPoints: InternationalWhyPoint[] = [
   {
     icon: Building2,
     title: "1000+ Bed Tertiary Care",
-    desc: "MAPIMS is a super-specialty hospital with comprehensive departments under one roof at Melmaruvathur.",
+    desc: "MAPIMS is a super-specialty hospitals with comprehensive departments under one roof at Melmaruvathur.",
   },
   {
     icon: ShieldCheck,
@@ -81,7 +81,7 @@ export const whyUsPoints: InternationalWhyPoint[] = [
   {
     icon: Plane,
     title: "Residency & Transport",
-    desc: "On-campus residency for patients and attendants, with hospital-arranged transportation during treatment.",
+    desc: "On-campus residency for patients and attendants, with hospitals-arranged transportation during treatment.",
   },
   {
     icon: Stethoscope,
@@ -272,8 +272,8 @@ export const internationalSpecialities: InternationalSpeciality[] = [
 ];
 
 export const internationalReasons = [
-  "World-class tertiary care with 1000+ bed multispecialty hospital infrastructure.",
-  "NABH accredited hospital with Government of Tamil Nadu recognition.",
+  "World-class tertiary care with 1000+ bed multispecialty hospitals infrastructure.",
+  "NABH accredited hospitals with Government of Tamil Nadu recognition.",
   "Cost-effective treatment with transparent and ethical clinical practices.",
   "Experienced senior specialists across all super-specialty departments.",
   "Dedicated International Patient Department for end-to-end coordination.",
@@ -348,7 +348,7 @@ export const internationalFaqs = [
   {
     question: "Can I get a treatment cost estimate in advance?",
     answer:
-      "Yes. We provide detailed cost estimates and transparent package pricing before admission. Our team explains hospital charges, expected length of stay, and payment options so you can plan your visit with confidence.",
+      "Yes. We provide detailed cost estimates and transparent package pricing before admission. Our team explains hospitals charges, expected length of stay, and payment options so you can plan your visit with confidence.",
   },
   {
     question: "Is online consultation available before I visit India?",

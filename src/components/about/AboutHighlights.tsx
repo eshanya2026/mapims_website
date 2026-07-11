@@ -21,7 +21,7 @@ const highlights = [
   },
   {
     icon: GraduationCap,
-    title: "Teaching Hospital",
+    title: "Teaching Hospitals",
     desc: "MAPIMS — premier medical education, research, and academic excellence.",
   },
 ];

@@ -4,7 +4,7 @@ import InternationalPatientCareContent from "@/components/international/care/Int
 import InternationalFAQ from "@/components/international/InternationalFAQ";
 
 export const metadata: Metadata = {
-  title: "International Patients Care | Adhiparasakthi Hospital",
+  title: "International Patients Care | Adhiparasakthi Hospitals",
   description:
     "Comprehensive international patient care — dedicated coordinators, travel assistance, financial guidance, and world-class treatment at Melmaruvathur.",
 };

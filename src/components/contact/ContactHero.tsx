@@ -54,7 +54,7 @@ export default function ContactHero() {
           </span>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight">
-            Contact <span className="text-red-500">Adhiparasakthi</span> Hospital
+            Contact <span className="text-red-500">Adhiparasakthi</span> Hospitals
           </h1>
           <p className="text-lg text-slate-300 mt-4 max-w-2xl leading-relaxed">
             Call, email, or send a message — we’ll help you with appointments,

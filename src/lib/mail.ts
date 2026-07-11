@@ -79,7 +79,7 @@ export function toAbsoluteUrl(path: string) {
 function getMailFrom() {
   const from = process.env.SMTP_FROM?.trim();
   if (from) return from;
-  return `"MAPIMS Hospital" <${process.env.SMTP_USER}>`;
+  return `"MAPIMS Hospitals" <${process.env.SMTP_USER}>`;
 }
 
 export async function sendMail(options: SendMailOptions) {

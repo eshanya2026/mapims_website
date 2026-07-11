@@ -81,7 +81,7 @@ export default function NewsEvents({ posts }: NewsEventsProps) {
             </h2>
           </div>
           <Link
-            href="/blog/hospital-news"
+            href="/blog/hospitals-news"
             className="inline-flex items-center text-sm font-medium text-red-600 transition-colors hover:text-red-700"
           >
             View All Updates <ArrowRight className="ml-2 h-4 w-4" />

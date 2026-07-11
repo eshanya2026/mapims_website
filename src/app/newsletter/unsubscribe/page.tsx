@@ -5,7 +5,7 @@ import { unsubscribeFromNewsletter } from "@/lib/db/newsletter-subscribers";
 import { verifyNewsletterSubscriberToken } from "@/lib/newsletter-token";
 
 export const metadata: Metadata = {
-  title: "Unsubscribe | MAPIMS Hospital",
+  title: "Unsubscribe | MAPIMS Hospitals",
   robots: { index: false, follow: false },
 };
 
@@ -56,7 +56,7 @@ export default async function NewsletterUnsubscribePage({
           </h1>
           <p className="mt-4 text-slate-600">
             <span className="font-medium text-slate-900">{email}</span> will no
-            longer receive MAPIMS hospital news and event updates.
+            longer receive MAPIMS hospitals news and event updates.
           </p>
           <Link
             href="/"

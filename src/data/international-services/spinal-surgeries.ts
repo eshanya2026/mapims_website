@@ -8,7 +8,7 @@ export const spinalSurgeriesService: InternationalServiceData = {
   sectionLabel: "Spine Care",
   title: "Spinal",
   titleHighlight: "Surgery",
-  seoTitle: "Spine Surgery hospitals in chennai",
+  seoTitle: "Spine Surgery hospitalss in chennai",
   breadcrumbLabel: "Spinal Surgeries",
   heroBadge: "Comprehensive Spine Care",
   heroSubtitle:

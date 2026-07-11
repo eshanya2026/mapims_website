@@ -16,7 +16,7 @@ export const whyChooseUrology = [
   {
     title: "Advanced Minimally Invasive Procedures",
     description:
-      "Modern laser and endoscopic techniques that reduce pain, hospital stay, and recovery time.",
+      "Modern laser and endoscopic techniques that reduce pain, hospitals stay, and recovery time.",
   },
   {
     title: "Comprehensive Kidney Care",

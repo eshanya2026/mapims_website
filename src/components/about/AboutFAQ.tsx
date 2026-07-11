@@ -7,17 +7,17 @@ const faqs: FaqItem[] = [
   {
     question: "Can I consult online?",
     answer:
-      "Yes. You can request an online consultation through our website by booking an appointment or contacting us at +91 94990 59966 or contact@mapims.edu.in. Our team will guide you on available teleconsultation options, required reports, and follow-up care at the hospital when needed.",
+      "Yes. You can request an online consultation through our website by booking an appointment or contacting us at +91 94990 59966 or contact@mapims.edu.in. Our team will guide you on available teleconsultation options, required reports, and follow-up care at the hospitals when needed.",
   },
   {
-    question: "Is the hospital NABH accredited?",
+    question: "Is the hospitals NABH accredited?",
     answer:
-      "Yes. Adhiparasakthi Hospital is NABH accredited and recognized by the Government of Tamil Nadu for maintaining high standards in patient safety, clinical excellence, and quality healthcare delivery.",
+      "Yes. Adhiparasakthi Hospitals is NABH accredited and recognized by the Government of Tamil Nadu for maintaining high standards in patient safety, clinical excellence, and quality healthcare delivery.",
   },
   {
-    question: "How many beds and specialties does the hospital offer?",
+    question: "How many beds and specialties does the hospitals offer?",
     answer:
-      "We are a 1000+ bed super-specialty tertiary care hospital with departments including cardiology, neurology, oncology, orthopaedics, nephrology, transplant services, and many more — supported by experienced specialists and modern medical technology.",
+      "We are a 1000+ bed super-specialty tertiary care hospitals with departments including cardiology, neurology, oncology, orthopaedics, nephrology, transplant services, and many more — supported by experienced specialists and modern medical technology.",
   },
   {
     question: "Do you treat international patients?",
@@ -60,8 +60,8 @@ export default function AboutFAQ() {
             Frequently Asked <span className="text-red-600">Questions</span>
           </h2>
           <p className="leading-relaxed text-slate-600">
-            Quick answers about our hospital, accreditation, and how to get care
-            at Adhiparasakthi Hospital.
+            Quick answers about our hospitals, accreditation, and how to get care
+            at Adhiparasakthi Hospitals.
           </p>
         </motion.header>
 

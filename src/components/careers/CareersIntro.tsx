@@ -30,7 +30,7 @@ export default function CareersIntro() {
             <p className="text-base leading-relaxed text-slate-600 sm:text-lg">
               What&apos;s next for you? Whether it&apos;s pioneering medical advancements,
               enhancing your clinical expertise, or becoming a part of a dedicated community of
-              healthcare professionals, your journey begins here. At our hospital, we provide
+              healthcare professionals, your journey begins here. At our hospitals, we provide
               state-of-the-art resources, expert guidance, and a supportive environment to help
               you thrive.
             </p>

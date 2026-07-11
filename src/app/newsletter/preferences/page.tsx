@@ -5,7 +5,7 @@ import { findNewsletterSubscriberByEmail } from "@/lib/db/newsletter-subscribers
 import { verifyNewsletterSubscriberToken } from "@/lib/newsletter-token";
 
 export const metadata: Metadata = {
-  title: "Newsletter Preferences | MAPIMS Hospital",
+  title: "Newsletter Preferences | MAPIMS Hospitals",
   robots: { index: false, follow: false },
 };
 
@@ -63,7 +63,7 @@ export default async function NewsletterPreferencesPage({
           </p>
           <p className="mt-2 text-slate-600">
             {isActive
-              ? "You are currently subscribed to hospital news and event updates from MAPIMS."
+              ? "You are currently subscribed to hospitals news and event updates from MAPIMS."
               : "You are not currently subscribed to MAPIMS updates."}
           </p>
 

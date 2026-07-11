@@ -6,9 +6,9 @@ import ContactForm from "@/components/contact/ContactForm";
 import ContactLocationMap from "@/components/contact/ContactLocationMap";
 
 export const metadata: Metadata = {
-  title: "Contact | Adhiparasakthi Hospital",
+  title: "Contact | Adhiparasakthi Hospitals",
   description:
-    "Contact Adhiparasakthi Hospital, Melmaruvathur — phone, email, OPD timings, and directions.",
+    "Contact Adhiparasakthi Hospitals, Melmaruvathur — phone, email, OPD timings, and directions.",
 };
 
 export default function ContactPage() {

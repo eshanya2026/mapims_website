@@ -308,7 +308,7 @@ export default function Navbar() {
                 className="h-[5rem] w-[12rem] max-h-[6rem] max-w-[12rem] object-contain object-center shrink-0 sm:h-16 sm:max-w-[12rem] transform -translate-y-[5px]"
               />
               {/* <span className="text-sm sm:text-lg font-bold leading-tight text-slate-900 whitespace-nowrap">
-                Adhiparasakthi Hospital
+                Adhiparasakthi Hospitals
               </span> */}
             </span>
             <img

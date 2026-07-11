@@ -58,7 +58,7 @@ export const internationalCareTravel = {
       },
       {
         label: "Airport Transfers",
-        text: "Our team can arrange reliable transportation to and from the airport, ensuring your journey to our hospital is comfortable and convenient.",
+        text: "Our team can arrange reliable transportation to and from the airport, ensuring your journey to our hospitals is comfortable and convenient.",
       },
       {
         label: "Local Transportation",
@@ -74,8 +74,8 @@ export const internationalCareTravel = {
         text: "We have partnerships with nearby hotels and guesthouses that offer competitive rates and comfortable stays. Our staff will help you choose the accommodation that best suits your needs and budget.",
       },
       {
-        label: "In-Hospital Accommodation",
-        text: "For patients requiring extended care, we offer in-hospital accommodations for patients and their caregivers, ensuring you have everything you need during your treatment.",
+        label: "In-Hospitals Accommodation",
+        text: "For patients requiring extended care, we offer in-hospitals accommodations for patients and their caregivers, ensuring you have everything you need during your treatment.",
       },
       {
         label: "Assistance with Arrangements",
@@ -192,7 +192,7 @@ export const internationalNavGroups = [
     title: "Patient Care",
     items: [
       { name: "Patient Care & Services", href: "/international/care" },
-      { name: "Hospital Services", href: "/services" },
+      { name: "Hospitals Services", href: "/services" },
     ],
   },
 ];

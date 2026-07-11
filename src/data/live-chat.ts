@@ -73,7 +73,7 @@ export const liveChatFaqs: LiveChatFaq[] = [
   },
   {
     id: "location",
-    question: "Where is the hospital located?",
+    question: "Where is the hospitals located?",
     answer:
       "Adhiparasakthi Hospitals, Melmaruvathur, Kancheepuram District, Tamil Nadu, India 603319. Visit the Contact page on our website for directions and a map.",
   },
@@ -81,13 +81,13 @@ export const liveChatFaqs: LiveChatFaq[] = [
     id: "departments",
     question: "Which departments are available?",
     answer:
-      "MAPIMS is a 1000+ bed super-specialty hospital with cardiology, neurology, oncology, orthopaedics, nephrology, transplant, paediatrics, and many more. Browse all departments under Specialities on our website.",
+      "MAPIMS is a 1000+ bed super-specialty hospitals with cardiology, neurology, oncology, orthopaedics, nephrology, transplant, paediatrics, and many more. Browse all departments under Specialities on our website.",
   },
   {
     id: "nabh",
-    question: "Is the hospital NABH accredited?",
+    question: "Is the hospitals NABH accredited?",
     answer:
-      "Yes. Adhiparasakthi Hospital is NABH accredited and recognized by the Government of Tamil Nadu for patient safety and quality healthcare.",
+      "Yes. Adhiparasakthi Hospitals is NABH accredited and recognized by the Government of Tamil Nadu for patient safety and quality healthcare.",
   },
   {
     id: "international",
@@ -99,7 +99,7 @@ export const liveChatFaqs: LiveChatFaq[] = [
     id: "reports",
     question: "How can I get lab reports?",
     answer:
-      "Lab reports are shared after your tests are completed. For assistance, contact the hospital on +91 94990 59966 or visit the front office during OPD hours with your patient ID.",
+      "Lab reports are shared after your tests are completed. For assistance, contact the hospitals on +91 94990 59966 or visit the front office during OPD hours with your patient ID.",
   },
   {
     id: "health-packages",

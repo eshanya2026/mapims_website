@@ -31,7 +31,7 @@ const features = [
   },
   {
     icon: BookOpen,
-    title: "Teaching Hospital",
+    title: "Teaching Hospitals",
     desc: "A premier medical college fostering research and academic excellence.",
   },
 ];

@@ -10,9 +10,9 @@ import AboutSpecialistDoctors from "@/components/about/AboutSpecialistDoctors";
 import { getAboutDoctors } from "@/lib/doctors-content";
 
 export const metadata: Metadata = {
-  title: "About Us | Adhiparasakthi Hospital",
+  title: "About Us | Adhiparasakthi Hospitals",
   description:
-    "Learn about Adhiparasakthi Hospital — established in 1986, NABH certified, 1000-bed tertiary care multispecialty hospital at Melmaruvathur.",
+    "Learn about Adhiparasakthi Hospitals — established in 1986, NABH certified, 1000-bed tertiary care multispecialty hospitals at Melmaruvathur.",
 };
 
 export default async function AboutPage() {

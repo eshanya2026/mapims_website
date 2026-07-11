@@ -6,19 +6,19 @@ import BlogSectionNav from "@/components/blog/BlogSectionNav";
 import { getPublishedPosts } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Hospital News | Adhiparasakthi Hospital Blog",
+  title: "Hospitals News | Adhiparasakthi Hospitals Blog",
   description:
-    "Hospital announcements, milestones, and updates from Adhiparasakthi Hospitals at Melmaruvathur.",
+    "Hospitals announcements, milestones, and updates from Adhiparasakthi Hospitals at Melmaruvathur.",
 };
 
-export default async function HospitalNewsPage() {
-  const posts = await getPublishedPosts("hospital-news");
+export default async function HospitalsNewsPage() {
+  const posts = await getPublishedPosts("hospitals-news");
 
   return (
     <main className="min-h-screen">
-      <BlogHero section="hospital-news" />
-      <BlogSectionNav active="hospital-news" />
-      {posts.length > 0 ? <BlogGrid posts={posts} /> : <BlogComingSoon section="hospital-news" />}
+      <BlogHero section="hospitals-news" />
+      <BlogSectionNav active="hospitals-news" />
+      {posts.length > 0 ? <BlogGrid posts={posts} /> : <BlogComingSoon section="hospitals-news" />}
     </main>
   );
 }

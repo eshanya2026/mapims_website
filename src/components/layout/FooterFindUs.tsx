@@ -35,7 +35,7 @@ export default function FooterFindUs() {
   return (
     <div className="mt-12 border-t border-slate-800 pt-10">
       <FooterHeading>
-        {isInternational ? "Hospital Location" : "Find us on Google Maps"}
+        {isInternational ? "Hospitals Location" : "Find us on Google Maps"}
       </FooterHeading>
       {isInternational ? (
         <p className="-mt-2 mb-4 flex max-w-2xl gap-2 text-sm leading-relaxed text-slate-400">

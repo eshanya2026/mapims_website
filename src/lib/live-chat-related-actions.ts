@@ -86,7 +86,7 @@ const specialitiesAction: LiveChatRelatedAction = {
 
 const locationAction: LiveChatRelatedAction = {
   id: "location",
-  label: "Hospital Location",
+  label: "Hospitals Location",
   href: "/contact",
 };
 
@@ -158,7 +158,7 @@ function detectTopic(userQuestion: string | null): ChatTopic {
     return "opd";
   }
 
-  if (/\b(location|address|directions|where is|melmaruvathur|reach the hospital)\b/i.test(context)) {
+  if (/\b(location|address|directions|where is|melmaruvathur|reach the hospitals)\b/i.test(context)) {
     return "location";
   }
 

@@ -23,8 +23,8 @@ type PostEditorPanelProps = {
 };
 
 const sections: { value: BlogSection; label: string }[] = [
-  { value: "hospital-news", label: "Hospital News" },
-  { value: "hospital-events", label: "Hospital Events" },
+  { value: "hospitals-news", label: "Hospitals News" },
+  { value: "hospitals-events", label: "Hospitals Events" },
   { value: "health-insights", label: "Health Insights" },
 ];
 

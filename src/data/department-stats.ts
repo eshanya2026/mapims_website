@@ -361,7 +361,7 @@ export const neurologyStats: DepartmentHeroStat[] = [
   },
 ];
 
-/** Achievement figures — update when hospital publishes new totals */
+/** Achievement figures — update when hospitals publishes new totals */
 export const transplantHeroStats: DepartmentHeroStat[] = [
   {
     end: 43,

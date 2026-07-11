@@ -9,7 +9,7 @@ export const interventionalRadiologyService: InternationalServiceData = {
   sectionLabel: "Imaging & Procedures",
   title: "Interventional",
   titleHighlight: "Radiology",
-  seoTitle: "International Radiology hospitals in India",
+  seoTitle: "International Radiology hospitalss in India",
   breadcrumbLabel: "Interventional Radiology",
   heroBadge: "Minimally Invasive Care",
   heroSubtitle:

@@ -6,7 +6,7 @@ import CareersJobList from "@/components/careers/CareersJobList";
 import CareersApplicationForm from "@/components/careers/CareersApplicationForm";
 
 export const metadata: Metadata = {
-  title: "Careers | Adhiparasakthi Hospital",
+  title: "Careers | Adhiparasakthi Hospitals",
   description:
     "Join the team at Adhiparasakthi Hospitals. Explore current career openings in Melmaruvathur and build your future in healthcare.",
 };

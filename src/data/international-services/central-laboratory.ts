@@ -8,7 +8,7 @@ export const centralLaboratoryService: InternationalServiceData = {
   sectionLabel: "Diagnostics",
   title: "Central",
   titleHighlight: "Laboratory",
-  seoTitle: "Central Laboratory hospitals in India",
+  seoTitle: "Central Laboratory hospitalss in India",
   breadcrumbLabel: "Central Laboratory",
   heroBadge: "Diagnostic Excellence",
   heroSubtitle:
@@ -43,7 +43,7 @@ export const centralLaboratoryService: InternationalServiceData = {
       title: "Must-Know Information",
       items: [
         "Accredited Laboratory: Our laboratory is accredited by national and international standards.",
-        "Integrated Services: Seamlessly integrated with our hospital's departments for comprehensive care.",
+        "Integrated Services: Seamlessly integrated with our hospitals's departments for comprehensive care.",
         "Emergency Testing: Fast-track testing services available for urgent medical situations.",
         "Patient Portal: Access your test results online through our secure patient portal.",
         "Insurance & Billing: We accept a wide range of insurance plans and offer transparent billing.",

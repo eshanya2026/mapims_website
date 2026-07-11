@@ -5,7 +5,7 @@ import BlogSectionNav from "@/components/blog/BlogSectionNav";
 import { getPublishedPosts } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Health Insights | Adhiparasakthi Hospital Blog",
+  title: "Health Insights | Adhiparasakthi Hospitals Blog",
   description:
     "Expert health tips, preventive care guidance, and wellness advice from Adhiparasakthi Hospitals at Melmaruvathur.",
 };

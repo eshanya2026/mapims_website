@@ -30,11 +30,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const department = departments.find((d) => d.slug === slug);
 
   if (!department) {
-    return { title: "Department | Adhiparasakthi Hospital" };
+    return { title: "Department | Adhiparasakthi Hospitals" };
   }
 
   return {
-    title: `${department.name} | Adhiparasakthi Hospital`,
+    title: `${department.name} | Adhiparasakthi Hospitals`,
     description: department.description,
   };
 }

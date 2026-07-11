@@ -186,7 +186,7 @@ export default function AboutContent() {
                 </h2>
 
                 <p className="text-lg text-slate-700 leading-relaxed mb-6 font-medium border-l-4 border-red-600 pl-5">
-                  Melmaruvathur Adhiparasakthi Institute of Medical Sciences & Research (MAPIMS), a 1000+ bed super-specialty tertiary care hospital, is supported in all its specialty institutes and departments by an excellent, experienced, dedicated core team of senior medical specialists and committed nursing teams.
+                  Melmaruvathur Adhiparasakthi Institute of Medical Sciences & Research (MAPIMS), a 1000+ bed super-specialty tertiary care hospitals, is supported in all its specialty institutes and departments by an excellent, experienced, dedicated core team of senior medical specialists and committed nursing teams.
                 </p>
 
                 <div className="space-y-6 text-slate-600 leading-relaxed mb-10">
@@ -194,7 +194,7 @@ export default function AboutContent() {
                     Our teams have been providing succor and a healing touch to people from all walks of life — from top bureaucrats, celebrities, and major multinational corporates, to public sector organizations, the general public, and foreign patients from various countries of the Middle East, South East Asia, and the African continent.
                   </p>
                   <p>
-                    We at MAPIMS take delight to inform that all patients seeking good health at our hospital avail the same quality of medical services and facilities, along with state-of-the-art cutting-edge medical technology with successful outcomes — standards that are taken for granted by citizens in Western countries.
+                    We at MAPIMS take delight to inform that all patients seeking good health at our hospitals avail the same quality of medical services and facilities, along with state-of-the-art cutting-edge medical technology with successful outcomes — standards that are taken for granted by citizens in Western countries.
                   </p>
                   <p>
                     Besides the above, MAPIMS — Melmaruvathur is well known for cost leadership, total transparency, and ethical medical treatment and clinical practices across all its super-specialty institutes, departments, and various allied services in this part of the Indian sub-continent — to the advantage of all who seek good health and cures at our facility.

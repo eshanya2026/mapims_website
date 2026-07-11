@@ -111,7 +111,7 @@ export async function getFeaturedNewsAndEvents(limit = 3) {
   return safeQuery(async () => {
     const posts = await findPosts({
       published: true,
-      sections: ["hospital-news", "hospital-events"],
+      sections: ["hospitals-news", "hospitals-events"],
       limit,
     });
     return posts.map(mapPost);

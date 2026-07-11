@@ -8,7 +8,7 @@ export const dermatologyService: InternationalServiceData = {
   sectionLabel: "Skin Care",
   title: "Expert",
   titleHighlight: "Dermatology Care",
-  seoTitle: "Dermatology & venerology hospitals in India",
+  seoTitle: "Dermatology & venerology hospitalss in India",
   breadcrumbLabel: "Dermatology",
   heroBadge: "Dermatology & Venereology",
   heroSubtitle:

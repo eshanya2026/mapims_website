@@ -27,7 +27,7 @@ function escapeHtml(value: string) {
 }
 
 function sectionConfig(section: string) {
-  if (section === "hospital-events") {
+  if (section === "hospitals-events") {
     return {
       badge: "Upcoming Event",
       heading: "MAPIMS HOSPITAL EVENTS",
@@ -38,7 +38,7 @@ function sectionConfig(section: string) {
   }
 
   return {
-    badge: "Hospital Update",
+    badge: "Hospitals Update",
     heading: "MAPIMS HOSPITAL NEWS",
     kicker:
       "We're pleased to share an important update from Adhiparasakthi Hospitals.",
@@ -48,7 +48,7 @@ function sectionConfig(section: string) {
 
 export function promoEmailSubject(post: PromoPost) {
   const config = sectionConfig(post.section);
-  if (post.section === "hospital-events") {
+  if (post.section === "hospitals-events") {
     return `Join Us at MAPIMS — ${post.title}`;
   }
   return `New at MAPIMS — ${post.title}`;
@@ -84,7 +84,7 @@ export function buildPromoNewsletterEmail(
     `Book an appointment: ${appointmentUrl}`,
     `Helpline: ${HELPLINE}`,
     "",
-    "MAPIMS Hospital",
+    "MAPIMS Hospitals",
     "Melmaruvathur, Tamil Nadu",
     "",
     `Manage preferences: ${preferencesUrl}`,
@@ -140,7 +140,7 @@ export function buildPromoNewsletterEmail(
                           <a href="${siteUrl}" style="text-decoration:none;display:inline-block;">
                             <img
                               src="${logoUrl}"
-                              alt="MAPIMS Hospital"
+                              alt="MAPIMS Hospitals"
                               width="44"
                               height="44"
                               style="display:inline-block;vertical-align:middle;border:0;"
@@ -248,7 +248,7 @@ export function buildPromoNewsletterEmail(
                 <tr>
                   <td style="padding:18px 24px;background:#fff7ed;border-top:1px solid #fed7aa;border-bottom:1px solid #fed7aa;text-align:center;">
                     <p style="margin:0;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#9a3412;">
-                      NABH Accredited &nbsp;•&nbsp; 24/7 Emergency Care &nbsp;•&nbsp; Multispeciality Hospital
+                      NABH Accredited &nbsp;•&nbsp; 24/7 Emergency Care &nbsp;•&nbsp; Multispeciality Hospitals
                     </p>
                   </td>
                 </tr>
@@ -256,7 +256,7 @@ export function buildPromoNewsletterEmail(
                 <tr>
                   <td style="padding:28px 32px;background:#0f172a;text-align:center;">
                     <p style="margin:0 0 6px;font-size:17px;font-weight:700;color:#ffffff;">
-                      MAPIMS Hospital
+                      MAPIMS Hospitals
                     </p>
                     <p style="margin:0 0 18px;font-size:14px;line-height:1.6;color:#94a3b8;">
                       Melmaruvathur, Kancheepuram District<br />

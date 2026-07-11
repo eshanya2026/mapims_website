@@ -8,7 +8,7 @@ export const radiologyImagingService: InternationalServiceData = {
   sectionLabel: "Diagnostic Imaging",
   title: "Radiology &",
   titleHighlight: "Imaging Science",
-  seoTitle: "Radiology & Imaging Science hospitals in India",
+  seoTitle: "Radiology & Imaging Science hospitalss in India",
   breadcrumbLabel: "Radiology & Imaging Science",
   heroBadge: "Advanced Diagnostics",
   heroSubtitle:

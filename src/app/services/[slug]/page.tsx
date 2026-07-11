@@ -25,7 +25,7 @@ export async function generateMetadata({
   if (!service) return {};
 
   return {
-    title: `${service.seoTitle} | Adhiparasakthi Hospital`,
+    title: `${service.seoTitle} | Adhiparasakthi Hospitals`,
     description: service.intro,
   };
 }

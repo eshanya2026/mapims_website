@@ -20,7 +20,7 @@ export const serviceFaqsBySlug: Record<string, InternationalServiceFaq[]> = {
     {
       question: "Can family members accompany emergency patients?",
       answer:
-        "Yes. We offer family support and keep relatives informed during assessment and treatment. Our team coordinates with other hospital departments so emergency care continues seamlessly into surgery or inpatient care when needed.",
+        "Yes. We offer family support and keep relatives informed during assessment and treatment. Our team coordinates with other hospitals departments so emergency care continues seamlessly into surgery or inpatient care when needed.",
     },
   ],
   anaesthesiology: [
@@ -81,12 +81,12 @@ export const serviceFaqsBySlug: Record<string, InternationalServiceFaq[]> = {
     {
       question: "Is the laboratory accredited?",
       answer:
-        "Yes. Our laboratory follows stringent quality control and accreditation standards to ensure accurate, reliable results integrated with hospital departments for comprehensive patient care.",
+        "Yes. Our laboratory follows stringent quality control and accreditation standards to ensure accurate, reliable results integrated with hospitals departments for comprehensive patient care.",
     },
     {
       question: "How do I schedule a lab test?",
       answer:
-        "Tests are usually ordered by your treating doctor at MAPIMS. For more information or scheduling, contact the hospital at +91 94990 59966 or contact@mapims.edu.in.",
+        "Tests are usually ordered by your treating doctor at MAPIMS. For more information or scheduling, contact the hospitals at +91 94990 59966 or contact@mapims.edu.in.",
     },
   ],
   dermatology: [
@@ -174,7 +174,7 @@ export const serviceFaqsBySlug: Record<string, InternationalServiceFaq[]> = {
     {
       question: "How do I get referred for a procedure?",
       answer:
-        "Referral is usually from your treating physician or surgeon at MAPIMS or externally. Contact the hospital for consultation with our interventional radiology team.",
+        "Referral is usually from your treating physician or surgeon at MAPIMS or externally. Contact the hospitals for consultation with our interventional radiology team.",
     },
   ],
   "radiology-imaging-science": [

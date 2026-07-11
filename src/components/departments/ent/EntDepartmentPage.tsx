@@ -38,7 +38,7 @@ export default function EntDepartmentPage() {
     <main className="min-h-screen">
       <DepartmentPageHero
         breadcrumbLabel="ENT"
-        badge="Best ENT hospital in India"
+        badge="Best ENT hospitals in India"
         title={
           <>
             ENT (Otorhinolaryngology){" "}

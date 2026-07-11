@@ -9,7 +9,7 @@ export const anaesthesiologyService: InternationalServiceData = {
   title: "Anaesthesiology, Critical Care &",
   titleHighlight: "Pain Medicine",
   seoTitle:
-    "Anaesthesiology, Critical care & Pain medicine hospitals in India",
+    "Anaesthesiology, Critical care & Pain medicine hospitalss in India",
   breadcrumbLabel: "Anaesthesiology",
   heroBadge: "Anaesthesia & ICU",
   heroSubtitle:

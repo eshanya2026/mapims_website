@@ -54,7 +54,7 @@ const testimonials: Testimonial[] = [
   {
     name: "John M.",
     role: "Cardiac care · United Kingdom",
-    text: "We travelled from London for my father’s bypass evaluation. Airport pickup was arranged promptly, and we were given a room at GB Residency on the hospital campus — very convenient for daily visits. Updates from the international desk made a stressful trip manageable. The surgical team was thorough and the ICU nursing was excellent.",
+    text: "We travelled from London for my father’s bypass evaluation. Airport pickup was arranged promptly, and we were given a room at GB Residency on the hospitals campus — very convenient for daily visits. Updates from the international desk made a stressful trip manageable. The surgical team was thorough and the ICU nursing was excellent.",
     rating: 5,
   },
   {

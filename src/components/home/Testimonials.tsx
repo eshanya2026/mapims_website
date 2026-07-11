@@ -8,7 +8,7 @@ const testimonials = [
   {
     name: "Rahul Krishnan",
     role: "Patient",
-    text: "The care I received at Adhiparasakthi Hospital was exceptional. The doctors were attentive, and the nursing staff was incredibly compassionate. The facilities are truly world-class.",
+    text: "The care I received at Adhiparasakthi Hospitals was exceptional. The doctors were attentive, and the nursing staff was incredibly compassionate. The facilities are truly world-class.",
     rating: 4,
   },
   {

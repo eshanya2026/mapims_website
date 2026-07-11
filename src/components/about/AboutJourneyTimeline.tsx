@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 const milestones = [
   {
     year: "1986",
-    title: "Hospital Founded",
+    title: "Hospitals Founded",
     description:
       "Started with a vision of compassionate healthcare service.",
   },
@@ -31,7 +31,7 @@ const milestones = [
   },
   {
     year: "2024",
-    title: "1000+ Bed Super Specialty Hospital",
+    title: "1000+ Bed Super Specialty Hospitals",
     description:
       "A leading tertiary care campus delivering ethical, transparent, world-class treatment.",
   },
@@ -249,7 +249,7 @@ export default function AboutJourneyTimeline() {
             Our <span className="text-red-600">Journey</span>
           </h2>
           <p className="mt-4 leading-relaxed text-slate-600">
-            From a compassionate community hospital to a 1000+ bed super-specialty
+            From a compassionate community hospitals to a 1000+ bed super-specialty
             tertiary care institution — decades of service at Melmaruvathur.
           </p>
         </motion.header>
@@ -269,7 +269,7 @@ export default function AboutJourneyTimeline() {
               <div className="relative aspect-[4/5] w-full overflow-hidden sm:aspect-[16/10] lg:aspect-[4/5]">
                 <motion.img
                   src="/images/mapims-about-campus.png"
-                  alt="Adhiparasakthi Hospital campus at Melmaruvathur"
+                  alt="Adhiparasakthi Hospitals campus at Melmaruvathur"
                   style={{ objectPosition }}
                   className="absolute inset-0 h-full w-full object-cover"
                 />

@@ -55,12 +55,12 @@ export default function TopHeader() {
           </a>
 
           <a
-            href="mailto:info@adhiparasakthihospital.com"
+            href="mailto:info@adhiparasakthihospitals.com"
             className="col-span-2 flex min-w-0 items-start gap-1.5 text-slate-300"
           >
             <Mail className={`${iconClass} mt-0.5`} />
             <span className="break-all text-[10px] leading-snug sm:text-[11px]">
-              info@adhiparasakthihospital.com
+              info@adhiparasakthihospitals.com
             </span>
           </a>
         </div>
@@ -97,11 +97,11 @@ export default function TopHeader() {
               </span>
             </a>
             <a
-              href="mailto:info@adhiparasakthihospital.com"
+              href="mailto:info@adhiparasakthihospitals.com"
               className="flex min-w-0 items-center space-x-2 transition-colors hover:text-white"
             >
               <Mail className="h-4 w-4 shrink-0 text-red-600" />
-              <span className="truncate">info@adhiparasakthihospital.com</span>
+              <span className="truncate">info@adhiparasakthihospitals.com</span>
             </a>
           </div>
 

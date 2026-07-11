@@ -42,7 +42,7 @@ export default function FooterMap({
         )}
       >
         <iframe
-          title="Adhiparasakthi Hospital location on Google Maps"
+          title="Adhiparasakthi Hospitals location on Google Maps"
           src={MAP_EMBED_URL}
           className="absolute inset-0 h-full w-full border-0"
           loading="lazy"

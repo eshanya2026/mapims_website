@@ -29,7 +29,7 @@ export default function Footer() {
                   className="h-[5rem] w-[12rem] max-h-[6rem] max-w-[12rem] object-contain object-center shrink-0 sm:h-16 sm:max-w-[12rem] transform -translate-y-[5px]"
                 />
                 {/* <span className="text-base sm:text-lg font-bold leading-tight text-white whitespace-nowrap">
-                  Adhiparasakthi Hospital
+                  Adhiparasakthi Hospitals
                 </span> */}
               </span>
               <img
@@ -103,7 +103,7 @@ export default function Footer() {
 
         <div className="mt-12 border-t border-slate-800 pt-8">
           <p className="text-sm text-slate-500 text-center">
-            &copy; {new Date().getFullYear()} Adhiparasakthi Hospital. All
+            &copy; {new Date().getFullYear()} Adhiparasakthi Hospitals. All
             rights reserved.
           </p>
         </div>

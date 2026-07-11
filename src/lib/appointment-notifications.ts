@@ -32,7 +32,7 @@ function buildAppointmentConfirmationEmail(submission: FormSubmissionRecord) {
   const referenceHtml = referenceId
     ? `<div style="margin:0 0 20px;padding:14px 16px;background:#fef2f2;border:1px solid #fecaca;border-radius:12px;">
         <p style="margin:0;font-size:14px;color:#7f1d1d;"><strong>Appointment Reference:</strong> ${escapeHtml(referenceId)}</p>
-        <p style="margin:8px 0 0;font-size:13px;color:#991b1b;">Please quote this reference when you visit the hospital or call to confirm.</p>
+        <p style="margin:8px 0 0;font-size:13px;color:#991b1b;">Please quote this reference when you visit the hospitals or call to confirm.</p>
       </div>`
     : "";
 
@@ -50,7 +50,7 @@ function buildAppointmentConfirmationEmail(submission: FormSubmissionRecord) {
     "",
     "This is a request confirmation. Our front office team may contact you to verify your appointment.",
     "",
-    "Hospital Contact",
+    "Hospitals Contact",
     `Email: ${HOSPITAL_CONTACT_EMAIL}`,
     `Phone: ${HOSPITAL_CONTACT_PHONE}`,
     "",
@@ -83,7 +83,7 @@ function buildAppointmentConfirmationEmail(submission: FormSubmissionRecord) {
         This is a request confirmation. Our front office team may contact you to verify your appointment.
       </p>
       <div style="margin:0 0 24px;padding:16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;">
-        <p style="margin:0 0 10px;font-size:14px;font-weight:700;color:#334155;">Hospital Contact</p>
+        <p style="margin:0 0 10px;font-size:14px;font-weight:700;color:#334155;">Hospitals Contact</p>
         <p style="margin:0;color:#475569;">
           Email: <a href="mailto:${HOSPITAL_CONTACT_EMAIL}" style="color:#dc2626;text-decoration:none;">${HOSPITAL_CONTACT_EMAIL}</a><br />
           Phone: ${HOSPITAL_CONTACT_PHONE}

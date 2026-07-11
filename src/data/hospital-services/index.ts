@@ -1,5 +1,5 @@
 import type { InternationalServiceData } from "@/data/international-services/types";
-import { servicesList } from "@/data/hospital-services/services-list";
+import { servicesList } from "./services-list";
 
 export const servicesPath = "/services";
 

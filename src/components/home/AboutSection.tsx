@@ -60,7 +60,7 @@ export default function AboutSection() {
                 loading="lazy"
                 decoding="async"
                 src="/images/hospital-casualty-emergency.png"
-                alt="Adhiparasakthi Hospital Casualty and Emergency Care"
+                alt="Adhiparasakthi Hospitals Casualty and Emergency Care"
                 className="w-full h-full object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent" />
@@ -96,21 +96,21 @@ export default function AboutSection() {
           >
             <div className="flex items-center gap-2 mb-4">
               <div className="w-12 h-[2px] bg-red-600"></div>
-              <span className="text-red-600 font-semibold uppercase tracking-wider text-sm">About Our Hospital</span>
+              <span className="text-red-600 font-semibold uppercase tracking-wider text-sm">About Our Hospitals</span>
             </div>
             <h2 className="mb-6 text-3xl font-bold leading-tight text-slate-900 sm:text-4xl md:text-5xl">
-              Welcome to <span className="text-red-600">Adhiparasakthi</span> Hospital
+              Welcome to <span className="text-red-600">Adhiparasakthi</span> Hospitals
             </h2>
             <p className="text-base text-slate-600 mb-4 leading-relaxed">
-              <strong className="text-slate-800">We started in 1986.</strong> Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research (MAPIMS) was established in 2008. The hospital — evolved as Adhiparasakthi Hospitals by His Holiness Padmashri Bangaru Adigalar and run by non-profit ACMEC Trust — is NABH certified, with 1000 beds across 5 floors.
+              <strong className="text-slate-800">We started in 1986.</strong> Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research (MAPIMS) was established in 2008. The hospitals — evolved as Adhiparasakthi Hospitals by His Holiness Padmashri Bangaru Adigalar and run by non-profit ACMEC Trust — is NABH certified, with 1000 beds across 5 floors.
             </p>
             <p className="text-sm text-slate-500 mb-8 leading-relaxed">
-              Nestled in sylvan settings, we have grown from primary care into a leading acute tertiary hospital — offering primary, secondary, and tertiary care, critical care, and inpatient & day-patient services across medical and surgical disciplines.
+              Nestled in sylvan settings, we have grown from primary care into a leading acute tertiary hospitals — offering primary, secondary, and tertiary care, critical care, and inpatient & day-patient services across medical and surgical disciplines.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-10">
               {[
-                "Hospital since 1986 · MAPIMS since 2008",
+                "Hospitals since 1986 · MAPIMS since 2008",
                 "NABH certified · 1000-bed tertiary care",
                 "5-floor modern facility",
                 "Run by non-profit ACMEC Trust",

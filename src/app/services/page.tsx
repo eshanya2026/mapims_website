@@ -3,9 +3,9 @@ import ServicesHero from "@/components/services/ServicesHero";
 import ServicesGrid from "@/components/services/ServicesGrid";
 
 export const metadata: Metadata = {
-  title: "Hospital Services | Adhiparasakthi Hospital",
+  title: "Hospitals Services | Adhiparasakthi Hospitals",
   description:
-    "Emergency, surgical, diagnostic, and specialty hospital services at Adhiparasakthi Hospitals, Melmaruvathur.",
+    "Emergency, surgical, diagnostic, and specialty hospitals services at Adhiparasakthi Hospitals, Melmaruvathur.",
 };
 
 export default function ServicesPage() {

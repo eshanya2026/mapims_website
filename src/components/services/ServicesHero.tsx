@@ -8,7 +8,7 @@ import HeroBackground from "@/components/layout/HeroBackground";
 const stats = [
   { value: "11+", label: "Clinical services" },
   { value: "24/7", label: "Emergency care" },
-  { value: "NABH", label: "Accredited hospital" },
+  { value: "NABH", label: "Accredited hospitals" },
 ];
 
 export default function ServicesHero() {
@@ -56,7 +56,7 @@ export default function ServicesHero() {
           </span>
 
           <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl">
-            Hospital <span className="text-red-500">Services</span>
+            Hospitals <span className="text-red-500">Services</span>
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-300">
             Emergency care, surgery, diagnostics, and specialty programmes — all

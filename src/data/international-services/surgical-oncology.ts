@@ -8,7 +8,7 @@ export const surgicalOncologyService: InternationalServiceData = {
   sectionLabel: "Cancer Care",
   title: "Surgical",
   titleHighlight: "Oncology",
-  seoTitle: "Surgical Oncology hospitals in India",
+  seoTitle: "Surgical Oncology hospitalss in India",
   breadcrumbLabel: "Surgical Oncology",
   heroBadge: "Expert Cancer Surgery",
   heroSubtitle:
