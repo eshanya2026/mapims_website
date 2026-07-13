@@ -8,6 +8,16 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/blog/hospital-news",
+        destination: "/blog/hospitals-news",
+        permanent: true,
+      },
+      {
+        source: "/blog/hospital-events",
+        destination: "/blog/hospitals-events",
+        permanent: true,
+      },
+      {
         source: "/international/care/:slug",
         destination: "/services/:slug",
         permanent: true,

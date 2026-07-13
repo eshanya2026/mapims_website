@@ -43,6 +43,16 @@ function formatDate(date: Date) {
   });
 }
 
+function normalizeBlogSection(section: string): BlogSection {
+  if (section === "hospital-events" || section === "hospitals-events") {
+    return "hospitals-events";
+  }
+  if (section === "hospital-news" || section === "hospitals-news") {
+    return "hospitals-news";
+  }
+  return section as BlogSection;
+}
+
 function mapPost(post: {
   id: string;
   slug: string;
@@ -63,7 +73,7 @@ function mapPost(post: {
     date: formatDate(post.publishedAt),
     author: post.author ?? undefined,
     category: post.category,
-    section: post.section as BlogSection,
+    section: normalizeBlogSection(post.section),
     image: post.image,
     excerpt: post.excerpt,
     content: post.content,
@@ -86,7 +96,16 @@ export async function getPublishedPosts(section?: BlogSection) {
   return safeQuery(async () => {
     const posts = await findPosts({
       published: true,
-      ...(section ? { section } : {}),
+      ...(section
+        ? {
+            sections:
+              section === "hospitals-events"
+                ? ["hospitals-events", "hospital-events"]
+                : section === "hospitals-news"
+                  ? ["hospitals-news", "hospital-news"]
+                  : [section],
+          }
+        : {}),
     });
     return posts.map(mapPost);
   }, []);
@@ -111,7 +130,7 @@ export async function getFeaturedNewsAndEvents(limit = 3) {
   return safeQuery(async () => {
     const posts = await findPosts({
       published: true,
-      sections: ["hospitals-news", "hospitals-events"],
+      sections: ["hospitals-news", "hospital-news", "hospitals-events", "hospital-events"],
       limit,
     });
     return posts.map(mapPost);

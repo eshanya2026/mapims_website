@@ -28,7 +28,7 @@ export const blogSections: {
     slug: "hospitals-news",
     label: "Hospitals News",
     href: "/blog/hospitals-news",
-    description: "Hospitals announcements, milestones, accreditations, and facility updates.",
+    description: "Hospital announcements, milestones, accreditations, and facility updates.",
   },
   {
     slug: "health-insights",

@@ -125,7 +125,7 @@ export default function PostForm({ initial, mode }: PostFormProps) {
           {mode === "create" ? "New Post" : "Edit Post"}
         </h1>
         <p className="mt-1 text-sm text-slate-500">
-          Manage hospitals news, events, or health insights.
+          Manage hospital news, events, or health insights.
         </p>
       </div>
 

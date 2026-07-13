@@ -8,7 +8,7 @@ import { getPublishedPosts } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Hospitals News | Adhiparasakthi Hospitals Blog",
   description:
-    "Hospitals announcements, milestones, and updates from Adhiparasakthi Hospitals at Melmaruvathur.",
+    "Hospital announcements, milestones, and updates from Adhiparasakthi Hospitals at Melmaruvathur.",
 };
 
 export default async function HospitalsNewsPage() {
