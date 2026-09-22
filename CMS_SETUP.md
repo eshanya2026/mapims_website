@@ -94,3 +94,36 @@ In **Site settings → Environment variables**, add:
 npm run db:seed   # Re-seed admin + default posts
 npm run build     # Production build
 ```
+
+## Docker Production Setup
+
+### 1. Build & Run with Docker Compose
+
+To build and start the entire stack (MongoDB on `3004`, Web/API on `1004`):
+
+```bash
+docker compose up -d --build
+```
+
+### 2. Production Hardened Mode
+
+Runs with `restart: always` and elevated log rotation limits:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+```
+
+### 3. Check Status and Logs
+
+```bash
+docker compose ps
+docker compose logs -f frontend
+```
+
+### 4. Database Setup / Seeding
+
+You can seed the database directly from your host machine (since port 3004 is exposed):
+
+```bash
+MONGODB_URI="mongodb://localhost:3004/mapims-cms" npm run db:setup
+```

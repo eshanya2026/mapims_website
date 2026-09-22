@@ -1,0 +1,20 @@
+# Dependencies and build outputs
+node_modules
+.next
+.git
+.vscode
+.netlify
+
+# Environment files with secrets
+.env
+.env*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Static HTML scrapers and temp files
+tmp-*.html
+*.tsbuildinfo

@@ -1,0 +1,26 @@
+# MAPIMS Website - Production Compose Override
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+#
+# Features:
+#   1. Sets 'restart: always' for high availability.
+#   2. Increases logging rotation limits for production traffic.
+
+services:
+  mongo:
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"
+
+  frontend:
+    restart: always
+    environment:
+      - NODE_ENV=production
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "5"

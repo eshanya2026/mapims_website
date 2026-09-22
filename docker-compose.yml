@@ -1,46 +1,110 @@
-# MAPIMS Website (Adhiparasakthi Hospitals)
+# MAPIMS Website (Adhiparasakthi Hospitals) - Production Docker Compose
 # Reserved Ports:
-#   Frontend: 1004
-#   Backend:  2004
-#   MongoDB:  3004
+#   Frontend (Next.js Web & API): 1004
+#   Backend (Reserved):           2004
+#   MongoDB:                      3004
 #
-# Usage:
-#   Run MongoDB locally on port 3004:
-#     docker compose up -d mongo
-#   Run full stack:
-#     docker compose up -d
+# Quick Start:
+#   1. Ensure .env is configured (copy from .env.example)
+#   2. Build and start services in background:
+#        docker compose up -d --build
+#   3. Check service health:
+#        docker compose ps
+#   4. View logs:
+#        docker compose logs -f frontend
 
 services:
   mongo:
     image: mongo:7
     container_name: mapims_mongo
+    restart: unless-stopped
     ports:
-      - "3004:27017"
+      - "${MONGODB_HOST_BIND:-0.0.0.0}:${MONGODB_PORT:-3004}:27017"
     volumes:
       - mongo_data:/data/db
+    networks:
+      - mapims_net
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
-      interval: 5s
+      interval: 10s
       timeout: 5s
       retries: 5
-    restart: unless-stopped
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
-  # Optional local backend service container (reserved on 2004)
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mapims_frontend:latest
+    container_name: mapims_frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-1004}:1004"
+    environment:
+      - NODE_ENV=production
+      - PORT=1004
+      - HOSTNAME=0.0.0.0
+      # Connect to internal mongo container by default; override in .env if using Atlas
+      - MONGODB_URI=${MONGODB_URI:-mongodb://mongo:27017/mapims-cms}
+      - MONGODB_DB_NAME=${MONGODB_DB_NAME:-mapims-cms}
+      - AUTH_SECRET=${AUTH_SECRET}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - HR_NOTIFICATION_EMAIL=${HR_NOTIFICATION_EMAIL}
+      - SITE_URL=${SITE_URL:-http://localhost:1004}
+      - BACKEND_URL=${BACKEND_URL:-http://localhost:2004}
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_SECURE=${SMTP_SECURE}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASS=${SMTP_PASS}
+      - SMTP_FROM=${SMTP_FROM}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - BLOB_READ_WRITE_TOKEN=${BLOB_READ_WRITE_TOKEN}
+      - BLOB_STORE_ID=${BLOB_STORE_ID}
+    env_file:
+      - .env
+    volumes:
+      - uploads_data:/app/public/uploads
+    depends_on:
+      mongo:
+        condition: service_healthy
+    networks:
+      - mapims_net
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:1004/api/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 25s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Reserved for future standalone backend service (Port 2004)
+  # Note: The Next.js frontend currently serves all fullstack API endpoints (/api/*).
   # backend:
   #   container_name: mapims_backend
   #   ports:
-  #     - "2004:2004"
+  #     - "${BACKEND_PORT:-2004}:2004"
   #   restart: unless-stopped
-
-  # Web application container (reserved on 1004)
-  # frontend:
-  #   container_name: mapims_frontend
-  #   ports:
-  #     - "1004:1004"
-  #   depends_on:
-  #     mongo:
-  #       condition: service_healthy
-  #   restart: unless-stopped
+  #   networks:
+  #     - mapims_net
 
 volumes:
   mongo_data:
+    name: mapims_mongo_data
+  uploads_data:
+    name: mapims_uploads_data
+
+networks:
+  mapims_net:
+    name: mapims_network
+    driver: bridge
