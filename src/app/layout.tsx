@@ -9,6 +9,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Adhiparasakthi Hospitals | Advanced Healthcare With Compassion",
   description: "A premium multispeciality hospitals providing world-class healthcare, advanced treatments, and compassionate patient care.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

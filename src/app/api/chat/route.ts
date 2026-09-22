@@ -6,7 +6,7 @@ import {
   CHAT_RATE_LIMIT_MESSAGE,
   recordChatRequest,
 } from "@/lib/live-chat-guard";
-import { generateLiveChatReply } from "@/lib/live-chat-groq";
+import { generateLiveChatReply } from "@/lib/live-chat-openrouter";
 import {
   buildOutOfScopeReply,
   isOutOfScopeChatMessage,
@@ -24,7 +24,12 @@ const chatRequestSchema = z.object({
 
 function chatErrorStatus(message: string) {
   if (message === CHAT_RATE_LIMIT_MESSAGE) return 429;
-  if (message.includes("GROQ_API_KEY")) return 503;
+  if (
+    message.includes("OPENROUTER_API_KEY") ||
+    message.includes("GROQ_API_KEY")
+  ) {
+    return 503;
+  }
   return 500;
 }
 

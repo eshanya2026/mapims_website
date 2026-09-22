@@ -11,7 +11,7 @@ const OUT_OF_SCOPE_PATTERNS: RegExp[] = [
   /\bweather\b|\bforecast\b|\btemperature today\b|\brain today\b|\bclimate\b/i,
   /\bwho is the cm\b|\bchief minister\b|\bprime minister\b|\bpresident of\b|\belection\b|\bpolitics\b|\bgovernment of(?! tamil nadu hospitals)/i,
   /\bfootball\b|\bcricket score\b|\bmovie\b|\bnetflix\b|\brecipe\b|\bjoke\b|\bpoem\b|\bstory about\b/i,
-  /\bchatgpt\b|\bgpt\b|\bopenai\b|\bgroq\b|\bai model\b/i,
+  /\bchatgpt\b|\bgpt\b|\bopenai\b|\bgroq\b|\bopenrouter\b|\bai model\b/i,
   /\bhomework\b|\bessay\b|\bassignment\b/i,
   /\bstock price\b|\bbitcoin\b|\bcrypto\b|\bforex\b/i,
   /\btranslate\b.+\bto\b/i,
