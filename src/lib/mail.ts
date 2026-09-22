@@ -68,7 +68,7 @@ export function getSiteUrl() {
     return normalizeSiteUrl(explicit);
   }
 
-  return "http://localhost:3001";
+  return "http://localhost:1004";
 }
 
 export function toAbsoluteUrl(path: string) {

@@ -1,0 +1,46 @@
+# MAPIMS Website (Adhiparasakthi Hospitals)
+# Reserved Ports:
+#   Frontend: 1004
+#   Backend:  2004
+#   MongoDB:  3004
+#
+# Usage:
+#   Run MongoDB locally on port 3004:
+#     docker compose up -d mongo
+#   Run full stack:
+#     docker compose up -d
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: mapims_mongo
+    ports:
+      - "3004:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Optional local backend service container (reserved on 2004)
+  # backend:
+  #   container_name: mapims_backend
+  #   ports:
+  #     - "2004:2004"
+  #   restart: unless-stopped
+
+  # Web application container (reserved on 1004)
+  # frontend:
+  #   container_name: mapims_frontend
+  #   ports:
+  #     - "1004:1004"
+  #   depends_on:
+  #     mongo:
+  #       condition: service_healthy
+  #   restart: unless-stopped
+
+volumes:
+  mongo_data:

@@ -6,10 +6,10 @@
     "node": "22.x"
   },
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "next dev -p 1004",
     "build": "next build",
     "build:netlify": "npm run db:setup && npm run build",
-    "start": "next start",
+    "start": "next start -p 1004",
     "lint": "eslint",
     "db:seed": "tsx scripts/seed.ts",
     "db:setup": "tsx scripts/seed.ts"

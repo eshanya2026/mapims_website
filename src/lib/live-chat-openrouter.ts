@@ -37,7 +37,7 @@ export async function generateLiveChatReply(
   };
 
   if (useOpenRouter) {
-    const siteUrl = process.env.SITE_URL?.trim() || "http://localhost:3001";
+    const siteUrl = process.env.SITE_URL?.trim() || "http://localhost:1004";
     headers["HTTP-Referer"] = siteUrl;
     headers["X-Title"] = "MAPIMS Hospitals Live Chat";
   }

@@ -42,12 +42,20 @@ This project uses MongoDB Atlas via the official `mongodb` driver. Connection se
 npm run dev
 ```
 
-The site runs on [http://localhost:3001](http://localhost:3001).
+The site runs on [http://localhost:1004](http://localhost:1004).
+
+## Reserved Port Allocation
+
+| Component | Port | Description | URL / URI |
+|---|---|---|---|
+| **Frontend** | `1004` | Next.js Web App / Patient Portal | `http://localhost:1004` |
+| **Backend** | `2004` | Reserved for API services / Backend | `http://localhost:2004` |
+| **MongoDB** | `3004` | Reserved for local MongoDB instance / container | `mongodb://localhost:3004/mapims-cms` |
 
 ## Admin access
 
-- Login: [http://localhost:3001/admin/login](http://localhost:3001/admin/login)
-- Dashboard: [http://localhost:3001/admin](http://localhost:3001/admin)
+- Login: [http://localhost:1004/admin/login](http://localhost:1004/admin/login)
+- Dashboard: [http://localhost:1004/admin](http://localhost:1004/admin)
 
 **Change the default admin password after first login** by updating `ADMIN_PASSWORD` and re-running the seed, or by adding a password-change flow later.
 
