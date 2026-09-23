@@ -10,7 +10,14 @@ const activeSlugPartialIndex = {
 async function ensureActiveSlugIndex(collectionName: string) {
   const db = await getDb();
   const collection = db.collection(collectionName);
-  const indexes = await collection.indexes();
+  let indexes: any[] = [];
+  try {
+    indexes = await collection.indexes();
+  } catch (err: any) {
+    if (err?.code !== 26 && err?.codeName !== "NamespaceNotFound") {
+      throw err;
+    }
+  }
   const slugIndex = indexes.find(
     (index) => index.key?.slug === 1 && index.unique === true
   );
@@ -32,7 +39,14 @@ async function ensureActiveSlugIndex(collectionName: string) {
 async function ensureJobsIndexes() {
   const db = await getDb();
   const jobs = db.collection("jobs");
-  const indexes = await jobs.indexes();
+  let indexes: any[] = [];
+  try {
+    indexes = await jobs.indexes();
+  } catch (err: any) {
+    if (err?.code !== 26 && err?.codeName !== "NamespaceNotFound") {
+      throw err;
+    }
+  }
   const strayReferenceIdIndex = indexes.find(
     (index) => index.key?.referenceId === 1
   );

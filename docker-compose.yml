@@ -45,6 +45,7 @@ services:
     restart: unless-stopped
     ports:
       - "${FRONTEND_PORT:-1004}:1004"
+      - "${BACKEND_PORT:-2004}:1004"
     environment:
       - NODE_ENV=production
       - PORT=1004
