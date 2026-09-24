@@ -311,11 +311,9 @@ export default function Navbar() {
                 Adhiparasakthi Hospitals
               </span> */}
             </span>
-            <img
-              src="/images/nabh-nabl-certifications.png"
-              alt="NABH and NABL certified"
-              className="h-9 sm:h-11 md:h-12 w-auto max-w-[100px] sm:max-w-[130px] object-contain shrink-0 border-l border-slate-200 pl-2 sm:pl-3 ml-0.5"
-            />
+            <div
+              id="NABH-NABL">          
+            </div>
           </Link>
 
           <nav className="hidden nav:flex items-center flex-1 justify-center min-w-0 gap-0.5">

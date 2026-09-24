@@ -21,22 +21,20 @@ export default function Footer() {
         {/* Main link columns */}
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1.6fr)_minmax(0,1fr)] gap-10 lg:gap-8 lg:items-start">
           <div className="space-y-5 min-w-0">
-            <ScrollToTopLink href="/" className="inline-flex items-center gap-3 group max-w-full flex-wrap sm:flex-nowrap">
+            <ScrollToTopLink href="/" className="bg-white rounded-md pt-2 inline-flex items-center gap-3 group max-w-full flex-wrap sm:flex-nowrap">
               <span className="flex items-center gap-1.5 sm:gap-2 shrink-0 min-w-0 transition-transform group-hover:scale-[1.02]">
                 <img
                   src="/images/adhiparasakthi-hospitals-emblem.png"
                   alt="Adhiparasakthi Hospitals emblem"
                   className="h-[5rem] w-[12rem] max-h-[6rem] max-w-[12rem] object-contain object-center shrink-0 sm:h-16 sm:max-w-[12rem] transform -translate-y-[5px]"
                 />
-                {/* <span className="text-base sm:text-lg font-bold leading-tight text-white whitespace-nowrap">
-                  Adhiparasakthi Hospitals
-                </span> */}
               </span>
-              <img
-                src="/images/nabh-nabl-certifications.png"
-                alt="NABH and NABL certified"
-                className="h-11 sm:h-12 w-auto max-w-[120px] sm:max-w-[140px] object-contain shrink-0 border-l border-slate-700 pl-3"
-              />
+              <div
+                id="NABH-NABL"
+                
+              >
+               
+              </div>
             </ScrollToTopLink>
 
             <ul className="space-y-4">

@@ -119,6 +119,18 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+#NABH-NABL{
+  width: 120px;
+  display: flex;
+  height: 60px;
+  background-image: 
+  url(https://upload.wikimedia.org/wikipedia/en/d/d4/NABL_Official_LOGO_Registered.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original),
+  url(https://nabh-portal-live.s3.ap-south-1.amazonaws.com/wp-content/uploads/2025/08/28194810/cropped-nabh-logo-1.png);
+  background-position: left 10px center, left 65px center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  clip-path: polygon(0% 0% , 100% 0%, 100% 50px, 0% 50px);
+}
 
 @layer base {
   * {
