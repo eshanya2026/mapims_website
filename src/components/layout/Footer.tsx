@@ -31,9 +31,7 @@ export default function Footer() {
               </span>
               <div
                 id="NABH-NABL"
-                
               >
-               
               </div>
             </ScrollToTopLink>
 
