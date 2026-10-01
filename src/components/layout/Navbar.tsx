@@ -6,7 +6,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import BookAppointmentLink from "@/components/layout/BookAppointmentLink";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { departments } from "@/data/departments";
+import { departments, getDepartmentHref } from "@/data/departments";
 import { internationalNavGroups } from "@/data/international-patient-care";
 import { blogSections } from "@/data/blog-posts";
 import { servicesPath } from "@/data/hospital-services";
@@ -38,7 +38,7 @@ const departmentDropdownItems: NavDropdownItem[] = [
   { name: "All Specialities", href: "/departments", highlight: true },
   ...departments.map((dept) => ({
     name: dept.name,
-    href: `/departments/${dept.slug}`,
+    href: getDepartmentHref(dept.slug),
   })),
 ];
 

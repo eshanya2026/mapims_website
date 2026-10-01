@@ -20,23 +20,9 @@ import {
   getAvailableTimeSlotsForDate,
   getDefaultAppointmentDate,
 } from "@/data/appointment-slots";
+import { departments as departmentList } from "@/data/departments";
 
-const departments = [
-  "General Medicine",
-  "Cardiology",
-  "Neurology",
-  "Orthopaedics",
-  "Oncology",
-  "Nephrology",
-  "Gastroenterology",
-  "Pediatrics",
-  "Pulmonology",
-  "Dermatology",
-  "ENT",
-  "Ophthalmology",
-  "General Surgery",
-  "Emergency",
-];
+const departments = departmentList.map((dept) => dept.name);
 
 type AppointmentBookingBoxProps = {
   idPrefix?: string;

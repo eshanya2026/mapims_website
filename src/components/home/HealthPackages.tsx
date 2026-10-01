@@ -27,7 +27,7 @@ export default function HealthPackages() {
   return (
     <section
       id="health-packages"
-      className="section-padding bg-gradient-to-b from-red-50/40 via-white to-red-50/30"
+      className="section-padding bg-gradient-to-b from-red-50/40 via-white to-red-50/30 scroll-mt-28"
     >
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">

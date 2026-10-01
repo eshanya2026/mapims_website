@@ -3,38 +3,6 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { CheckCircle2, ArrowRight, ShieldCheck } from "lucide-react";
-import { useEffect, useState } from "react";
-
-const Counter = ({ end, label, suffix = "" }: { end: number, label: string, suffix?: string }) => {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    let start = 0;
-    const duration = 2000;
-    const increment = end / (duration / 16);
-    
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= end) {
-        setCount(end);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 16);
-
-    return () => clearInterval(timer);
-  }, [end]);
-
-  return (
-    <div className="flex flex-col">
-      <span className="mb-1 text-3xl font-bold text-red-600 sm:text-4xl">
-        {count}{suffix}
-      </span>
-      <span className="text-sm font-medium text-slate-500 uppercase tracking-wider">{label}</span>
-    </div>
-  );
-};
 
 export default function AboutSection() {
   return (
@@ -96,7 +64,7 @@ export default function AboutSection() {
           >
             <div className="flex items-center gap-2 mb-4">
               <div className="w-12 h-[2px] bg-red-600"></div>
-              <span className="text-red-600 font-semibold uppercase tracking-wider text-sm">About Our Hospitals</span>
+              <span className="text-red-600 font-semibold uppercase tracking-wider text-sm">Why Us</span>
             </div>
             <h2 className="mb-6 text-3xl font-bold leading-tight text-slate-900 sm:text-4xl md:text-5xl">
               Welcome to <span className="text-red-600">Adhiparasakthi</span> Hospitals
@@ -120,13 +88,6 @@ export default function AboutSection() {
                   <span className="text-slate-700 text-sm font-medium">{item}</span>
                 </div>
               ))}
-            </div>
-
-            <div className="mb-10 grid grid-cols-1 gap-4 rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:grid-cols-2 sm:gap-6 sm:p-6 md:grid-cols-4">
-              <Counter end={1000} label="Beds" suffix="+" />
-              <Counter end={100} label="Doctors" suffix="+" />
-              <Counter end={5} label="Floors" />
-              <Counter end={40} label="Years of Service" suffix="+" />
             </div>
 
             <Link
