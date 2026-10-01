@@ -14,7 +14,7 @@ type StatConfig = {
 
 const stats: StatConfig[] = [
   { icon: BedDouble, end: 1000, suffix: "+", label: "Hospitals Beds" },
-  { icon: Users, end: 100, suffix: "+", label: "Expert Doctors" },
+  { icon: Users, end: 200, suffix: "+", label: "Doctors" },
   {
     icon: Ambulance,
     display: "24/7",

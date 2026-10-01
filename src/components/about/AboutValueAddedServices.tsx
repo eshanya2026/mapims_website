@@ -8,8 +8,8 @@ import { cn } from "@/lib/utils";
 
 const highlights = [
   { value: "8+", label: "Patient support services" },
-  { value: "24/7", label: "Campus security" },
-  { value: "Free", label: "Shuttle for patients" },
+  { value: "Free", label: "Shuttle bus services" },
+  { value: "Free", label: "Pharmacy services" },
 ];
 
 export default function AboutValueAddedServices() {
@@ -155,7 +155,7 @@ export default function AboutValueAddedServices() {
                           transition={{ duration: 0.25, ease: "easeInOut" }}
                           className="overflow-hidden"
                         >
-                          <div className="px-4 sm:px-5 py-5 sm:pl-[4.25rem] bg-white border-t border-slate-100 text-slate-600 text-sm leading-relaxed">
+                          <div className="px-4 sm:px-5 py-5 sm:pl-[4.25rem] bg-white border-t border-slate-100 text-slate-600 text-sm leading-relaxed whitespace-pre-line">
                             {service.content}
                           </div>
                         </motion.div>

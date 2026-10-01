@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck, Clock, Microscope, GraduationCap } from "lucide-react";
+import { ShieldCheck, Clock, Microscope, HeartPulse } from "lucide-react";
 
 const highlights = [
   {
@@ -20,9 +20,9 @@ const highlights = [
     desc: "State-of-the-art imaging, labs, and digital health infrastructure.",
   },
   {
-    icon: GraduationCap,
-    title: "Teaching Hospitals",
-    desc: "MAPIMS — premier medical education, research, and academic excellence.",
+    icon: HeartPulse,
+    title: "Multi Organ Transplant",
+    desc: "Government-authorized liver and kidney transplant care with specialized surgical units.",
   },
 ];
 

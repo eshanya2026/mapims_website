@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Award, Clock, ShieldPlus, UserCheck, Laptop, BookOpen } from "lucide-react";
+import { Award, Clock, ShieldPlus, UserCheck, Laptop, HeartPulse } from "lucide-react";
 
 const features = [
   {
@@ -30,9 +30,9 @@ const features = [
     desc: "Seamless digital experience from booking to accessing reports.",
   },
   {
-    icon: BookOpen,
-    title: "Teaching Hospitals",
-    desc: "A premier medical college fostering research and academic excellence.",
+    icon: HeartPulse,
+    title: "Multi Organ Transplant",
+    desc: "Government-authorized liver and kidney transplant care with specialized surgical units.",
   },
 ];
 

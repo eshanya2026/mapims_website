@@ -10,6 +10,7 @@ import {
   HeartHandshake,
   CircleHelp,
   History,
+  Sparkles,
 } from "lucide-react";
 import AboutJourneyTimeline from "@/components/about/AboutJourneyTimeline";
 import MissionVisionSection from "@/components/about/MissionVisionSection";
@@ -24,6 +25,11 @@ const sidebarLinks = [
     id: "value-added-services",
     label: "Value Added Services",
     icon: HeartHandshake,
+  },
+  {
+    id: "unique-services",
+    label: "Our Unique Services",
+    icon: Sparkles,
   },
   { id: "faq", label: "FAQ", icon: CircleHelp },
 ] as const;
@@ -47,6 +53,7 @@ export default function AboutContent() {
       "our-journey",
       "mission-vision",
       "value-added-services",
+      "unique-services",
       "faq",
     ];
     const observer = new IntersectionObserver(
@@ -186,10 +193,13 @@ export default function AboutContent() {
                 </h2>
 
                 <p className="text-lg text-slate-700 leading-relaxed mb-6 font-medium border-l-4 border-red-600 pl-5">
-                  Melmaruvathur Adhiparasakthi Institute of Medical Sciences & Research (MAPIMS), a 1000+ bed super-specialty tertiary care hospitals, is supported in all its specialty institutes and departments by an excellent, experienced, dedicated core team of senior medical specialists and committed nursing teams.
+                  We started in 1986. Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research (MAPIMS) was established in 2008. The hospitals — evolved as Adhiparasakthi Hospitals by His Holiness Padmashri Bangaru Adigalar and run by non-profit ACMEC Trust — is NABH certified, with 1000 beds across 5 floors.
                 </p>
 
                 <div className="space-y-6 text-slate-600 leading-relaxed mb-10">
+                  <p>
+                    Melmaruvathur Adhiparasakthi Institute of Medical Sciences &amp; Research (MAPIMS), a 1000+ bed super-specialty tertiary care hospitals, is supported in all its specialty institutes and departments by an excellent, experienced, dedicated core team of senior medical specialists and committed nursing teams.
+                  </p>
                   <p>
                     Our teams have been providing succor and a healing touch to people from all walks of life — from top bureaucrats, celebrities, and major multinational corporates, to public sector organizations, the general public, and foreign patients from various countries of the Middle East, South East Asia, and the African continent.
                   </p>

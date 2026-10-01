@@ -4,6 +4,7 @@ import AboutStats from "@/components/about/AboutStats";
 import AboutContent from "@/components/about/AboutContent";
 import AboutHighlights from "@/components/about/AboutHighlights";
 import AboutValueAddedServices from "@/components/about/AboutValueAddedServices";
+import OurUniqueServices from "@/components/about/OurUniqueServices";
 import CertificationSection from "@/components/about/CertificationSection";
 import AboutFAQ from "@/components/about/AboutFAQ";
 import AboutSpecialistDoctors from "@/components/about/AboutSpecialistDoctors";
@@ -24,6 +25,7 @@ export default async function AboutPage() {
       <AboutStats />
       <AboutContent />
       <AboutValueAddedServices />
+      <OurUniqueServices />
       <AboutHighlights />
       <CertificationSection />
       <AboutFAQ />
