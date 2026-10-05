@@ -50,6 +50,11 @@ export const jointReplacementServices = [
       "Unicompartmental Knee Replacement",
       "Revision Knee Replacement",
     ],
+    image: "/images/knee-replacement.png",
+    badge: "Total & Partial Knee (TKR)",
+    badgeColor: "red" as const,
+    imageCaption: "Total Knee Replacement (TKR), Unicompartmental Knee & Revision Arthroplasty",
+    imagePosition: "center 45%",
   },
   {
     title: "Hip Replacement",
@@ -58,6 +63,11 @@ export const jointReplacementServices = [
       "Complex Hip Reconstruction",
       "Revision Hip Replacement",
     ],
+    image: "/images/hip-replacement.png",
+    badge: "Total Hip & Revision (THR)",
+    badgeColor: "blue" as const,
+    imageCaption: "Total Hip Replacement (THR), Complex Hip Reconstruction & Revision Surgeries",
+    imagePosition: "center 50%",
   },
   {
     title: "Shoulder Replacement",
@@ -66,6 +76,11 @@ export const jointReplacementServices = [
       "Reverse Total Shoulder Replacement",
       "Shoulder Resurfacing Procedures",
     ],
+    image: "/images/shoulder-replacement.png",
+    badge: "Total & Reverse Shoulder",
+    badgeColor: "red" as const,
+    imageCaption: "Anatomical Total Shoulder Replacement, Reverse Shoulder & Resurfacing",
+    imagePosition: "center 40%",
   },
   {
     title: "Upper Limb Joint Replacement",
@@ -73,6 +88,11 @@ export const jointReplacementServices = [
       "Total Elbow Replacement",
       "Wrist Joint Replacement (Wrist Arthroplasty)",
     ],
+    image: "/images/upper-limb-joint.png",
+    badge: "Elbow & Wrist Arthroplasty",
+    badgeColor: "blue" as const,
+    imageCaption: "Specialized Upper Extremity Joint Arthroplasty, Total Elbow & Wrist Replacement",
+    imagePosition: "center",
   },
 ];
 
