@@ -147,7 +147,7 @@ export const medicalGastroenterologyStats: DepartmentHeroStat[] = [
     end: 6,
     suffix: "+",
     label: "Advanced Technologies",
-    sublabel: "HD endoscopy, EUS, capsule & more",
+    sublabel: "HD endoscopy, capsule & more",
   },
 ];
 

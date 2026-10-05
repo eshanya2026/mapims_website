@@ -204,7 +204,7 @@ export const departments: Department[] = [
     slug: "medical-gastroenterology",
     name: "Medical Gastroenterology",
     description:
-      "Comprehensive digestive, liver, and colorectal care—with advanced endoscopy, ERCP, EUS, and minimally invasive treatment options.",
+      "Comprehensive digestive, liver, and colorectal care—with advanced endoscopy, diagnostic imaging, and minimally invasive treatment options.",
     image: "/images/medical%20gastro.png",
   },
   {
