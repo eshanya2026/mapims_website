@@ -40,6 +40,11 @@ export const medicalGastroenterologyServices = [
       "Inflammatory Bowel Disease (Crohn's Disease & Ulcerative Colitis)",
       "Chronic Constipation & Diarrhea",
     ],
+    image: "/images/digestive-disease.png",
+    badge: "GERD, IBS & Gut Disorders",
+    badgeColor: "red" as const,
+    imageCaption: "Clinical Management of Acid Reflux (GERD), IBS, Ulcers & Digestive Disorders",
+    imagePosition: "center 45%",
   },
   {
     title: "Liver & Pancreatic Care",
