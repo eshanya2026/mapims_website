@@ -27,7 +27,7 @@ export const departmentFaqsBySlug: Record<string, FaqItem[]> = {
     {
       question: "What types of cancer do you treat?",
       answer:
-        "Our Oncology Department treats a wide range of cancers through medical, surgical, and radiation oncology, with multidisciplinary tumour boards to plan individualized care.",
+        "Our Oncology Department treats a wide range of cancers through medical and surgical oncology, with multidisciplinary tumour boards to plan individualized care.",
     },
     {
       question: "How is cancer diagnosed?",
@@ -35,14 +35,14 @@ export const departmentFaqsBySlug: Record<string, FaqItem[]> = {
         "Diagnosis may include clinical examination, blood tests, imaging (CT, MRI, PET where indicated), biopsy, and pathology review. Your oncologist will recommend the appropriate tests based on symptoms and findings.",
     },
     {
-      question: "Do you provide chemotherapy and radiation therapy?",
+      question: "Do you provide chemotherapy and targeted therapies?",
       answer:
-        "Yes. We offer chemotherapy, radiation therapy, and coordinated supportive care, with treatment plans tailored to cancer type, stage, and overall health.",
+        "Yes. We offer chemotherapy, targeted therapy, immunotherapy, and coordinated supportive care, with treatment plans tailored to cancer type, stage, and overall health.",
     },
     {
       question: "Is cancer surgery available?",
       answer:
-        "Yes. Surgical oncology is available for suitable cancers, planned in coordination with medical and radiation oncology for comprehensive treatment.",
+        "Yes. Surgical oncology is available for suitable cancers, planned in coordination with medical oncology for comprehensive treatment.",
     },
     {
       question: "Can I get a second opinion from your specialists?",

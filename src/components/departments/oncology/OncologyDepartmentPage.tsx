@@ -1,6 +1,6 @@
 "use client";
 
-import { Microscope, Radiation, Scissors } from "lucide-react";
+import { Microscope, Scissors } from "lucide-react";
 import DepartmentHeroStats from "@/components/departments/DepartmentHeroStats";
 import DepartmentPatientCareSection from "@/components/departments/DepartmentPatientCareSection";
 import DepartmentFAQ from "@/components/departments/DepartmentFAQ";
@@ -29,7 +29,7 @@ import {
   DepartmentGradientPanel,
 } from "@/components/departments/design";
 
-const serviceIcons = [Microscope, Radiation, Scissors] as const;
+const serviceIcons = [Microscope, Scissors] as const;
 
 export default function OncologyDepartmentPage() {
   return (

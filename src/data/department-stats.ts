@@ -10,9 +10,9 @@ export type DepartmentHeroStat = {
 
 export const oncologyStats: DepartmentHeroStat[] = [
   {
-    end: 3,
+    end: 2,
     label: "Oncology Disciplines",
-    sublabel: "Medical, radiation & surgical",
+    sublabel: "Medical & surgical oncology",
   },
   {
     end: 4,

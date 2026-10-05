@@ -42,14 +42,6 @@ export const oncologyServices = [
     ],
   },
   {
-    title: "Radiation Oncology",
-    bullets: [
-      "IMRT, IGRT, and brachytherapy for precise cancer treatment.",
-      "Advanced radiation therapies with minimal impact on healthy tissues.",
-      "Palliative radiation for symptom relief and improved quality of life.",
-    ],
-  },
-  {
     title: "Surgical Oncology",
     bullets: [
       "Minimally invasive and open cancer surgeries.",
@@ -60,8 +52,6 @@ export const oncologyServices = [
 ];
 
 export const oncologyInfrastructure = [
-  "PET-CT, MRI, and advanced pathology laboratories.",
-  "High-precision linear accelerators for radiation therapy.",
   "Modern surgical suites for complex oncology procedures.",
   "Multidisciplinary team-based treatment planning.",
 ];
