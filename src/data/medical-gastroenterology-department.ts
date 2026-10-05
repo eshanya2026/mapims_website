@@ -97,6 +97,11 @@ export const medicalGastroenterologyServices = [
       "Flexible Sigmoidoscopy",
       "Polypectomy",
     ],
+    image: "/images/diagnostic-endoscopy.png",
+    badge: "Advanced Endoscopy & Interventions",
+    badgeColor: "red" as const,
+    imageCaption: "Diagnostic & Therapeutic Upper GI Endoscopy, Colonoscopy & Polypectomy",
+    imagePosition: "center 50%",
   },
   {
     title: "Minimally Invasive Surgery Support",
@@ -105,6 +110,11 @@ export const medicalGastroenterologyServices = [
       "Gastrointestinal Surgical Coordination",
       "Complex Digestive Disorder Management",
     ],
+    image: "/images/minimally-invasive-surgery.png",
+    badge: "Precision Laparoscopic Surgery",
+    badgeColor: "blue" as const,
+    imageCaption: "Advanced Laparoscopic & Minimally Invasive Gastrointestinal Surgical Procedures",
+    imagePosition: "center 55%",
   },
 ];
 
