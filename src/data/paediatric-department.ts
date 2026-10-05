@@ -38,6 +38,11 @@ export const paediatricServices = [
       "Preventive Health Screenings",
       "Nutritional Guidance",
     ],
+    image: "/images/routine-child-care.png",
+    badge: "Well-Baby & Preventive Care",
+    badgeColor: "blue" as const,
+    imageCaption: "Routine Child Health Care, Growth Monitoring & Well-Baby Check-ups",
+    imagePosition: "center",
   },
   {
     title: "Vaccination Services",
@@ -73,15 +78,6 @@ export const paediatricServices = [
       "High-Risk Newborn Management",
       "Neonatal Intensive Care Unit (NICU)",
       "Newborn Screening Services",
-    ],
-  },
-  {
-    title: "Pediatric Surgery",
-    bullets: [
-      "Congenital Anomaly Corrections",
-      "General Pediatric Surgical Procedures",
-      "Trauma & Emergency Surgery",
-      "Post-Surgical Rehabilitation",
     ],
   },
 ];

@@ -6,7 +6,6 @@ import {
   Activity,
   Shield,
   Baby,
-  Heart,
 } from "lucide-react";
 import DepartmentHeroStats from "@/components/departments/DepartmentHeroStats";
 import DepartmentPatientCareSection from "@/components/departments/DepartmentPatientCareSection";
@@ -44,7 +43,6 @@ const serviceIcons = [
   Activity,
   Shield,
   Baby,
-  Heart,
 ] as const;
 
 export default function PaediatricDepartmentPage() {

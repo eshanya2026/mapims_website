@@ -141,7 +141,7 @@ export const departments: Department[] = [
     slug: "paediatric",
     name: "Pediatrics",
     description:
-      "Comprehensive child healthcare from infancy through adolescence—wellness visits, vaccinations, neonatal care, pediatric surgery, and 24/7 emergency support.",
+      "Comprehensive child healthcare from infancy through adolescence—routine wellness visits, free vaccination under 5 yrs, neonatal care, and 24/7 emergency support.",
     image: "/images/paedrtrics.png",
   },
   {

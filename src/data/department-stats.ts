@@ -200,10 +200,9 @@ export const diabetologyStats: DepartmentHeroStat[] = [
 
 export const paediatricStats: DepartmentHeroStat[] = [
   {
-    end: 500,
-    suffix: "+",
-    label: "Emergency Cases / Year",
-    sublabel: "Children under age 4",
+    display: "Free",
+    label: "Vaccination",
+    sublabel: "Under 5 yrs",
   },
   {
     display: "24/7",
