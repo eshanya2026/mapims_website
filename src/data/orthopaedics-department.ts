@@ -115,13 +115,18 @@ export const orthopaedicsServices = [
     imagePosition: "center",
   },
   {
-    title: "Foot, Ankle & Upper Limb Surgery",
+    title: "Foot, Ankle & Ligament Surgery",
     bullets: [
       "Foot & Ankle Reconstruction",
-      "Hand Surgery",
-      "Wrist & Elbow Disorders",
-      "Nerve Compression Syndromes",
+      "Ligament Repair & Joint Stabilization",
+      "Tendon Transfers & Deformity Correction",
+      "Upper Limb & Hand Surgery",
     ],
+    image: "/images/foot-ankle-surgery.png",
+    badge: "Ligament & Reconstructive Care",
+    badgeColor: "red" as const,
+    imageCaption: "Advanced Foot, Ankle & Ligament Reconstruction Surgery",
+    imagePosition: "center 55%",
   },
 ];
 
