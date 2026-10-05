@@ -52,6 +52,11 @@ export const paediatricServices = [
       "Travel Vaccinations",
       "Vaccination Counseling",
     ],
+    image: "/images/vaccination-services.png",
+    badge: "Immunization & Preventive Vaccines",
+    badgeColor: "red" as const,
+    imageCaption: "National Immunization Programs, Free Under 5 Yrs & Childhood Vaccinations",
+    imagePosition: "center",
   },
   {
     title: "Acute Pediatric Care",
@@ -61,6 +66,11 @@ export const paediatricServices = [
       "Gastrointestinal Disorders",
       "Injury & Emergency Care",
     ],
+    image: "/images/acute-pediatric-care.png",
+    badge: "Fever, Infection & Urgent Care",
+    badgeColor: "blue" as const,
+    imageCaption: "Emergency Management of Pediatric Fevers, Infections & Acute Childhood Illnesses",
+    imagePosition: "center 45%",
   },
   {
     title: "Chronic Disease Management",
