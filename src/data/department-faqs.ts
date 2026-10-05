@@ -32,7 +32,7 @@ export const departmentFaqsBySlug: Record<string, FaqItem[]> = {
     {
       question: "How is cancer diagnosed?",
       answer:
-        "Diagnosis may include clinical examination, blood tests, imaging (CT, MRI, PET where indicated), biopsy, and pathology review. Your oncologist will recommend the appropriate tests based on symptoms and findings.",
+        "Diagnosis may include clinical examination, blood tests, imaging (CT, MRI), biopsy, and pathology review. Your oncologist will recommend the appropriate tests based on symptoms and findings.",
     },
     {
       question: "Do you provide chemotherapy and targeted therapies?",

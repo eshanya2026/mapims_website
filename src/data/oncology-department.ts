@@ -52,6 +52,7 @@ export const oncologyServices = [
 ];
 
 export const oncologyInfrastructure = [
+  "CT, MRI, and advanced pathology laboratories.",
   "Modern surgical suites for complex oncology procedures.",
   "Multidisciplinary team-based treatment planning.",
 ];
