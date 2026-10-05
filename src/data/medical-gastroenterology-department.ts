@@ -114,7 +114,7 @@ export const medicalGastroenterologyServices = [
     badge: "Precision Laparoscopic Surgery",
     badgeColor: "blue" as const,
     imageCaption: "Advanced Laparoscopic & Minimally Invasive Gastrointestinal Surgical Procedures",
-    imagePosition: "center 55%",
+    imagePosition: "center bottom",
   },
 ];
 
