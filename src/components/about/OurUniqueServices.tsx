@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   HeartPulse,
@@ -9,62 +10,87 @@ import {
   Droplets,
   ShieldPlus,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const uniqueServices = [
   {
     id: "organ-transplant",
     title: "Organ Transplant",
     icon: HeartPulse,
-    accent: "from-red-500 to-rose-600",
   },
   {
     id: "fertility-clinic",
     title: "Fertility Clinic (Kriyasakthi)",
     icon: Baby,
-    accent: "from-rose-500 to-pink-600",
   },
   {
     id: "joint-replacement",
     title: "Joint Replacement",
     icon: Bone,
-    accent: "from-amber-500 to-orange-600",
   },
   {
     id: "spine-surgeries",
     title: "Spine Surgeries",
     icon: Activity,
-    accent: "from-blue-600 to-indigo-600",
   },
   {
     id: "dialysis-services",
     title: "24/7 Dialysis Services",
     icon: Droplets,
-    accent: "from-cyan-600 to-teal-600",
   },
   {
     id: "orthoscopic-sports-medicine",
     title: "Orthoscopic and Sports Medicine",
     icon: ShieldPlus,
-    accent: "from-emerald-600 to-green-600",
   },
 ];
 
 export default function OurUniqueServices() {
+  const [activeTouchId, setActiveTouchId] = useState<string | null>(null);
+  const touchTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const leftColumn = uniqueServices.slice(0, 3);
+  const rightColumn = uniqueServices.slice(3, 6);
+
+  useEffect(() => {
+    return () => {
+      if (touchTimerRef.current) clearTimeout(touchTimerRef.current);
+    };
+  }, []);
+
+  const handleTouchStart = (id: string) => {
+    if (touchTimerRef.current) clearTimeout(touchTimerRef.current);
+    setActiveTouchId(id);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchTimerRef.current) clearTimeout(touchTimerRef.current);
+    touchTimerRef.current = setTimeout(() => {
+      setActiveTouchId(null);
+    }, 400);
+  };
+
+  const handleTouchCancel = () => {
+    if (touchTimerRef.current) clearTimeout(touchTimerRef.current);
+    setActiveTouchId(null);
+  };
+
   return (
     <section
       id="unique-services"
       className="section-padding bg-slate-50 relative overflow-hidden scroll-mt-28"
     >
       {/* Decorative backdrop gradients */}
-      <div className="pointer-events-none absolute -top-40 -right-40 h-96 w-96 rounded-full bg-red-100/50 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-blue-100/50 blur-3xl" />
+      <div className="pointer-events-none absolute -top-40 -right-40 h-96 w-96 rounded-full bg-red-100/40 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-blue-100/40 blur-3xl" />
 
-      <div className="page-container relative z-10">
-        <div className="text-center max-w-2xl mx-auto mb-12 md:mb-14">
+      <div className="page-container relative z-10 max-w-5xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12 md:mb-14">
           <div className="flex items-center justify-center gap-2 mb-3">
             <div className="w-10 h-0.5 bg-red-600" />
             <span className="text-red-600 font-semibold uppercase tracking-wider text-xs md:text-sm">
-              Centers of Excellence
+              Centers of Distinction
             </span>
             <div className="w-10 h-0.5 bg-red-600" />
           </div>
@@ -74,44 +100,185 @@ export default function OurUniqueServices() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {uniqueServices.map((service, index) => {
-            const Icon = service.icon;
+        {/* Editorial Hairline Grid */}
+        <div className="border-t border-b border-slate-300/80 bg-white/40 backdrop-blur-xs rounded-xl overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 md:divide-x divide-slate-200/80">
+            {/* Left Column (Items 1-3) */}
+            <div className="divide-y divide-slate-200/80">
+              {leftColumn.map((service, index) => {
+                const Icon = service.icon;
+                const serviceNumber = String(index + 1).padStart(2, "0");
+                const isHighlighted = activeTouchId === service.id;
 
-            return (
-              <motion.div
-                key={service.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.07 }}
-              >
-                <div className="group relative flex flex-col justify-between h-full rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-300 hover:shadow-lg hover:shadow-slate-200/50 overflow-hidden">
-                  {/* Sleek top accent line on hover */}
-                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-red-600 via-rose-500 to-orange-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-
-                  {/* Top Row: Icon + Number */}
-                  <div className="flex items-center justify-between">
+                return (
+                  <motion.div
+                    key={service.id}
+                    initial={{ opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-30px" }}
+                    transition={{ duration: 0.35, delay: index * 0.06 }}
+                    whileTap={{ scale: 0.99 }}
+                    onMouseEnter={() => setActiveTouchId(service.id)}
+                    onMouseLeave={() => setActiveTouchId(null)}
+                    onTouchStart={() => handleTouchStart(service.id)}
+                    onTouchEnd={handleTouchEnd}
+                    onTouchCancel={handleTouchCancel}
+                    className={cn(
+                      "group relative flex items-center justify-between py-5 sm:py-6 md:py-7 px-4 sm:px-6 transition-all duration-300 cursor-pointer select-none",
+                      isHighlighted
+                        ? "bg-white shadow-xs"
+                        : "hover:bg-white/80 active:bg-white/90"
+                    )}
+                  >
+                    {/* Left Accent indicator (animates on hover/touch without keeping) */}
                     <div
-                      className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${service.accent} text-white shadow-md transition-transform duration-300 group-hover:scale-105`}
-                    >
-                      <Icon className="h-7 w-7" strokeWidth={2} />
-                    </div>
-                    <span className="font-mono text-2xl font-black text-slate-200 transition-colors group-hover:text-red-200">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                  </div>
+                      className={cn(
+                        "absolute left-0 top-1/2 -translate-y-1/2 w-1.5 bg-red-600 rounded-r transition-all duration-300",
+                        isHighlighted
+                          ? "h-8 opacity-100"
+                          : "h-0 opacity-0 group-hover:h-8 group-hover:opacity-100"
+                      )}
+                    />
 
-                  {/* Bottom Content: Name */}
-                  <div className="mt-6">
-                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 transition-colors group-hover:text-red-600 leading-snug">
-                      {service.title}
-                    </h3>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
+                    <div className="flex items-center gap-3.5 sm:gap-5 md:gap-6 min-w-0">
+                      <span
+                        className={cn(
+                          "font-mono text-xl sm:text-2xl md:text-3xl font-black transition-colors duration-300 w-8 sm:w-10 shrink-0",
+                          isHighlighted
+                            ? "text-red-600"
+                            : "text-slate-300 group-hover:text-red-600"
+                        )}
+                      >
+                        {serviceNumber}
+                      </span>
+
+                      <div
+                        className={cn(
+                          "flex h-11 w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl transition-all duration-300",
+                          isHighlighted
+                            ? "bg-red-600 text-white border border-red-600 scale-105 shadow-md shadow-red-500/20"
+                            : "bg-white border border-slate-200/90 text-slate-700 shadow-xs group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 group-hover:scale-105"
+                        )}
+                      >
+                        <Icon className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={2} />
+                      </div>
+
+                      <h3
+                        className={cn(
+                          "text-base sm:text-lg md:text-xl font-bold transition-colors duration-300 leading-snug",
+                          isHighlighted
+                            ? "text-red-600"
+                            : "text-slate-900 group-hover:text-red-600"
+                        )}
+                      >
+                        {service.title}
+                      </h3>
+                    </div>
+
+                    {/* Status dot */}
+                    <div className="flex items-center gap-2 shrink-0 ml-3 sm:ml-4">
+                      <span
+                        className={cn(
+                          "h-2.5 w-2.5 rounded-full transition-all duration-300",
+                          isHighlighted
+                            ? "bg-red-600 scale-125 ring-4 ring-red-100"
+                            : "bg-slate-300 group-hover:bg-red-600 group-hover:scale-125"
+                        )}
+                      />
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Right Column (Items 4-6) */}
+            <div className="divide-y divide-slate-200/80 border-t md:border-t-0 border-slate-200/80">
+              {rightColumn.map((service, index) => {
+                const Icon = service.icon;
+                const serviceNumber = String(index + 4).padStart(2, "0");
+                const isHighlighted = activeTouchId === service.id;
+
+                return (
+                  <motion.div
+                    key={service.id}
+                    initial={{ opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-30px" }}
+                    transition={{ duration: 0.35, delay: (index + 3) * 0.06 }}
+                    whileTap={{ scale: 0.99 }}
+                    onMouseEnter={() => setActiveTouchId(service.id)}
+                    onMouseLeave={() => setActiveTouchId(null)}
+                    onTouchStart={() => handleTouchStart(service.id)}
+                    onTouchEnd={handleTouchEnd}
+                    onTouchCancel={handleTouchCancel}
+                    className={cn(
+                      "group relative flex items-center justify-between py-5 sm:py-6 md:py-7 px-4 sm:px-6 transition-all duration-300 cursor-pointer select-none",
+                      isHighlighted
+                        ? "bg-white shadow-xs"
+                        : "hover:bg-white/80 active:bg-white/90"
+                    )}
+                  >
+                    {/* Left Accent indicator (animates on hover/touch without keeping) */}
+                    <div
+                      className={cn(
+                        "absolute left-0 top-1/2 -translate-y-1/2 w-1.5 bg-red-600 rounded-r transition-all duration-300",
+                        isHighlighted
+                          ? "h-8 opacity-100"
+                          : "h-0 opacity-0 group-hover:h-8 group-hover:opacity-100"
+                      )}
+                    />
+
+                    <div className="flex items-center gap-3.5 sm:gap-5 md:gap-6 min-w-0">
+                      <span
+                        className={cn(
+                          "font-mono text-xl sm:text-2xl md:text-3xl font-black transition-colors duration-300 w-8 sm:w-10 shrink-0",
+                          isHighlighted
+                            ? "text-red-600"
+                            : "text-slate-300 group-hover:text-red-600"
+                        )}
+                      >
+                        {serviceNumber}
+                      </span>
+
+                      <div
+                        className={cn(
+                          "flex h-11 w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl transition-all duration-300",
+                          isHighlighted
+                            ? "bg-red-600 text-white border border-red-600 scale-105 shadow-md shadow-red-500/20"
+                            : "bg-white border border-slate-200/90 text-slate-700 shadow-xs group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 group-hover:scale-105"
+                        )}
+                      >
+                        <Icon className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={2} />
+                      </div>
+
+                      <h3
+                        className={cn(
+                          "text-base sm:text-lg md:text-xl font-bold transition-colors duration-300 leading-snug",
+                          isHighlighted
+                            ? "text-red-600"
+                            : "text-slate-900 group-hover:text-red-600"
+                        )}
+                      >
+                        {service.title}
+                      </h3>
+                    </div>
+
+                    {/* Status dot */}
+                    <div className="flex items-center gap-2 shrink-0 ml-3 sm:ml-4">
+                      <span
+                        className={cn(
+                          "h-2.5 w-2.5 rounded-full transition-all duration-300",
+                          isHighlighted
+                            ? "bg-red-600 scale-125 ring-4 ring-red-100"
+                            : "bg-slate-300 group-hover:bg-red-600 group-hover:scale-125"
+                        )}
+                      />
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>

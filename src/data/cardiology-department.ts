@@ -12,12 +12,8 @@ export const cardiologyWhyChooseStats = [
     label: "Cardiac Diagnoses & Treatments Annually",
   },
   {
-    highlight: "50+",
-    label: "Experienced Cardiology Specialists",
-  },
-  {
-    highlight: "90%",
-    label: "Refined Diagnoses Through Second Opinions",
+    highlight: "Expert",
+    label: "Cardiology Teams",
   },
   {
     highlight: "24/7",

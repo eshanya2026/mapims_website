@@ -67,7 +67,11 @@ export default function DepartmentHeroStats({ stats }: DepartmentHeroStatsProps)
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+          className={`grid grid-cols-1 gap-4 ${
+            stats.length === 3
+              ? "sm:grid-cols-3 max-w-5xl mx-auto"
+              : "sm:grid-cols-2 lg:grid-cols-4"
+          }`}
         >
           {stats.map((stat, index) => (
             <motion.div

@@ -25,10 +25,9 @@ export const oncologyStats: DepartmentHeroStat[] = [
     sublabel: "Emergency & inpatient",
   },
   {
-    end: 15,
-    suffix: "+",
-    label: "Expert Oncologists",
-    sublabel: "Multidisciplinary team",
+    display: "Expert",
+    label: "Oncology Teams",
+    sublabel: "Multidisciplinary care",
   },
 ];
 
@@ -51,7 +50,7 @@ export const urologyStats: DepartmentHeroStat[] = [
   },
   {
     display: "Expert",
-    label: "Urologists",
+    label: "Urology Teams",
     sublabel: "Endourology to renal transplant",
   },
 ];
@@ -75,7 +74,7 @@ export const entStats: DepartmentHeroStat[] = [
   },
   {
     display: "Expert",
-    label: "ENT Specialists",
+    label: "ENT Teams",
     sublabel: "Subspecialty-trained team",
   },
 ];
@@ -98,7 +97,7 @@ export const ophthalmologyStats: DepartmentHeroStat[] = [
   },
   {
     display: "Expert",
-    label: "Ophthalmologists",
+    label: "Ophthalmology Teams",
     sublabel: "Highly equipped surgical team",
   },
 ];
@@ -112,7 +111,7 @@ export const plasticSurgeryStats: DepartmentHeroStat[] = [
   },
   {
     display: "Expert",
-    label: "Plastic Surgeons",
+    label: "Plastic Surgery Teams",
     sublabel: "Complex reconstruction & aesthetics",
   },
   {
@@ -170,7 +169,7 @@ export const generalMedicineStats: DepartmentHeroStat[] = [
   },
   {
     display: "Expert",
-    label: "Medical Team",
+    label: "General Medicine Teams",
     sublabel: "Qualified & experienced specialists",
   },
 ];
@@ -218,7 +217,7 @@ export const paediatricStats: DepartmentHeroStat[] = [
   },
   {
     display: "Expert",
-    label: "Paediatric Team",
+    label: "Paediatric Teams",
     sublabel: "Family-centred specialists",
   },
 ];
@@ -237,7 +236,7 @@ export const nephrologyStats: DepartmentHeroStat[] = [
   },
   {
     display: "Expert",
-    label: "Nephrology Team",
+    label: "Nephrology Teams",
     sublabel: "Transplant, dialysis & urology",
   },
   {
@@ -273,10 +272,9 @@ export const obstetricsGynaecologyStats: DepartmentHeroStat[] = [
 
 export const orthopaedicsStats: DepartmentHeroStat[] = [
   {
-    end: 8,
-    suffix: "+",
-    label: "Orthopaedic Services",
-    sublabel: "Comprehensive bone & joint care",
+    display: "Advanced",
+    label: "Joint Replacement & Spine Surgeries",
+    sublabel: "Comprehensive bone, joint & spine care",
   },
   {
     display: "24/7",
@@ -285,7 +283,7 @@ export const orthopaedicsStats: DepartmentHeroStat[] = [
   },
   {
     display: "Expert",
-    label: "Orthopaedic Team",
+    label: "Orthopaedic Teams",
     sublabel: "Specialized surgeons & rehab",
   },
   {
@@ -321,29 +319,22 @@ export const cardiologyStats: DepartmentHeroStat[] = [
     sublabel: "Annually",
   },
   {
-    end: 50,
-    suffix: "+",
-    label: "Cardiology Experts",
-    sublabel: "Subspecialized team",
+    display: "Expert",
+    label: "Cardiology Teams",
+    sublabel: "Subspecialized care",
   },
   {
     display: "24/7",
     label: "CCU Patient Care",
     sublabel: "1:1 nursing ratio",
   },
-  {
-    end: 90,
-    suffix: "%",
-    label: "Second Opinion",
-    sublabel: "New or refined diagnosis",
-  },
 ];
 
 export const neurologyStats: DepartmentHeroStat[] = [
   {
-    end: 10,
-    suffix: "+",
-    label: "Neurology Experts",
+    display: "Expert",
+    label: "Neurology Teams",
+    sublabel: "Subspecialized care",
   },
   {
     end: 5000,

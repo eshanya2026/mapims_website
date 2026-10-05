@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Heart,
@@ -72,7 +73,7 @@ export default function CardiologyDepartmentPage() {
             <p>{cardiologyIntro.full}</p>
           </DepartmentIntroText>
           <DepartmentSectionHeading title="Why" highlight="Choose Us?" />
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             {cardiologyWhyChooseStats.map((stat, index) => (
               <motion.article
                 key={stat.label}
@@ -120,6 +121,42 @@ export default function CardiologyDepartmentPage() {
           />
           <h3 className="mb-4 text-lg font-bold text-slate-900">Key Facilities</h3>
           <DepartmentChecklistGrid items={cardiologyCcu.facilities} />
+        </DepartmentSection>
+
+        <DepartmentSection id="cath-lab">
+          <DepartmentSectionLabel>Advanced Technology</DepartmentSectionLabel>
+          <DepartmentSectionHeading
+            title="State-of-the-Art"
+            highlight="Cath Lab Facility"
+            description="Our advanced digital cardiac catheterization laboratory is equipped with precision imaging technology for round-the-clock diagnostic angiography, angioplasty, pacemaker implantations, and emergency coronary interventions."
+          />
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="group relative mt-6 overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-900 shadow-md"
+          >
+            <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden">
+              <Image
+                src="/images/cath-lab.png"
+                alt="State-of-the-Art Cath Lab at Adhiparasakthi Hospitals"
+                fill
+                sizes="(max-width: 1024px) 100vw, 850px"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80" />
+            </div>
+
+            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-start">
+              <div className="inline-flex items-center gap-2 rounded-xl bg-slate-900/85 px-4 py-2 text-xs sm:text-sm font-semibold text-white backdrop-blur-md border border-white/10 shadow-lg">
+                <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+                Advanced Digital Biplane Cath Lab
+              </div>
+            </div>
+          </motion.div>
         </DepartmentSection>
 
         <DepartmentSection id="infrastructure">

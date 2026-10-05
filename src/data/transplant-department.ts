@@ -92,8 +92,8 @@ export const leadDoctor = {
 };
 
 export const transplantTrustMetrics = [
-  { highlight: "20+", label: "Expert Surgeons" },
-  { highlight: "20+", label: "Transplant Specialists" },
+  { highlight: "Expert", label: "Transplant Surgeons" },
+  { highlight: "Expert", label: "Transplant Teams" },
   { highlight: "24/7", label: "Transplant Support" },
   { highlight: "Advanced", label: "Medical Infrastructure" },
   { highlight: "Personalized", label: "Patient-Centered Care" },

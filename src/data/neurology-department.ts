@@ -30,56 +30,111 @@ export const neurologyServices = [
     title: "Stroke Management",
     description:
       "Rapid diagnosis and treatment for strokes, including thrombolytic therapy and rehabilitation to minimize complications and promote recovery.",
+    image: "/images/stroke.jpeg",
+    badge: "24/7 Acute Stroke Care",
+    badgeColor: "red" as const,
+    imageCaption: "Emergency Thrombolysis & Acute Cerebrovascular Intervention",
+    imagePosition: "center 20%",
   },
   {
     title: "Epilepsy Care",
     description:
       "Advanced diagnostics and tailored treatment plans for seizure disorders, including medication management and surgical options.",
+    image: "/images/epilesy.jpg",
+    badge: "Brain Mapping & EEG",
+    badgeColor: "blue" as const,
+    imageCaption: "Advanced Brain Mapping & Seizure Diagnostic Imaging",
+    imagePosition: "center 20%",
   },
   {
     title: "Headache and Migraine Treatment",
     description:
       "Comprehensive care for chronic headaches and migraines, focusing on prevention, pain relief, and lifestyle management.",
+    image: "/images/migraine.jpeg",
+    badge: "Targeted Migraine Relief",
+    badgeColor: "red" as const,
+    imageCaption: "Specialized Migraine Therapy & Pain Management",
+    imagePosition: "center 15%",
   },
   {
     title: "Parkinson's & Movement Disorders",
     description:
       "Specialized care for Parkinson's disease, tremors, and dystonia, with a focus on improving motor function and quality of life.",
+    image: "/images/parkinson.png",
+    badge: "Movement & Tremor Clinic",
+    badgeColor: "blue" as const,
+    imageCaption: "Advanced Movement Disorders & Neuro-Degenerative Care",
+    imagePosition: "center bottom",
   },
   {
     title: "Neuropathy & Nerve Disorders",
     description:
       "Diagnosis and treatment of peripheral neuropathy, nerve compression syndromes, and other nerve-related conditions.",
+    image: "/images/neurography.png",
+    badge: "EMG & Nerve Conduction",
+    badgeColor: "red" as const,
+    imageCaption: "Advanced Peripheral Nerve Mapping & Electrodiagnosis",
+    imagePosition: "center bottom",
   },
   {
     title: "Dementia & Alzheimer's Care",
     description:
       "Expert management of memory disorders with a focus on cognitive function and caregiver support.",
+    image: "/images/dementia.png",
+    badge: "Cognitive & Memory Care",
+    badgeColor: "blue" as const,
+    imageCaption: "Neuro-Imaging & Cognitive Decline Evaluation",
+    imagePosition: "center 15%",
   },
   {
     title: "MS & Autoimmune Disorders",
     description:
       "Advanced care for multiple sclerosis and autoimmune neurological disorders, focusing on disease management and symptom relief.",
+    image: "/images/MS.png",
+    badge: "Neuro-Immunology Clinic",
+    badgeColor: "red" as const,
+    imageCaption: "Advanced Neuro-Immunology & Demyelination Therapeutics",
+    imagePosition: "center",
   },
   {
     title: "Sleep Disorders",
     description:
       "Evaluation and treatment of sleep-related neurological issues, such as sleep apnea, insomnia, and restless leg syndrome.",
+    image: "/images/sleep-disorder.png",
+    badge: "Sleep Lab & Polysomnography",
+    badgeColor: "blue" as const,
+    imageCaption: "Clinical Polysomnography & Sleep Architecture Evaluation",
+    imagePosition: "center 80%",
   },
   {
     title: "Neurological Trauma & Critical Care",
     description:
       "Expert care for traumatic brain and spinal cord injuries, including emergency interventions and long-term rehabilitation.",
+    image: "/images/neurological.png",
+    badge: "24/7 Neuro ICU & Trauma",
+    badgeColor: "red" as const,
+    imageCaption: "Emergency Neuro-Trauma & Critical Brain Injury Imaging",
+    imagePosition: "center",
   },
   {
     title: "Pediatric Neurology",
     description:
       "Comprehensive care for children with epilepsy, developmental delays, and neuromuscular disorders.",
+    image: "/images/pediatric-neurology.png",
+    badge: "Child Neuro & Developmental Care",
+    badgeColor: "blue" as const,
+    imageCaption: "Pediatric EEG & Developmental Neuro-Assessment",
+    imagePosition: "center",
   },
   {
     title: "Neurophysiology Services",
     description:
       "Advanced diagnostics including EEG, EMG, and nerve conduction studies to accurately assess neurological conditions.",
+    image: "/images/neurophsiology.png",
+    badge: "Advanced EEG, EMG & EP",
+    badgeColor: "red" as const,
+    imageCaption: "Clinical Neurophysiology, Evoked Potentials & EEG Diagnostics",
+    imagePosition: "center 15%",
   },
 ];
 
