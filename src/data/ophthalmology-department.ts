@@ -80,6 +80,11 @@ export const ophthalmologyServices = [
       "LASIK & Vision Correction Procedures",
       "Keratoconus Management",
     ],
+    image: "/images/refractive-surgery.png",
+    badge: "Corneal Graft & LASIK",
+    badgeColor: "blue" as const,
+    imageCaption: "Corneal Transplantation, Advanced Keratoplasty & Precision Laser Refractive Surgery",
+    imagePosition: "center",
   },
   {
     title: "Pediatric Ophthalmology",
@@ -89,6 +94,11 @@ export const ophthalmologyServices = [
       "Congenital Eye Disorders",
       "Pediatric Cataract Care",
     ],
+    image: "/images/pediatric-ophthalmology.png",
+    badge: "Child Vision & Squint Care",
+    badgeColor: "red" as const,
+    imageCaption: "Pediatric Vision Screening, Amblyopia Management & Strabismus Correction",
+    imagePosition: "center",
   },
   {
     title: "Oculoplasty & Eye Trauma",
@@ -98,6 +108,11 @@ export const ophthalmologyServices = [
       "Facial & Eye Trauma Management",
       "Reconstructive Procedures",
     ],
+    image: "/images/eye-trauma.png",
+    badge: "Oculoplastic & Orbital Care",
+    badgeColor: "blue" as const,
+    imageCaption: "Specialized Eyelid Reconstruction, Orbital Surgery & Ocular Trauma Management",
+    imagePosition: "center",
   },
 ];
 
