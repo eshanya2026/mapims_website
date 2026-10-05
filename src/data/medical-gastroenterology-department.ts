@@ -79,15 +79,6 @@ export const medicalGastroenterologyServices = [
     ],
   },
   {
-    title: "Specialized Procedures",
-    bullets: [
-      "ERCP (Endoscopic Retrograde Cholangiopancreatography)",
-      "Endoscopic Ultrasound (EUS)",
-      "Esophageal Variceal Band Ligation",
-      "Capsule Endoscopy",
-    ],
-  },
-  {
     title: "Minimally Invasive Surgery Support",
     bullets: [
       "Advanced Laparoscopic Procedures",

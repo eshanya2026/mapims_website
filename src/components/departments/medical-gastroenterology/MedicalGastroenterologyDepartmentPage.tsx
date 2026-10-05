@@ -2,17 +2,14 @@
 
 import {
   Activity,
-  Stethoscope,
   Droplets,
   Shield,
   Apple,
   ScanLine,
   Scissors,
 } from "lucide-react";
-import DepartmentHeroStats from "@/components/departments/DepartmentHeroStats";
 import DepartmentPatientCareSection from "@/components/departments/DepartmentPatientCareSection";
 import DepartmentFAQ from "@/components/departments/DepartmentFAQ";
-import { medicalGastroenterologyStats } from "@/data/department-stats";
 import {
   medicalGastroenterologyHeroTagline,
   medicalGastroenterologyIntro,
@@ -45,7 +42,6 @@ const serviceIcons = [
   Shield,
   Apple,
   ScanLine,
-  Stethoscope,
   Scissors,
 ] as const;
 
@@ -65,9 +61,8 @@ export default function MedicalGastroenterologyDepartmentPage() {
         imageSrc={medicalGastroenterologyHeroImage}
         imageClassName="object-cover object-[50%_45%] sm:object-[56%_42%] md:object-[60%_40%]"
       />
-      <DepartmentHeroStats stats={medicalGastroenterologyStats} />
 
-      <DepartmentContentLayout>
+      <DepartmentContentLayout containerClassName="pt-8 md:pt-12">
         <DepartmentSection id="why-choose-us">
           <DepartmentSectionLabel>Department</DepartmentSectionLabel>
           <DepartmentIntroText>
