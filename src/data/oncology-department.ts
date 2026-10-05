@@ -40,6 +40,11 @@ export const oncologyServices = [
       "Treatment for blood cancers including leukemia and lymphoma.",
       "Advanced care for metastatic and complex cancers.",
     ],
+    image: "/images/medical-oncology.png",
+    badge: "Targeted & Systemic Therapy",
+    badgeColor: "red" as const,
+    imageCaption: "Targeted Immunotherapy, Precision Chemotherapy & Genomic Oncology",
+    imagePosition: "center",
   },
   {
     title: "Surgical Oncology",
@@ -48,6 +53,11 @@ export const oncologyServices = [
       "Expertise in breast, gastrointestinal, gynecological, thoracic, and head & neck cancers.",
       "Onco-reconstructive procedures following cancer treatment.",
     ],
+    image: "/images/surgical-oncology.png",
+    badge: "Advanced Surgical Oncology",
+    badgeColor: "blue" as const,
+    imageCaption: "Modern Surgical Suites & Complex Minimally Invasive Tumor Resection",
+    imagePosition: "center 45%",
   },
 ];
 
