@@ -80,6 +80,11 @@ export const paediatricServices = [
       "Allergy & Immunology Services",
       "Long-Term Pediatric Health Monitoring",
     ],
+    image: "/images/chronic-disease-management.png",
+    badge: "Asthma, Allergy & Diabetes",
+    badgeColor: "red" as const,
+    imageCaption: "Specialized Management of Childhood Asthma, Allergies & Chronic Conditions",
+    imagePosition: "center 30%",
   },
   {
     title: "Neonatal Care",
@@ -89,6 +94,11 @@ export const paediatricServices = [
       "Neonatal Intensive Care Unit (NICU)",
       "Newborn Screening Services",
     ],
+    image: "/images/neonatal-care.png",
+    badge: "Level III NICU & Newborn Care",
+    badgeColor: "blue" as const,
+    imageCaption: "Advanced Neonatal Intensive Care (NICU), Incubator Support & Preterm Care",
+    imagePosition: "center 50%",
   },
 ];
 
