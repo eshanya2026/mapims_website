@@ -40,6 +40,11 @@ export const obstetricsServices = [
       "High-Risk Pregnancy Management",
       "Multiple Pregnancy Care",
     ],
+    image: "/images/pregnancy-care.png",
+    badge: "Prenatal & Postnatal Care",
+    badgeColor: "red" as const,
+    imageCaption: "Comprehensive Prenatal Care, Ultrasound Consultations & Maternity Support",
+    imagePosition: "center 40%",
   },
   {
     title: "Fetal Medicine & Ultrasound",
@@ -49,6 +54,11 @@ export const obstetricsServices = [
       "Congenital Anomaly Screening",
       "Prenatal Diagnostic Services",
     ],
+    image: "/images/ultrasound.png",
+    badge: "3D/4D Fetal Scans & Diagnostics",
+    badgeColor: "blue" as const,
+    imageCaption: "High-Resolution Fetal Ultrasound Scans, Growth Monitoring & Anomaly Screening",
+    imagePosition: "center 45%",
   },
   {
     title: "Labour & Delivery Care",
