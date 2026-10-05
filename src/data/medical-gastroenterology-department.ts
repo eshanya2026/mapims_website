@@ -83,6 +83,11 @@ export const medicalGastroenterologyServices = [
       "Weight Management Support",
       "Preventive Gastrointestinal Care",
     ],
+    image: "/images/nutrition-support.png",
+    badge: "Clinical Dietetics & Gut Wellness",
+    badgeColor: "blue" as const,
+    imageCaption: "Clinical Nutrition, Gut Health Counseling & Therapeutic Dietetics",
+    imagePosition: "center 65%",
   },
   {
     title: "Diagnostic & Therapeutic Endoscopy",
