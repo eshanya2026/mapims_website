@@ -55,6 +55,11 @@ export const medicalGastroenterologyServices = [
       "Pancreatitis Treatment",
       "Biliary Disorders",
     ],
+    image: "/images/liver-care.png",
+    badge: "Hepatology & Pancreatic Health",
+    badgeColor: "blue" as const,
+    imageCaption: "Hepatology, Cirrhosis, Hepatitis & Pancreatico-Biliary Management",
+    imagePosition: "center",
   },
   {
     title: "Colorectal Health",
@@ -64,6 +69,11 @@ export const medicalGastroenterologyServices = [
       "Colorectal Cancer Screening",
       "Rectal & Anal Disorders",
     ],
+    image: "/images/colorectal-health.png",
+    badge: "Colon Health & Cancer Screening",
+    badgeColor: "red" as const,
+    imageCaption: "Comprehensive Colorectal Screening, Polyp Removal & Intestinal Mass Evaluation",
+    imagePosition: "center",
   },
   {
     title: "Nutritional & Lifestyle Support",
