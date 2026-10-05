@@ -91,9 +91,9 @@ export const ophthalmologyStats: DepartmentHeroStat[] = [
     sublabel: "Community outreach & surgery",
   },
   {
-    display: "24/7",
-    label: "Patient Care",
-    sublabel: "Round-the-clock support",
+    display: "Cornea",
+    label: "Transplant",
+    sublabel: "Restoring clear vision",
   },
   {
     display: "Expert",

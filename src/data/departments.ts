@@ -167,9 +167,9 @@ export const departments: Department[] = [
   },
   {
     slug: "ophthalmology",
-    name: "Opthal (Ophthalmology)",
+    name: "Ophthalmology",
     description:
-      "Comprehensive eye care—from cataract and glaucoma to retina, cornea, LASIK, and pediatric ophthalmology with advanced diagnostics.",
+      "Comprehensive eye care—from cataract and glaucoma to retina, cornea transplant, LASIK, and pediatric ophthalmology with advanced diagnostics.",
     image: "/images/optho.png",
   },
   {
