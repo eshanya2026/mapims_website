@@ -294,6 +294,12 @@ export const orthopaedicsStats: DepartmentHeroStat[] = [
 
 export const jointReplacementStats: DepartmentHeroStat[] = [
   {
+    end: 100,
+    suffix: "+",
+    label: "Joint Replacements",
+    sublabel: "Successful surgeries performed",
+  },
+  {
     end: 7,
     label: "Joint Procedures",
     sublabel: "Hip, knee, shoulder & more",
@@ -302,11 +308,6 @@ export const jointReplacementStats: DepartmentHeroStat[] = [
     display: "24/7",
     label: "Patient Care",
     sublabel: "Round-the-clock support",
-  },
-  {
-    display: "1:1",
-    label: "Nursing Ratio",
-    sublabel: "Dedicated recovery care",
   },
 ];
 
