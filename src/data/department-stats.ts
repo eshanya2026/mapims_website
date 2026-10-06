@@ -239,9 +239,10 @@ export const nephrologyStats: DepartmentHeroStat[] = [
     sublabel: "Transplant, dialysis & urology",
   },
   {
-    display: "CKD",
-    label: "Full Spectrum Care",
-    sublabel: "Diagnosis to long-term management",
+    end: 60,
+    suffix: "+",
+    label: "Renal Transplants",
+    sublabel: "Successful kidney transplants",
   },
 ];
 

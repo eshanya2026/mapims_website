@@ -38,6 +38,11 @@ export const nephrologyServices = [
       "Lifestyle & Medication Management",
       "CKD Progression Control",
     ],
+    image: "/images/ckd.png",
+    badge: "Renal Health & CKD Care",
+    badgeColor: "red" as const,
+    imageCaption: "Comprehensive Renal Evaluation, Glomerular Function Monitoring & CKD Progression Control",
+    imagePosition: "center 45%",
   },
   {
     title: "Dialysis Services",
@@ -47,6 +52,11 @@ export const nephrologyServices = [
       "Continuous Renal Replacement Therapy (CRRT)",
       "Acute & Chronic Dialysis Care",
     ],
+    image: "/images/dialysis.png",
+    badge: "Hemodialysis & CRRT Care",
+    badgeColor: "blue" as const,
+    imageCaption: "Modern Hemodialysis, Peritoneal Dialysis & Continuous Renal Replacement Therapy (CRRT)",
+    imagePosition: "center 45%",
   },
   {
     title: "Kidney Transplantation",
