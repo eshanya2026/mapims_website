@@ -66,6 +66,11 @@ export const nephrologyServices = [
       "Combined Kidney & Liver Transplants",
       "Comprehensive Pre & Post-Transplant Care",
     ],
+    image: "/images/kidney-transplant.png",
+    badge: "Renal Transplant Excellence",
+    badgeColor: "red" as const,
+    imageCaption: "Living & Cadaveric Donor Kidney Transplants, Combined Procedures & Post-Transplant Care",
+    imagePosition: "center 45%",
   },
   {
     title: "Hypertension & Kidney Health",
@@ -74,6 +79,11 @@ export const nephrologyServices = [
       "Renal Hypertension Evaluation",
       "Prevention of Kidney Damage",
     ],
+    image: "/images/kidney-health.png",
+    badge: "Renal Hypertension Care",
+    badgeColor: "blue" as const,
+    imageCaption: "Specialized Management of High Blood Pressure, Renal Hypertension & Prevention of Organ Damage",
+    imagePosition: "center 45%",
   },
   {
     title: "Renal Diagnostics",
@@ -83,6 +93,11 @@ export const nephrologyServices = [
       "Laboratory Evaluation",
       "Electrolyte & Metabolic Assessment",
     ],
+    image: "/images/renal-diagnostics.png",
+    badge: "Kidney Scans & Diagnostics",
+    badgeColor: "red" as const,
+    imageCaption: "High-Resolution Renal Ultrasound, Kidney Biopsies & Comprehensive Laboratory Diagnostics",
+    imagePosition: "center 45%",
   },
   {
     title: "Specialized Renal Care",
@@ -95,6 +110,11 @@ export const nephrologyServices = [
       "Hydronephrosis",
       "Renal Vascular Disorders",
     ],
+    image: "/images/nephrology.png",
+    badge: "Specialized Kidney Disorders",
+    badgeColor: "blue" as const,
+    imageCaption: "Expert Care for Nephrotic Syndrome, Glomerular Diseases & Complex Autoimmune Kidney Disorders",
+    imagePosition: "center 40%",
   },
 ];
 
