@@ -154,7 +154,7 @@ export const medicalGastroenterologyStats: DepartmentHeroStat[] = [
 export const generalMedicineStats: DepartmentHeroStat[] = [
   {
     display: "IMCU",
-    label: "UICCU & IRCU Care",
+    label: "ICCU & IRCU Care",
     sublabel: "Specialized critical care units",
   },
   {

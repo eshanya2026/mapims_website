@@ -43,7 +43,7 @@ export const generalMedicineServices = [
     badge: "Master Health Checkup (MHC)",
     badgeColor: "red" as const,
     imageCaption: "Comprehensive Health Assessments, Executive Wellness Screenings & Preventive Health Checkups",
-    imagePosition: "center 30%",
+    imagePosition: "center 65%",
   },
   {
     title: "Chronic Disease Management",
@@ -58,7 +58,7 @@ export const generalMedicineServices = [
     badge: "Long-Term Chronic Care",
     badgeColor: "blue" as const,
     imageCaption: "Long-Term Management of Hypertension, Diabetes, Asthma & Chronic Lifestyle Disorders",
-    imagePosition: "center 38%",
+    imagePosition: "center 36%",
   },
   {
     title: "Acute Medical Care",
@@ -72,7 +72,7 @@ export const generalMedicineServices = [
     badge: "24/7 Inpatient & Acute Care",
     badgeColor: "red" as const,
     imageCaption: "Comprehensive Inpatient Medical Care, Infection Management and Bedside Monitoring",
-    imagePosition: "center 28%",
+    imagePosition: "center 15%",
   },
   {
     title: "Preventive Medicine",
@@ -82,6 +82,11 @@ export const generalMedicineServices = [
       "Health Education & Counseling",
       "Disease Prevention Strategies",
     ],
+    image: "/images/preventive-medicine.png",
+    badge: "Immunization & Prevention",
+    badgeColor: "blue" as const,
+    imageCaption: "Evidence-Based Preventive Health Strategies, Vaccinations & Clinical Health Education",
+    imagePosition: "center 30%",
   },
   {
     title: "Wellness & Lifestyle Care",
@@ -91,6 +96,11 @@ export const generalMedicineServices = [
       "Stress Management",
       "Healthy Living Guidance",
     ],
+    image: "/images/lifestyle-wellness.png",
+    badge: "Nutrition & Holistic Wellness",
+    badgeColor: "red" as const,
+    imageCaption: "Personalized Nutrition Assessments, Dietary Guidance & Lifestyle Wellness Counseling",
+    imagePosition: "center 45%",
   },
 ];
 
