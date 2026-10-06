@@ -68,6 +68,11 @@ export const obstetricsServices = [
       "Pregnancy Nutrition & Exercise Guidance",
       "Postpartum Care & Recovery Support",
     ],
+    image: "/images/labour-and-delivery.png",
+    badge: "Safe Delivery & Postpartum Care",
+    badgeColor: "red" as const,
+    imageCaption: "Comprehensive Labour & Delivery Support, Postpartum Care & Newborn Bonding",
+    imagePosition: "center 30%",
   },
   {
     title: "Management of Pregnancy Complications",
@@ -77,6 +82,11 @@ export const obstetricsServices = [
       "Preterm & Post-Term Pregnancy",
       "Obstetric Emergencies & Haemorrhage Management",
     ],
+    image: "/images/complicated-pregnancy.png",
+    badge: "High-Risk Pregnancy & Critical Care",
+    badgeColor: "blue" as const,
+    imageCaption: "Specialized Management of Gestational Hypertension, Diabetes & High-Risk Pregnancies",
+    imagePosition: "center 45%",
   },
 ];
 
