@@ -153,14 +153,14 @@ export const medicalGastroenterologyStats: DepartmentHeroStat[] = [
 
 export const generalMedicineStats: DepartmentHeroStat[] = [
   {
-    end: 17,
-    label: "Operation Theatres",
-    sublabel: "State-of-the-art surgical suites",
+    display: "IMCU",
+    label: "UICCU & IRCU Care",
+    sublabel: "Specialized critical care units",
   },
   {
-    display: "1:1",
-    label: "Nursing Ratio",
-    sublabel: "24/7 patient care",
+    display: "MHC",
+    label: "Packages",
+    sublabel: "Master health checkup plans",
   },
   {
     display: "24/7",
