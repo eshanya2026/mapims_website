@@ -141,6 +141,11 @@ export const gynaecologyServices = [
       "Management of Vaginal Infections & STDs",
       "Benign Breast Disorders",
     ],
+    image: "/images/womens-health.png",
+    badge: "Well-Woman & Preventive Care",
+    badgeColor: "blue" as const,
+    imageCaption: "Preventive Health Screenings, Menopause Management & Comprehensive Well-Woman Guidance",
+    imagePosition: "center 30%",
   },
   {
     title: "Gynaecological Oncology",
@@ -149,6 +154,11 @@ export const gynaecologyServices = [
       "Surgical Treatment of Gynecological Cancers",
       "Chemotherapy & Follow-up Care",
     ],
+    image: "/images/gynaecological-oncology.png",
+    badge: "Gynaecologic Cancer Care",
+    badgeColor: "red" as const,
+    imageCaption: "Specialized Screening, Surgical Oncology & Chemotherapy for Gynaecological Cancers",
+    imagePosition: "center 45%",
   },
 ];
 
