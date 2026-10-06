@@ -120,7 +120,7 @@ export const departments: Department[] = [
     slug: "diabetology",
     name: "Diabetology",
     description:
-      "Personalized diabetes and metabolic care—CGMS, insulin pump therapy, complication management, bariatric surgery, and endocrine support.",
+      "Personalized diabetes and metabolic care—CGMS, insulin pump therapy, complication management, vascular care, and endocrine support.",
     image: "/images/diab.png",
   },
   {

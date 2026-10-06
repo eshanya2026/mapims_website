@@ -38,6 +38,11 @@ export const diabetologyServices = [
       "Gestational Diabetes Management",
       "Adolescent & Adult Diabetes Care",
     ],
+    image: "/images/diabetic-management.png",
+    badge: "Type 1 & 2 Blood Sugar Care",
+    badgeColor: "red" as const,
+    imageCaption: "Personalized Blood Sugar Management, Glycemic Control & Long-Term Diabetic Care",
+    imagePosition: "center 45%",
   },
   {
     title: "Advanced Diabetes Technologies",
@@ -47,6 +52,11 @@ export const diabetologyServices = [
       "Digital Glucose Monitoring",
       "Personalized Insulin Management",
     ],
+    image: "/images/advanced-diabetes-technologies.png",
+    badge: "CGMS & Insulin Tech",
+    badgeColor: "blue" as const,
+    imageCaption: "Continuous Glucose Monitoring (CGMS), Insulin Pump Therapy & Digital Diabetes Tech",
+    imagePosition: "center 45%",
   },
   {
     title: "Diabetes Complication Care",
@@ -56,6 +66,11 @@ export const diabetologyServices = [
       "Eye Health Monitoring",
       "Cardiovascular Risk Management",
     ],
+    image: "/images/diabetes-complication-care.png",
+    badge: "Complication Prevention",
+    badgeColor: "red" as const,
+    imageCaption: "Diabetic Foot Care, Renal & Cardiovascular Risk Assessment and Complication Prevention",
+    imagePosition: "center 30%",
   },
   {
     title: "Nutrition & Lifestyle Support",
@@ -65,6 +80,11 @@ export const diabetologyServices = [
       "Exercise & Lifestyle Guidance",
       "Diabetes Education Programs",
     ],
+    image: "/images/nutrition-lifestyle-support.png",
+    badge: "Diet & Lifestyle Coaching",
+    badgeColor: "blue" as const,
+    imageCaption: "Personalized Diabetic Nutrition Plans, Weight Management & Lifestyle Education",
+    imagePosition: "center 45%",
   },
 ];
 
@@ -75,30 +95,12 @@ export const diabetologyProcedures = [
       "Advanced treatment for diabetic ulcers, infections, and foot complications to promote healing and prevent amputations.",
   },
   {
-    title: "Bariatric Surgery",
-    description:
-      "Weight-loss procedures designed to improve diabetes control and reduce obesity-related health risks.",
-  },
-  {
     title: "Vascular Surgery",
     description:
       "Management of diabetes-related vascular diseases, including peripheral artery disease and circulation disorders.",
   },
-  {
-    title: "Pancreatic Surgery",
-    description:
-      "Specialized surgical care for select cases involving pancreatic disorders affecting diabetes management.",
-  },
 ];
 
-export const diabetologySpecialityAreas = [
-  "Diabetology & Endocrinology",
-  "Bariatric & Metabolic Surgery",
-  "Insulin Pump Therapy",
-  "Continuous Glucose Monitoring (CGMS)",
-  "Gestational Diabetes Care",
-  "Lipid & Metabolic Disorder Management",
-];
 
 export const diabetologyInfrastructure = [
   "Advanced Diabetes Diagnostic Services",

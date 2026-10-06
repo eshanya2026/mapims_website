@@ -192,9 +192,9 @@ export const diabetologyStats: DepartmentHeroStat[] = [
     sublabel: "Endocrine & metabolic care",
   },
   {
-    display: "4",
+    display: "2",
     label: "Surgical Options",
-    sublabel: "Foot, bariatric & vascular",
+    sublabel: "Foot & vascular care",
   },
 ];
 

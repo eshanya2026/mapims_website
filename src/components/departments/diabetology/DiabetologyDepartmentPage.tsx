@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
   Heart,
   Activity,
@@ -8,7 +7,6 @@ import {
   Stethoscope,
   Apple,
   Footprints,
-  Scissors,
 } from "lucide-react";
 import DepartmentHeroStats from "@/components/departments/DepartmentHeroStats";
 import DepartmentPatientCareSection from "@/components/departments/DepartmentPatientCareSection";
@@ -20,7 +18,6 @@ import {
   whyChooseDiabetology,
   diabetologyServices,
   diabetologyProcedures,
-  diabetologySpecialityAreas,
   diabetologyInfrastructure,
   diabetologyBeyondDiabetes,
   diabetologyJourney,
@@ -41,7 +38,7 @@ import {
 } from "@/components/departments/design";
 
 const serviceIcons = [Stethoscope, Droplets, Heart, Apple] as const;
-const procedureIcons = [Footprints, Activity, Heart, Scissors] as const;
+const procedureIcons = [Footprints, Activity] as const;
 
 export default function DiabetologyDepartmentPage() {
   return (
@@ -101,30 +98,6 @@ export default function DiabetologyDepartmentPage() {
           />
         </DepartmentSection>
 
-        <DepartmentSection id="speciality">
-          <div className="text-center">
-            <DepartmentSectionLabel align="center">Subspecialties</DepartmentSectionLabel>
-            <DepartmentSectionHeading
-              title="Our"
-              highlight="Specialities"
-              align="center"
-            />
-          </div>
-          <div className="flex flex-wrap justify-center gap-2">
-            {diabetologySpecialityAreas.map((area, index) => (
-              <motion.span
-                key={area}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.04 }}
-                className="rounded-full border border-red-100 bg-red-50 px-4 py-2 text-sm font-medium text-red-800"
-              >
-                {area}
-              </motion.span>
-            ))}
-          </div>
-        </DepartmentSection>
 
         <DepartmentSection id="infrastructure" variant="muted">
           <DepartmentGradientPanel
