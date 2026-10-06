@@ -43,7 +43,7 @@ export const generalMedicineServices = [
     badge: "Master Health Checkup (MHC)",
     badgeColor: "red" as const,
     imageCaption: "Comprehensive Health Assessments, Executive Wellness Screenings & Preventive Health Checkups",
-    imagePosition: "center 65%",
+    imagePosition: "center 4%",
   },
   {
     title: "Chronic Disease Management",

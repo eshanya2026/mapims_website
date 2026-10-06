@@ -127,7 +127,7 @@ export default function DepartmentServicesGrid({
                         className={`object-cover ${
                           service.imagePosition?.startsWith("object-")
                             ? service.imagePosition
-                            : "object-bottom"
+                            : ""
                         } transition-transform duration-500 group-hover/thumb:scale-105`}
                         style={{
                           objectPosition: service.imagePosition || "center bottom",
