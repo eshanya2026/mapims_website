@@ -80,11 +80,11 @@ export const diabetologyServices = [
       "Exercise & Lifestyle Guidance",
       "Diabetes Education Programs",
     ],
-    image: "/images/nutrition-lifestyle-support.png",
+    image: "/images/nutrition-support.png",
     badge: "Diet & Lifestyle Coaching",
     badgeColor: "blue" as const,
     imageCaption: "Personalized Diabetic Nutrition Plans, Weight Management & Lifestyle Education",
-    imagePosition: "center 45%",
+    imagePosition: "center 40%",
   },
 ];
 
