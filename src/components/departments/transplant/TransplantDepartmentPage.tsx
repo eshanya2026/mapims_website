@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { CheckCircle2, Eye, Target, Award } from "lucide-react";
 import DepartmentHeroStats from "@/components/departments/DepartmentHeroStats";
@@ -13,6 +14,7 @@ import {
   liverTransplantProgram,
   kidneyTransplantProgram,
   transplantAchievements,
+  transplantLandmarkMilestone,
   transplantVisionMission,
   transplantTrustMetrics,
   transplantJourney,
@@ -137,6 +139,67 @@ export default function TransplantDepartmentPage() {
               </ul>
             </motion.div>
           </div>
+
+          {/* Landmark Clinical Breakthrough: HOPE Machine Perfusion */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mt-8 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md"
+          >
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 bg-gradient-to-r from-red-50/80 via-white to-slate-50 px-6 py-4 md:px-8">
+              <span className="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-100/70 px-3.5 py-1 text-xs font-bold tracking-wide text-red-700">
+                <span className="h-2 w-2 rounded-full bg-red-600 animate-pulse" />
+                {transplantLandmarkMilestone.badge}
+              </span>
+              <span className="text-xs font-semibold text-slate-500">
+                Hypothermic Oxygenated Machine Perfusion (HOPE)
+              </span>
+            </div>
+
+            <div className="p-6 md:p-8 lg:p-10">
+              <h3 className="text-xl font-bold leading-snug text-slate-900 sm:text-2xl lg:text-3xl">
+                {transplantLandmarkMilestone.title}
+              </h3>
+
+              <div className="mt-6 grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
+                <div className="space-y-4 text-sm leading-relaxed text-slate-600 sm:text-base lg:col-span-7">
+                  {transplantLandmarkMilestone.paragraphs.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
+
+                <div className="lg:col-span-5">
+                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-slate-200/90 shadow-sm">
+                    <Image
+                      src={transplantLandmarkMilestone.image}
+                      alt="Hypothermic Oxygenated Machine Perfusion (HOPE)"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 450px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <p className="mt-2 text-center text-xs text-slate-500">
+                    {transplantLandmarkMilestone.imageCaption}
+                  </p>
+                </div>
+              </div>
+
+              {/* 4 Core Pillars */}
+              <div className="mt-8 grid grid-cols-1 gap-3 border-t border-slate-100 pt-6 sm:grid-cols-2 lg:grid-cols-4">
+                {transplantLandmarkMilestone.pillars.map((pillar) => (
+                  <div
+                    key={pillar}
+                    className="flex items-center gap-2.5 rounded-xl border border-red-100/80 bg-red-50/50 p-3.5 text-xs font-semibold text-slate-800 transition-colors hover:bg-red-50 sm:text-sm"
+                  >
+                    <CheckCircle2 className="h-4 w-4 shrink-0 text-red-600" />
+                    <span>{pillar}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
         </DepartmentSection>
 
         <DepartmentSection id="vision-mission">

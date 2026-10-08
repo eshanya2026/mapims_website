@@ -42,6 +42,11 @@ export const liverTransplantProgram = {
     "HIV / HBV / HCV Liver Transplants",
     "Living & Cadaver Donor Programs",
   ],
+  image: "/images/transplant-liver-surgery.jpg",
+  badge: "Adult & Pediatric Liver Care",
+  badgeColor: "red" as const,
+  imageCaption: "Advanced Liver Transplant Surgical Suite & Living/Cadaver Donor Care",
+  imagePosition: "center 35%",
 };
 
 export const kidneyTransplantProgram = {
@@ -52,6 +57,30 @@ export const kidneyTransplantProgram = {
     "High-Risk & Complex Cases",
     "Pediatric Kidney Transplants",
     "Comprehensive Renal Care",
+  ],
+  image: "/images/transplant-kidney-surgery.jpg",
+  badge: "Renal Transplant & HOPE Perfusion",
+  badgeColor: "blue" as const,
+  imageCaption: "State-of-the-Art Kidney Transplantation & Organ Preservation Program",
+  imagePosition: "center 35%",
+};
+
+export const transplantLandmarkMilestone = {
+  badge: "Landmark Clinical Milestone",
+  title:
+    "Multi organ Transplant team successfully completed two back to back cadaver transplant in 8 hrs",
+  image: "/images/transplant-hope-perfusion.jpg",
+  imageCaption:
+    "Advanced Hypothermic Oxygenated Machine Perfusion (HOPE) System in Operation",
+  paragraphs: [
+    "Performed a complex kidney transplant procedure on a 38 year-old female patient who was on dialysis for end stage renal disease (ESRD). The kidney was also harvested from namakal Medical College 65 year old brain dead donor and was perfused with Hypothermic Oxygenated Machine Perfusion (HOPE) which preserved the organ for 2 hours. Preserving the organ in this device keeps Kidney Longer and better for Transplantation.",
+    "Kidneys harvested from donors are usually perfused and left in a cold environment surrounded by ice / cold solution where the cooling is static. Even though theoretically it can be used for upto 24 hours after harvesting, the quality of the kidney and the outcome decreases as the ischemic (storage) time increases. This HOPE system has the added advantage of continuous inflow of high concentrated oxygen along with the continuous infusion of hypothermic solution. This dual advantage is very important especially in the case of marginal donors as well as in situations where the ischemia time is expected to be long. Studies done in the west have shown that the rejection rate was less in the kidneys perfused with such preservation devices",
+  ],
+  pillars: [
+    "Pioneering Excellence in Multi-Organ Transplantation",
+    "Advanced Technological Infrastructure",
+    "Expert Team of Transplant Specialists",
+    "Comprehensive Support Services",
   ],
 };
 
