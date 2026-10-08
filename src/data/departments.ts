@@ -23,6 +23,7 @@ export const departmentDetailSlugs = [
   "oncology",
   "neurology",
   "multi-organ-transplant",
+  "dermatology",
 ] as const;
 
 /** Slugs routed to hospital services detail page */
@@ -34,7 +35,6 @@ export const departmentServiceSlugs: Record<string, string> = {
   "spinal-surgeries": "/services/spinal-surgeries",
   anaesthesiology: "/services/anaesthesiology",
   radiology: "/services/radiology-imaging-science",
-  dermatology: "/services/dermatology",
 };
 
 export function getDepartmentHref(slug: string): string {

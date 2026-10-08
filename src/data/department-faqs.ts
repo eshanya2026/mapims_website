@@ -401,6 +401,33 @@ export const departmentFaqsBySlug: Record<string, FaqItem[]> = {
         "Yes. Our transplant coordinators and specialists provide lifelong monitoring and support for recipients and donors after surgery.",
     },
   ],
+  dermatology: [
+    {
+      question: "What skin conditions do your dermatologists treat?",
+      answer:
+        "We treat acne and acne scars, psoriasis, eczema, atopic dermatitis, skin allergies, vitiligo, hair loss, nail fungal infections, warts, and skin cancers. We also offer advanced cosmetic dermatology including laser resurfacing, Botox, fillers, and chemical peels.",
+    },
+    {
+      question: "Are cosmetic dermatology and laser treatments safe?",
+      answer:
+        "Yes. All laser procedures and cosmetic treatments are performed by experienced, board-certified dermatologists using FDA-approved medical technology in a sterile clinical environment tailored to Indian skin types.",
+    },
+    {
+      question: "Do you provide treatments for hair loss and scalp problems?",
+      answer:
+        "Yes. We offer digital trichoscopy diagnosis, medical hair restoration therapies, Platelet-Rich Plasma (PRP) treatments, and specialized care for alopecia areata, male/female pattern baldness, and scalp disorders.",
+    },
+    {
+      question: "When should I consult a dermatologist for a mole or skin lesion?",
+      answer:
+        "You should consult a dermatologist if a mole changes in size, shape, or color, has irregular borders, bleeds, itches, or if a new persistent growth appears on your skin.",
+    },
+    {
+      question: "How do I book an appointment with a dermatologist?",
+      answer:
+        "You can schedule an appointment online through our website, call our hospital helpline, or visit the outpatient department during consulting hours.",
+    },
+  ],
 };
 
 export function getDepartmentFaqs(slug: string): FaqItem[] | undefined {
@@ -425,4 +452,5 @@ export const departmentFaqSlugs = [
   "diabetology",
   "plastic-surgery",
   "general-medicine",
+  "dermatology",
 ] as const;

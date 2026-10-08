@@ -363,3 +363,27 @@ export const transplantHeroStats: DepartmentHeroStat[] = [
     sublabel: "Deceased donor program",
   },
 ];
+
+export const dermatologyStats: DepartmentHeroStat[] = [
+  {
+    end: 8,
+    suffix: "+",
+    label: "Clinical & Laser Services",
+    sublabel: "Medical & cosmetic skin care",
+  },
+  {
+    display: "CO2",
+    label: "Fractional Laser & Dermatosurgery",
+    sublabel: "Scars, vitiligo & aesthetic care",
+  },
+  {
+    display: "24/7",
+    label: "Acute Skin Care",
+    sublabel: "Emergency allergy & drug reaction care",
+  },
+  {
+    display: "Expert",
+    label: "Dermatology Teams",
+    sublabel: "Board-certified skin specialists",
+  },
+];
