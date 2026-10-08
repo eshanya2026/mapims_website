@@ -68,7 +68,9 @@ export default function DepartmentHeroStats({ stats }: DepartmentHeroStatsProps)
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
           className={`grid grid-cols-1 gap-4 ${
-            stats.length === 3
+            stats.length === 2
+              ? "sm:grid-cols-2 max-w-2xl mx-auto"
+              : stats.length === 3
               ? "sm:grid-cols-3 max-w-5xl mx-auto"
               : "sm:grid-cols-2 lg:grid-cols-4"
           }`}

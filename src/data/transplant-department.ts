@@ -60,19 +60,19 @@ export const transplantAchievements = {
     title: "Liver Transplant",
     items: [
       "Pediatric liver transplants",
-      "Liver transplants for acute liver failure patients",
+      "Liver Transplants for acute liver failure patients",
       "HIV / HCV / HBV liver transplants",
-      "ABOi blood group mismatch liver transplants",
+      "ABOi blood group mismatch liver Transplants",
       "Swap liver transplants",
     ],
   },
   kidney: {
     title: "Kidney Transplant",
     items: [
-      "ABO incompatible transplant",
+      "ABO i transplant",
       "Transplant in a 5 year old",
       "HIV positive recipient",
-      "2 cadaver transplants in 12 hours – achieved 3 times",
+      "2 cadaver transplant in 12 hours – 3 times",
       "Obese donor and recipient",
       "Transplant in a young female with Turner syndrome and Aortic stenosis",
       "Transplant in a young male with severe PAH",
