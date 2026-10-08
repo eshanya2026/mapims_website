@@ -63,11 +63,6 @@ export const entStats: DepartmentHeroStat[] = [
     sublabel: "Ear, nose & throat care",
   },
   {
-    end: 5,
-    label: "ENT Surgeries",
-    sublabel: "Tympanoplasty to tonsillectomy",
-  },
-  {
     display: "24/7",
     label: "Critical Care",
     sublabel: "ICU, CCU & ICCU support",
