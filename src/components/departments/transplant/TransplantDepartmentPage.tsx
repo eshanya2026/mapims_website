@@ -12,11 +12,8 @@ import {
   whyChooseTransplant,
   liverTransplantProgram,
   kidneyTransplantProgram,
-  transplantAchievementStats,
-  transplantAchievementFootnote,
-  transplantLandmarkAchievement,
+  transplantAchievements,
   transplantVisionMission,
-  leadDoctor,
   transplantTrustMetrics,
   transplantJourney,
   transplantJourneyPillars,
@@ -30,29 +27,8 @@ import {
   DepartmentSectionLabel,
   DepartmentSectionHeading,
   DepartmentServicesGrid,
-  DepartmentExcellenceNote,
 } from "@/components/departments/design";
 
-function MetricStat({
-  end,
-  suffix = "",
-  label,
-}: {
-  end: number;
-  suffix?: string;
-  label: string;
-}) {
-  return (
-    <div className="relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-6 text-center shadow-sm">
-      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-red-600 to-red-400" />
-      <p className="text-3xl font-bold text-red-600">
-        {end}
-        {suffix}
-      </p>
-      <p className="mt-2 text-sm font-semibold text-slate-700">{label}</p>
-    </div>
-  );
-}
 
 export default function TransplantDepartmentPage() {
   return (
@@ -112,29 +88,54 @@ export default function TransplantDepartmentPage() {
           <div className="text-center">
             <DepartmentSectionLabel align="center">Outcomes</DepartmentSectionLabel>
             <DepartmentSectionHeading
-              title="Transplant"
+              title="Our"
               highlight="Achievements"
               align="center"
             />
           </div>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-            {transplantAchievementStats.map((metric) => (
-              <MetricStat
-                key={metric.label}
-                end={metric.end}
-                suffix={metric.suffix}
-                label={metric.label}
-              />
-            ))}
-          </div>
-          <p className="mt-4 text-center text-xs text-slate-500 md:text-sm">
-            {transplantAchievementFootnote}
-          </p>
-          <div className="mt-8">
-            <DepartmentExcellenceNote
-              title={transplantLandmarkAchievement.title}
-              paragraphs={[transplantLandmarkAchievement.body]}
-            />
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            {/* Liver Transplant */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm"
+            >
+              <div className="flex items-center gap-3 bg-gradient-to-r from-red-700 to-red-600 px-6 py-4">
+                <Award className="h-5 w-5 text-white" />
+                <h3 className="text-xl font-bold text-white">{transplantAchievements.liver.title}</h3>
+              </div>
+              <ul className="space-y-3 p-6 md:p-8">
+                {transplantAchievements.liver.items.map((item) => (
+                  <li key={item} className="flex gap-3 text-sm md:text-base">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
+                    <span className="leading-relaxed text-slate-700">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+            {/* Kidney Transplant */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.08 }}
+              className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm"
+            >
+              <div className="flex items-center gap-3 bg-slate-900 px-6 py-4">
+                <Award className="h-5 w-5 text-white" />
+                <h3 className="text-xl font-bold text-white">{transplantAchievements.kidney.title}</h3>
+              </div>
+              <ul className="space-y-3 p-6 md:p-8">
+                {transplantAchievements.kidney.items.map((item) => (
+                  <li key={item} className="flex gap-3 text-sm md:text-base">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-slate-700" />
+                    <span className="leading-relaxed text-slate-700">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
           </div>
         </DepartmentSection>
 
@@ -174,31 +175,7 @@ export default function TransplantDepartmentPage() {
           </div>
         </DepartmentSection>
 
-        <DepartmentSection id="leadership" variant="muted">
-          <DepartmentSectionLabel>Leadership</DepartmentSectionLabel>
-          <DepartmentSectionHeading title="Meet Our" highlight="Leadership" />
-          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[240px_1fr]">
-            <div className="overflow-hidden rounded-2xl border border-slate-200/80 shadow-md">
-              <img
-                src={leadDoctor.image}
-                alt={leadDoctor.name}
-                className="aspect-[3/4] w-full object-cover"
-              />
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-slate-900 md:text-3xl">
-                {leadDoctor.name}
-              </h3>
-              <p className="mt-1 font-semibold text-red-600">
-                {leadDoctor.credentials}
-              </p>
-              <p className="mt-1 text-sm text-slate-600">{leadDoctor.department}</p>
-              <p className="mt-6 text-sm leading-relaxed text-slate-600 md:text-base">
-                {leadDoctor.bio}
-              </p>
-            </div>
-          </div>
-        </DepartmentSection>
+
 
         <DepartmentSection id="trust">
           <div className="text-center">

@@ -55,20 +55,29 @@ export const kidneyTransplantProgram = {
   ],
 };
 
-export const transplantAchievementStats = [
-  { end: 43, suffix: "+", label: "Successful Transplants" },
-  { end: 22, suffix: "+", label: "Kidney Transplants" },
-  { end: 20, suffix: "+", label: "Cornea Transplants" },
-  { end: 150, suffix: "+", label: "Liver Transplants Supported" },
-  { end: 300, suffix: "+", label: "Renal Transplants Supported" },
-];
-
-export const transplantAchievementFootnote =
-  "*Combined expertise of our transplant leadership team.";
-
-export const transplantLandmarkAchievement = {
-  title: "Landmark Achievement",
-  body: "Successfully completed two consecutive cadaver kidney transplants within hours using advanced HOPE (Hypothermic Oxygenated Machine Perfusion) technology, enhancing organ preservation and improving transplant outcomes.",
+export const transplantAchievements = {
+  liver: {
+    title: "Liver Transplant",
+    items: [
+      "Pediatric liver transplants",
+      "Liver transplants for acute liver failure patients",
+      "HIV / HCV / HBV liver transplants",
+      "ABOi blood group mismatch liver transplants",
+      "Swap liver transplants",
+    ],
+  },
+  kidney: {
+    title: "Kidney Transplant",
+    items: [
+      "ABO incompatible transplant",
+      "Transplant in a 5 year old",
+      "HIV positive recipient",
+      "2 cadaver transplants in 12 hours – achieved 3 times",
+      "Obese donor and recipient",
+      "Transplant in a young female with Turner syndrome and Aortic stenosis",
+      "Transplant in a young male with severe PAH",
+    ],
+  },
 };
 
 export const transplantVisionMission = {

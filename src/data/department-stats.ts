@@ -351,23 +351,15 @@ export const neurologyStats: DepartmentHeroStat[] = [
 /** Achievement figures — update when hospitals publishes new totals */
 export const transplantHeroStats: DepartmentHeroStat[] = [
   {
-    end: 43,
+    end: 60,
+    suffix: "+",
     label: "Successful Transplants",
     sublabel: "Overall achievement",
   },
   {
-    end: 22,
-    label: "Kidney Transplants",
-    sublabel: "Renal program",
-  },
-  {
-    end: 20,
-    label: "Cornea Transplants",
-    sublabel: "Successful cases",
-  },
-  {
-    end: 150,
-    label: "Liver Transplants Supported",
-    sublabel: "Leadership team expertise",
+    end: 40,
+    suffix: "+",
+    label: "Cadaver Transplants",
+    sublabel: "Deceased donor program",
   },
 ];
