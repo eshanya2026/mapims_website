@@ -84,8 +84,8 @@ export const anaesthesiologyServices = [
     image: "/images/anaesthesia-pain-management.jpg",
     badge: "Zero-Pain Recovery",
     badgeColor: "blue" as const,
-    imageCaption: "Personalized Post-Surgical Pain Protocols, Epidural Infusions and Interventional Pain Blocks",
-    imagePosition: "center 58%",
+    imageCaption: "Comprehensive Acute & Chronic Pain Management, Spine Consultations & Interventional Relief",
+    imagePosition: "center 38%",
   },
   {
     title: "Preoperative Assessment & Emergency Resuscitation",
