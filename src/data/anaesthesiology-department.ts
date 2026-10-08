@@ -85,7 +85,7 @@ export const anaesthesiologyServices = [
     badge: "Zero-Pain Recovery",
     badgeColor: "blue" as const,
     imageCaption: "Comprehensive Acute & Chronic Pain Management, Spine Consultations & Interventional Relief",
-    imagePosition: "center 38%",
+    imagePosition: "center 48%",
   },
   {
     title: "Preoperative Assessment & Emergency Resuscitation",
