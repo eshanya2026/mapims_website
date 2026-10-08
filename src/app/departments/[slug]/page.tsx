@@ -24,12 +24,18 @@ type PageProps = {
 };
 
 export function generateStaticParams() {
-  return departments.map((dept) => ({ slug: dept.slug }));
+  const params = departments.map((dept) => ({ slug: dept.slug }));
+  params.push({ slug: "radiology-imaging-science" });
+  return params;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const department = departments.find((d) => d.slug === slug);
+  const department =
+    departments.find((d) => d.slug === slug) ??
+    (slug === "radiology-imaging-science"
+      ? departments.find((d) => d.slug === "radiology")
+      : undefined);
 
   if (!department) {
     return { title: "Department | Adhiparasakthi Hospitals" };

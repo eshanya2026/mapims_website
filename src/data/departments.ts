@@ -196,13 +196,6 @@ export const departments: Department[] = [
     image: "/images/radiology-imaging-science.png",
   },
   {
-    slug: "radiology-imaging-science",
-    name: "Radiology & Imaging Sciences",
-    description:
-      "Advanced diagnostic imaging including high-resolution CT, MRI, ultrasound, X-ray, and precision interventional radiology services.",
-    image: "/images/radiology-imaging-science.png",
-  },
-  {
     slug: "anaesthesiology",
     name: "Anaesthesiology",
     description:
