@@ -81,7 +81,7 @@ export const anaesthesiologyServices = [
       "Interventional Chronic Back & Joint Pain Injections",
       "Cancer Pain Management & Palliative Analgesia",
     ],
-    image: "/images/anaesthesia-pain-management.jpg",
+    image: "/images/anaesthesia-pain-management-clinic.jpg",
     badge: "Zero-Pain Recovery",
     badgeColor: "blue" as const,
     imageCaption: "Comprehensive Acute & Chronic Pain Management, Spine Consultations & Interventional Relief",
