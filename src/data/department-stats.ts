@@ -436,4 +436,75 @@ export const anaesthesiologyStats: DepartmentHeroStat[] = [
   },
 ];
 
+export const emergencyStats: DepartmentHeroStat[] = [
+  {
+    display: "24/7",
+    label: "Emergency & Trauma Care",
+    sublabel: "Immediate red-zone resuscitation",
+  },
+  {
+    display: "Golden",
+    label: "Hour Protocols",
+    sublabel: "Rapid trauma & stroke pathways",
+  },
+  {
+    end: 15,
+    suffix: " Mins",
+    label: "Door-to-Triage Target",
+    sublabel: "Immediate specialist evaluation",
+  },
+  {
+    display: "Level-1",
+    label: "Trauma Preparedness",
+    sublabel: "Multi-specialty emergency teams",
+  },
+];
+
+export const spineSurgeryStats: DepartmentHeroStat[] = [
+  {
+    display: "MISS",
+    label: "Keyhole Spine Procedures",
+    sublabel: "Endoscopic & tubular decompression",
+  },
+  {
+    display: "3D",
+    label: "Intraoperative Navigation",
+    sublabel: "Real-time neuro-monitoring (IONM)",
+  },
+  {
+    display: "24/7",
+    label: "Spinal Trauma Care",
+    sublabel: "Immediate cord decompression",
+  },
+  {
+    display: "Expert",
+    label: "Spine Surgical Teams",
+    sublabel: "Complex deformity & fusion experts",
+  },
+];
+
+export const surgicalOncologyStats: DepartmentHeroStat[] = [
+  {
+    display: "Tumor",
+    label: "Board Consensus",
+    sublabel: "Multidisciplinary treatment planning",
+  },
+  {
+    display: "Organ",
+    label: "Preserving Resections",
+    sublabel: "Oncoplastic & radical accuracy",
+  },
+  {
+    display: "4K & MIS",
+    label: "Minimally Invasive Onco-OT",
+    sublabel: "Laparoscopic cancer surgeries",
+  },
+  {
+    display: "Expert",
+    label: "Surgical Oncologists",
+    sublabel: "Subspecialized cancer surgeons",
+  },
+];
+
+
 

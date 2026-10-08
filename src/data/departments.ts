@@ -27,15 +27,18 @@ export const departmentDetailSlugs = [
   "radiology",
   "radiology-imaging-science",
   "anaesthesiology",
+  "accident-emergency-services",
+  "spinal-surgeries",
+  "surgical-oncology",
 ] as const;
 
 /** Slugs routed to hospital services detail page */
 export const departmentServiceSlugs: Record<string, string> = {
   "general-surgery": "/services/general-surgery",
   "cardiovascular-thoracic-surgery": "/services/cardiovascular-thoracic-surgery",
-  "surgical-oncology": "/services/surgical-oncology",
-  "accident-emergency-services": "/services/accident-emergency-services",
-  "spinal-surgeries": "/services/spinal-surgeries",
+  "surgical-oncology": "/departments/surgical-oncology",
+  "accident-emergency-services": "/departments/accident-emergency-services",
+  "spinal-surgeries": "/departments/spinal-surgeries",
 };
 
 export function getDepartmentHref(slug: string): string {

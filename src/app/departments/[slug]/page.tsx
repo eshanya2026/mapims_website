@@ -20,13 +20,24 @@ import TransplantDepartmentPage from "@/components/departments/transplant/Transp
 import DermatologyDepartmentPage from "@/components/departments/dermatology/DermatologyDepartmentPage";
 import RadiologyDepartmentPage from "@/components/departments/radiology/RadiologyDepartmentPage";
 import AnaesthesiologyDepartmentPage from "@/components/departments/anaesthesiology/AnaesthesiologyDepartmentPage";
+import EmergencyDepartmentPage from "@/components/departments/emergency/EmergencyDepartmentPage";
+import SpineSurgeryDepartmentPage from "@/components/departments/spine-surgery/SpineSurgeryDepartmentPage";
+import SurgicalOncologyDepartmentPage from "@/components/departments/surgical-oncology/SurgicalOncologyDepartmentPage";
+
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
 export function generateStaticParams() {
   const params = departments.map((dept) => ({ slug: dept.slug }));
-  params.push({ slug: "radiology-imaging-science" });
+  params.push(
+    { slug: "radiology-imaging-science" },
+    { slug: "accident-emergency" },
+    { slug: "emergency-medicine" },
+    { slug: "emergency" },
+    { slug: "spine-surgery" },
+    { slug: "spine-surgeries" }
+  );
   return params;
 }
 
@@ -36,6 +47,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     departments.find((d) => d.slug === slug) ??
     (slug === "radiology-imaging-science"
       ? departments.find((d) => d.slug === "radiology")
+      : slug === "accident-emergency" || slug === "emergency-medicine" || slug === "emergency"
+      ? departments.find((d) => d.slug === "accident-emergency-services")
+      : slug === "spine-surgery" || slug === "spine-surgeries"
+      ? departments.find((d) => d.slug === "spinal-surgeries")
       : undefined);
 
   if (!department) {
@@ -125,6 +140,27 @@ export default async function DepartmentDetailPage({ params }: PageProps) {
 
   if (slug === "anaesthesiology") {
     return <AnaesthesiologyDepartmentPage />;
+  }
+
+  if (
+    slug === "accident-emergency-services" ||
+    slug === "accident-emergency" ||
+    slug === "emergency-medicine" ||
+    slug === "emergency"
+  ) {
+    return <EmergencyDepartmentPage />;
+  }
+
+  if (
+    slug === "spinal-surgeries" ||
+    slug === "spine-surgery" ||
+    slug === "spine-surgeries"
+  ) {
+    return <SpineSurgeryDepartmentPage />;
+  }
+
+  if (slug === "surgical-oncology") {
+    return <SurgicalOncologyDepartmentPage />;
   }
 
   notFound();

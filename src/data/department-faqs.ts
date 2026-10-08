@@ -482,6 +482,72 @@ export const departmentFaqsBySlug: Record<string, FaqItem[]> = {
         "We adhere strictly to the ALARA (As Low As Reasonably Achievable) principle, using state-of-the-art dose-reduction technology and customized pediatric protocols to minimize radiation exposure while maintaining high diagnostic image quality. Ultrasound and MRI use zero ionizing radiation.",
     },
   ],
+  "accident-emergency-services": [
+    {
+      question: "What should I do in an emergency situation?",
+      answer:
+        "Call our 24/7 Emergency Helpline at 94990 59966 or proceed immediately to the Emergency & Trauma Department at Adhiparasakthi Hospitals, Melmaruvathur. Our triage team and trauma resuscitation bay are continuously staffed and prepared for immediate intervention.",
+    },
+    {
+      question: "What is the emergency triage process?",
+      answer:
+        "Upon arrival, patients undergo immediate clinical triage based on global ATLS protocols (Red for life-threatening emergencies, Yellow for urgent conditions, Green for non-critical cases). Critical polytrauma, stroke, and cardiac emergencies receive instant red-zone resuscitation without paperwork delays.",
+    },
+    {
+      question: "Are specialist doctors available 24/7 in emergency?",
+      answer:
+        "Yes. Our emergency room is staffed 24/7 by board-certified Emergency Physicians, supported by on-call trauma surgeons, neurosurgeons, orthopaedic surgeons, cardiologists, anaesthesiologists, and intensive care specialists.",
+    },
+    {
+      question: "Do you have mobile ICU ambulances?",
+      answer:
+        "Yes. Our fleet of Advanced Life Support (ALS) Mobile ICU ambulances is equipped with transport ventilators, biphasic defibrillators, oxygen support, and trained emergency paramedics capable of en-route tele-triage.",
+    },
+  ],
+  "spinal-surgeries": [
+    {
+      question: "What is Minimally Invasive Spine Surgery (MISS)?",
+      answer:
+        "Minimally Invasive Spine Surgery uses specialized tubular retractors and endoscopic cameras through tiny keyhole incisions. This preserves normal back muscles, minimizes blood loss, reduces postoperative discomfort, and allows faster return to daily activities compared to open spine surgery.",
+    },
+    {
+      question: "When is spine surgery necessary?",
+      answer:
+        "Surgery is typically recommended when conservative therapies (physiotherapy, medications, targeted nerve blocks) fail to relieve persistent radicular pain (sciatica), or in cases of severe spinal instability, progressive muscle weakness, spinal cord compression (myelopathy), deformity, or traumatic fractures.",
+    },
+    {
+      question: "How safe is modern spine surgery?",
+      answer:
+        "At Adhiparasakthi Hospitals, spine surgery is performed with ultra-high safety standards utilizing continuous Intraoperative Neuro-Monitoring (IONM) to safeguard nerve pathways in real time, high-magnification surgical operating microscopes, and precision 3D fluoroscopy guidance.",
+    },
+    {
+      question: "What is the recovery period after spine surgery?",
+      answer:
+        "Many patients undergoing endoscopic or minimally invasive discectomy are mobilized on the same day or within 24 hours. Complex fusion or deformity correction procedures generally involve a structured hospital stay followed by guided physical rehabilitation to ensure full recovery.",
+    },
+  ],
+  "surgical-oncology": [
+    {
+      question: "What is the role of a Surgical Oncologist?",
+      answer:
+        "A surgical oncologist specializes in the surgical diagnosis, staging, and curative or palliative removal of cancerous tumors. They collaborate within a multidisciplinary Tumor Board comprising medical oncologists, radiation oncologists, radiologists, and pathologists to devise the most effective overall cancer care plan.",
+    },
+    {
+      question: "What is organ-preserving / oncoplastic cancer surgery?",
+      answer:
+        "Organ-preserving surgery aims to remove the tumor completely with clear margins while saving as much healthy tissue and organ function as possible—such as breast-conserving lumpectomy with oncoplastic remodeling, limb-salvage surgery for bone tumors, and sphincter-preserving colorectal surgery.",
+    },
+    {
+      question: "Do you perform minimally invasive and laparoscopic cancer surgeries?",
+      answer:
+        "Yes. Whenever oncologically safe, our surgical oncologists utilize advanced laparoscopic and minimally invasive techniques for colorectal, gynaecological, thoracic, and gastrointestinal cancers, resulting in reduced scarring, less postoperative pain, and faster recovery.",
+    },
+    {
+      question: "How do I schedule an oncology second opinion?",
+      answer:
+        "You can schedule a consultation with our surgical oncology team and bring all previous pathology slides, biopsy reports, CT/MRI scans, and clinical summaries. Our Tumor Board will review your case to provide comprehensive, evidence-based recommendations.",
+    },
+  ],
 };
 
 export function getDepartmentFaqs(slug: string): FaqItem[] | undefined {
@@ -510,6 +576,9 @@ export const departmentFaqSlugs = [
   "radiology",
   "radiology-imaging-science",
   "anaesthesiology",
+  "accident-emergency-services",
+  "spinal-surgeries",
+  "surgical-oncology",
 ] as const;
 
 

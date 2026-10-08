@@ -9,6 +9,10 @@ import {
   servicesPath,
 } from "@/data/hospital-services";
 
+import EmergencyDepartmentPage from "@/components/departments/emergency/EmergencyDepartmentPage";
+import SpineSurgeryDepartmentPage from "@/components/departments/spine-surgery/SpineSurgeryDepartmentPage";
+import SurgicalOncologyDepartmentPage from "@/components/departments/surgical-oncology/SurgicalOncologyDepartmentPage";
+
 type ServicePageProps = {
   params: Promise<{ slug: string }>;
 };
@@ -21,6 +25,27 @@ export async function generateMetadata({
   params,
 }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
+  if (slug === "accident-emergency-services") {
+    return {
+      title: "Accident & Emergency Medicine | Adhiparasakthi Hospitals",
+      description:
+        "24/7 Level-1 trauma resuscitation, emergency surgery, and mobile ICU ambulance care in Melmaruvathur.",
+    };
+  }
+  if (slug === "spinal-surgeries") {
+    return {
+      title: "Spinal Surgeries | Adhiparasakthi Hospitals",
+      description:
+        "Advanced minimally invasive spine surgery, deformity correction, disc surgery, and spine trauma care.",
+    };
+  }
+  if (slug === "surgical-oncology") {
+    return {
+      title: "Surgical Oncology | Adhiparasakthi Hospitals",
+      description:
+        "Comprehensive cancer surgery, multidisciplinary tumor board, and organ-preserving oncoplasty.",
+    };
+  }
   const service = await getServiceBySlug(slug);
   if (!service) return {};
 
@@ -32,6 +57,17 @@ export async function generateMetadata({
 
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const { slug } = await params;
+
+  if (slug === "accident-emergency-services") {
+    return <EmergencyDepartmentPage />;
+  }
+  if (slug === "spinal-surgeries") {
+    return <SpineSurgeryDepartmentPage />;
+  }
+  if (slug === "surgical-oncology") {
+    return <SurgicalOncologyDepartmentPage />;
+  }
+
   const service = await getServiceBySlug(slug);
   if (!service) notFound();
 
