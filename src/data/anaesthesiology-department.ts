@@ -43,7 +43,7 @@ export const anaesthesiologyServices = [
     badge: "Modular OT Anaesthesia",
     badgeColor: "red" as const,
     imageCaption: "State-of-the-Art Anaesthesia Workstations and Real-Time Multi-Parameter Patient Monitoring",
-    imagePosition: "center 40%",
+    imagePosition: "center 60%",
   },
   {
     title: "Superspecialty & High-Risk Anaesthesia",
@@ -57,7 +57,7 @@ export const anaesthesiologyServices = [
     badge: "Complex Surgical Support",
     badgeColor: "blue" as const,
     imageCaption: "Specialized Anaesthesia Protocols for Cardiac, Neuro, Vascular and Organ Transplant Surgeries",
-    imagePosition: "center 45%",
+    imagePosition: "center 32%",
   },
   {
     title: "Critical Care & Intensive Life Support",
@@ -71,7 +71,7 @@ export const anaesthesiologyServices = [
     badge: "24/7 Critical Care",
     badgeColor: "red" as const,
     imageCaption: "Continuous Life Support, Advanced Invasive Monitoring and Multidisciplinary Critical Care",
-    imagePosition: "center 20%",
+    imagePosition: "center 55%",
   },
   {
     title: "Acute & Chronic Pain Management",
@@ -85,7 +85,7 @@ export const anaesthesiologyServices = [
     badge: "Zero-Pain Recovery",
     badgeColor: "blue" as const,
     imageCaption: "Personalized Post-Surgical Pain Protocols, Epidural Infusions and Interventional Pain Blocks",
-    imagePosition: "center 35%",
+    imagePosition: "center 58%",
   },
   {
     title: "Preoperative Assessment & Emergency Resuscitation",
@@ -99,7 +99,7 @@ export const anaesthesiologyServices = [
     badge: "Patient Safety & Triage",
     badgeColor: "red" as const,
     imageCaption: "Pre-Anaesthetic Medical Optimization, Airway Management and Rapid Emergency Resuscitation",
-    imagePosition: "center 30%",
+    imagePosition: "center 50%",
   },
 ];
 
