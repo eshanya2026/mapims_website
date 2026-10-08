@@ -18,6 +18,7 @@ import NeurologyDepartmentPage from "@/components/departments/neurology/Neurolog
 import OncologyDepartmentPage from "@/components/departments/oncology/OncologyDepartmentPage";
 import TransplantDepartmentPage from "@/components/departments/transplant/TransplantDepartmentPage";
 import DermatologyDepartmentPage from "@/components/departments/dermatology/DermatologyDepartmentPage";
+import RadiologyDepartmentPage from "@/components/departments/radiology/RadiologyDepartmentPage";
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
@@ -109,6 +110,10 @@ export default async function DepartmentDetailPage({ params }: PageProps) {
 
   if (slug === "dermatology") {
     return <DermatologyDepartmentPage />;
+  }
+
+  if (slug === "radiology" || slug === "radiology-imaging-science") {
+    return <RadiologyDepartmentPage />;
   }
 
   notFound();

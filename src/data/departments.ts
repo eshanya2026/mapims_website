@@ -24,6 +24,8 @@ export const departmentDetailSlugs = [
   "neurology",
   "multi-organ-transplant",
   "dermatology",
+  "radiology",
+  "radiology-imaging-science",
 ] as const;
 
 /** Slugs routed to hospital services detail page */
@@ -34,7 +36,6 @@ export const departmentServiceSlugs: Record<string, string> = {
   "accident-emergency-services": "/services/accident-emergency-services",
   "spinal-surgeries": "/services/spinal-surgeries",
   anaesthesiology: "/services/anaesthesiology",
-  radiology: "/services/radiology-imaging-science",
 };
 
 export function getDepartmentHref(slug: string): string {
@@ -65,6 +66,7 @@ export const departmentAsideIcons: Record<string, string> = {
   dermatology: "🧴",
   psychiatry: "🧠",
   radiology: "🩻",
+  "radiology-imaging-science": "🩻",
   anaesthesiology: "💉",
   "medical-gastroenterology": "🍽️",
   "plastic-surgery": "✋",
@@ -188,10 +190,17 @@ export const departments: Department[] = [
   },
   {
     slug: "radiology",
-    name: "Radiology",
+    name: "Radiology & Imaging Sciences",
     description:
       "Advanced diagnostic imaging including high-resolution CT, MRI, ultrasound, X-ray, and precision interventional radiology services.",
-    image: "/images/international/imaging science.png",
+    image: "/images/radiology-imaging-science.png",
+  },
+  {
+    slug: "radiology-imaging-science",
+    name: "Radiology & Imaging Sciences",
+    description:
+      "Advanced diagnostic imaging including high-resolution CT, MRI, ultrasound, X-ray, and precision interventional radiology services.",
+    image: "/images/radiology-imaging-science.png",
   },
   {
     slug: "anaesthesiology",

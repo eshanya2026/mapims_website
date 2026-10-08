@@ -387,3 +387,28 @@ export const dermatologyStats: DepartmentHeroStat[] = [
     sublabel: "Board-certified skin specialists",
   },
 ];
+
+export const radiologyStats: DepartmentHeroStat[] = [
+  {
+    display: "24/7",
+    label: "Emergency Diagnostics",
+    sublabel: "Trauma, stroke & acute critical imaging",
+  },
+  {
+    display: "CT & MRI",
+    label: "Advanced Scanners",
+    sublabel: "High-resolution slice & 3D imaging",
+  },
+  {
+    end: 6,
+    suffix: "+",
+    label: "Imaging Modalities",
+    sublabel: "MRI, CT, USG, X-Ray & Mammography",
+  },
+  {
+    display: "Expert",
+    label: "Radiology Teams",
+    sublabel: "Board-certified clinical radiologists",
+  },
+];
+

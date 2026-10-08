@@ -428,6 +428,60 @@ export const departmentFaqsBySlug: Record<string, FaqItem[]> = {
         "You can schedule an appointment online through our website, call our hospital helpline, or visit the outpatient department during consulting hours.",
     },
   ],
+  radiology: [
+    {
+      question: "What imaging services are available at the department?",
+      answer:
+        "We offer a full spectrum of diagnostic and interventional imaging including high-field MRI, multi-slice CT, 3D/4D ultrasound with Color Doppler, digital radiography (X-ray), digital mammography, and image-guided interventional procedures with expert radiologist interpretation.",
+    },
+    {
+      question: "How should I prepare for my MRI or CT scan?",
+      answer:
+        "Preparation varies depending on the examination. Abdominal scans and contrast-enhanced studies often require 4 to 6 hours of fasting. For MRI, you must remove all metallic items, and disclose any pacemakers, aneurysm clips, or metal implants. Our team provides comprehensive pre-scan instructions when scheduling.",
+    },
+    {
+      question: "Are emergency imaging services available round-the-clock?",
+      answer:
+        "Yes. Our Radiology Department operates 24/7 with on-site radiological technologists and round-the-clock radiologist coverage to support emergency trauma, stroke evaluation (code stroke), acute abdomen, and intensive care needs.",
+    },
+    {
+      question: "How long does it take to receive my imaging report?",
+      answer:
+        "Emergency and critical care scans are interpreted immediately with rapid preliminary reports communicated to the treating physicians. Routine diagnostic reports are typically verified within a few hours through our digital PACS network.",
+    },
+    {
+      question: "Is radiation exposure safe during CT scans and X-rays?",
+      answer:
+        "We adhere strictly to the ALARA (As Low As Reasonably Achievable) principle, using state-of-the-art dose-reduction technology and customized pediatric protocols to minimize radiation exposure while maintaining high diagnostic image quality. Ultrasound and MRI use zero ionizing radiation.",
+    },
+  ],
+  "radiology-imaging-science": [
+    {
+      question: "What imaging services are available at the department?",
+      answer:
+        "We offer a full spectrum of diagnostic and interventional imaging including high-field MRI, multi-slice CT, 3D/4D ultrasound with Color Doppler, digital radiography (X-ray), digital mammography, and image-guided interventional procedures with expert radiologist interpretation.",
+    },
+    {
+      question: "How should I prepare for my MRI or CT scan?",
+      answer:
+        "Preparation varies depending on the examination. Abdominal scans and contrast-enhanced studies often require 4 to 6 hours of fasting. For MRI, you must remove all metallic items, and disclose any pacemakers, aneurysm clips, or metal implants. Our team provides comprehensive pre-scan instructions when scheduling.",
+    },
+    {
+      question: "Are emergency imaging services available round-the-clock?",
+      answer:
+        "Yes. Our Radiology Department operates 24/7 with on-site radiological technologists and round-the-clock radiologist coverage to support emergency trauma, stroke evaluation (code stroke), acute abdomen, and intensive care needs.",
+    },
+    {
+      question: "How long does it take to receive my imaging report?",
+      answer:
+        "Emergency and critical care scans are interpreted immediately with rapid preliminary reports communicated to the treating physicians. Routine diagnostic reports are typically verified within a few hours through our digital PACS network.",
+    },
+    {
+      question: "Is radiation exposure safe during CT scans and X-rays?",
+      answer:
+        "We adhere strictly to the ALARA (As Low As Reasonably Achievable) principle, using state-of-the-art dose-reduction technology and customized pediatric protocols to minimize radiation exposure while maintaining high diagnostic image quality. Ultrasound and MRI use zero ionizing radiation.",
+    },
+  ],
 };
 
 export function getDepartmentFaqs(slug: string): FaqItem[] | undefined {
@@ -453,4 +507,7 @@ export const departmentFaqSlugs = [
   "plastic-surgery",
   "general-medicine",
   "dermatology",
+  "radiology",
+  "radiology-imaging-science",
 ] as const;
+
