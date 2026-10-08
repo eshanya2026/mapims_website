@@ -509,5 +509,7 @@ export const departmentFaqSlugs = [
   "dermatology",
   "radiology",
   "radiology-imaging-science",
+  "anaesthesiology",
 ] as const;
+
 

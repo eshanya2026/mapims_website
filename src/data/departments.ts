@@ -26,6 +26,7 @@ export const departmentDetailSlugs = [
   "dermatology",
   "radiology",
   "radiology-imaging-science",
+  "anaesthesiology",
 ] as const;
 
 /** Slugs routed to hospital services detail page */
@@ -35,7 +36,6 @@ export const departmentServiceSlugs: Record<string, string> = {
   "surgical-oncology": "/services/surgical-oncology",
   "accident-emergency-services": "/services/accident-emergency-services",
   "spinal-surgeries": "/services/spinal-surgeries",
-  anaesthesiology: "/services/anaesthesiology",
 };
 
 export function getDepartmentHref(slug: string): string {
@@ -200,7 +200,7 @@ export const departments: Department[] = [
     name: "Anaesthesiology",
     description:
       "Expert anesthesia, ICU critical care, and pain medicine with round-the-clock specialist teams and advanced monitoring.",
-    image: "/images/international/anaesthesiology.png",
+    image: "/images/anaesthesiology.png",
   },
   {
     slug: "medical-gastroenterology",

@@ -412,3 +412,28 @@ export const radiologyStats: DepartmentHeroStat[] = [
   },
 ];
 
+export const anaesthesiologyStats: DepartmentHeroStat[] = [
+  {
+    end: 17,
+    suffix: "+",
+    label: "Modular Operation Theatres",
+    sublabel: "Advanced surgical suites",
+  },
+  {
+    display: "24/7",
+    label: "Critical Care & ICU",
+    sublabel: "Continuous hemodynamic life support",
+  },
+  {
+    display: "Zero",
+    label: "Pain Pathways",
+    sublabel: "Multimodal analgesia & nerve blocks",
+  },
+  {
+    display: "Expert",
+    label: "Anaesthesia Teams",
+    sublabel: "Specialized perioperative consultants",
+  },
+];
+
+
