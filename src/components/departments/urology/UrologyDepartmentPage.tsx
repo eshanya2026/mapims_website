@@ -10,7 +10,6 @@ import {
   urologyIntro,
   whyChooseUrology,
   urologyServices,
-  urologyConditions,
   urologyTechnology,
   urologyInfrastructure,
   urologyJourney,
@@ -78,19 +77,6 @@ export default function UrologyDepartmentPage() {
             />
           </div>
           <DepartmentServicesGrid services={urologyServices} icons={serviceIcons} />
-        </DepartmentSection>
-
-        <DepartmentSection id="conditions" variant="muted">
-          <div className="text-center">
-            <DepartmentSectionLabel align="center">Clinical Scope</DepartmentSectionLabel>
-            <DepartmentSectionHeading
-              title="Conditions"
-              highlight="We Treat"
-              description="Our specialists manage a wide range of urological conditions including:"
-              align="center"
-            />
-          </div>
-          <DepartmentChecklistGrid items={urologyConditions} />
         </DepartmentSection>
 
         <DepartmentSection id="technology">

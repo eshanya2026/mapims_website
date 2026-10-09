@@ -35,7 +35,7 @@ export default function DepartmentGradientPanel({
           ) : null}
         </h2>
         {description ? (
-          <p className="mt-4 text-sm leading-relaxed text-slate-600 md:text-base">
+          <p className="mt-4 text-sm leading-relaxed text-slate-600 md:text-base text-left">
             {description}
           </p>
         ) : null}

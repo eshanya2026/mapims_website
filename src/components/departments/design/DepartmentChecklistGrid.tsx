@@ -33,7 +33,7 @@ export default function DepartmentChecklistGrid({
           viewport={{ once: true }}
           transition={{ delay: index * 0.03 }}
           className={cn(
-            "flex gap-3 text-sm text-slate-700 md:text-base",
+            "flex items-start gap-3 text-left text-sm text-slate-700 md:text-base",
             variant === "card" &&
               "rounded-xl border border-slate-200/80 bg-white px-4 py-3.5 shadow-sm",
             variant === "pill" &&
@@ -41,7 +41,7 @@ export default function DepartmentChecklistGrid({
           )}
         >
           <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
-          {item}
+          <span className="text-left leading-snug">{item}</span>
         </motion.li>
       ))}
     </ul>

@@ -17,7 +17,6 @@ import {
   nephrologyIntro,
   whyChooseNephrology,
   nephrologyServices,
-  nephrologyConditions,
   nephrologyInfrastructure,
   nephrologyTransplantExcellence,
   nephrologyJourney,
@@ -85,18 +84,6 @@ export default function NephrologyDepartmentPage() {
             />
           </div>
           <DepartmentServicesGrid services={nephrologyServices} icons={serviceIcons} />
-        </DepartmentSection>
-
-        <DepartmentSection id="conditions" variant="muted">
-          <div className="text-center">
-            <DepartmentSectionLabel align="center">Clinical Scope</DepartmentSectionLabel>
-            <DepartmentSectionHeading
-              title="Conditions"
-              highlight="We Treat"
-              align="center"
-            />
-          </div>
-          <DepartmentChecklistGrid items={nephrologyConditions} />
         </DepartmentSection>
 
         <DepartmentSection id="infrastructure">

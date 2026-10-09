@@ -144,10 +144,14 @@
   }
 
   /* Body copy: full-width justified text across content pages */
-  main p,
-  main li {
+  main p {
     text-align: justify;
     text-wrap: pretty;
+  }
+
+  /* List items, cards, and checklist bullets must always align left */
+  main li {
+    text-align: left;
   }
 
   /* Heroes, centered blocks, and chrome keep their intended alignment */

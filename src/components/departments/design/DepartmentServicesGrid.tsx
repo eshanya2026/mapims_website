@@ -150,10 +150,10 @@ export default function DepartmentServicesGrid({
                     {service.bullets.map((bullet) => (
                       <li
                         key={bullet}
-                        className="flex gap-2.5 text-sm leading-relaxed text-slate-600"
+                        className="flex items-start gap-2.5 text-left text-sm leading-relaxed text-slate-600"
                       >
                         <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-red-600" />
-                        {bullet}
+                        <span className="text-left leading-snug">{bullet}</span>
                       </li>
                     ))}
                   </ul>
