@@ -30,12 +30,13 @@ export const departmentDetailSlugs = [
   "accident-emergency-services",
   "spinal-surgeries",
   "surgical-oncology",
+  "cardiovascular-thoracic-surgery",
 ] as const;
 
 /** Slugs routed to hospital services detail page */
 export const departmentServiceSlugs: Record<string, string> = {
   "general-surgery": "/services/general-surgery",
-  "cardiovascular-thoracic-surgery": "/services/cardiovascular-thoracic-surgery",
+  "cardiovascular-thoracic-surgery": "/departments/cardiovascular-thoracic-surgery",
   "surgical-oncology": "/departments/surgical-oncology",
   "accident-emergency-services": "/departments/accident-emergency-services",
   "spinal-surgeries": "/departments/spinal-surgeries",
@@ -158,7 +159,7 @@ export const departments: Department[] = [
   },
   {
     slug: "obstetrics-gynaecology",
-    name: "Obstetrics & Gynaecology Department",
+    name: "Obstetrics & Gynaecology",
     description:
       "Expert women's healthcare from adolescence through pregnancy, fertility, surgery, and menopause—with maternity, NICU, and gynaecology under one roof.",
     image: "/images/og.png",

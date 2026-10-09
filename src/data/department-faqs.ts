@@ -548,6 +548,33 @@ export const departmentFaqsBySlug: Record<string, FaqItem[]> = {
         "You can schedule a consultation with our surgical oncology team and bring all previous pathology slides, biopsy reports, CT/MRI scans, and clinical summaries. Our Tumor Board will review your case to provide comprehensive, evidence-based recommendations.",
     },
   ],
+  "cardiovascular-thoracic-surgery": [
+    {
+      question: "What conditions are treated by cardiovascular & thoracic surgeons?",
+      answer:
+        "Our CVTS surgeons treat severe coronary artery disease requiring bypass surgery (CABG), valvular heart disease (repair/replacement), thoracic aortic aneurysms and dissections, lung and mediastinal tumors, chest wall deformities, and peripheral vascular disorders.",
+    },
+    {
+      question: "What is the difference between on-pump and off-pump CABG?",
+      answer:
+        "In traditional on-pump CABG, a heart-lung bypass machine temporarily takes over cardiac function while the heart is stopped. In off-pump (beating-heart) CABG, the surgeon operates on the heart while it continues beating using specialized stabilizers, which can reduce certain complications in high-risk patients. Our surgeons are proficient in both techniques.",
+    },
+    {
+      question: "How long is the recovery period after heart surgery?",
+      answer:
+        "Most patients stay in the specialized Cardiothoracic ICU (CTICU) for 1–2 days for close monitoring, followed by 4–6 days in the step-down cardiac ward. Complete recovery and return to routine activities usually takes 6 to 8 weeks, supported by our comprehensive cardiac rehabilitation program.",
+    },
+    {
+      question: "Do you offer minimally invasive thoracic and lung surgeries?",
+      answer:
+        "Yes. Whenever clinically appropriate, our thoracic surgical team utilizes Video-Assisted Thoracoscopic Surgery (VATS) for lung biopsies, lobectomies, and pleural procedures. This approach involves tiny incisions, reduced postoperative pain, and faster discharge compared to traditional thoracotomy.",
+    },
+    {
+      question: "What should I bring for a cardiothoracic surgical consultation?",
+      answer:
+        "Please bring your recent coronary angiogram CD and report, 2D echocardiogram, ECG, chest X-ray or CT scans, relevant blood investigations, and a complete history of current medications and previous cardiac interventions.",
+    },
+  ],
 };
 
 export function getDepartmentFaqs(slug: string): FaqItem[] | undefined {
@@ -579,6 +606,7 @@ export const departmentFaqSlugs = [
   "accident-emergency-services",
   "spinal-surgeries",
   "surgical-oncology",
+  "cardiovascular-thoracic-surgery",
 ] as const;
 
 

@@ -506,5 +506,29 @@ export const surgicalOncologyStats: DepartmentHeroStat[] = [
   },
 ];
 
+export const cardiovascularThoracicStats: DepartmentHeroStat[] = [
+  {
+    end: 5,
+    suffix: "+",
+    label: "Surgical Programs",
+    sublabel: "Bypass, valve, thoracic & vascular",
+  },
+  {
+    display: "Off-Pump",
+    label: "Beating Heart CABG",
+    sublabel: "Total arterial revascularisation",
+  },
+  {
+    display: "24/7",
+    label: "Dedicated CTICU",
+    sublabel: "Intensivist & IABP monitoring",
+  },
+  {
+    display: "Expert",
+    label: "Cardiothoracic Teams",
+    sublabel: "Surgeons, perfusionists & CCU care",
+  },
+];
+
 
 

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import BookAppointmentLink from "@/components/layout/BookAppointmentLink";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -66,6 +66,12 @@ function NavDropdown({
   items: NavDropdownItem[];
   wide?: boolean;
 }) {
+  const headerItem = wide ? items.find((i) => i.highlight) : null;
+  const listItems = wide && headerItem ? items.filter((i) => !i.highlight) : items;
+  const midpoint = Math.ceil(listItems.length / 2);
+  const col1 = wide ? listItems.slice(0, midpoint) : [];
+  const col2 = wide ? listItems.slice(midpoint) : [];
+
   return (
     <div className="relative group">
       <Link
@@ -79,26 +85,69 @@ function NavDropdown({
       <div className="absolute left-0 top-full pt-2 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 pointer-events-none group-hover:pointer-events-auto z-50">
         <div
           className={cn(
-            "bg-white rounded-xl shadow-xl border border-slate-100 py-2 overflow-y-auto",
+            "bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden",
             wide
-              ? "w-[min(520px,calc(100vw-2rem))] max-h-[420px] grid grid-cols-1 sm:grid-cols-2 gap-x-1"
-              : "min-w-[240px]"
+              ? "w-[min(620px,calc(100vw-2rem))] max-h-[min(540px,calc(100vh-6rem))] flex flex-col"
+              : "min-w-[240px] py-2 overflow-y-auto max-h-[420px]"
           )}
         >
-          {items.map((item) => (
-            <Link
-              key={item.href + item.name}
-              href={item.href}
-              className={cn(
-                "block px-4 py-2.5 text-sm transition-colors",
-                item.highlight
-                  ? "font-semibold text-red-600 hover:bg-red-50"
-                  : "text-slate-700 hover:text-red-600 hover:bg-slate-50"
+          {wide ? (
+            <>
+              {headerItem && (
+                <div className="border-b border-slate-100 bg-slate-50/70 px-4 py-2.5 flex items-center justify-between shrink-0">
+                  <Link
+                    href={headerItem.href}
+                    className="inline-flex items-center gap-1.5 text-sm font-bold text-red-600 hover:text-red-700 transition-colors group/hdr"
+                  >
+                    <span>{headerItem.name}</span>
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/hdr:translate-x-0.5" />
+                  </Link>
+                  <span className="text-xs font-semibold text-slate-400">
+                    {listItems.length} {label === "Services" ? "Services" : "Specialities"}
+                  </span>
+                </div>
               )}
-            >
-              {item.name}
-            </Link>
-          ))}
+              <div className="grid grid-cols-1 sm:grid-cols-2 p-2.5 gap-x-2 overflow-y-auto">
+                <div className="flex flex-col space-y-0.5">
+                  {col1.map((item) => (
+                    <Link
+                      key={item.href + item.name}
+                      href={item.href}
+                      className="block px-3 py-1.5 text-[13.5px] font-medium text-slate-700 hover:text-red-600 hover:bg-red-50/70 rounded-md transition-colors whitespace-nowrap overflow-hidden text-ellipsis"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+                <div className="flex flex-col space-y-0.5">
+                  {col2.map((item) => (
+                    <Link
+                      key={item.href + item.name}
+                      href={item.href}
+                      className="block px-3 py-1.5 text-[13.5px] font-medium text-slate-700 hover:text-red-600 hover:bg-red-50/70 rounded-md transition-colors whitespace-nowrap overflow-hidden text-ellipsis"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </>
+          ) : (
+            items.map((item) => (
+              <Link
+                key={item.href + item.name}
+                href={item.href}
+                className={cn(
+                  "block px-4 py-2 text-sm transition-colors",
+                  item.highlight
+                    ? "font-semibold text-red-600 hover:bg-red-50"
+                    : "text-slate-700 hover:text-red-600 hover:bg-slate-50"
+                )}
+              >
+                {item.name}
+              </Link>
+            ))
+          )}
         </div>
       </div>
     </div>

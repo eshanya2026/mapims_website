@@ -23,6 +23,7 @@ import AnaesthesiologyDepartmentPage from "@/components/departments/anaesthesiol
 import EmergencyDepartmentPage from "@/components/departments/emergency/EmergencyDepartmentPage";
 import SpineSurgeryDepartmentPage from "@/components/departments/spine-surgery/SpineSurgeryDepartmentPage";
 import SurgicalOncologyDepartmentPage from "@/components/departments/surgical-oncology/SurgicalOncologyDepartmentPage";
+import CardiovascularThoracicDepartmentPage from "@/components/departments/cardiovascular-thoracic/CardiovascularThoracicDepartmentPage";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -36,7 +37,9 @@ export function generateStaticParams() {
     { slug: "emergency-medicine" },
     { slug: "emergency" },
     { slug: "spine-surgery" },
-    { slug: "spine-surgeries" }
+    { slug: "spine-surgeries" },
+    { slug: "cardiovascular-thoracic" },
+    { slug: "cvts" }
   );
   return params;
 }
@@ -51,6 +54,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       ? departments.find((d) => d.slug === "accident-emergency-services")
       : slug === "spine-surgery" || slug === "spine-surgeries"
       ? departments.find((d) => d.slug === "spinal-surgeries")
+      : slug === "cardiovascular-thoracic" || slug === "cvts"
+      ? departments.find((d) => d.slug === "cardiovascular-thoracic-surgery")
       : undefined);
 
   if (!department) {
@@ -161,6 +166,14 @@ export default async function DepartmentDetailPage({ params }: PageProps) {
 
   if (slug === "surgical-oncology") {
     return <SurgicalOncologyDepartmentPage />;
+  }
+
+  if (
+    slug === "cardiovascular-thoracic-surgery" ||
+    slug === "cardiovascular-thoracic" ||
+    slug === "cvts"
+  ) {
+    return <CardiovascularThoracicDepartmentPage />;
   }
 
   notFound();
