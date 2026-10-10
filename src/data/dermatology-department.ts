@@ -132,7 +132,7 @@ export const dermatologyInfrastructure = [
   "Cryotherapy & Liquid Nitrogen Systems",
   "Platelet-Rich Plasma (PRP) Centrifuge Setup",
   "In-House Microbiology & Histopathology Support",
-  "24/7 Emergency Medical Support for Acute Skin Crises",
+  "Emergency Medical Support for Acute Skin Crises",
 ];
 
 export const dermatologyTechnology = [

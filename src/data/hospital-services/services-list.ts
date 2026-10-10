@@ -1,5 +1,5 @@
 /** Lightweight listing data — safe for client components (no full service modules). */
-export type ServiceCategory = "emergency" | "surgical" | "diagnostics" | "specialty";
+export type ServiceCategory = "clinical" | "emergency" | "diagnostics" | "support";
 
 export type ServiceListItem = {
   slug: string;
@@ -15,111 +15,102 @@ export const serviceCategories: {
   label: string;
 }[] = [
   { id: "all", label: "All Services" },
-  { id: "emergency", label: "Emergency & ICU" },
-  { id: "surgical", label: "Surgical" },
-  { id: "diagnostics", label: "Diagnostics" },
-  { id: "specialty", label: "Specialty Care" },
+  { id: "clinical", label: "Clinical & Inpatient" },
+  { id: "emergency", label: "Emergency & 24/7" },
+  { id: "diagnostics", label: "Diagnostics & Health Checks" },
+  { id: "support", label: "Support & Rehabilitation" },
 ];
 
 export const servicesList: ServiceListItem[] = [
   {
-    slug: "accident-emergency-services",
-    path: "/services/accident-emergency-services",
-    label: "Accident & Emergency Services",
+    slug: "outpatient-service",
+    path: "/services/outpatient-service",
+    label: "Outpatient Service",
     description:
-      "24/7 emergency and trauma care with rapid triage, advanced diagnostics, and critical care support.",
-    image: "/images/international/casualty.png",
+      "Medical consultations, clinical evaluations, and follow-up care across medical and surgical specialties in a comfortable, supportive environment.",
+    image: "/images/services/opd-care-hero.jpg",
+    category: "clinical",
+  },
+  {
+    slug: "inpatient-service",
+    path: "/services/inpatient-service",
+    label: "Inpatient Service",
+    description:
+      "Round-the-clock inpatient hospitalization with intensive nursing care, modern private deluxe rooms, general wards, and dedicated ICUs.",
+    image: "/images/services/inpatient-room-hero.jpg",
+    category: "clinical",
+  },
+  {
+    slug: "blood-bank",
+    path: "/services/blood-bank",
+    label: "Blood Bank",
+    description:
+      "24/7 fully licensed blood transfusion center equipped with advanced component separation for PRBC, platelets, plasma, and cryoprecipitate.",
+    image: "/images/services/blood-bank-lab-hero.jpg",
     category: "emergency",
   },
   {
-    slug: "anaesthesiology",
-    path: "/services/anaesthesiology",
-    label: "Anaesthesiology",
+    slug: "master-health-checkup",
+    path: "/services/master-health-checkup",
+    label: "Master Health Checkup",
     description:
-      "Expert anesthesia, ICU critical care, and pain medicine with round-the-clock specialist teams.",
-    image: "/images/international/anaesthesiology.png",
+      "Tailored executive, cardiac, diabetic, and whole-body preventive health screening packages with same-day comprehensive reporting.",
+    image: "/images/services/master-health-checkup-hero.jpg",
+    category: "diagnostics",
+  },
+  {
+    slug: "24hrs-pharmacy",
+    path: "/services/24hrs-pharmacy",
+    label: "24hrs Pharmacy",
+    description:
+      "Fully stocked 24/7 hospital dispensary supplying authentic prescription medicines, critical emergency drugs, and surgical consumables.",
+    image: "/images/services/pharmacy-dispensing-hero.png",
     category: "emergency",
   },
   {
-    slug: "general-surgery",
-    path: "/services/general-surgery",
-    label: "General Surgery",
+    slug: "ambulance-services",
+    path: "/services/ambulance-services",
+    label: "Ambulance Services",
     description:
-      "Comprehensive surgical care for abdominal, gastrointestinal, and related conditions.",
-    image: "/images/international/general sur.png",
-    category: "surgical",
+      "24/7 Advanced Cardiac Life Support (ACLS) and Basic Life Support (BLS) mobile intensive care ambulance fleet with GPS emergency tracking.",
+    image: "/images/services/ambulance-emergency-hero.jpg",
+    category: "emergency",
   },
   {
-    slug: "cardiovascular-thoracic-surgery",
-    path: "/services/cardiovascular-thoracic-surgery",
-    label: "Cardiovascular & Thoracic Surgery",
+    slug: "physiotherapy",
+    path: "/services/physiotherapy",
+    label: "Physiotherapy",
     description:
-      "Heart and chest surgery programmes with experienced surgeons and modern operating facilities.",
-    image: "/images/international/cardio.png",
-    category: "surgical",
+      "Evidence-based physical rehabilitation, post-surgical recovery, neuro-rehab, sports injury conditioning, and pain-relief electrotherapy.",
+    image: "/images/services/physiotherapy-rehab-hero.jpg",
+    category: "support",
   },
   {
-    slug: "spinal-surgeries",
-    path: "/services/spinal-surgeries",
-    label: "Spinal Surgeries",
+    slug: "laboratory",
+    path: "/services/laboratory",
+    label: "Laboratory",
     description:
-      "Specialized spine care from minimally invasive procedures to complex spinal surgery.",
-    image: "/images/international/spiral.png",
-    category: "surgical",
-  },
-  {
-    slug: "surgical-oncology",
-    path: "/services/surgical-oncology",
-    label: "Surgical Oncology",
-    description:
-      "Cancer surgery with multidisciplinary planning and advanced oncologic surgical techniques.",
-    image: "/images/international/spinal oncology.png",
-    category: "surgical",
-  },
-  {
-    slug: "central-laboratory",
-    path: "/services/central-laboratory",
-    label: "Central Laboratory",
-    description:
-      "Accurate diagnostics with advanced lab technology and timely reporting for inpatient and outpatient care.",
-    image: "/images/international/central lab.png",
+      "State-of-the-art diagnostic laboratory offering automated biochemistry, clinical pathology, microbiology, hematology, and rapid testing.",
+    image: "/images/services/central-laboratory-hero.jpg",
     category: "diagnostics",
   },
   {
-    slug: "radiology-imaging-science",
-    path: "/services/radiology-imaging-science",
-    label: "Radiology & Imaging Science",
+    slug: "dialysis-services",
+    path: "/services/dialysis-services",
+    label: "Dialysis Services (Hemodialysis)",
     description:
-      "Advanced imaging including CT, MRI, and ultrasound with expert radiologist interpretation.",
-    image: "/images/international/imaging science.png",
-    category: "diagnostics",
+      "One of the region's largest renal dialysis centers featuring 26+ modern dialyzers, ICU dia-filtration, and dedicated hepatitis-safe units.",
+    image: "/images/services/dialysis-hemodialysis-hero.png",
+    category: "support",
   },
   {
-    slug: "interventional-radiology",
-    path: "/services/interventional-radiology",
-    label: "Interventional Radiology",
+    slug: "insurance",
+    path: "/services/insurance",
+    label: "Insurance",
     description:
-      "Minimally invasive, image-guided procedures for precise diagnosis and treatment.",
-    image: "/images/international/radiologyu.png",
-    category: "diagnostics",
-  },
-  {
-    slug: "dermatology",
-    path: "/services/dermatology",
-    label: "Dermatology",
-    description:
-      "Medical and cosmetic dermatology for skin conditions, allergies, and advanced skin treatments.",
-    image: "/images/international/derma.png",
-    category: "specialty",
-  },
-  {
-    slug: "hemodialysis",
-    path: "/services/hemodialysis",
-    label: "Hemodialysis",
-    description:
-      "Renal dialysis services with dedicated units and experienced nephrology support.",
-    image: "/images/international/Hemodialogy.png",
-    category: "specialty",
+      "Dedicated TPA and insurance helpdesk providing hassle-free cashless hospitalization, CMCHIS scheme benefits, and private insurance coordination.",
+    image: "/images/services/insurance-tpa-hero.png",
+    category: "support",
   },
 ];
 

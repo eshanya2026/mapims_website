@@ -23,39 +23,94 @@ export const cardiologyWhyChooseStats = [
 
 export const cardiologyServices = [
   {
-    title: "Coronary Artery Disease Care",
-    description:
-      "Diagnosis and treatment of blocked arteries through angioplasty, stenting, and bypass surgery.",
+    title: "Interventional Cardiology & Coronary Angioplasty",
+    bullets: [
+      "Primary Angioplasty for Acute Myocardial Infarction (PAMI)",
+      "Complex Bifurcation & Left Main Coronary Interventions",
+      "Fractional Flow Reserve (FFR) & Intravascular Ultrasound (IVUS)",
+      "Transradial Cardiac Catheterization & Drug-Eluting Stenting",
+      "Rotablation & Intravascular Lithotripsy (IVL) for Calcified Vessels",
+    ],
+    image: "/images/cardio-interventional-angioplasty.jpg",
+    badge: "Cath Lab Excellence",
+    badgeColor: "red" as const,
+    imageCaption: "Advanced Biplane Cath Lab with Fractional Flow Reserve (FFR) & Precision Drug-Eluting Stents",
+    imagePosition: "center 40%",
   },
   {
-    title: "Heart Failure Management",
-    description:
-      "Comprehensive care including medications, lifestyle guidance, device therapy, and advanced interventions.",
+    title: "Heart Failure & Critical Cardiac Care",
+    bullets: [
+      "Comprehensive Acute Decompensated Heart Failure Protocols",
+      "Guideline-Directed Medical Therapy (GDMT) Optimization",
+      "Cardiac Resynchronization Therapy (CRT-D / CRT-P)",
+      "Intra-Aortic Balloon Pump (IABP) & Hemodynamic Monitoring",
+      "Cardiopulmonary Exercise Testing & Heart Failure Rehabilitation",
+    ],
+    image: "/images/cardio-heart-failure-ccu.jpg",
+    badge: "Critical CCU Care",
+    badgeColor: "blue" as const,
+    imageCaption: "Advanced 1:1 Monitored Coronary Care Unit (CCU) with Invasive Hemodynamic Support",
+    imagePosition: "center 35%",
   },
   {
-    title: "Interventional Cardiology",
-    description:
-      "Minimally invasive procedures such as angioplasty, balloon valvuloplasty, and catheter-based treatments.",
+    title: "Electrophysiology & Arrhythmia Management",
+    bullets: [
+      "3D Electro-Anatomical Mapping & RF Catheter Ablation",
+      "Permanent Pacemaker Implantation (Single, Dual & Leadless)",
+      "Automated Implantable Cardioverter Defibrillator (AICD)",
+      "24/48-Hour Holter Telemetry & Extended Event Monitoring",
+      "Atrial Fibrillation & Supraventricular Tachycardia (SVT) Care",
+    ],
+    image: "/images/cardio-electrophysiology-pacemaker.jpg",
+    badge: "Rhythm & Pacing",
+    badgeColor: "red" as const,
+    imageCaption: "3D High-Density Electro-Anatomic Cardiac Mapping & Advanced Device Implantation",
+    imagePosition: "center 38%",
   },
   {
-    title: "Pediatric Cardiology",
-    description:
-      "Specialized diagnosis and treatment for congenital and acquired heart conditions in children.",
+    title: "Pediatric & Congenital Cardiology",
+    bullets: [
+      "Neonatal & Pediatric Color Doppler Echocardiography",
+      "Percutaneous ASD, VSD & PDA Device Closure",
+      "Evaluation of Congenital Cyanotic Heart Anomalies",
+      "Pediatric Arrhythmia Evaluation & Medical Control",
+      "Integrated Pediatric Surgical & Critical Care Follow-Up",
+    ],
+    image: "/images/cardio-pediatric-cardiology.jpg",
+    badge: "Pediatric Heart Care",
+    badgeColor: "blue" as const,
+    imageCaption: "Compassionate Pediatric Echocardiography & Congenital Heart Disorder Management",
+    imagePosition: "center 30%",
   },
   {
-    title: "Electrophysiology & Arrhythmia Care",
-    description:
-      "Advanced evaluation and treatment of heart rhythm disorders through ablation, pacemakers, and ICDs.",
+    title: "Structural Heart Disease & Valve Interventions",
+    bullets: [
+      "Transcatheter Aortic Valve Replacement (TAVR / TAVI)",
+      "Percutaneous Balloon Mitral Valvotomy (BMV / PTMC)",
+      "Paravalvular Leak & Post-Infarction Septal Defect Closure",
+      "Adult Congenital Heart Defect Catheter Interventions",
+      "Emergency Pericardiocentesis for Cardiac Tamponade & Effusions",
+    ],
+    image: "/images/cardio-structural-heart-valve.jpg",
+    badge: "Structural Interventions",
+    badgeColor: "red" as const,
+    imageCaption: "Transcatheter Aortic Valve Replacement (TAVR) & Percutaneous Valvuloplasty",
+    imagePosition: "center 38%",
   },
   {
-    title: "Structural Heart Disease Treatment",
-    description:
-      "Expert management of valve disorders and structural defects, including TAVR and other advanced procedures.",
-  },
-  {
-    title: "Cardiac Imaging",
-    description:
-      "High-precision diagnostics using Echocardiography, CT Coronary Angiography, Cardiac MRI, and Doppler studies.",
+    title: "Advanced Non-Invasive Cardiac Imaging",
+    bullets: [
+      "3D Transthoracic & Transesophageal Echocardiography (TEE)",
+      "Treadmill Stress Testing (TMT) & Dobutamine Stress Echo",
+      "High-Resolution CT Coronary Angiography (CTCA)",
+      "Myocardial Viability Assessment & Cardiac MRI Protocols",
+      "Carotid, Renal & Peripheral Arterial Doppler Sonography",
+    ],
+    image: "/images/cardio-cardiac-imaging-echo.jpg",
+    badge: "Diagnostic Precision",
+    badgeColor: "blue" as const,
+    imageCaption: "High-Precision 3D Transthoracic & Transesophageal Echocardiography with Strain Imaging",
+    imagePosition: "center 35%",
   },
 ];
 

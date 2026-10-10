@@ -6,7 +6,7 @@ import { ChevronRight, Stethoscope, Calendar, Phone } from "lucide-react";
 import HeroBackground from "@/components/layout/HeroBackground";
 
 const stats = [
-  { value: "11+", label: "Clinical services" },
+  { value: "10", label: "Hospital services" },
   { value: "24/7", label: "Emergency care" },
   { value: "NABH", label: "Accredited hospitals" },
 ];

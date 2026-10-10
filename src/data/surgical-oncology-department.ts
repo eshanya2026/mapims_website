@@ -122,7 +122,6 @@ export const surgicalOncologyTechnology = [
   "Automated Endoscopic Staplers with Tri-Staple Technology",
   "Intraoperative Nerve Monitors for Thyroid & Parotid Resections",
   "Cavitation Ultrasonic Surgical Aspirators (CUSA) for Liver Resection",
-  "Radiofrequency Ablation (RFA) & Microwave Ablation Consoles",
   "Dedicated Enterostomal Therapy & Rehabilitation Equipment",
 ];
 

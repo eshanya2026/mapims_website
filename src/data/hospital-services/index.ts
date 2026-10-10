@@ -25,15 +25,68 @@ const serviceLoaders: Record<
   string,
   () => Promise<InternationalServiceData>
 > = {
+  "outpatient-service": async () =>
+    (await import("@/data/international-services/outpatient-service"))
+      .outpatientService,
+  "inpatient-service": async () =>
+    (await import("@/data/international-services/inpatient-service"))
+      .inpatientService,
+  "blood-bank": async () =>
+    (await import("@/data/international-services/blood-bank")).bloodBankService,
+  "master-health-checkup": async () =>
+    (await import("@/data/international-services/master-health-checkup"))
+      .masterHealthCheckupService,
+  "24hrs-pharmacy": async () =>
+    (await import("@/data/international-services/24hrs-pharmacy"))
+      .pharmacy24hrsService,
+  "ambulance-services": async () =>
+    (await import("@/data/international-services/ambulance-services"))
+      .ambulanceServices,
+  physiotherapy: async () =>
+    (await import("@/data/international-services/physiotherapy"))
+      .physiotherapyService,
+  laboratory: async () => {
+    const s = (await import("@/data/international-services/central-laboratory"))
+      .centralLaboratoryService;
+    return {
+      ...s,
+      slug: "laboratory",
+      path: "/services/laboratory",
+      title: "Diagnostic",
+      titleHighlight: "Laboratory Services",
+      breadcrumbLabel: "Laboratory",
+    };
+  },
+  "dialysis-services": async () => {
+    const s = (await import("@/data/international-services/hemodialysis"))
+      .hemodialysisService;
+    return {
+      ...s,
+      slug: "dialysis-services",
+      path: "/services/dialysis-services",
+      title: "Dialysis Services",
+      titleHighlight: "(Hemodialysis)",
+      breadcrumbLabel: "Dialysis Services",
+      image: "/images/dialysis-services.png",
+      heroImage: "/images/dialysis-services.png",
+    };
+  },
+  insurance: async () =>
+    (await import("@/data/international-services/insurance")).insuranceService,
+
+  // Backward compatibility aliases
+  "central-laboratory": async () =>
+    (await import("@/data/international-services/central-laboratory"))
+      .centralLaboratoryService,
+  hemodialysis: async () =>
+    (await import("@/data/international-services/hemodialysis"))
+      .hemodialysisService,
   "accident-emergency-services": async () =>
     (await import("@/data/international-services/accident-emergency"))
       .accidentEmergencyService,
   anaesthesiology: async () =>
     (await import("@/data/international-services/anaesthesiology"))
       .anaesthesiologyService,
-  "central-laboratory": async () =>
-    (await import("@/data/international-services/central-laboratory"))
-      .centralLaboratoryService,
   "cardiovascular-thoracic-surgery": async () =>
     (
       await import(
@@ -45,8 +98,6 @@ const serviceLoaders: Record<
   "general-surgery": async () =>
     (await import("@/data/international-services/general-surgery"))
       .generalSurgeryService,
-  hemodialysis: async () =>
-    (await import("@/data/international-services/hemodialysis")).hemodialysisService,
   "interventional-radiology": async () =>
     (await import("@/data/international-services/interventional-radiology"))
       .interventionalRadiologyService,

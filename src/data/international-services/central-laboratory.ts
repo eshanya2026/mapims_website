@@ -52,5 +52,6 @@ export const centralLaboratoryService: InternationalServiceData = {
   ],
   closing:
     "Experience exceptional diagnostic services at Adhiparasakthi Hospitals' Central Laboratory—where precision meets compassion. For more information or to schedule a test, contact us today!",
-  image: "/images/international/central lab.png",
+  image: "/images/services/central-laboratory-hero.jpg",
+  heroImage: "/images/services/central-laboratory-hero.jpg",
 };

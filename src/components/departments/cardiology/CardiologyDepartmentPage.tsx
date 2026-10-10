@@ -5,10 +5,9 @@ import { motion } from "framer-motion";
 import {
   Heart,
   Activity,
-  Stethoscope,
-  Shield,
-  Baby,
   Zap,
+  Baby,
+  Shield,
   ScanLine,
 } from "lucide-react";
 import DepartmentHeroStats from "@/components/departments/DepartmentHeroStats";
@@ -42,9 +41,8 @@ import {
 const serviceIcons = [
   Heart,
   Activity,
-  Stethoscope,
-  Baby,
   Zap,
+  Baby,
   Shield,
   ScanLine,
 ] as const;

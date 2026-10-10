@@ -377,11 +377,6 @@ export const dermatologyStats: DepartmentHeroStat[] = [
     sublabel: "Scars, vitiligo & aesthetic care",
   },
   {
-    display: "24/7",
-    label: "Acute Skin Care",
-    sublabel: "Emergency allergy & drug reaction care",
-  },
-  {
     display: "Expert",
     label: "Dermatology Teams",
     sublabel: "Board-certified skin specialists",
@@ -527,6 +522,30 @@ export const cardiovascularThoracicStats: DepartmentHeroStat[] = [
     display: "Expert",
     label: "Cardiothoracic Teams",
     sublabel: "Surgeons, perfusionists & CCU care",
+  },
+];
+
+export const generalSurgeryStats: DepartmentHeroStat[] = [
+  {
+    end: 6,
+    suffix: "+",
+    label: "Surgical Subspecialties",
+    sublabel: "Laparoscopy, GI, HPB & trauma",
+  },
+  {
+    display: "4K HD",
+    label: "Minimally Invasive Suites",
+    sublabel: "Advanced laparoscopic towers",
+  },
+  {
+    display: "24/7",
+    label: "Emergency Surgical Care",
+    sublabel: "Acute abdomen & trauma OT",
+  },
+  {
+    display: "Expert",
+    label: "General Surgical Teams",
+    sublabel: "Board-certified surgical faculty",
   },
 ];
 

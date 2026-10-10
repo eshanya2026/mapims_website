@@ -24,6 +24,7 @@ import EmergencyDepartmentPage from "@/components/departments/emergency/Emergenc
 import SpineSurgeryDepartmentPage from "@/components/departments/spine-surgery/SpineSurgeryDepartmentPage";
 import SurgicalOncologyDepartmentPage from "@/components/departments/surgical-oncology/SurgicalOncologyDepartmentPage";
 import CardiovascularThoracicDepartmentPage from "@/components/departments/cardiovascular-thoracic/CardiovascularThoracicDepartmentPage";
+import GeneralSurgeryDepartmentPage from "@/components/departments/general-surgery/GeneralSurgeryDepartmentPage";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -174,6 +175,10 @@ export default async function DepartmentDetailPage({ params }: PageProps) {
     slug === "cvts"
   ) {
     return <CardiovascularThoracicDepartmentPage />;
+  }
+
+  if (slug === "general-surgery") {
+    return <GeneralSurgeryDepartmentPage />;
   }
 
   notFound();

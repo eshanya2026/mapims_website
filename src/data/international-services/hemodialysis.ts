@@ -37,5 +37,6 @@ export const hemodialysisService: InternationalServiceData = {
   ],
   closing:
     "Trust Adhiparasakthi Hospitals for comprehensive hemodialysis and renal support in Chennai and Kanchipuram — combining capacity, technology, and compassionate nursing care for every dialysis patient.",
-  image: "/images/international/Hemodialogy.png",
+  image: "/images/services/dialysis-hemodialysis-hero.png",
+  heroImage: "/images/services/dialysis-hemodialysis-hero.png",
 };

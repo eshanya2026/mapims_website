@@ -31,11 +31,12 @@ export const departmentDetailSlugs = [
   "spinal-surgeries",
   "surgical-oncology",
   "cardiovascular-thoracic-surgery",
+  "general-surgery",
 ] as const;
 
 /** Slugs routed to hospital services detail page */
 export const departmentServiceSlugs: Record<string, string> = {
-  "general-surgery": "/services/general-surgery",
+  "general-surgery": "/departments/general-surgery",
   "cardiovascular-thoracic-surgery": "/departments/cardiovascular-thoracic-surgery",
   "surgical-oncology": "/departments/surgical-oncology",
   "accident-emergency-services": "/departments/accident-emergency-services",

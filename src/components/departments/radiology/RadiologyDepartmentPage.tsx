@@ -16,7 +16,6 @@ import {
   radiologyIntro,
   whyChooseRadiology,
   radiologyServices,
-  radiologyConditions,
   radiologyInfrastructure,
   radiologyTechnology,
   radiologyExcellenceNote,
@@ -81,18 +80,6 @@ export default function RadiologyDepartmentPage() {
             services={radiologyServices}
             icons={serviceIcons}
           />
-        </DepartmentSection>
-
-        <DepartmentSection id="conditions" variant="muted">
-          <div className="text-center">
-            <DepartmentSectionLabel align="center">Clinical Scope</DepartmentSectionLabel>
-            <DepartmentSectionHeading
-              title="Conditions & Indications"
-              highlight="We Support"
-              align="center"
-            />
-          </div>
-          <DepartmentChecklistGrid items={radiologyConditions} />
         </DepartmentSection>
 
         <DepartmentSection id="infrastructure">

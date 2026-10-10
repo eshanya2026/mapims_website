@@ -575,6 +575,33 @@ export const departmentFaqsBySlug: Record<string, FaqItem[]> = {
         "Please bring your recent coronary angiogram CD and report, 2D echocardiogram, ECG, chest X-ray or CT scans, relevant blood investigations, and a complete history of current medications and previous cardiac interventions.",
     },
   ],
+  "general-surgery": [
+    {
+      question: "What conditions are treated by the General Surgery department?",
+      answer:
+        "Our department manages conditions affecting the abdomen, digestive system, gallbladder (stones), appendix, hernias (inguinal, umbilical, incisional), anorectal disorders (piles, fissures, fistula), thyroid, benign breast lumps, and acute abdominal emergencies.",
+    },
+    {
+      question: "What are the advantages of laparoscopic general surgery?",
+      answer:
+        "Laparoscopic (keyhole) surgery involves tiny incisions rather than large open cuts. This results in significantly less postoperative pain, shorter hospital stay, minimal scarring, reduced risk of wound infection, and faster return to normal daily routines.",
+    },
+    {
+      question: "Do you treat acute surgical emergencies 24/7?",
+      answer:
+        "Yes. Our emergency surgical team is on-site 24/7 to manage acute surgical conditions such as acute appendicitis, hollow viscus perforations, obstructed or strangulated hernias, blunt abdominal trauma, and hemoperitoneum, backed by dedicated surgical ICUs and round-the-clock emergency operating theatres.",
+    },
+    {
+      question: "What is the typical hospital stay after hernia or gallbladder surgery?",
+      answer:
+        "Most patients undergoing routine laparoscopic cholecystectomy (gallbladder removal) or laparoscopic hernia repair are comfortably discharged within 24 to 48 hours and can resume light desk work within a week.",
+    },
+    {
+      question: "How do I prepare for a surgical consultation?",
+      answer:
+        "Bring all recent ultrasound, CT, or endoscopy reports, blood tests, a complete list of current medications (especially blood thinners or diabetes medicines), and previous surgical records.",
+    },
+  ],
 };
 
 export function getDepartmentFaqs(slug: string): FaqItem[] | undefined {
@@ -607,6 +634,7 @@ export const departmentFaqSlugs = [
   "spinal-surgeries",
   "surgical-oncology",
   "cardiovascular-thoracic-surgery",
+  "general-surgery",
 ] as const;
 
 
