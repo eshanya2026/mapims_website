@@ -82,49 +82,49 @@ const scopeOfServices = [
   {
     number: "01",
     title: "Hematology",
-    desc: "Comprehensive blood tests including complete blood counts (CBC), peripheral smears, coagulation studies, and hemoglobin electrophoresis.",
+    desc: "Comprehensive blood tests including CBC, coagulation studies, and more.",
     icon: HeartPulse,
     badge: "Blood Studies",
   },
   {
     number: "02",
     title: "Clinical Chemistry",
-    desc: "High-throughput biochemical analyses assessing renal parameters, liver function profiles, electrolyte balance, lipid panels, and glycemic markers.",
+    desc: "Biochemical analyses for metabolic, renal, and liver function.",
     icon: FlaskConical,
     badge: "Biochemistry",
   },
   {
     number: "03",
     title: "Microbiology",
-    desc: "Advanced culture and antimicrobial sensitivity testing (AST) for accurate identification of bacterial and fungal infections.",
+    desc: "Culture and sensitivity tests for infection diagnosis.",
     icon: Microscope,
     badge: "Infection Care",
   },
   {
     number: "04",
     title: "Immunology",
-    desc: "Specialized immunoassays for autoimmune disorders, immune system profiling, rheumatologic evaluations, and inflammatory biomarkers.",
+    desc: "Tests for autoimmune disorders and immunological assessments.",
     icon: ShieldCheck,
     badge: "Immune Health",
   },
   {
     number: "05",
     title: "Serology",
-    desc: "Sensitive antibody and antigen screenings for viral, bacterial, and infectious pathogens including hepatitis, dengue, and fever profiles.",
+    desc: "Screening for viral, bacterial, and other infections.",
     icon: Dna,
     badge: "Serology",
   },
   {
     number: "06",
     title: "Endocrinology",
-    desc: "Precision hormone assays evaluating thyroid dysfunction, adrenal axis hormones, reproductive profiles, and metabolic endocrine disorders.",
+    desc: "Hormone assays for thyroid, adrenal, and other endocrine functions.",
     icon: Activity,
     badge: "Hormone Profiles",
   },
   {
     number: "07",
     title: "Toxicology",
-    desc: "Specialized clinical testing for pharmaceutical drug levels, toxin exposure, heavy metals, and therapeutic drug monitoring (TDM).",
+    desc: "Analysis for drugs, toxins, and substance abuse.",
     icon: Award,
     badge: "Toxicology",
   },
@@ -153,7 +153,7 @@ const whyChooseLab = [
   },
   {
     title: "Patient-Centric Care",
-    desc: "We prioritize patient comfort and confidentiality throughout the entire diagnostic journey.",
+    desc: "We prioritize patient comfort and confidentiality throughout the diagnostic process.",
   },
 ];
 
@@ -195,11 +195,16 @@ export default function LaboratoryServicePage() {
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-red-300 backdrop-blur-md">
                 <Sparkles className="h-3.5 w-3.5 text-red-400" />
-                Diagnostic Laboratory Services | Adhiparasakthi Hospitals
+                Diagnostic Laboratory Services
               </span>
 
-              <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
-                <span className="text-red-500">Central Laboratory</span>
+              <h1 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-5xl">
+                <span className="block">Central</span>
+                <span className="block mt-1">
+                  <span className="bg-gradient-to-r from-red-500 via-rose-400 to-amber-300 bg-clip-text text-transparent">
+                    Laboratory
+                  </span>
+                </span>
               </h1>
 
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
@@ -429,8 +434,7 @@ export default function LaboratoryServicePage() {
                       Accredited Laboratory
                     </h4>
                     <p className="mt-0.5 text-xs text-slate-600 leading-relaxed">
-                      Our laboratory is accredited by national and international
-                      standards, guaranteeing verified analytical rigor.
+                      Our laboratory is accredited by national and international standards.
                     </p>
                   </div>
                 </div>
@@ -441,11 +445,10 @@ export default function LaboratoryServicePage() {
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-slate-900">
-                      Integrated Hospital Services
+                      Integrated Services
                     </h4>
                     <p className="mt-0.5 text-xs text-slate-600 leading-relaxed">
-                      Seamlessly integrated with all clinical OPD, IPD, and ICU
-                      departments for coordinated patient care.
+                      Seamlessly integrated with our hospital’s departments for comprehensive care.
                     </p>
                   </div>
                 </div>
@@ -456,11 +459,10 @@ export default function LaboratoryServicePage() {
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-slate-900">
-                      Emergency STAT Testing
+                      Emergency Testing
                     </h4>
                     <p className="mt-0.5 text-xs text-slate-600 leading-relaxed">
-                      Fast-track emergency testing services available 24/7 for
-                      critical trauma, cardiac, and ICU medical situations.
+                      Fast-track testing services available for urgent medical situations.
                     </p>
                   </div>
                 </div>
@@ -471,11 +473,10 @@ export default function LaboratoryServicePage() {
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-slate-900">
-                      Secure Patient Portal
+                      Patient Portal
                     </h4>
                     <p className="mt-0.5 text-xs text-slate-600 leading-relaxed">
-                      Access your verified test reports and diagnostic records
-                      online through our secure patient portal.
+                      Access your test results online through our secure patient portal.
                     </p>
                   </div>
                 </div>
@@ -489,8 +490,7 @@ export default function LaboratoryServicePage() {
                       Insurance &amp; Billing
                     </h4>
                     <p className="mt-0.5 text-xs text-slate-600 leading-relaxed">
-                      We accept a wide range of insurance plans and offer
-                      transparent, upfront pricing with no hidden charges.
+                      We accept a wide range of insurance plans and offer transparent billing.
                     </p>
                   </div>
                 </div>

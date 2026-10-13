@@ -392,7 +392,7 @@ export const radiologyStats: DepartmentHeroStat[] = [
   {
     display: "CT & MRI",
     label: "Advanced Scanners",
-    sublabel: "High-resolution slice & 3D imaging",
+    sublabel: "128 slice CT scan and 1.5 T MRI scan",
   },
   {
     end: 6,

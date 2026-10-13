@@ -180,12 +180,16 @@ export default function DialysisServicePage() {
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-red-300 backdrop-blur-md">
                 <Sparkles className="h-3.5 w-3.5 text-red-400" />
-                Renal Care &amp; Hemodialysis Services | Adhiparasakthi Hospitals
+                Renal Care &amp; Hemodialysis Services
               </span>
 
-              <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
-                <span className="text-red-500">Dialysis Services</span>{" "}
-                <span className="text-slate-200 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
+              <h1 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-5xl">
+                <span className="block">
+                  <span className="bg-gradient-to-r from-red-500 via-rose-400 to-amber-300 bg-clip-text text-transparent">
+                    Dialysis Services
+                  </span>
+                </span>
+                <span className="block mt-1 text-slate-200 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
                   (Hemodialysis)
                 </span>
               </h1>

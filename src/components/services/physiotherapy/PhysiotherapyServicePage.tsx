@@ -181,8 +181,13 @@ export default function PhysiotherapyServicePage() {
                 Advanced Physiotherapy &amp; Rehabilitation
               </span>
 
-              <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
-                <span className="text-red-500">Physiotherapy</span>
+              <h1 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-5xl">
+                <span className="block">Physical Rehabilitation &amp;</span>
+                <span className="block mt-1">
+                  <span className="bg-gradient-to-r from-red-500 via-rose-400 to-amber-300 bg-clip-text text-transparent">
+                    Physiotherapy
+                  </span>
+                </span>
               </h1>
 
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">

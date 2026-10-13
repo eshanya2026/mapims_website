@@ -115,11 +115,11 @@ export async function generateMetadata({
         "Advanced physiotherapy, post-surgical rehabilitation, neuro recovery, spine care, and modern electrotherapy at Adhiparasakthi Hospitals, Melmaruvathur.",
     };
   }
-  if (slug === "laboratory") {
+  if (slug === "laboratory" || slug === "central-laboratory") {
     return {
-      title: "Central Laboratory | Adhiparasakthi Hospitals",
+      title: "Central Laboratory hospitals in India | Adhiparasakthi Hospitals",
       description:
-        "Comprehensive diagnostic laboratory services, hematology, clinical biochemistry, microbiology, immunology, and endocrinology at Adhiparasakthi Hospitals, Melmaruvathur.",
+        "Welcome to the Central Laboratory at Adhiparasakthi Hospitals, your hub for accurate and timely diagnostic testing. Our state-of-the-art laboratory is equipped with the latest technology to provide comprehensive diagnostic services essential for effective treatment and patient care.",
     };
   }
   if (slug === "dialysis-services") {
@@ -171,7 +171,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   if (slug === "physiotherapy") {
     return <PhysiotherapyServicePage />;
   }
-  if (slug === "laboratory") {
+  if (slug === "laboratory" || slug === "central-laboratory") {
     return <LaboratoryServicePage />;
   }
   if (slug === "dialysis-services") {

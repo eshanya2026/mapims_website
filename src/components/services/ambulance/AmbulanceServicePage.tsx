@@ -162,11 +162,16 @@ export default function AmbulanceServicePage() {
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-red-300 backdrop-blur-md">
                 <Siren className="h-3.5 w-3.5 text-red-400 animate-pulse" />
-                24/7 Emergency Ambulance Services | Adhiparasakthi Hospitals
+                24/7 Emergency Ambulance Services
               </span>
 
-              <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
-                <span className="text-red-500">Emergency Transport</span>
+              <h1 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-5xl">
+                <span className="block">24/7 Emergency</span>
+                <span className="block mt-1">
+                  <span className="bg-gradient-to-r from-red-500 via-rose-400 to-amber-300 bg-clip-text text-transparent">
+                    Ambulance Services
+                  </span>
+                </span>
               </h1>
 
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">

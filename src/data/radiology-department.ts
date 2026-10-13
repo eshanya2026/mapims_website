@@ -11,7 +11,7 @@ export const whyChooseRadiology = [
   {
     title: "State-of-the-Art Imaging Technology",
     description:
-      "Equipped with modern high-field MRI, multi-slice helical CT, full-field digital radiography (DR), and 3D/4D ultrasound systems.",
+      "Equipped with advanced 1.5 T MRI, 128 slice CT scan, full-field digital radiography (DR), and 3D/4D ultrasound systems.",
   },
   {
     title: "Expert Subspecialized Radiologists",
@@ -32,31 +32,31 @@ export const whyChooseRadiology = [
 
 export const radiologyServices = [
   {
-    title: "Magnetic Resonance Imaging (MRI)",
+    title: "Magnetic Resonance Imaging (1.5 T MRI)",
     bullets: [
-      "High-Resolution Brain & Spine Imaging",
+      "High-Resolution 1.5 T Brain & Spine Imaging",
       "Musculoskeletal, Cartilage & Joint Assessments",
       "Abdominal, Liver & Pelvic Multiparametric MRI",
       "MR Angiography (MRA) & Non-Contrast Vascular Studies",
     ],
     image: "/images/radiology-scanner.png",
-    badge: "High-Field MRI Suite",
+    badge: "1.5 T MRI Suite",
     badgeColor: "red" as const,
-    imageCaption: "High-Resolution Magnetic Resonance Imaging for Brain, Spine, Joints & Soft Tissue",
+    imageCaption: "High-Resolution 1.5 T Magnetic Resonance Imaging for Brain, Spine, Joints & Soft Tissue",
     imagePosition: "center 40%",
   },
   {
-    title: "Computed Tomography (CT Scans)",
+    title: "Computed Tomography (128 Slice CT Scan)",
     bullets: [
-      "Multi-Slice Whole-Body Helical CT",
+      "128 Slice Whole-Body Helical CT",
       "Rapid Stroke, Trauma & Polytrauma Protocols",
       "CT Angiography & Vascular 3D Reconstructions",
       "Ultra-Low-Dose High-Resolution Chest & Abdomen CT",
     ],
     image: "/images/radiology-imaging-science.png",
-    badge: "Multi-Slice Helical CT",
+    badge: "128 Slice CT Scanner",
     badgeColor: "blue" as const,
-    imageCaption: "Rapid Helical CT Scans for Emergency Trauma, Neuro-Vascular & Body Diagnostics",
+    imageCaption: "Rapid 128 Slice Helical CT Scans for Emergency Trauma, Neuro-Vascular & Body Diagnostics",
     imagePosition: "center 45%",
   },
   {
@@ -119,8 +119,8 @@ export const radiologyConditions = [
 ];
 
 export const radiologyInfrastructure = [
-  "High-Field Magnetic Resonance Imaging (MRI) Suite",
-  "Advanced Multi-Slice Helical Computed Tomography (CT) Scanner",
+  "1.5 T High-Field Magnetic Resonance Imaging (MRI) Suite",
+  "Advanced 128 Slice Helical Computed Tomography (CT) Scanner",
   "Full-Field High-Definition Digital Radiography (DR) Units",
   "High-Resolution 3D/4D Ultrasound & Color Doppler Machines",
   "Dedicated Digital Mammography Unit with Low-Radiation Protocols",
@@ -131,6 +131,8 @@ export const radiologyInfrastructure = [
 ];
 
 export const radiologyTechnology = [
+  "128 Slice High-Speed Volumetric Acquisition & Low-Dose CT Protocols",
+  "1.5 T Multi-Channel Coil Diagnostic Imaging & Spectroscopic Studies",
   "AI-Assisted Image Reconstruction & Deep-Learning Noise Reduction",
   "Hospital-Wide Enterprise PACS for Instant Clinician Access",
   "ALARA-Compliant Radiation Dose Optimization Protocols",

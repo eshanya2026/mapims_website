@@ -62,7 +62,9 @@ export default function InternationalServiceHero({
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight">
             {title}{" "}
             {titleHighlight && (
-              <span className="text-red-500">{titleHighlight}</span>
+              <span className="bg-gradient-to-r from-red-500 via-rose-400 to-amber-300 bg-clip-text text-transparent">
+                {titleHighlight}
+              </span>
             )}
           </h1>
           {subtitle && (

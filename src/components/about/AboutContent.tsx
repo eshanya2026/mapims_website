@@ -193,12 +193,15 @@ export default function AboutContent() {
                 </h2>
 
                 <p className="text-lg text-slate-700 leading-relaxed mb-6 font-medium border-l-4 border-red-600 pl-5">
-                  We started in 1986. Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research (MAPIMS) was established in 2008. The hospitals — evolved as Adhiparasakthi Hospitals by His Holiness Padmashri Bangaru Adigalar and run by non-profit ACMEC Trust — is NABH certified, with 1000 beds across 5 floors.
+                  <strong className="text-red-600 font-bold bg-red-50 px-2 py-0.5 rounded border border-red-100 inline-block mr-1">
+                    We started in 1986.
+                  </strong>{" "}
+                  Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research (MAPIMS) was established in 2008. The hospitals — evolved as Adhiparasakthi Hospitals by His Holiness Padmashri Bangaru Adigalar and run by non-profit ACMEC Trust — is NABH certified, with 1000 beds across 5 floors.
                 </p>
 
                 <div className="space-y-6 text-slate-600 leading-relaxed mb-10">
                   <p>
-                    Melmaruvathur Adhiparasakthi Institute of Medical Sciences &amp; Research (MAPIMS), a 1000+ bed super-specialty tertiary care hospitals, is supported in all its specialty institutes and departments by an excellent, experienced, dedicated core team of senior medical specialists and committed nursing teams.
+                    Nestled in sylvan settings, we have grown from primary care into a leading acute tertiary hospitals — offering primary, secondary, and tertiary care, critical care, and inpatient &amp; day-patient services across medical and surgical disciplines.
                   </p>
                   <p>
                     Our teams have been providing succor and a healing touch to people from all walks of life — from top bureaucrats, celebrities, and major multinational corporates, to public sector organizations, the general public, and foreign patients from various countries of the Middle East, South East Asia, and the African continent.

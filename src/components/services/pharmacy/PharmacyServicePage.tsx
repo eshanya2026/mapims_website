@@ -191,10 +191,6 @@ export default function PharmacyServicePage() {
                 </span>
               </h1>
 
-              <p className="mt-3 text-base font-semibold text-slate-300 md:text-lg">
-                Hospital Pharmacy &amp; Prescription Services | Adhiparasakthi Hospitals, Melmaruvathur
-              </p>
-
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
                 The Pharmacy Services at Adhiparasakthi Hospitals, Melmaruvathur,
                 support patients by providing access to prescribed medications and

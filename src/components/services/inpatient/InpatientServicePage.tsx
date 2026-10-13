@@ -203,10 +203,6 @@ export default function InpatientServicePage() {
                 </span>
               </h1>
 
-              <p className="mt-3 text-base font-semibold text-slate-300 md:text-lg">
-                Inpatient Admission &amp; Hospital Care | Adhiparasakthi Hospitals, Melmaruvathur
-              </p>
-
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
                 The Inpatient Department (IPD) at Adhiparasakthi Hospitals,
                 Melmaruvathur, provides comprehensive medical care for patients who

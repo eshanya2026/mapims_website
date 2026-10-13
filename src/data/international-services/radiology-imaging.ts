@@ -8,18 +8,18 @@ export const radiologyImagingService: InternationalServiceData = {
   sectionLabel: "Diagnostic Imaging",
   title: "Radiology &",
   titleHighlight: "Imaging Science",
-  seoTitle: "Radiology & Imaging Science hospitalss in India",
+  seoTitle: "Radiology & Imaging Science hospitals in India",
   breadcrumbLabel: "Radiology & Imaging Science",
   heroBadge: "Advanced Diagnostics",
   heroSubtitle:
-    "MRI, CT, X-ray, ultrasound, and more — precise imaging and expert interpretation at Melmaruvathur.",
+    "1.5 T MRI, 128 slice CT scan, X-ray, ultrasound, and more — precise imaging and expert interpretation at Melmaruvathur.",
   intro:
     "At Adhiparasakthi Hospitals, Melmaruvathur, our Radiology & Imaging Science department is equipped with cutting-edge technology to provide precise diagnostic services and imaging solutions. Our expert team ensures that every scan and image is processed with the highest level of accuracy to aid in effective diagnosis and treatment.",
   sections: [
     {
       title: "Why Choose Our Radiology & Imaging Science Department?",
       items: [
-        "Advanced Imaging Technologies: Benefit from our state-of-the-art imaging equipment, including MRI, CT scans, X-rays, and Ultrasound, all designed to deliver clear and detailed images.",
+        "Advanced Imaging Technologies: Benefit from our state-of-the-art imaging equipment, including 1.5 T MRI, 128 slice CT scans, X-rays, and Ultrasound, all designed to deliver clear and detailed images.",
         "Expert Team of Radiologists: Our board-certified radiologists use their extensive experience to interpret complex imaging results, ensuring accurate and timely diagnoses.",
         "Comprehensive Diagnostic Services: From routine screenings to specialized imaging, we offer a full range of radiology services to meet all diagnostic needs.",
         "Minimally Invasive Procedures: Our imaging techniques support various minimally invasive procedures, enhancing patient comfort and recovery times.",
@@ -28,8 +28,8 @@ export const radiologyImagingService: InternationalServiceData = {
     {
       title: "Scope of Services",
       items: [
-        "MRI Scanning: High-resolution imaging for soft tissue evaluation and detailed diagnostics.",
-        "CT Scanning: Rapid and detailed cross-sectional imaging for emergency and routine diagnostics.",
+        "1.5 T MRI Scanning: High-resolution imaging for soft tissue evaluation and detailed diagnostics.",
+        "128 Slice CT Scanning: Rapid and detailed cross-sectional imaging for emergency and routine diagnostics.",
         "X-Ray Imaging: Essential for bone and joint assessments, as well as chest and abdominal examinations.",
         "Ultrasound Imaging: Safe and effective imaging for prenatal care, abdominal issues, and more.",
         "Mammography: Specialized imaging for breast cancer screening and diagnostics.",

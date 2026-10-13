@@ -188,11 +188,16 @@ export default function InsuranceServicePage() {
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-red-300 backdrop-blur-md">
                 <Sparkles className="h-3.5 w-3.5 text-red-400" />
-                Health Insurance Assistance | Adhiparasakthi Hospitals
+                Health Insurance Assistance
               </span>
 
-              <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
-                <span className="text-red-500">TPA &amp; Cashless Insurance</span>
+              <h1 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-5xl">
+                <span className="block">TPA &amp; Cashless</span>
+                <span className="block mt-1">
+                  <span className="bg-gradient-to-r from-red-500 via-rose-400 to-amber-300 bg-clip-text text-transparent">
+                    Insurance Services
+                  </span>
+                </span>
               </h1>
 
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">

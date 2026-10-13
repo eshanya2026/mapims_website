@@ -194,10 +194,6 @@ export default function OutpatientServicePage() {
                 </span>
               </h1>
 
-              <p className="mt-3 text-base font-semibold text-slate-300 md:text-lg">
-                Outpatient Consultation Services | Adhiparasakthi Hospitals, Melmaruvathur
-              </p>
-
               <p className="mt-5 text-base leading-relaxed text-slate-300 md:text-lg">
                 The Outpatient Department (OPD) at Adhiparasakthi Hospitals,
                 Melmaruvathur, provides patients with access to medical

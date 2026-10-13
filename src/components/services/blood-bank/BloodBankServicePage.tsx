@@ -190,10 +190,6 @@ export default function BloodBankServicePage() {
                 </span>
               </h1>
 
-              <p className="mt-3 text-base font-semibold text-slate-300 md:text-lg">
-                Blood Bank Services | Adhiparasakthi Hospitals, Melmaruvathur
-              </p>
-
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
                 The Blood Bank at Adhiparasakthi Hospitals, Melmaruvathur, supports
                 patient care by facilitating access to blood and blood components
