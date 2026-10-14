@@ -7,8 +7,8 @@ import AboutValueAddedServices from "@/components/about/AboutValueAddedServices"
 import OurUniqueServices from "@/components/about/OurUniqueServices";
 import CertificationSection from "@/components/about/CertificationSection";
 import AboutFAQ from "@/components/about/AboutFAQ";
-import AboutSpecialistDoctors from "@/components/about/AboutSpecialistDoctors";
-import { getAboutDoctors } from "@/lib/doctors-content";
+// import AboutSpecialistDoctors from "@/components/about/AboutSpecialistDoctors";
+// import { getAboutDoctors } from "@/lib/doctors-content";
 
 export const metadata: Metadata = {
   title: "About Us | Adhiparasakthi Hospitals",
@@ -17,8 +17,6 @@ export const metadata: Metadata = {
 };
 
 export default async function AboutPage() {
-  const doctors = await getAboutDoctors();
-
   return (
     <main className="min-h-screen">
       <AboutHero />
@@ -29,7 +27,7 @@ export default async function AboutPage() {
       <AboutHighlights />
       <CertificationSection />
       <AboutFAQ />
-      <AboutSpecialistDoctors doctors={doctors} />
+      {/* Removed for now: <AboutSpecialistDoctors doctors={doctors} /> */}
     </main>
   );
 }

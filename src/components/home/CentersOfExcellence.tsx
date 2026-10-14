@@ -16,7 +16,7 @@ import Link from "next/link";
 import { getDepartmentHref } from "@/data/departments";
 
 const centers = [
-  { icon: Heart, name: "Cardiology", slug: "cardiology", desc: "Advanced heart care, diagnostics, and interventional procedures" },
+  { icon: Heart, name: "Cardiology", slug: "cardiology", desc: "Advanced heart care, diagnostics, and cardiac treatments" },
   { icon: Activity, name: "Nephrology", slug: "nephrology", desc: "Comprehensive kidney care, dialysis, and renal support" },
   { icon: Droplets, name: "Urology", slug: "urology", desc: "Advanced urological care, laser surgery, and treatments" },
   { icon: HeartPulse, name: "Multi Organ Transplant", slug: "multi-organ-transplant", desc: "Government-authorized liver and kidney transplantation" },
@@ -54,7 +54,7 @@ export default function CentersOfExcellence() {
               transition={{ duration: 0.4, delay: (index % 4) * 0.05 }}
             >
               <Link href={getDepartmentHref(center.slug)} className="block group h-full">
-                <div className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 h-full relative overflow-hidden flex flex-col">
+                <div className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 h-full relative overflow-hidden flex flex-col text-left">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-red-600/5 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-500" />
                   
                   <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mb-6 text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300">
@@ -64,7 +64,7 @@ export default function CentersOfExcellence() {
                   <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-red-600 transition-colors">
                     {center.name}
                   </h3>
-                  <p className="text-slate-500 mb-6 line-clamp-2 flex-1">
+                  <p className="text-slate-500 mb-6 line-clamp-2 flex-1 text-left">
                     {center.desc}
                   </p>
                   

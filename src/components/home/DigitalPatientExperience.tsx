@@ -1,12 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Smartphone, MessageSquare, Clock, Video, FileCheck } from "lucide-react";
+import { Smartphone, MessageSquare, Video, FileCheck, FileText } from "lucide-react";
 
 const features = [
   { icon: Smartphone, title: "Online Appointments", desc: "Book and manage your appointments instantly via our mobile app or website." },
-  { icon: MessageSquare, title: "WhatsApp Reports", desc: "Get your lab reports and prescriptions delivered securely to your WhatsApp." },
-  { icon: Clock, title: "Patient Timeline", desc: "Track your complete medical history and upcoming visits in one place." },
+  { icon: MessageSquare, title: "WhatsApp Reports", desc: "Get your lab reports delivered securely to your WhatsApp." },
+  { icon: FileText, title: "Discharge Report", desc: "Receive your hospital discharge report and care instructions directly on WhatsApp." },
   { icon: Video, title: "Telemedicine", desc: "Consult with our specialists from the comfort of your home via HD video calls." },
   { icon: FileCheck, title: "Digital Prescriptions", desc: "Access and refill your prescriptions digitally without carrying paper." },
 ];
@@ -32,7 +32,7 @@ export default function DigitalPatientExperience() {
               <span className="text-slate-400">Experience</span>
             </h2>
             <p className="text-lg text-slate-400 mb-8">
-              Experience seamless healthcare with our integrated digital platform. From booking appointments to accessing medical records, everything is just a click away.
+              Experience seamless healthcare with our integrated digital platform. From booking appointments to accessing investigation, everything is just a click away.
             </p>
 
             <div className="space-y-6">

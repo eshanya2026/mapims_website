@@ -187,7 +187,7 @@ export default function OutpatientServicePage() {
               <h1 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-5xl">
                 <span className="block">Comprehensive</span>
                 <span className="block mt-1">
-                  <span className="bg-gradient-to-r from-red-500 via-rose-400 to-amber-300 bg-clip-text text-transparent">
+                  <span className="text-red-500">
                     Outpatient Services
                   </span>{" "}
                   (OPD)

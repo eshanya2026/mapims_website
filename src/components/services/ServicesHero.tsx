@@ -56,10 +56,7 @@ export default function ServicesHero() {
           </span>
 
           <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl">
-            Hospital{" "}
-            <span className="bg-gradient-to-r from-red-500 via-rose-400 to-amber-300 bg-clip-text text-transparent">
-              Services
-            </span>
+            Hospital <span className="text-red-600">Services</span>
           </h1>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-300">
             Emergency care, surgery, diagnostics, and specialty programmes — all

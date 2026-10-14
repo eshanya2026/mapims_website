@@ -12,13 +12,13 @@ const testimonials = [
     rating: 4,
   },
   {
-    name: "Meera Reddy",
+    name: "Meera",
     role: "Patient's Family",
     text: "My father underwent a complex cardiac surgery here. The expertise of the surgical team and the post-operative care in the advanced ICU gave us immense confidence and peace of mind.",
     rating: 4.5,
   },
   {
-    name: "Suresh Menon",
+    name: "Sureshkumar",
     role: "Patient",
     text: "The appointment booking process was simple and efficient. From consultation to receiving reports, everything was handled smoothly and professionally.",
     rating: 5,

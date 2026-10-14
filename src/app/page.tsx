@@ -1,15 +1,15 @@
 import Hero from "@/components/home/Hero";
 import QuickActions from "@/components/home/QuickActions";
 import AboutSection from "@/components/home/AboutSection";
-import BookAppointmentSection from "@/components/home/BookAppointmentSection";
 import CentersOfExcellence from "@/components/home/CentersOfExcellence";
-import WhyChooseUs from "@/components/home/WhyChooseUs";
 import DoctorShowcase from "@/components/home/DoctorShowcase";
-import DigitalPatientExperience from "@/components/home/DigitalPatientExperience";
+import LeadershipSection from "@/components/home/LeadershipSection";
 import HealthPackages from "@/components/home/HealthPackages";
-import Testimonials from "@/components/home/Testimonials";
-import NewsEventsSection from "@/components/home/NewsEventsSection";
+import BookAppointmentSection from "@/components/home/BookAppointmentSection";
+import DigitalPatientExperience from "@/components/home/DigitalPatientExperience";
 import HealthInsightsSection from "@/components/home/HealthInsightsSection";
+import NewsEventsSection from "@/components/home/NewsEventsSection";
+import Testimonials from "@/components/home/Testimonials";
 import { getHomeDoctors } from "@/lib/doctors-content";
 
 export default async function Home() {
@@ -20,15 +20,15 @@ export default async function Home() {
       <Hero />
       <QuickActions />
       <AboutSection />
-      <BookAppointmentSection />
       <CentersOfExcellence />
-      <WhyChooseUs />
       <DoctorShowcase doctors={doctors} />
-      <DigitalPatientExperience />
+      <LeadershipSection />
       <HealthPackages />
-      <Testimonials />
-      <NewsEventsSection />
+      <BookAppointmentSection />
+      <DigitalPatientExperience />
       <HealthInsightsSection />
+      <NewsEventsSection />
+      <Testimonials />
     </main>
   );
 }

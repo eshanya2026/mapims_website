@@ -29,9 +29,17 @@ export default function Footer() {
                   className="h-[5rem] w-[12rem] max-h-[6rem] max-w-[12rem] object-contain object-center shrink-0 sm:h-16 sm:max-w-[12rem] transform -translate-y-[5px]"
                 />
               </span>
-              <div
-                id="NABH-NABL"
-              >
+              <div className="flex items-center gap-2 sm:gap-3.5 shrink-0">
+                <img
+                  src="/images/nabl-logo.png"
+                  alt="NABL Accredited"
+                  className="h-11 sm:h-[64px] w-auto object-contain shrink-0"
+                />
+                <img
+                  src="/images/nabh-logo.png"
+                  alt="NABH Accredited"
+                  className="h-12 sm:h-[66px] w-auto object-contain shrink-0"
+                />
               </div>
             </ScrollToTopLink>
 
