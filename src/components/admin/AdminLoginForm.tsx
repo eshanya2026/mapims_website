@@ -18,25 +18,29 @@ export default function AdminLoginForm() {
     setLoading(true);
     setError("");
 
-    const response = await fetch("/api/admin/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const response = await fetch("/api/admin/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    if (!response.ok) {
+      if (!response.ok) {
+        const data = await response.json();
+        setError(data.error ?? "Login failed");
+        setLoading(false);
+        return;
+      }
+
       const data = await response.json();
-      setError(data.error ?? "Login failed");
+      const from = searchParams.get("from");
+      const destination =
+        from && from !== "/admin/login" ? from : (data.defaultPath ?? "/admin");
+      window.location.href = destination;
+    } catch {
+      setError("An unexpected error occurred. Please try again.");
       setLoading(false);
-      return;
     }
-
-    const data = await response.json();
-    const from = searchParams.get("from");
-    const destination =
-      from && from !== "/admin/login" ? from : (data.defaultPath ?? "/admin");
-    router.push(destination);
-    router.refresh();
   }
 
   return (

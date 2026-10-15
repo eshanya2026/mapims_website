@@ -1,6 +1,7 @@
 import { getDb } from "@/lib/mongodb";
 
 let indexesEnsured = false;
+let indexesPromise: Promise<void> | null = null;
 
 // Atlas-compatible partial filter: matches docs where deletedAt is missing or null.
 const activeSlugPartialIndex = {
@@ -62,43 +63,53 @@ async function ensureJobsIndexes() {
 
 export async function ensureDbIndexes() {
   if (indexesEnsured) return;
+  if (indexesPromise) return indexesPromise;
 
-  const db = await getDb();
+  indexesPromise = (async () => {
+    try {
+      const db = await getDb();
 
-  // Sparse unique index ignores missing fields, but multiple explicit nulls violate uniqueness.
-  await db
-    .collection("formSubmissions")
-    .updateMany({ referenceId: null }, { $unset: { referenceId: "" } });
+      // Sparse unique index ignores missing fields, but multiple explicit nulls violate uniqueness.
+      await db
+        .collection("formSubmissions")
+        .updateMany({ referenceId: null }, { $unset: { referenceId: "" } });
 
-  await Promise.all([
-    db.collection("admins").createIndex({ email: 1 }, { unique: true }),
-    ensureActiveSlugIndex("posts"),
-    db.collection("posts").createIndex({ section: 1, sortOrder: 1 }),
-    ensureJobsIndexes(),
-    db
-      .collection("formSubmissions")
-      .createIndex({ referenceId: 1 }, { unique: true, sparse: true }),
-    db.collection("formSubmissions").createIndex({ type: 1, createdAt: -1 }),
-    db
-      .collection("formSubmissions")
-      .createIndex({ type: 1, phoneNormalized: 1, status: 1, preferredDate: 1 }),
-    db
-      .collection("formSubmissions")
-      .createIndex({ type: 1, emailNormalized: 1, status: 1, preferredDate: 1 }),
-    db
-      .collection("formSubmissions")
-      .createIndex({ type: 1, clientIp: 1, createdAt: -1 }),
-    db
-      .collection("newsletterSubscribers")
-      .createIndex({ email: 1 }, { unique: true }),
-    ensureActiveSlugIndex("doctors"),
-    db.collection("doctors").createIndex({ departmentSlug: 1, sortOrder: 1 }),
-    db.collection("doctors").createIndex({ showOnHome: 1, homeSortOrder: 1 }),
-    db.collection("doctors").createIndex({ showOnAbout: 1, aboutSortOrder: 1 }),
-    db
-      .collection("appointmentSchedules")
-      .createIndex({ departmentSlug: 1 }, { unique: true }),
-  ]);
+      await Promise.all([
+        db.collection("admins").createIndex({ email: 1 }, { unique: true }),
+        ensureActiveSlugIndex("posts"),
+        db.collection("posts").createIndex({ section: 1, sortOrder: 1 }),
+        ensureJobsIndexes(),
+        db
+          .collection("formSubmissions")
+          .createIndex({ referenceId: 1 }, { unique: true, sparse: true }),
+        db.collection("formSubmissions").createIndex({ type: 1, createdAt: -1 }),
+        db
+          .collection("formSubmissions")
+          .createIndex({ type: 1, phoneNormalized: 1, status: 1, preferredDate: 1 }),
+        db
+          .collection("formSubmissions")
+          .createIndex({ type: 1, emailNormalized: 1, status: 1, preferredDate: 1 }),
+        db
+          .collection("formSubmissions")
+          .createIndex({ type: 1, clientIp: 1, createdAt: -1 }),
+        db
+          .collection("newsletterSubscribers")
+          .createIndex({ email: 1 }, { unique: true }),
+        ensureActiveSlugIndex("doctors"),
+        db.collection("doctors").createIndex({ departmentSlug: 1, sortOrder: 1 }),
+        db.collection("doctors").createIndex({ showOnHome: 1, homeSortOrder: 1 }),
+        db.collection("doctors").createIndex({ showOnAbout: 1, aboutSortOrder: 1 }),
+        db
+          .collection("appointmentSchedules")
+          .createIndex({ departmentSlug: 1 }, { unique: true }),
+      ]);
 
-  indexesEnsured = true;
+      indexesEnsured = true;
+    } finally {
+      indexesPromise = null;
+    }
+  })();
+
+  return indexesPromise;
 }
+

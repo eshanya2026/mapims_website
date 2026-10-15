@@ -52,10 +52,15 @@ export async function createSession(admin: {
     .setExpirationTime("7d")
     .sign(getSecret());
 
+  const isSecure =
+    process.env.COOKIE_SECURE === "true" ||
+    (process.env.NODE_ENV === "production" &&
+      Boolean(process.env.SITE_URL?.startsWith("https://")));
+
   const cookieStore = await cookies();
   cookieStore.set(COOKIE_NAME, token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: isSecure,
     sameSite: "lax",
     path: "/",
     maxAge: 60 * 60 * 24 * 7,
