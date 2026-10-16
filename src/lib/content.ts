@@ -92,10 +92,15 @@ async function safeQuery<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
   }
 }
 
-export async function getPublishedPosts(section?: BlogSection) {
+export async function getPublishedPosts(
+  section?: BlogSection,
+  options?: { featured?: boolean; limit?: number }
+) {
   return safeQuery(async () => {
     const posts = await findPosts({
       published: true,
+      ...(options?.featured !== undefined ? { featured: options.featured } : {}),
+      ...(options?.limit ? { limit: options.limit } : {}),
       ...(section
         ? {
             sections:
@@ -130,6 +135,7 @@ export async function getFeaturedNewsAndEvents(limit = 3) {
   return safeQuery(async () => {
     const posts = await findPosts({
       published: true,
+      featured: true,
       sections: ["hospitals-news", "hospital-news", "hospitals-events", "hospital-events"],
       limit,
     });

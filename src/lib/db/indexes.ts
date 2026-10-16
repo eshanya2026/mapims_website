@@ -78,6 +78,7 @@ export async function ensureDbIndexes() {
         db.collection("admins").createIndex({ email: 1 }, { unique: true }),
         ensureActiveSlugIndex("posts"),
         db.collection("posts").createIndex({ section: 1, sortOrder: 1 }),
+        db.collection("posts").createIndex({ published: 1, featured: 1, sortOrder: 1 }),
         ensureJobsIndexes(),
         db
           .collection("formSubmissions")

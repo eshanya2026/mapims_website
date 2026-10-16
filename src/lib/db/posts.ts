@@ -60,6 +60,7 @@ export async function findPostBySlug(slug: string, published?: boolean) {
 
 export async function findPosts(filter: {
   published?: boolean;
+  featured?: boolean;
   section?: string;
   sections?: string[];
   limit?: number;
@@ -67,10 +68,12 @@ export async function findPosts(filter: {
   const collection = await postsCollection();
   const query = mergeNotDeleted(
     filter.published !== undefined ||
+      filter.featured !== undefined ||
       filter.section ||
       filter.sections
       ? {
           ...(filter.published !== undefined ? { published: filter.published } : {}),
+          ...(filter.featured !== undefined ? { featured: filter.featured } : {}),
           ...(filter.section ? { section: filter.section } : {}),
           ...(filter.sections ? { section: { $in: filter.sections } } : {}),
         }

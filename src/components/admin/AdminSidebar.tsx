@@ -65,8 +65,8 @@ export default function AdminSidebar({ role, email, name }: AdminSidebarProps) {
   }
 
   return (
-    <aside className="flex w-64 shrink-0 flex-col border-r border-slate-200 bg-slate-900 text-white">
-      <div className="border-b border-slate-800 px-6 py-5">
+    <aside className="sticky top-0 flex h-screen w-64 shrink-0 flex-col border-r border-slate-800 bg-slate-900 text-white">
+      <div className="shrink-0 border-b border-slate-800 px-6 py-5">
         <p className="text-xs font-semibold uppercase tracking-wider text-red-400">
           MAPIMS CMS
         </p>
@@ -77,7 +77,7 @@ export default function AdminSidebar({ role, email, name }: AdminSidebarProps) {
         </p>
       </div>
 
-      <nav className="flex-1 space-y-1 p-4">
+      <nav className="flex-1 space-y-1 overflow-y-auto p-4">
         {visibleLinks.map((link) => {
           const active = link.exact
             ? pathname === link.href
@@ -116,7 +116,7 @@ export default function AdminSidebar({ role, email, name }: AdminSidebarProps) {
         ) : null}
       </nav>
 
-      <div className="border-t border-slate-800 p-4">
+      <div className="shrink-0 border-t border-slate-800 p-4">
         <button
           type="button"
           onClick={handleLogout}
