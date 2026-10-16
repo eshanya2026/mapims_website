@@ -13,6 +13,7 @@ import {
   whyChooseTransplant,
   liverTransplantProgram,
   kidneyTransplantProgram,
+  corneaTransplantProgram,
   transplantAchievements,
   transplantLandmarkMilestone,
   transplantVisionMission,
@@ -82,7 +83,12 @@ export default function TransplantDepartmentPage() {
             />
           </div>
           <DepartmentServicesGrid
-            services={[liverTransplantProgram, kidneyTransplantProgram]}
+            columns={2}
+            services={[
+              liverTransplantProgram,
+              kidneyTransplantProgram,
+              corneaTransplantProgram,
+            ]}
           />
         </DepartmentSection>
 

@@ -2,7 +2,7 @@ export const transplantHeroTagline = "Advanced Transplant Care. Renewed Lives.";
 
 export const transplantIntro = {
   preview:
-    "At Adhiparasakthi Hospitals, our government-authorized Multi-Organ Transplant Department provides advanced liver, kidney, and complex transplant services with world-class technology and expert multidisciplinary care.",
+    "At Adhiparasakthi Hospitals, our government-authorized Multi-Organ Transplant Department provides advanced liver, kidney, cornea, and complex transplant services with world-class technology and expert multidisciplinary care.",
   full: "We are committed to delivering safe, ethical, and patient-centered transplantation, helping patients regain health and quality of life.",
 };
 
@@ -12,7 +12,7 @@ export const whyChooseTransplant = [
     description: "",
   },
   {
-    title: "Expert Liver & Kidney Transplant Specialists",
+    title: "Expert Liver, Kidney & Cornea Transplant Specialists",
     description: "",
   },
   {
@@ -62,6 +62,22 @@ export const kidneyTransplantProgram = {
   badge: "Renal Transplant & HOPE Perfusion",
   badgeColor: "blue" as const,
   imageCaption: "State-of-the-Art Kidney Transplantation & Organ Preservation Program",
+  imagePosition: "center 35%",
+};
+
+export const corneaTransplantProgram = {
+  title: "Cornea Transplantation",
+  bullets: [
+    "Corneal Transplant Evaluation",
+    "Donor Cornea Transplantation",
+    "Comprehensive Corneal Care",
+    "Vision Assessment & Treatment",
+    "Post-Transplant Follow-Up Care",
+  ],
+  image: "/images/transplant-cornea-surgery.jpg",
+  badge: "Corneal Transplant & Vision Care",
+  badgeColor: "blue" as const,
+  imageCaption: "State-of-the-Art Corneal Transplantation & Microsurgical Vision Suite",
   imagePosition: "center 35%",
 };
 
@@ -147,7 +163,7 @@ export const transplantJourney = {
   heading: "Need Expert Transplant Consultation?",
   body: "Our transplant specialists are here to guide you through every step of your journey—from evaluation and donor matching to surgery and recovery.",
   ctaHeading: "Book a Consultation Today",
-  ctaBody: "24/7 support available. Schedule a consultation with our transplant team to discuss liver or kidney transplant options and personalized care plans.",
+  ctaBody: "24/7 support available. Schedule a consultation with our transplant team to discuss liver, kidney, or cornea transplant options and personalized care plans.",
 };
 
 export const transplantJourneyPillars = [

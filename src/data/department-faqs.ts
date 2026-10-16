@@ -378,7 +378,7 @@ export const departmentFaqsBySlug: Record<string, FaqItem[]> = {
     {
       question: "What transplant services are available?",
       answer:
-        "We provide liver, kidney, and multi-organ transplant services with pre-transplant evaluation, surgery, and long-term follow-up through our dedicated transplant programme.",
+        "We provide liver, kidney, cornea, and multi-organ transplant services with pre-transplant evaluation, surgery, and long-term follow-up through our dedicated transplant programme.",
     },
     {
       question: "How is a patient evaluated for transplantation?",

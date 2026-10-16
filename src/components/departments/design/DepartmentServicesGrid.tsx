@@ -19,11 +19,13 @@ export type DepartmentServiceItem = {
 type DepartmentServicesGridProps = {
   services: DepartmentServiceItem[];
   icons?: readonly LucideIcon[];
+  columns?: 2 | 3 | 4;
 };
 
 export default function DepartmentServicesGrid({
   services,
   icons = [],
+  columns,
 }: DepartmentServicesGridProps) {
   const [selectedImage, setSelectedImage] = useState<{
     src: string;
@@ -31,9 +33,16 @@ export default function DepartmentServicesGrid({
     subtitle?: string;
   } | null>(null);
 
+  const gridColsClass =
+    columns === 3
+      ? "grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
+      : columns === 4
+        ? "grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
+        : "grid grid-cols-1 gap-5 sm:grid-cols-2";
+
   return (
     <>
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <div className={gridColsClass}>
         {services.map((service, index) => {
           const Icon = icons[index];
           return (
