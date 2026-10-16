@@ -4,10 +4,18 @@ import { createDoctor, getMaxDoctorSortOrder, listDoctors } from "@/lib/db/docto
 import { isDuplicateKeyError } from "@/lib/db/utils";
 import { doctorSchema } from "@/lib/validations";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 function revalidateDoctorPaths() {
   revalidatePath("/");
   revalidatePath("/about");
   revalidatePath("/departments");
+  revalidatePath("/departments/[slug]");
+  revalidatePath("/admin/doctors");
+  revalidatePath("/admin/doctors/[id]/edit");
+  revalidatePath("/admin");
+  revalidatePath("/api/doctors");
 }
 
 export async function GET() {

@@ -7,6 +7,9 @@ import {
 } from "@/lib/db/doctors";
 import { doctorReorderSchema } from "@/lib/validations";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function PUT(request: Request) {
   try {
     const body = await request.json();
@@ -22,13 +25,6 @@ export async function PUT(request: Request) {
       const flag = placement === "home" ? "showOnHome" : "showOnAbout";
       const placementDoctors = await listDoctors({ [flag]: true });
       const placementIds = new Set(placementDoctors.map((doctor) => doctor.id));
-
-      if (orderedIds.length !== placementDoctors.length) {
-        return NextResponse.json(
-          { error: `Reorder must include every doctor shown on the ${placement} page` },
-          { status: 400 }
-        );
-      }
 
       if (orderedIds.some((id) => !placementIds.has(id))) {
         return NextResponse.json(
@@ -59,6 +55,11 @@ export async function PUT(request: Request) {
     revalidatePath("/");
     revalidatePath("/about");
     revalidatePath("/departments");
+    revalidatePath("/departments/[slug]");
+    revalidatePath("/admin/doctors");
+    revalidatePath("/admin/doctors/[id]/edit");
+    revalidatePath("/admin");
+    revalidatePath("/api/doctors");
 
     return NextResponse.json({ ok: true });
   } catch (error) {

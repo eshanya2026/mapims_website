@@ -4,12 +4,20 @@ import { deleteDoctor, findDoctorById, updateDoctor } from "@/lib/db/doctors";
 import { isDuplicateKeyError } from "@/lib/db/utils";
 import { doctorSchema } from "@/lib/validations";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type RouteContext = { params: Promise<{ id: string }> };
 
 function revalidateDoctorPaths() {
   revalidatePath("/");
   revalidatePath("/about");
   revalidatePath("/departments");
+  revalidatePath("/departments/[slug]");
+  revalidatePath("/admin/doctors");
+  revalidatePath("/admin/doctors/[id]/edit");
+  revalidatePath("/admin");
+  revalidatePath("/api/doctors");
 }
 
 export async function GET(_request: Request, context: RouteContext) {
@@ -78,6 +86,45 @@ export async function PUT(request: Request, context: RouteContext) {
   }
 }
 
+export async function PATCH(request: Request, context: RouteContext) {
+  const { id } = await context.params;
+
+  try {
+    const existing = await findDoctorById(id);
+    if (!existing) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+
+    const body = await request.json();
+    const updates: Record<string, unknown> = {};
+
+    if (typeof body.published === "boolean") {
+      updates.published = body.published;
+    }
+    if (typeof body.showOnHome === "boolean") {
+      updates.showOnHome = body.showOnHome;
+    }
+    if (typeof body.showOnAbout === "boolean") {
+      updates.showOnAbout = body.showOnAbout;
+    }
+
+    if (Object.keys(updates).length === 0) {
+      return NextResponse.json({ error: "No valid fields to update" }, { status: 400 });
+    }
+
+    const doctor = await updateDoctor(id, updates);
+    if (!doctor) {
+      return NextResponse.json({ error: "Failed to update doctor" }, { status: 500 });
+    }
+
+    revalidateDoctorPaths();
+    return NextResponse.json(doctor);
+  } catch (error) {
+    console.error("[admin/doctors PATCH]", error);
+    return NextResponse.json({ error: "Failed to update doctor" }, { status: 500 });
+  }
+}
+
 export async function DELETE(_request: Request, context: RouteContext) {
   const { id } = await context.params;
 
@@ -91,3 +138,4 @@ export async function DELETE(_request: Request, context: RouteContext) {
 
   return NextResponse.json({ ok: true });
 }
+

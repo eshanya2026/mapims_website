@@ -85,6 +85,8 @@ function revalidateBlogPaths(
   slug?: string
 ) {
   revalidatePath("/");
+  revalidatePath("/admin/posts");
+  revalidatePath("/admin");
   revalidatePath(`/blog/${oldSection}`);
   if (newSection) revalidatePath(`/blog/${newSection}`);
   if (slug) revalidatePath(`/blog/${slug}`);

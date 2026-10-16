@@ -4,6 +4,9 @@ import DoctorsAdminList, {
   type AdminDoctorRecord,
 } from "@/components/admin/DoctorsAdminList";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const departmentNames = Object.fromEntries(
   departments.map((dept) => [dept.slug, dept.name])
 );

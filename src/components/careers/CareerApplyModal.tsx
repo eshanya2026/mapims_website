@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import { CheckCircle2, FileUp, Send, X } from "lucide-react";
+import { Check, CheckCircle2, Copy, FileUp, Send, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -12,6 +12,15 @@ import {
 import { cn } from "@/lib/utils";
 import { submitForm } from "@/lib/submit-form";
 import { uploadResume } from "@/lib/upload-resume";
+
+type SubmittedDetails = {
+  referenceId: string;
+  applicantName: string;
+  email: string;
+  phone: string;
+  role: string;
+  date: string;
+};
 
 type FormState = {
   name: string;
@@ -70,7 +79,8 @@ export default function CareerApplyModal({
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [applicationReferenceId, setApplicationReferenceId] = useState<string | null>(null);
+  const [submittedDetails, setSubmittedDetails] = useState<SubmittedDetails | null>(null);
+  const [copied, setCopied] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const submittingRef = useRef(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -123,7 +133,8 @@ export default function CareerApplyModal({
     });
     setSubmitError("");
     setSubmitted(false);
-    setApplicationReferenceId(null);
+    setSubmittedDetails(null);
+    setCopied(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -160,13 +171,17 @@ export default function CareerApplyModal({
     try {
       const resumeUrl = await uploadResume(resumeFile);
 
+      const applicantName = normalizeSpaces(state.name);
+      const applicantEmail = normalizeSpaces(state.email);
+      const applicantPhone = normalizeSpaces(state.phone);
+
       const result = await submitForm({
         type: "job_application",
         jobSlug,
         jobTitle,
-        name: normalizeSpaces(state.name),
-        phone: normalizeSpaces(state.phone),
-        email: normalizeSpaces(state.email),
+        name: applicantName,
+        phone: applicantPhone,
+        email: applicantEmail,
         currentLocation: normalizeSpaces(state.currentLocation),
         qualification: normalizeSpaces(state.qualification),
         totalExperience: normalizeSpaces(state.totalExperience),
@@ -176,20 +191,40 @@ export default function CareerApplyModal({
         resumeUrl,
       });
 
-      setApplicationReferenceId(
-        typeof result.referenceId === "string" ? result.referenceId : null
-      );
+      const referenceId =
+        typeof result.referenceId === "string" ? result.referenceId : null;
+
+      setSubmittedDetails({
+        referenceId: referenceId ?? `APP-${Date.now().toString().slice(-6)}`,
+        applicantName,
+        email: applicantEmail,
+        phone: applicantPhone,
+        role: jobTitle,
+        date: new Date().toLocaleDateString("en-IN", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        }),
+      });
+
       setSubmitted(true);
       setState(INITIAL_STATE);
       setResumeFile(null);
+      setTouched({
+        name: false,
+        email: false,
+        phone: false,
+        currentLocation: false,
+        qualification: false,
+        totalExperience: false,
+        medicalCouncilRegistrationNo: false,
+        noticePeriod: false,
+        message: false,
+        resume: false,
+      });
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
-      setTimeout(() => {
-        setSubmitted(false);
-        setApplicationReferenceId(null);
-        handleOpenChange(false);
-      }, 5000);
     } catch (error) {
       setSubmitError(
         error instanceof Error ? error.message : "Unable to submit your application."
@@ -212,16 +247,108 @@ export default function CareerApplyModal({
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-xl">
-        <DialogHeader>
-          <DialogTitle className="text-lg font-bold text-slate-900">
-            Apply for this role
-          </DialogTitle>
-          <DialogDescription className="text-slate-600">
-            {jobTitle}
-          </DialogDescription>
-        </DialogHeader>
+        {submitted && submittedDetails ? (
+          <div className="py-2 text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 ring-8 ring-emerald-50">
+              <CheckCircle2 className="h-9 w-9 text-emerald-600 animate-in zoom-in-75 duration-300" />
+            </div>
 
-        <form onSubmit={onSubmit} className="space-y-4">
+            <DialogTitle className="text-2xl font-bold text-slate-900">
+              Application Submitted!
+            </DialogTitle>
+            <DialogDescription className="mt-1.5 text-sm text-slate-600">
+              Your application for <span className="font-semibold text-slate-900">{submittedDetails.role}</span> has been received successfully.
+            </DialogDescription>
+
+            {/* Reference Number Card */}
+            <div className="mt-6 overflow-hidden rounded-2xl border border-emerald-200 bg-gradient-to-b from-emerald-50/70 to-white p-5 text-left shadow-sm">
+              <div className="flex items-center justify-between border-b border-emerald-100/80 pb-3">
+                <div>
+                  <span className="text-xs font-semibold uppercase tracking-wider text-emerald-700">
+                    Application Reference No.
+                  </span>
+                  <p className="mt-0.5 font-mono text-xl font-extrabold tracking-wider text-slate-900">
+                    {submittedDetails.referenceId}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(submittedDetails.referenceId);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  }}
+                  className="flex items-center gap-1.5 rounded-lg border border-emerald-300 bg-white px-3 py-1.5 text-xs font-semibold text-emerald-700 shadow-sm transition hover:bg-emerald-50 active:scale-95"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="h-3.5 w-3.5 text-emerald-600" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-3.5 w-3.5 text-emerald-600" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <div className="mt-3.5 grid grid-cols-2 gap-3 text-xs">
+                <div>
+                  <span className="text-slate-500">Applicant Name</span>
+                  <p className="font-medium text-slate-800">{submittedDetails.applicantName}</p>
+                </div>
+                <div>
+                  <span className="text-slate-500">Current Status</span>
+                  <p className="font-medium text-emerald-700 flex items-center gap-1">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                    Received &amp; Under Review
+                  </p>
+                </div>
+                <div>
+                  <span className="text-slate-500">Position Applied</span>
+                  <p className="font-medium text-slate-800">{submittedDetails.role}</p>
+                </div>
+                <div>
+                  <span className="text-slate-500">Submission Date</span>
+                  <p className="font-medium text-slate-800">{submittedDetails.date}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Next steps notice */}
+            <div className="mt-4 rounded-xl border border-slate-100 bg-slate-50 p-4 text-left text-xs leading-relaxed text-slate-600">
+              <p className="font-semibold text-slate-800 mb-1.5">What happens next?</p>
+              <ul className="space-y-1.5 list-disc list-inside">
+                <li>A confirmation record has been logged for <strong className="text-slate-700">{submittedDetails.email}</strong>.</li>
+                <li>Our HR talent acquisition team will review your qualifications and reach out if shortlisted.</li>
+                <li>Please quote reference <strong className="text-slate-800 font-mono">{submittedDetails.referenceId}</strong> if you contact HR regarding this application.</li>
+              </ul>
+            </div>
+
+            <div className="mt-6">
+              <button
+                type="button"
+                onClick={() => handleOpenChange(false)}
+                className="w-full rounded-full bg-slate-900 py-3 text-sm font-semibold text-white shadow-md transition-colors hover:bg-slate-800"
+              >
+                Done
+              </button>
+            </div>
+          </div>
+        ) : (
+          <>
+            <DialogHeader>
+              <DialogTitle className="text-lg font-bold text-slate-900">
+                Apply for this role
+              </DialogTitle>
+              <DialogDescription className="text-slate-600">
+                {jobTitle}
+              </DialogDescription>
+            </DialogHeader>
+
+            <form onSubmit={onSubmit} className="space-y-4">
           <div>
             <label className={labelClass} htmlFor="apply-name">
               Full Name {requiredMark}
@@ -452,36 +579,6 @@ export default function CareerApplyModal({
             </p>
           ) : null}
 
-          {submitted ? (
-            <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
-              <p className="flex items-center gap-2 font-medium">
-                <CheckCircle2 className="h-4 w-4 shrink-0" />
-                Application received successfully.
-              </p>
-              {applicationReferenceId ? (
-                <div className="mt-3 rounded-lg border border-emerald-200 bg-white px-3 py-2.5 text-slate-800">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-                    Your application
-                  </p>
-                  <p className="mt-2 font-mono text-sm font-bold text-red-700">
-                    Reference No.: {applicationReferenceId}
-                  </p>
-                  <p className="mt-1 text-sm text-slate-800">
-                    Position: <span className="font-medium">{jobTitle}</span>
-                  </p>
-                  <p className="mt-2 text-xs text-slate-600">
-                    Save this reference number and quote it when you contact HR. A confirmation
-                    email has been sent to you.
-                  </p>
-                </div>
-              ) : (
-                <p className="mt-2 text-xs text-emerald-700">
-                  A confirmation email has been sent with your application details.
-                </p>
-              )}
-            </div>
-          ) : null}
-
           <button
             type="submit"
             disabled={loading}
@@ -491,7 +588,9 @@ export default function CareerApplyModal({
             {loading ? "Submitting..." : "Submit application"}
           </button>
         </form>
-      </DialogContent>
-    </Dialog>
+      </>
+    )}
+  </DialogContent>
+</Dialog>
   );
 }

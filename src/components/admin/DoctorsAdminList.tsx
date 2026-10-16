@@ -48,7 +48,15 @@ type DoctorsAdminListProps = {
   doctors: AdminDoctorRecord[];
 };
 
-function DoctorTableCells({ doctor }: { doctor: AdminDoctorRecord }) {
+function DoctorTableCells({
+  doctor,
+  onTogglePublish,
+  isUpdating,
+}: {
+  doctor: AdminDoctorRecord;
+  onTogglePublish?: (id: string, published: boolean) => void;
+  isUpdating?: boolean;
+}) {
   return (
     <>
       <td className="px-4 py-3">
@@ -71,16 +79,30 @@ function DoctorTableCells({ doctor }: { doctor: AdminDoctorRecord }) {
           .join(", ") || "—"}
       </td>
       <td className="px-4 py-3">
-        <span
-          className={cn(
-            "inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold",
+        <button
+          type="button"
+          onClick={() => onTogglePublish?.(doctor.id, !doctor.published)}
+          disabled={isUpdating}
+          title={
             doctor.published
-              ? "bg-green-100 text-green-700"
-              : "bg-amber-100 text-amber-700"
+              ? "Click to unpublish from website (Draft)"
+              : "Click to publish on website"
+          }
+          className={cn(
+            "inline-flex cursor-pointer items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold transition-all hover:ring-2 hover:ring-offset-1 disabled:opacity-50",
+            doctor.published
+              ? "bg-green-100 text-green-700 hover:ring-green-300"
+              : "bg-amber-100 text-amber-700 hover:ring-amber-300"
           )}
         >
+          <span
+            className={cn(
+              "h-1.5 w-1.5 rounded-full",
+              doctor.published ? "bg-green-500" : "bg-amber-500"
+            )}
+          />
           {doctor.published ? "Published" : "Draft"}
-        </span>
+        </button>
       </td>
       <td className="px-4 py-3">
         <div className="flex items-center gap-2">
@@ -97,7 +119,15 @@ function DoctorTableCells({ doctor }: { doctor: AdminDoctorRecord }) {
   );
 }
 
-function StaticDoctorRow({ doctor }: { doctor: AdminDoctorRecord }) {
+function StaticDoctorRow({
+  doctor,
+  onTogglePublish,
+  isUpdating,
+}: {
+  doctor: AdminDoctorRecord;
+  onTogglePublish?: (id: string, published: boolean) => void;
+  isUpdating?: boolean;
+}) {
   return (
     <tr className="border-b border-slate-100 last:border-0 bg-white">
       <td className="w-10 px-2 py-3">
@@ -105,7 +135,11 @@ function StaticDoctorRow({ doctor }: { doctor: AdminDoctorRecord }) {
           <GripVertical className="h-4 w-4" />
         </span>
       </td>
-      <DoctorTableCells doctor={doctor} />
+      <DoctorTableCells
+        doctor={doctor}
+        onTogglePublish={onTogglePublish}
+        isUpdating={isUpdating}
+      />
     </tr>
   );
 }
@@ -113,9 +147,13 @@ function StaticDoctorRow({ doctor }: { doctor: AdminDoctorRecord }) {
 function SortableDoctorRow({
   doctor,
   isDragging,
+  onTogglePublish,
+  isUpdating,
 }: {
   doctor: AdminDoctorRecord;
   isDragging?: boolean;
+  onTogglePublish?: (id: string, published: boolean) => void;
+  isUpdating?: boolean;
 }) {
   const {
     attributes,
@@ -153,7 +191,11 @@ function SortableDoctorRow({
           <GripVertical className="h-4 w-4" />
         </button>
       </td>
-      <DoctorTableCells doctor={doctor} />
+      <DoctorTableCells
+        doctor={doctor}
+        onTogglePublish={onTogglePublish}
+        isUpdating={isUpdating}
+      />
     </tr>
   );
 }
@@ -194,13 +236,13 @@ function DoctorsTableHeader({ showDragHandle = true }: { showDragHandle?: boolea
 function sortForTab(doctors: AdminDoctorRecord[], tab: OrderTab) {
   if (tab === "home") {
     return [...doctors]
-      .filter((doctor) => doctor.showOnHome)
+      .filter((doctor) => doctor.showOnHome && doctor.published)
       .sort((a, b) => a.homeSortOrder - b.homeSortOrder || a.name.localeCompare(b.name));
   }
 
   if (tab === "about") {
     return [...doctors]
-      .filter((doctor) => doctor.showOnAbout)
+      .filter((doctor) => doctor.showOnAbout && doctor.published)
       .sort((a, b) => a.aboutSortOrder - b.aboutSortOrder || a.name.localeCompare(b.name));
   }
 
@@ -211,16 +253,34 @@ function sortForTab(doctors: AdminDoctorRecord[], tab: OrderTab) {
 
 export default function DoctorsAdminList({ doctors }: DoctorsAdminListProps) {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<OrderTab>("home");
+  const [activeTab, setActiveTab] = useState<OrderTab>("all");
   const [items, setItems] = useState(doctors);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [reordering, setReordering] = useState(false);
   const [reorderError, setReorderError] = useState("");
   const [mounted, setMounted] = useState(false);
+  const [updatingId, setUpdatingId] = useState<string | null>(null);
   const reorderTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const skipSyncRef = useRef(false);
 
   const visibleItems = useMemo(() => sortForTab(items, activeTab), [activeTab, items]);
+
+  const homeCount = useMemo(
+    () => items.filter((d) => d.showOnHome && d.published).length,
+    [items]
+  );
+  const aboutCount = useMemo(
+    () => items.filter((d) => d.showOnAbout && d.published).length,
+    [items]
+  );
+  const unpublishedHomeCount = useMemo(
+    () => items.filter((d) => d.showOnHome && !d.published).length,
+    [items]
+  );
+  const unpublishedAboutCount = useMemo(
+    () => items.filter((d) => d.showOnAbout && !d.published).length,
+    [items]
+  );
 
   useEffect(() => {
     if (skipSyncRef.current) return;
@@ -236,6 +296,42 @@ export default function DoctorsAdminList({ doctors }: DoctorsAdminListProps) {
       if (reorderTimeoutRef.current) clearTimeout(reorderTimeoutRef.current);
     };
   }, []);
+
+  const handleTogglePublish = useCallback(
+    async (id: string, nextPublished: boolean) => {
+      setUpdatingId(id);
+      setReorderError("");
+      setItems((prev) =>
+        prev.map((doc) => (doc.id === id ? { ...doc, published: nextPublished } : doc))
+      );
+
+      try {
+        const response = await fetch(`/api/admin/doctors/${id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ published: nextPublished }),
+        });
+
+        if (!response.ok) {
+          const payload = await response.json().catch(() => null);
+          throw new Error(payload?.error ?? "Failed to update status");
+        }
+
+        router.refresh();
+      } catch (err) {
+        // Revert optimistic update
+        setItems((prev) =>
+          prev.map((doc) => (doc.id === id ? { ...doc, published: !nextPublished } : doc))
+        );
+        setReorderError(
+          err instanceof Error ? err.message : "Failed to update published status. Please try again."
+        );
+      } finally {
+        setUpdatingId(null);
+      }
+    },
+    [router]
+  );
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -320,10 +416,18 @@ export default function DoctorsAdminList({ doctors }: DoctorsAdminListProps) {
 
   const tabDescription =
     activeTab === "home"
-      ? "Drag to set the order on the home page carousel. Only doctors with “Show on home page” appear here."
+      ? `Drag to set the order on the home page carousel. Showing ${visibleItems.length} published doctors.${
+          unpublishedHomeCount > 0
+            ? ` (${unpublishedHomeCount} draft doctor${unpublishedHomeCount > 1 ? "s are" : " is"} disabled from website and hidden from live carousel)`
+            : ""
+        }`
       : activeTab === "about"
-        ? "Drag to set the order on the about page. Only doctors with “Show on about page” appear here."
-        : "Manage all doctors. Use the Home or About tabs to control page-specific order.";
+        ? `Drag to set the order on the about page. Showing ${visibleItems.length} published doctors.${
+            unpublishedAboutCount > 0
+              ? ` (${unpublishedAboutCount} draft doctor${unpublishedAboutCount > 1 ? "s are" : " is"} disabled from website and hidden from about page)`
+              : ""
+          }`
+        : "Manage all doctors. Click any Published/Draft badge to instantly enable or disable them on the website.";
 
   return (
     <div className="p-8">
@@ -350,9 +454,9 @@ export default function DoctorsAdminList({ doctors }: DoctorsAdminListProps) {
       <div className="mb-4 flex flex-wrap gap-2">
         {(
           [
-            ["home", "Home page order"],
-            ["about", "About page order"],
-            ["all", "All doctors"],
+            ["all", `All doctors (${items.length})`],
+            ["home", `Home page order (${homeCount})`],
+            ["about", `About page order (${aboutCount})`],
           ] as const
         ).map(([tab, label]) => (
           <button
@@ -375,9 +479,9 @@ export default function DoctorsAdminList({ doctors }: DoctorsAdminListProps) {
         {visibleItems.length === 0 ? (
           <p className="px-4 py-12 text-center text-slate-500">
             {activeTab === "home"
-              ? "No doctors are marked for the home page yet."
+              ? "No published doctors are marked for the home page yet."
               : activeTab === "about"
-                ? "No doctors are marked for the about page yet."
+                ? "No published doctors are marked for the about page yet."
                 : "No doctors yet."}
           </p>
         ) : activeTab === "all" ? (
@@ -386,7 +490,11 @@ export default function DoctorsAdminList({ doctors }: DoctorsAdminListProps) {
             <tbody>
               {visibleItems.map((doctor) => (
                 <tr key={doctor.id} className="border-b border-slate-100 last:border-0 bg-white">
-                  <DoctorTableCells doctor={doctor} />
+                  <DoctorTableCells
+                    doctor={doctor}
+                    onTogglePublish={handleTogglePublish}
+                    isUpdating={updatingId === doctor.id}
+                  />
                 </tr>
               ))}
             </tbody>
@@ -396,7 +504,12 @@ export default function DoctorsAdminList({ doctors }: DoctorsAdminListProps) {
             <DoctorsTableHeader />
             <tbody>
               {visibleItems.map((doctor) => (
-                <StaticDoctorRow key={doctor.id} doctor={doctor} />
+                <StaticDoctorRow
+                  key={doctor.id}
+                  doctor={doctor}
+                  onTogglePublish={handleTogglePublish}
+                  isUpdating={updatingId === doctor.id}
+                />
               ))}
             </tbody>
           </table>
@@ -417,7 +530,12 @@ export default function DoctorsAdminList({ doctors }: DoctorsAdminListProps) {
               >
                 <tbody>
                   {visibleItems.map((doctor) => (
-                    <SortableDoctorRow key={doctor.id} doctor={doctor} />
+                    <SortableDoctorRow
+                      key={doctor.id}
+                      doctor={doctor}
+                      onTogglePublish={handleTogglePublish}
+                      isUpdating={updatingId === doctor.id}
+                    />
                   ))}
                 </tbody>
               </SortableContext>

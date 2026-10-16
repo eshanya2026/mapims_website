@@ -108,8 +108,8 @@ export default function DoctorForm({ initial, mode }: DoctorFormProps) {
       return;
     }
 
-    router.push("/admin/doctors");
     router.refresh();
+    router.push("/admin/doctors");
   }
 
   return (
@@ -259,14 +259,22 @@ export default function DoctorForm({ initial, mode }: DoctorFormProps) {
           />
           Show on about page
         </label>
-        <label className="flex items-center gap-2 text-sm sm:col-span-2">
-          <input
-            type="checkbox"
-            checked={form.published}
-            onChange={(e) => updateField("published", e.target.checked)}
-          />
-          Published on website
-        </label>
+        <div className="sm:col-span-2 space-y-1">
+          <label className="flex items-center gap-2 text-sm font-medium text-slate-800">
+            <input
+              type="checkbox"
+              checked={form.published}
+              onChange={(e) => updateField("published", e.target.checked)}
+              className="h-4 w-4 rounded border-slate-300 text-red-600 focus:ring-red-500"
+            />
+            Published on website
+          </label>
+          <p className="text-xs text-slate-500 pl-6">
+            {form.published
+              ? "This doctor is active and will appear on the website according to selected placements."
+              : "When disabled (Draft), this doctor is hidden from all public website pages and carousels."}
+          </p>
+        </div>
       </div>
 
       {error ? (

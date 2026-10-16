@@ -193,11 +193,37 @@ export default function PostsCmsWorkspace({ posts }: PostsCmsWorkspaceProps) {
 
   function closePanel() {
     setPanelOpen(false);
+    setEditingId(undefined);
     router.replace("/admin/posts");
   }
 
-  function handleSaved() {
+  function handleSaved(savedPost?: AdminPostRecord) {
+    if (savedPost && savedPost.id) {
+      setLocalPosts((prev) => {
+        const serializedSaved: AdminPostRecord = {
+          ...savedPost,
+          publishedAt:
+            typeof savedPost.publishedAt === "string"
+              ? savedPost.publishedAt
+              : new Date(savedPost.publishedAt).toISOString(),
+          updatedAt:
+            typeof savedPost.updatedAt === "string"
+              ? savedPost.updatedAt
+              : new Date(savedPost.updatedAt).toISOString(),
+        };
+
+        const index = prev.findIndex((p) => p.id === savedPost.id);
+        if (index >= 0) {
+          const next = [...prev];
+          next[index] = serializedSaved;
+          return sortAdminPosts(next);
+        }
+        return sortAdminPosts([serializedSaved, ...prev]);
+      });
+    }
+
     setPanelOpen(false);
+    setEditingId(undefined);
     router.replace("/admin/posts");
     router.refresh();
   }

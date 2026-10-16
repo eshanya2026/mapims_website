@@ -74,6 +74,11 @@ function PostPreviewCard({
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute left-4 top-4 flex flex-wrap gap-2">
+          {post.featured ? (
+            <span className="rounded-full bg-red-600 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm flex items-center gap-1">
+              ★ Featured on Home
+            </span>
+          ) : null}
           {isDraft ? (
             <span className="rounded-full bg-amber-500 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm">
               Draft preview

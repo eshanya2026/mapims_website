@@ -19,7 +19,7 @@ type PostEditorPanelProps = {
   defaultSection: BlogSection;
   onChange: (data: PostFormData) => void;
   onClose: () => void;
-  onSaved: () => void;
+  onSaved: (savedPost?: any) => void;
 };
 
 const sections: { value: BlogSection; label: string }[] = [
@@ -46,6 +46,28 @@ export default function PostEditorPanel({
     ...initial,
     section: initial?.section ?? defaultSection,
   }));
+
+  useEffect(() => {
+    if (initial) {
+      setForm({
+        ...createEmptyPost(defaultSection),
+        ...initial,
+        section: initial?.section ?? defaultSection,
+      });
+    }
+  }, [
+    initial?.id,
+    initial?.title,
+    initial?.slug,
+    initial?.featured,
+    initial?.published,
+    initial?.section,
+    initial?.category,
+    initial?.image,
+    initial?.excerpt,
+    initial?.content,
+    defaultSection,
+  ]);
 
   const onChangeRef = useRef(onChange);
   onChangeRef.current = onChange;
@@ -137,7 +159,8 @@ export default function PostEditorPanel({
       return;
     }
 
-    onSaved();
+    const saved = await response.json().catch(() => null);
+    onSaved(saved);
     setLoading(false);
   }
 

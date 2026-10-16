@@ -238,16 +238,31 @@ export async function upsertDoctorBySlug(
 ) {
   const collection = await doctorsCollection();
   const timestamp = now();
+  const {
+    published,
+    showOnHome,
+    showOnAbout,
+    sortOrder,
+    homeSortOrder,
+    aboutSortOrder,
+    ...metadata
+  } = data;
 
   await collection.updateOne(
     { slug },
     {
       $set: {
-        ...data,
+        ...metadata,
         slug,
         updatedAt: timestamp,
       },
       $setOnInsert: {
+        published: published ?? false,
+        showOnHome: showOnHome ?? false,
+        showOnAbout: showOnAbout ?? false,
+        sortOrder: sortOrder ?? 0,
+        ...(homeSortOrder !== undefined ? { homeSortOrder } : {}),
+        ...(aboutSortOrder !== undefined ? { aboutSortOrder } : {}),
         createdAt: timestamp,
       },
     },

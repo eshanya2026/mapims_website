@@ -12,6 +12,9 @@ import NewsEventsSection from "@/components/home/NewsEventsSection";
 import Testimonials from "@/components/home/Testimonials";
 import { getHomeDoctors } from "@/lib/doctors-content";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function Home() {
   const doctors = await getHomeDoctors();
 

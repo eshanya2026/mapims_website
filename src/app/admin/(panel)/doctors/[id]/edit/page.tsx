@@ -2,6 +2,9 @@ import { notFound } from "next/navigation";
 import { findDoctorById } from "@/lib/db/doctors";
 import DoctorForm from "@/components/admin/DoctorForm";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type EditDoctorPageProps = {
   params: Promise<{ id: string }>;
 };

@@ -24,6 +24,9 @@ function serializePosts(
   }));
 }
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function AdminPostsPage() {
   const posts = await listPosts();
 

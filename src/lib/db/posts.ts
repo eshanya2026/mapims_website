@@ -208,16 +208,20 @@ export async function upsertPostBySlug(
 ) {
   const collection = await postsCollection();
   const timestamp = now();
+  const { published, featured, sortOrder, ...metadata } = data;
 
   await collection.updateOne(
     { slug },
     {
       $set: {
-        ...data,
+        ...metadata,
         slug,
         updatedAt: timestamp,
       },
       $setOnInsert: {
+        published: published ?? false,
+        featured: featured ?? false,
+        sortOrder: sortOrder ?? 0,
         createdAt: timestamp,
       },
     },

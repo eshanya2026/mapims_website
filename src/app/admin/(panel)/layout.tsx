@@ -2,6 +2,9 @@ import { redirect } from "next/navigation";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import { getSession } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function AdminPanelLayout({
   children,
 }: {

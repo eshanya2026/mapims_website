@@ -31,6 +31,8 @@ export async function PUT(request: Request) {
     await reorderPostsInSection(section, validIds);
 
     revalidatePath("/");
+    revalidatePath("/admin/posts");
+    revalidatePath("/admin");
     revalidatePath(`/blog/${section}`);
     revalidatePath("/blog");
 

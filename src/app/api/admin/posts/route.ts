@@ -57,6 +57,8 @@ export async function POST(request: Request) {
 
 function revalidateBlogPaths(section: string, slug?: string) {
   revalidatePath("/");
+  revalidatePath("/admin/posts");
+  revalidatePath("/admin");
   revalidatePath(`/blog/${section}`);
   revalidatePath("/blog");
   if (slug) revalidatePath(`/blog/${slug}`);
