@@ -58,7 +58,7 @@ async function ensureSubmissionReference(
     return assignAppointmentReferenceId(submission.id, submission.createdAt);
   }
 
-  if (submission.type === "job_application") {
+  if (submission.type === "job_application" || submission.type === "career") {
     return assignJobApplicationReferenceId(submission.id, submission.createdAt);
   }
 
@@ -137,13 +137,15 @@ export async function createFormSubmission(
   }
 
   if (data.type === "career") {
-    return createFormSubmissionRecord({
+    const created = await createFormSubmissionRecord({
       type: data.type,
       name: data.name,
       phone: data.phone,
       email: data.email,
       message: data.message,
     });
+
+    return assignJobApplicationReferenceId(created.id, created.createdAt);
   }
 
   if (data.type === "job_application") {

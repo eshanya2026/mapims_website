@@ -243,7 +243,7 @@ function buildCandidateConfirmationEmail(submission: FormSubmissionRecord) {
 }
 
 export async function notifyHrOfFormSubmission(submission: FormSubmissionRecord) {
-  if (submission.type !== "job_application") {
+  if (submission.type !== "job_application" && submission.type !== "career") {
     return;
   }
 

@@ -42,7 +42,7 @@ export async function POST(request: Request) {
       clientIp: getClientIpFromRequest(request),
     });
 
-    if (submission.type === "job_application") {
+    if (submission.type === "job_application" || submission.type === "career") {
       try {
         await notifyHrOfFormSubmission(submission);
         await notifyCandidateOfJobApplication(submission);
@@ -65,7 +65,11 @@ export async function POST(request: Request) {
         id: submission.id,
         referenceId: submission.referenceId ?? null,
         jobTitle:
-          submission.type === "job_application" ? submission.jobTitle ?? null : null,
+          submission.type === "job_application"
+            ? submission.jobTitle ?? null
+            : submission.type === "career"
+              ? "General Career Enquiry"
+              : null,
       },
       { status: 201 }
     );
