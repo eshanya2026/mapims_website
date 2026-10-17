@@ -70,7 +70,7 @@ services:
     env_file:
       - .env
     volumes:
-      - uploads_data:/app/public/uploads
+      - ./public/uploads:/app/public/uploads
     depends_on:
       mongo:
         condition: service_healthy
