@@ -41,6 +41,10 @@ if $RUN_GIT; then
 fi
 
 if $RUN_DOCKER; then
+  echo ">> preparing upload directories"
+  mkdir -p public/uploads/resumes public/uploads/international-documents
+  chmod -R 777 public/uploads 2>/dev/null || true
+
   echo ">> docker compose up -d --build"
   docker compose up -d --build
 

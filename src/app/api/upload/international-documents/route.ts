@@ -43,9 +43,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ url });
   } catch (error) {
     console.error("[upload/international-documents]", error);
-    return NextResponse.json(
-      { error: "Upload failed. Please try again." },
-      { status: 500 }
-    );
+    const message =
+      error instanceof Error ? error.message : "Upload failed. Please try again.";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

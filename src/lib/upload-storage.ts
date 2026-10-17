@@ -26,9 +26,24 @@ async function saveLocalFile(
   filename: string
 ) {
   const uploadDir = localUploadPath(...segments);
-  await mkdir(uploadDir, { recursive: true });
-  await writeFile(path.join(uploadDir, filename), buffer);
-  return path.posix.join("/", ...segments, filename);
+  try {
+    await mkdir(uploadDir, { recursive: true });
+    await writeFile(path.join(uploadDir, filename), buffer);
+    return path.posix.join("/", ...segments, filename);
+  } catch (primaryError) {
+    // If saving in process.cwd()/public fails, attempt fallback to /app/public
+    const fallbackDir = path.join("/app", "public", ...segments);
+    if (fallbackDir !== uploadDir) {
+      try {
+        await mkdir(fallbackDir, { recursive: true });
+        await writeFile(path.join(fallbackDir, filename), buffer);
+        return path.posix.join("/", ...segments, filename);
+      } catch {
+        // Fall back to rethrowing original error
+      }
+    }
+    throw primaryError;
+  }
 }
 
 export async function storeUploadedFile(options: {

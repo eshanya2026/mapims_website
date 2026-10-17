@@ -44,6 +44,10 @@ yarn-error.log*
 # uploads
 /public/uploads/*
 !/public/uploads/.gitkeep
+!/public/uploads/resumes/
+!/public/uploads/resumes/.gitkeep
+!/public/uploads/international-documents/
+!/public/uploads/international-documents/.gitkeep
 
 # vercel
 .vercel

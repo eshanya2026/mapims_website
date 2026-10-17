@@ -26,6 +26,8 @@ RUN npm run build
 FROM node:22-alpine AS runner
 WORKDIR /app
 
+RUN apk add --no-cache su-exec
+
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=1004
@@ -36,19 +38,22 @@ RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
 # Ensure public uploads directory exists with correct permissions
-RUN mkdir -p /app/public/uploads && \
-    chown -R nextjs:nodejs /app/public
+RUN mkdir -p /app/public/uploads/resumes /app/public/uploads/international-documents && \
+    chown -R nextjs:nodejs /app/public && \
+    chmod -R 777 /app/public
 
 # Copy standalone build output and static assets
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
-USER nextjs
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 1004
 
 HEALTHCHECK --interval=20s --timeout=5s --start-period=30s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:1004/api/health || exit 1
 
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["node", "server.js"]
