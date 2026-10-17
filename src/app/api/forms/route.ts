@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import {
   ACTIVE_APPOINTMENT_EXISTS_MESSAGE,
   APPOINTMENT_RATE_LIMIT_MESSAGE,
@@ -42,21 +42,31 @@ export async function POST(request: Request) {
       clientIp: getClientIpFromRequest(request),
     });
 
-    if (submission.type === "job_application" || submission.type === "career") {
-      try {
-        await notifyHrOfFormSubmission(submission);
-        await notifyCandidateOfJobApplication(submission);
-      } catch (emailError) {
-        console.error("[forms POST] notification email failed:", emailError);
+    const triggerNotifications = async () => {
+      if (submission.type === "job_application" || submission.type === "career") {
+        await Promise.allSettled([
+          notifyHrOfFormSubmission(submission).catch((emailError) => {
+            console.error("[forms POST] HR notification email failed:", emailError);
+          }),
+          notifyCandidateOfJobApplication(submission).catch((emailError) => {
+            console.error("[forms POST] candidate confirmation email failed:", emailError);
+          }),
+        ]);
       }
-    }
 
-    if (submission.type === "appointment") {
-      try {
-        await notifyPatientOfAppointment(submission);
-      } catch (emailError) {
-        console.error("[forms POST] appointment confirmation email failed:", emailError);
+      if (submission.type === "appointment") {
+        try {
+          await notifyPatientOfAppointment(submission);
+        } catch (emailError) {
+          console.error("[forms POST] appointment confirmation email failed:", emailError);
+        }
       }
+    };
+
+    if (typeof after === "function") {
+      after(triggerNotifications);
+    } else {
+      void triggerNotifications();
     }
 
     return NextResponse.json(
