@@ -5,6 +5,9 @@ import CareersIntro from "@/components/careers/CareersIntro";
 import CareersJobList from "@/components/careers/CareersJobList";
 import CareersApplicationForm from "@/components/careers/CareersApplicationForm";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: "Careers | Adhiparasakthi Hospitals",
   description:

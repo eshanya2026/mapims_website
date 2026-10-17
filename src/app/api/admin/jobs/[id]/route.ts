@@ -4,6 +4,9 @@ import { deleteJob, ensureUniqueJobSlug, findJobById, updateJob } from "@/lib/db
 import { isDuplicateKeyError, duplicateKeyErrorMessage } from "@/lib/db/utils";
 import { jobSchema } from "@/lib/validations";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type RouteContext = { params: Promise<{ id: string }> };
 
 export async function GET(_request: Request, context: RouteContext) {
@@ -68,6 +71,7 @@ export async function PUT(request: Request, context: RouteContext) {
 
     revalidatePath("/careers");
     revalidatePath(`/careers/${job.slug}`);
+    revalidatePath("/admin/jobs");
 
     return NextResponse.json(job);
   } catch (error) {
@@ -90,6 +94,7 @@ export async function DELETE(_request: Request, context: RouteContext) {
   await deleteJob(id);
   revalidatePath("/careers");
   revalidatePath(`/careers/${existing.slug}`);
+  revalidatePath("/admin/jobs");
 
   return NextResponse.json({ ok: true });
 }

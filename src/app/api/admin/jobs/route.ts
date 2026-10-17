@@ -4,6 +4,9 @@ import { createJob, ensureUniqueJobSlug, listJobs } from "@/lib/db/jobs";
 import { isDuplicateKeyError, duplicateKeyErrorMessage } from "@/lib/db/utils";
 import { jobSchema } from "@/lib/validations";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function GET() {
   const jobs = await listJobs();
   return NextResponse.json(jobs);
@@ -48,6 +51,7 @@ export async function POST(request: Request) {
     });
 
     revalidatePath("/careers");
+    revalidatePath("/admin/jobs");
 
     return NextResponse.json(job, { status: 201 });
   } catch (error) {

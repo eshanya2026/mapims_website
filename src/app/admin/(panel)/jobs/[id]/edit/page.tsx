@@ -2,8 +2,11 @@ import { notFound } from "next/navigation";
 import { findJobById } from "@/lib/db/jobs";
 import JobForm from "@/components/admin/JobForm";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type EditJobPageProps = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug?: string; id: string }>;
 };
 
 export default async function EditJobPage({ params }: EditJobPageProps) {

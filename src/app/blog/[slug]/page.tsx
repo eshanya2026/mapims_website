@@ -9,6 +9,9 @@ import {
   getPublishedPostBySlug,
 } from "@/lib/content";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
 };

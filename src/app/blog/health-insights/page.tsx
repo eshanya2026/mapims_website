@@ -4,6 +4,9 @@ import BlogGrid from "@/components/blog/BlogGrid";
 import BlogSectionNav from "@/components/blog/BlogSectionNav";
 import { getPublishedPosts } from "@/lib/content";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: "Health Insights | Adhiparasakthi Hospitals Blog",
   description:

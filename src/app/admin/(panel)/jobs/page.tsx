@@ -4,6 +4,9 @@ import { buttonVariants } from "@/components/ui/button";
 import DeleteButton from "@/components/admin/DeleteButton";
 import { Plus } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function AdminJobsPage() {
   const jobs = await listJobs();
 

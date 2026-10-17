@@ -18,6 +18,9 @@ import {
 } from "@/lib/content";
 import JobApplyButton from "@/components/careers/JobApplyButton";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type CareerDetailPageProps = {
   params: Promise<{ slug: string }>;
 };
