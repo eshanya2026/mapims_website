@@ -2,22 +2,21 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Calendar, Sparkles, FileText, Ambulance, HeartPulse } from "lucide-react";
+import { Calendar, Sparkles, HeartPulse, Ambulance } from "lucide-react";
 import { mapimsHealthCheckupUrl } from "@/data/site-links";
 
 const actions = [
   { icon: Calendar, title: "Book Appointment", desc: "Schedule a visit with our experts", color: "bg-blue-50 text-blue-600", href: "/#book-appointment" },
   { icon: Sparkles, title: "AI-Based Master Health Checkup", desc: "Smart comprehensive screening", color: "bg-purple-50 text-purple-600", href: mapimsHealthCheckupUrl, external: true },
-  { icon: FileText, title: "Lab Reports", desc: "View your test results online", color: "bg-emerald-50 text-emerald-600", href: "/#book-appointment" },
+  { icon: HeartPulse, title: "Master Health Checkup", desc: "Health checkup packages", color: "bg-emerald-50 text-emerald-600", href: "/#health-packages" },
   { icon: Ambulance, title: "Emergency Care", desc: "24/7 immediate medical help", color: "bg-red-50 text-red-700", href: "tel:1066" },
-  { icon: HeartPulse, title: "Master Health Checkup", desc: "Health checkup packages", color: "bg-red-50 text-red-700", href: "/#health-packages" },
 ];
 
 export default function QuickActions() {
   return (
     <section className="relative z-40 -mt-4 px-3 pb-2 sm:-mt-10 sm:px-4 md:-mt-14 lg:-mt-16">
       <div className="container mx-auto">
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-5 lg:gap-5">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-4 lg:gap-5">
           {actions.map((action, index) => {
             const cardClass =
               "group flex h-full min-h-[108px] cursor-pointer flex-col items-center justify-center rounded-xl border border-slate-100 bg-white p-3 text-center shadow-lg shadow-slate-200/40 transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:bg-white hover:shadow-xl hover:shadow-red-600/10 active:translate-y-0 active:scale-[0.98] sm:min-h-0 sm:rounded-2xl sm:p-5 sm:shadow-xl sm:hover:-translate-y-1.5 sm:hover:shadow-2xl";
