@@ -19,7 +19,7 @@ const leaders = [
   },
   {
     name: "Dr. T. Ramesh, M.D.",
-    role: "Managing Trustee & Medical Director",
+    role: "Medical Director",
     subtitle: "Adhiparasakthi Hospitals",
     image: "/images/dr.ramesh.png",
     objectPosition: "center 15%",
