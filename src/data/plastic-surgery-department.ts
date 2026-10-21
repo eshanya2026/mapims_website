@@ -132,7 +132,23 @@ export const plasticSurgeryServices = [
     imageCaption: "Trauma Reconstruction Surgery Suite & Multidisciplinary Team",
     imagePosition: "center 40%",
   },
+  {
+    title: "Gender Transfer Surgery",
+    bullets: [
+      "Male-to-Female (MtF) & Female-to-Male (FtM) Procedures",
+      "Chest Reconstruction & Top Surgery (Mastectomy / Augmentation)",
+      "Facial Feminization & Masculinization Procedures",
+      "Body Contouring & Gender-Affirming Sculpting",
+      "Multidisciplinary Psychiatric & Endocrine Coordination",
+    ],
+    image: "/images/plastic-surgery-gender-transfer.jpg",
+    badge: "Gender Affirmation Suite",
+    badgeColor: "red" as const,
+    imageCaption: "Specialized Gender Affirmation & Transfer Surgery with Confidential, Multidisciplinary Support",
+    imagePosition: "center 40%",
+  },
 ];
+
 
 export const plasticSurgeryConditions = [
   "Burn Injuries & Scars",

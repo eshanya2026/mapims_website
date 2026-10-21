@@ -27,7 +27,7 @@ export const servicesList: ServiceListItem[] = [
     path: "/services/outpatient-service",
     label: "Outpatient Service",
     description:
-      "Medical consultations, clinical evaluations, and follow-up care across medical and surgical specialties in a comfortable, supportive environment.",
+      "Medical consultations, clinical evaluations, follow-up care, and free OP pharmacy for certain prescribed drugs across medical and surgical specialties.",
     image: "/images/services/opd-care-hero.jpg",
     category: "clinical",
   },
@@ -36,7 +36,7 @@ export const servicesList: ServiceListItem[] = [
     path: "/services/inpatient-service",
     label: "Inpatient Service",
     description:
-      "Round-the-clock inpatient hospitalization with intensive nursing care, modern private deluxe rooms, general wards, and dedicated ICUs.",
+      "Round-the-clock inpatient hospitalization with intensive nursing care, modern private deluxe rooms, general wards, dedicated ICUs, and free IP pharmacy for certain drugs.",
     image: "/images/services/inpatient-room-hero.jpg",
     category: "clinical",
   },

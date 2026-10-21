@@ -602,6 +602,141 @@ export const departmentFaqsBySlug: Record<string, FaqItem[]> = {
         "Bring all recent ultrasound, CT, or endoscopy reports, blood tests, a complete list of current medications (especially blood thinners or diabetes medicines), and previous surgical records.",
     },
   ],
+  pulmonology: [
+    {
+      question: "When should I consult a pulmonologist?",
+      answer:
+        "You should consult a pulmonologist if you experience a persistent cough lasting more than 3 weeks, unexplained shortness of breath, recurrent wheezing, chest tightness, chronic sputum production, or daytime drowsiness related to interrupted sleep.",
+    },
+    {
+      question: "Which respiratory conditions can be assessed in the department?",
+      answer:
+        "We evaluate and treat a broad spectrum of acute and chronic conditions, including asthma, COPD, pneumonia, bronchitis, tuberculosis, interstitial lung diseases, pleural effusions, allergic airway symptoms, and sleep-related breathing disorders.",
+    },
+    {
+      question: "Do I need a referral for pulmonary function testing?",
+      answer:
+        "No formal referral is required. You can book an appointment directly with our pulmonology specialists, who will perform a clinical evaluation and coordinate spirometry, oxygenation assessment, or chest imaging based on your symptoms.",
+    },
+    {
+      question: "How can asthma and COPD be managed long term?",
+      answer:
+        "Long-term management focuses on personalized medical therapy, proper inhaler technique training, identifying and avoiding environmental triggers, smoking cessation support, structured follow-up visits, and action plans to prevent acute exacerbations.",
+    },
+    {
+      question: "When does breathlessness require emergency care?",
+      answer:
+        "Seek immediate emergency care if breathlessness is sudden, severe, or worsening rapidly, especially when accompanied by chest pain, blue-tinted lips or fingers, confusion, inability to speak full sentences, or a lack of response to quick-relief inhalers. Our 24/7 emergency department is equipped for acute respiratory emergencies.",
+    },
+  ],
+  "transfusion-medicine": [
+    {
+      question: "How is blood compatibility checked before transfusion?",
+      answer:
+        "Blood compatibility involves systematic pre-transfusion testing: verified patient identification, forward and reverse ABO and Rh(D) grouping, unexpected antibody screening, and crossmatching the patient's serum against donor red blood cells to ensure immunological safety.",
+    },
+    {
+      question: "What blood components may be available?",
+      answer:
+        "Depending on clinical indication and blood center inventory, available components include Packed Red Blood Cells (PRBC), Platelet Concentrates / Random Donor Platelets (RDP), Single Donor Platelets (SDP via apheresis), Fresh Frozen Plasma (FFP), and Cryoprecipitate.",
+    },
+    {
+      question: "How are transfusion reactions recognised and reported?",
+      answer:
+        "Transfusion reactions may present as fever, chills, urticaria, shortness of breath, back pain, tachycardia, or hypotension. If any adverse sign occurs, the transfusion is stopped immediately, supportive medical measures are initiated, and the reaction is documented and investigated under hospital haemovigilance protocols.",
+    },
+    {
+      question: "Can the team support planned surgical transfusions?",
+      answer:
+        "Yes. Our Transfusion Medicine service works closely with surgical, obstetric, and anaesthesiology teams to plan type-and-screen, crossmatching, and blood unit reservation well in advance of elective and complex procedures.",
+    },
+    {
+      question: "How can clinicians request blood or components?",
+      answer:
+        "Authorized clinicians place a formal blood requisition detailing patient identity, clinical indication, component type, and urgency. Properly labeled pre-transfusion blood samples are sent directly to the blood center for immediate processing.",
+    },
+  ],
+  "critical-care-medicine": [
+    {
+      question: "What is the difference between an ICU and an IMCU (Step-Down Unit)?",
+      answer:
+        "An Intensive Care Unit (ICU) provides continuous life-support, advanced mechanical ventilation, invasive monitoring, and 1:1 or 1:2 nursing care for critically ill patients. An Intermediate Medical Care Unit (IMCU/Step-Down Unit) is designed for patients who require close observation and frequent monitoring but do not need invasive organ support, providing a safe transition between the ICU and a general ward.",
+    },
+    {
+      question: "Can family members visit patients in the ICU?",
+      answer:
+        "Yes. While critical care units have controlled visiting hours and strict infection control protocols to protect vulnerable patients, designated family members are briefed daily by the treating intensivist team, and bedside visits are facilitated in accordance with hospital visiting guidelines.",
+    },
+    {
+      question: "How are patient vitals monitored in the critical care units?",
+      answer:
+        "Patients are connected to advanced multi-parameter monitors that continuously track heart rate, cardiac rhythm (ECG), blood pressure, oxygen saturation (SpO2), respiratory rate, and temperature. All monitors are linked to a central nursing station telemetry system with automated visual and audible alert thresholds.",
+    },
+    {
+      question: "How does the critical care team coordinate with other specialties?",
+      answer:
+        "Our critical care intensivists lead twice-daily multidisciplinary rounds alongside primary attending physicians, surgeons, cardiologists, pulmonologists, clinical pharmacologists, respiratory therapists, and specialized nurses to tailor patient management and recovery milestones.",
+    },
+  ],
+  psychiatry: [
+    {
+      question: "When should someone seek psychiatric consultation?",
+      answer:
+        "You should consider seeking psychiatric consultation if you or a loved one experience persistent changes in mood, overwhelming sadness, severe anxiety or panic attacks, chronic sleep disruptions, changes in thinking or perception, or challenges coping with everyday work, family, and social life.",
+    },
+    {
+      question: "Are mental health consultations confidential?",
+      answer:
+        "Yes. All psychiatric consultations, assessments, and medical documentation are treated with the strictest confidentiality adhering to statutory healthcare privacy guidelines. Information is shared only with your explicit informed consent, except in rare emergencies involving acute safety concerns.",
+    },
+    {
+      question: "Will treatment always require medication?",
+      answer:
+        "No. Treatment plans are individualised according to each person's needs and clinical assessment. While medications can be helpful for biological chemical imbalances and severe symptoms, many conditions respond well to psychological counselling, psychoeducation, lifestyle modifications, or a combination of both.",
+    },
+    {
+      question: "Can family members be involved in care?",
+      answer:
+        "Yes. With the patient’s consent and when clinically appropriate, family members can participate in consultations, psychoeducation sessions, and care planning. Family involvement provides essential emotional reassurance and supports lasting recovery.",
+    },
+    {
+      question: "What should I do if someone is in a mental health crisis?",
+      answer:
+        "If someone is experiencing an acute mental health crisis, severe agitation, disorientation, or thoughts of self-harm, seek immediate emergency care. Our hospital's 24/7 Emergency Department provides rapid stabilization, medical safety evaluation, and immediate psychiatric referral pathways.",
+    },
+  ],
+  "oral-maxillofacial-surgery": [
+    {
+      question: "When should I consult an oral and maxillofacial surgeon?",
+      answer:
+        "You should consult an oral and maxillofacial surgeon for impacted wisdom teeth causing pain or crowding, persistent jaw joint pain or clicking, facial trauma and fractures, facial swellings, non-healing oral ulcers or cysts, jaw misalignments affecting chewing or breathing, or when recommended by your dentist or physician.",
+    },
+    {
+      question: "Can impacted wisdom teeth require surgical removal?",
+      answer:
+        "Yes. Impacted third molars that lack adequate space to emerge normally can cause pain, recurring pericoronitis (gum infection), damage to adjacent healthy molars, decay, or cyst formation within the jaw. A surgical extraction is planned with precision imaging to safely remove the tooth while protecting nearby nerves.",
+    },
+    {
+      question: "What should I do after a facial injury or jaw fracture?",
+      answer:
+        "Facial injuries require prompt medical evaluation. Apply a cold compress gently to control swelling, avoid putting pressure on displaced bones, do not attempt to bite forcefully, and present immediately to our hospital Emergency Department. Our maxillofacial surgeons provide rapid CT assessment, airway checks, and fracture reduction.",
+    },
+    {
+      question: "Will I need imaging before oral or jaw surgery?",
+      answer:
+        "Yes. Diagnostic imaging such as digital dental radiographs (OPG - Orthopantomogram) and high-resolution 3D Cone Beam CT (CBCT) or maxillofacial CT scans are essential to evaluate root anatomy, proximity to the inferior alveolar nerve, bone density, sinus cavities, and fracture lines before surgery.",
+    },
+    {
+      question: "What precautions should I follow after surgery?",
+      answer:
+        "Postoperative recovery guidelines typically include biting gently on a sterile gauze pack to control bleeding, applying cold packs for the first 24 hours to reduce swelling, taking prescribed antibiotics and analgesics on time, consuming soft, cool foods, avoiding strenuous exertion, and refraining from spitting, using straws, or smoking.",
+    },
+    {
+      question: "When should I seek urgent care for facial swelling or infection?",
+      answer:
+        "Seek urgent medical attention immediately if facial or neck swelling is accompanied by difficulty breathing, difficulty swallowing, inability to open the mouth (severe trismus), high fever, or rapid spreading redness. These signs indicate a potential deep facial space infection requiring emergency drainage and intravenous therapy.",
+    },
+  ],
 };
 
 export function getDepartmentFaqs(slug: string): FaqItem[] | undefined {
@@ -618,6 +753,11 @@ export const departmentFaqSlugs = [
   "orthopaedics",
   "obstetrics-gynaecology",
   "urology",
+  "pulmonology",
+  "transfusion-medicine",
+  "critical-care-medicine",
+  "psychiatry",
+  "oral-maxillofacial-surgery",
   "medical-gastroenterology",
   "multi-organ-transplant",
   "paediatric",

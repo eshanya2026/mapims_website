@@ -83,7 +83,7 @@ const pharmacyServicesList = [
   {
     number: "02",
     title: "OPD & Inpatient Support",
-    desc: "Support for medication requirements during outpatient consultations and hospital stays.",
+    desc: "Support for medication requirements during outpatient consultations and hospital stays, including free OP & IP pharmacy for certain prescribed drugs.",
     icon: Activity,
     badge: "Clinical Care",
   },
@@ -540,8 +540,8 @@ export default function PharmacyServicePage() {
 
           {/* Hospital Commitment Banner (Last Position) */}
           <div className="mt-12 overflow-hidden rounded-3xl bg-gradient-to-r from-red-700 via-red-600 to-red-800 p-8 text-white shadow-xl sm:p-10 border border-red-800/40">
-            <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
-              <div className="max-w-3xl">
+            <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
+              <div className="flex-1 min-w-0 max-w-none">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold tracking-wide text-white backdrop-blur-md">
                   <Pill className="h-3.5 w-3.5" />
                   Our Pharmacy Commitment

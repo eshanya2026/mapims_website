@@ -25,6 +25,11 @@ import SpineSurgeryDepartmentPage from "@/components/departments/spine-surgery/S
 import SurgicalOncologyDepartmentPage from "@/components/departments/surgical-oncology/SurgicalOncologyDepartmentPage";
 import CardiovascularThoracicDepartmentPage from "@/components/departments/cardiovascular-thoracic/CardiovascularThoracicDepartmentPage";
 import GeneralSurgeryDepartmentPage from "@/components/departments/general-surgery/GeneralSurgeryDepartmentPage";
+import PulmonologyDepartmentPage from "@/components/departments/pulmonology/PulmonologyDepartmentPage";
+import TransfusionMedicineDepartmentPage from "@/components/departments/transfusion-medicine/TransfusionMedicineDepartmentPage";
+import CriticalCareMedicineDepartmentPage from "@/components/departments/critical-care-medicine/CriticalCareMedicineDepartmentPage";
+import PsychiatryDepartmentPage from "@/components/departments/psychiatry/PsychiatryDepartmentPage";
+import OralMaxillofacialSurgeryDepartmentPage from "@/components/departments/oral-maxillofacial-surgery/OralMaxillofacialSurgeryDepartmentPage";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -40,7 +45,8 @@ export function generateStaticParams() {
     { slug: "spine-surgery" },
     { slug: "spine-surgeries" },
     { slug: "cardiovascular-thoracic" },
-    { slug: "cvts" }
+    { slug: "cvts" },
+    { slug: "critical-care" }
   );
   return params;
 }
@@ -57,6 +63,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       ? departments.find((d) => d.slug === "spinal-surgeries")
       : slug === "cardiovascular-thoracic" || slug === "cvts"
       ? departments.find((d) => d.slug === "cardiovascular-thoracic-surgery")
+      : slug === "critical-care"
+      ? departments.find((d) => d.slug === "critical-care-medicine")
       : undefined);
 
   if (!department) {
@@ -179,6 +187,26 @@ export default async function DepartmentDetailPage({ params }: PageProps) {
 
   if (slug === "general-surgery") {
     return <GeneralSurgeryDepartmentPage />;
+  }
+
+  if (slug === "pulmonology") {
+    return <PulmonologyDepartmentPage />;
+  }
+
+  if (slug === "transfusion-medicine") {
+    return <TransfusionMedicineDepartmentPage />;
+  }
+
+  if (slug === "critical-care-medicine" || slug === "critical-care") {
+    return <CriticalCareMedicineDepartmentPage />;
+  }
+
+  if (slug === "psychiatry") {
+    return <PsychiatryDepartmentPage />;
+  }
+
+  if (slug === "oral-maxillofacial-surgery") {
+    return <OralMaxillofacialSurgeryDepartmentPage />;
   }
 
   notFound();

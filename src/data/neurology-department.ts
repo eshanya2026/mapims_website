@@ -117,16 +117,6 @@ export const neurologyServices = [
     imagePosition: "center",
   },
   {
-    title: "Pediatric Neurology",
-    description:
-      "Comprehensive care for children with epilepsy, developmental delays, and neuromuscular disorders.",
-    image: "/images/pediatric-neurology.png",
-    badge: "Child Neuro & Developmental Care",
-    badgeColor: "blue" as const,
-    imageCaption: "Pediatric EEG & Developmental Neuro-Assessment",
-    imagePosition: "center",
-  },
-  {
     title: "Neurophysiology Services",
     description:
       "Advanced diagnostics including EEG, EMG, and nerve conduction studies to accurately assess neurological conditions.",

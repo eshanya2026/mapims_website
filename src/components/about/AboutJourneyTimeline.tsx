@@ -12,28 +12,46 @@ const milestones = [
       "Started with a vision of compassionate healthcare service.",
   },
   {
+    year: "1999",
+    title: "40-Bedded Hospital",
+    description:
+      "40-bedded hospital opened to expand healthcare services for the community.",
+  },
+  {
+    year: "2003",
+    title: "100-Bedded Hospital",
+    description:
+      "Capacity expanded to a 100-bedded hospital with broadened clinical facilities.",
+  },
+  {
     year: "2008",
-    title: "MAPIMS Established",
+    title: "Medical College & 750 Beds",
     description:
-      "Medical college and tertiary care services expanded.",
+      "Medical college established and tertiary care services expanded with a 750-bedded facility.",
   },
   {
-    year: "2012",
-    title: "Advanced Specialty Expansion",
+    year: "2019",
+    title: "New Hospital Building (1000 Beds)",
     description:
-      "Super-specialty institutes and departments grew to serve more complex medical needs.",
+      "New hospital building opened, growing into a 1000-bedded modern super-specialty hospital.",
   },
   {
-    year: "2018",
-    title: "Modern Diagnostic Facilities",
+    year: "2021",
+    title: "PG Courses & NABL Blood Bank",
     description:
-      "Advanced imaging, laboratory, and digital health infrastructure strengthened patient care.",
+      "Postgraduate (PG) courses started and the Blood Bank achieved NABL accreditation.",
   },
   {
-    year: "2024",
-    title: "1000+ Bed Super Specialty Hospitals",
+    year: "2022",
+    title: "NABL Accreditation",
     description:
-      "A leading tertiary care campus delivering ethical, transparent, world-class treatment.",
+      "Diagnostic laboratories earned official NABL accreditation for clinical excellence.",
+  },
+  {
+    year: "2026",
+    title: "NABH Full Accreditation",
+    description:
+      "Full NABH accreditation (6th Edition) awarded for healthcare excellence and patient safety.",
   },
 ] as const;
 

@@ -32,6 +32,11 @@ export const departmentDetailSlugs = [
   "surgical-oncology",
   "cardiovascular-thoracic-surgery",
   "general-surgery",
+  "pulmonology",
+  "transfusion-medicine",
+  "critical-care-medicine",
+  "psychiatry",
+  "oral-maxillofacial-surgery",
 ] as const;
 
 /** Slugs routed to hospital services detail page */

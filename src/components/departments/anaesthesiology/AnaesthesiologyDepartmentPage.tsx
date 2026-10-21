@@ -6,6 +6,7 @@ import {
   Activity,
   ShieldCheck,
   Stethoscope,
+  Building2,
 } from "lucide-react";
 import DepartmentHeroStats from "@/components/departments/DepartmentHeroStats";
 import DepartmentPatientCareSection from "@/components/departments/DepartmentPatientCareSection";
@@ -38,7 +39,15 @@ import {
   DepartmentExcellenceNote,
 } from "@/components/departments/design";
 
-const serviceIcons = [Syringe, HeartPulse, Activity, ShieldCheck, Stethoscope] as const;
+const serviceIcons = [
+  Syringe,
+  HeartPulse,
+  Activity,
+  ShieldCheck,
+  Stethoscope,
+  Building2,
+] as const;
+
 
 export default function AnaesthesiologyDepartmentPage() {
   return (

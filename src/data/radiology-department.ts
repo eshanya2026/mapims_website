@@ -11,7 +11,7 @@ export const whyChooseRadiology = [
   {
     title: "State-of-the-Art Imaging Technology",
     description:
-      "Equipped with advanced 1.5 T MRI, 128 slice CT scan, full-field digital radiography (DR), and 3D/4D ultrasound systems.",
+      "Equipped with advanced 1.5 T MRI, 128 slice Cardiac CT, full-field digital radiography (DR), digital mammography, and 3D/4D ultrasound systems.",
   },
   {
     title: "Expert Subspecialized Radiologists",
@@ -46,17 +46,17 @@ export const radiologyServices = [
     imagePosition: "center 40%",
   },
   {
-    title: "Computed Tomography (128 Slice CT Scan)",
+    title: "128 Slice Cardiac CT",
     bullets: [
-      "128 Slice Whole-Body Helical CT",
-      "Rapid Stroke, Trauma & Polytrauma Protocols",
-      "CT Angiography & Vascular 3D Reconstructions",
-      "Ultra-Low-Dose High-Resolution Chest & Abdomen CT",
+      "128 Slice Cardiac CT & Non-Invasive Coronary Angiography",
+      "Coronary Calcium Scoring & Plaque Characterization",
+      "Rapid Whole-Body Helical Stroke & Trauma Protocols",
+      "Ultra-Low-Dose High-Resolution Vascular 3D Reconstructions",
     ],
     image: "/images/radiology-imaging-science.png",
-    badge: "128 Slice CT Scanner",
+    badge: "128 Slice Cardiac CT",
     badgeColor: "blue" as const,
-    imageCaption: "Rapid 128 Slice Helical CT Scans for Emergency Trauma, Neuro-Vascular & Body Diagnostics",
+    imageCaption: "Rapid 128 Slice Cardiac CT & Helical Scans for Non-Invasive Coronary, Trauma & Neuro Diagnostics",
     imagePosition: "center 45%",
   },
   {
@@ -81,11 +81,11 @@ export const radiologyServices = [
       "Portable Bedside X-Ray Units for ICUs, CCUs & ER",
       "Full-Length Spine & Orthopaedic Alignment Imaging",
     ],
-    image: "/images/acute-care.png",
+    image: "/images/radiology-digital-xray.jpg",
     badge: "Low-Dose Digital X-Ray",
     badgeColor: "blue" as const,
     imageCaption: "Low-Dose Digital Radiography, Dynamic Fluoroscopic Studies & Portable Bedside ICU Imaging",
-    imagePosition: "center 30%",
+    imagePosition: "center 40%",
   },
   {
     title: "Interventional Radiology & Guided Procedures",
@@ -101,7 +101,22 @@ export const radiologyServices = [
     imageCaption: "Real-Time Image-Guided Interventions, Diagnostic Biopsies & Minimally Invasive Drainage",
     imagePosition: "center 40%",
   },
+  {
+    title: "Digital Mammography & Breast Imaging",
+    bullets: [
+      "Full-Field Digital Mammography (FFDM) with Low-Dose Protocols",
+      "Early Breast Cancer Screening & Microcalcification Detection",
+      "High-Resolution Breast Ultrasound Correlation & Staging",
+      "Image-Guided Core Needle Breast Biopsy & Wire Localization",
+    ],
+    image: "/images/radiology-mammography.jpg",
+    badge: "Breast Imaging Suite",
+    badgeColor: "blue" as const,
+    imageCaption: "Full-Field Digital Mammography Suite for Early Breast Screening & Microcalcification Detection",
+    imagePosition: "center 40%",
+  },
 ];
+
 
 export const radiologyConditions = [
   "Acute Polytrauma & Complex Fractures",
@@ -120,7 +135,7 @@ export const radiologyConditions = [
 
 export const radiologyInfrastructure = [
   "1.5 T High-Field Magnetic Resonance Imaging (MRI) Suite",
-  "Advanced 128 Slice Helical Computed Tomography (CT) Scanner",
+  "Advanced 128 Slice Cardiac Computed Tomography (CT) Scanner",
   "Full-Field High-Definition Digital Radiography (DR) Units",
   "High-Resolution 3D/4D Ultrasound & Color Doppler Machines",
   "Dedicated Digital Mammography Unit with Low-Radiation Protocols",
@@ -131,7 +146,7 @@ export const radiologyInfrastructure = [
 ];
 
 export const radiologyTechnology = [
-  "128 Slice High-Speed Volumetric Acquisition & Low-Dose CT Protocols",
+  "128 Slice Cardiac High-Speed Volumetric Acquisition & Low-Dose CT Protocols",
   "1.5 T Multi-Channel Coil Diagnostic Imaging & Spectroscopic Studies",
   "AI-Assisted Image Reconstruction & Deep-Learning Noise Reduction",
   "Hospital-Wide Enterprise PACS for Instant Clinician Access",

@@ -36,7 +36,6 @@ export const centralLaboratoryService: InternationalServiceData = {
         "Immunology: Tests for autoimmune disorders and immunological assessments.",
         "Serology: Screening for viral, bacterial, and other infections.",
         "Endocrinology: Hormone assays for thyroid, adrenal, and other endocrine functions.",
-        "Toxicology: Analysis for drugs, toxins, and substance abuse.",
       ],
     },
     {

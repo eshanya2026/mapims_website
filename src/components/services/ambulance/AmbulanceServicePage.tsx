@@ -526,8 +526,8 @@ export default function AmbulanceServicePage() {
 
           {/* Hospital Commitment Banner (Last Position) */}
           <div className="mt-12 overflow-hidden rounded-3xl bg-gradient-to-r from-red-700 via-red-600 to-red-800 p-8 text-white shadow-xl sm:p-10 border border-red-800/40">
-            <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
-              <div className="max-w-3xl">
+            <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
+              <div className="flex-1 min-w-0 max-w-none">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold tracking-wide text-white backdrop-blur-md">
                   <Siren className="h-3.5 w-3.5 animate-pulse" />
                   24/7 Immediate Dispatch
@@ -535,10 +535,8 @@ export default function AmbulanceServicePage() {
                 <h3 className="mt-3 text-xl font-bold text-white sm:text-2xl">
                   Rapid Emergency Ambulance Mobilization
                 </h3>
-                <p className="mt-3 text-xs leading-relaxed text-red-50 sm:text-sm">
-                  For emergency ambulance dispatch in and around Melmaruvathur,
-                  call our 24/7 Emergency Helpline immediately at +91 94990 59966
-                  or 1066.
+                <p className="mt-3 text-xs leading-relaxed text-red-50 sm:text-sm lg:whitespace-nowrap">
+                  For emergency ambulance dispatch in and around Melmaruvathur, call our 24/7 Emergency Helpline immediately at +91 94990 59966 or 1066.
                 </p>
               </div>
               <div className="flex shrink-0 flex-wrap items-center gap-3">

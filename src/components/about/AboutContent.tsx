@@ -193,21 +193,18 @@ export default function AboutContent() {
                 </h2>
 
                 <p className="text-lg text-slate-700 leading-relaxed mb-6 font-medium border-l-4 border-red-600 pl-5">
-                  <strong className="text-red-600 font-bold bg-red-50 px-2 py-0.5 rounded border border-red-100 inline-block mr-1">
-                    We started in 1986.
-                  </strong>{" "}
-                  Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research (MAPIMS) was established in 2008. The hospitals — evolved as Adhiparasakthi Hospitals by His Holiness Padmashri Bangaru Adigalar and run by non-profit ACMEC Trust — is NABH certified, with 1000 beds across 5 floors.
+                  Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research (MAPIMS) is a premier tertiary care teaching hospital committed to delivering high-quality, affordable, and patient-centred healthcare. With a legacy of service that began in 1986 and the establishment of the Medical College Hospital in 2008, the hospital — evolved as Adhiparasakthi Hospitals by His Holiness Padmashri Bangaru Adigalar and run by non-profit ACMEC Trust — is NABH certified, with 1000 beds across 5 floors.
                 </p>
 
                 <div className="space-y-6 text-slate-600 leading-relaxed mb-10">
                   <p>
+                    Commissioned in its modern form in November 2019, MAPIMS combines advanced medical technology, highly skilled healthcare professionals, and compassionate care to provide comprehensive healthcare services. The institution is dedicated to excellence in patient care, medical education, research, and community service.
+                  </p>
+                  <p>
                     Nestled in sylvan settings, we have grown from primary care into a leading acute tertiary hospitals — offering primary, secondary, and tertiary care, critical care, and inpatient &amp; day-patient services across medical and surgical disciplines.
                   </p>
                   <p>
-                    Our teams have been providing succor and a healing touch to people from all walks of life — from top bureaucrats, celebrities, and major multinational corporates, to public sector organizations, the general public, and foreign patients from various countries of the Middle East, South East Asia, and the African continent.
-                  </p>
-                  <p>
-                    We at MAPIMS take delight to inform that all patients seeking good health at our hospitals avail the same quality of medical services and facilities, along with state-of-the-art cutting-edge medical technology with successful outcomes — standards that are taken for granted by citizens in Western countries.
+                    Our teams have been providing succor and a healing touch to people from all walks of life — from top bureaucrats, celebrities, and major multinational corporates, to public sector organizations, the general public, and foreign patients from various countries of the Middle East, South East Asia, and the African continent. We at MAPIMS take delight to inform that all patients seeking good health at our hospitals avail the same quality of medical services and facilities, along with state-of-the-art cutting-edge medical technology with successful outcomes — standards that are taken for granted by citizens in Western countries.
                   </p>
                   <p>
                     Besides the above, MAPIMS — Melmaruvathur is well known for cost leadership, total transparency, and ethical medical treatment and clinical practices across all its super-specialty institutes, departments, and various allied services in this part of the Indian sub-continent — to the advantage of all who seek good health and cures at our facility.

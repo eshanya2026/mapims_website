@@ -8,6 +8,7 @@ import {
   Siren,
   Bandage,
   Layers,
+  UserCheck,
 } from "lucide-react";
 import DepartmentHeroStats from "@/components/departments/DepartmentHeroStats";
 import DepartmentPatientCareSection from "@/components/departments/DepartmentPatientCareSection";
@@ -47,7 +48,9 @@ const serviceIcons = [
   Hand,
   Bandage,
   Siren,
+  UserCheck,
 ] as const;
+
 
 export default function PlasticSurgeryDepartmentPage() {
   return (

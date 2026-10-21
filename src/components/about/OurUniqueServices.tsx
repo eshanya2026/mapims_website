@@ -9,6 +9,8 @@ import {
   Activity,
   Droplets,
   ShieldPlus,
+  Scissors,
+  Stethoscope,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -39,9 +41,19 @@ const uniqueServices = [
     icon: Droplets,
   },
   {
-    id: "orthoscopic-sports-medicine",
-    title: "Orthoscopic and Sports Medicine",
+    id: "arthroscopic-sports-medicine",
+    title: "Arthroscopic and Sports Medicine",
     icon: ShieldPlus,
+  },
+  {
+    id: "laparoscopic-surgeries",
+    title: "Advanced Laparoscopic Surgeries",
+    icon: Scissors,
+  },
+  {
+    id: "urology-services",
+    title: "Urology Services",
+    icon: Stethoscope,
   },
 ];
 
@@ -49,8 +61,9 @@ export default function OurUniqueServices() {
   const [activeTouchId, setActiveTouchId] = useState<string | null>(null);
   const touchTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const leftColumn = uniqueServices.slice(0, 3);
-  const rightColumn = uniqueServices.slice(3, 6);
+  const half = Math.ceil(uniqueServices.length / 2);
+  const leftColumn = uniqueServices.slice(0, half);
+  const rightColumn = uniqueServices.slice(half);
 
   useEffect(() => {
     return () => {
@@ -191,11 +204,11 @@ export default function OurUniqueServices() {
               })}
             </div>
 
-            {/* Right Column (Items 4-6) */}
+            {/* Right Column */}
             <div className="divide-y divide-slate-200/80 border-t md:border-t-0 border-slate-200/80">
               {rightColumn.map((service, index) => {
                 const Icon = service.icon;
-                const serviceNumber = String(index + 4).padStart(2, "0");
+                const serviceNumber = String(index + leftColumn.length + 1).padStart(2, "0");
                 const isHighlighted = activeTouchId === service.id;
 
                 return (
@@ -204,7 +217,7 @@ export default function OurUniqueServices() {
                     initial={{ opacity: 0, y: 14 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-30px" }}
-                    transition={{ duration: 0.35, delay: (index + 3) * 0.06 }}
+                    transition={{ duration: 0.35, delay: (index + leftColumn.length) * 0.06 }}
                     whileTap={{ scale: 0.99 }}
                     onMouseEnter={() => setActiveTouchId(service.id)}
                     onMouseLeave={() => setActiveTouchId(null)}

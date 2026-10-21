@@ -29,6 +29,11 @@ const inpatientPillars = [
     desc: "Round-the-clock clinical monitoring and supportive care for admitted patients.",
   },
   {
+    icon: Pill,
+    title: "Free IP Pharmacy",
+    desc: "Free IP pharmacy dispensing for certain prescribed essential medications.",
+  },
+  {
     icon: Building2,
     title: "Comfortable Accommodation",
     desc: "A range of accommodation options to suit patients' needs and preferences.",
@@ -82,52 +87,52 @@ const inpatientServicesList = [
   },
   {
     number: "02",
-    title: "Accommodation Options",
-    desc: "A range of accommodation options to suit patients' needs and preferences.",
-    icon: Building2,
-    badge: "Comfort",
-  },
-  {
-    number: "03",
     title: "Dedicated Nursing Care",
     desc: "Dedicated nursing care and assistance throughout the hospital stay.",
     icon: HeartHandshake,
     badge: "24/7 Care",
   },
   {
-    number: "04",
+    number: "03",
     title: "Medical Monitoring & Treatment",
     desc: "Medical monitoring, treatment, and support as advised by the treating doctor.",
     icon: Activity,
     badge: "Clinical Care",
   },
   {
-    number: "05",
+    number: "04",
     title: "Diagnostics & Medications",
     desc: "Assistance with diagnostic investigations and prescribed medications.",
     icon: Pill,
     badge: "Pharmacy & Lab",
   },
   {
-    number: "06",
+    number: "05",
     title: "Pre & Post-Surgical Care",
     desc: "Care and support for patients before and after surgical procedures.",
     icon: ShieldCheck,
     badge: "Surgical Support",
   },
   {
-    number: "07",
+    number: "06",
     title: "Patient & Attendant Guidance",
     desc: "Guidance for patients and their attendants regarding hospital procedures and care requirements.",
     icon: Users,
     badge: "Family Support",
   },
   {
-    number: "08",
+    number: "07",
     title: "Discharge & Follow-Up Care",
     desc: "Discharge guidance, medication instructions, and follow-up care recommendations.",
     icon: FileCheck2,
     badge: "Continuity",
+  },
+  {
+    number: "08",
+    title: "Free IP Pharmacy for Certain Drugs",
+    desc: "Complimentary IP pharmacy dispensing for designated essential medicines and prescribed inpatient medications to support accessible healing.",
+    icon: Pill,
+    badge: "Free IP Pharmacy",
   },
 ];
 
@@ -135,6 +140,10 @@ const whyChooseInpatient = [
   {
     title: "Tailored Medical Care",
     desc: "Medical care tailored to individual patient needs and clinical conditions.",
+  },
+  {
+    title: "Free IP Pharmacy for Certain Drugs",
+    desc: "Free IP pharmacy support for prescribed essential medications during hospitalization to ease patient care.",
   },
   {
     title: "Experienced Healthcare Professionals",
@@ -249,7 +258,27 @@ export default function InpatientServicePage() {
                     className="object-cover transition-transform duration-700 hover:scale-105"
                     priority
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+
+                  {/* IPD Highlight Floating Badge */}
+                  <div className="absolute bottom-3 left-3 right-3 rounded-2xl border border-emerald-500/30 bg-slate-950/85 p-3.5 backdrop-blur-md shadow-xl">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                        <Pill className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                            IPD Highlight
+                          </span>
+                        </div>
+                        <p className="text-xs sm:text-sm font-bold text-white">
+                          Free IP Pharmacy for Certain Drugs
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -259,7 +288,7 @@ export default function InpatientServicePage() {
 
       {/* 2. Key Inpatient Pillars */}
       <section className="relative -mt-8 z-10 container mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {inpatientPillars.map((pillar, idx) => {
             const Icon = pillar.icon;
             return (
@@ -553,8 +582,8 @@ export default function InpatientServicePage() {
 
           {/* Hospital Commitment Banner */}
           <div className="mt-12 overflow-hidden rounded-3xl bg-gradient-to-r from-red-700 via-red-600 to-red-800 p-8 text-white shadow-xl sm:p-10 border border-red-800/40">
-            <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
-              <div className="max-w-3xl">
+            <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
+              <div className="flex-1 min-w-0 max-w-none">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold tracking-wide text-white backdrop-blur-md">
                   <HeartHandshake className="h-3.5 w-3.5" />
                   Our Inpatient Commitment

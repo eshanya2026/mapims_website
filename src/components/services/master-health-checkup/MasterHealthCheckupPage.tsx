@@ -20,7 +20,41 @@ import {
   ClipboardList,
   AlertCircle,
   CalendarCheck2,
+  Users,
 } from "lucide-react";
+
+const mhcPackagesList = [
+  {
+    title: "Master Health Check Up Package",
+    tag: "Core Screening",
+    icon: HeartPulse,
+  },
+  {
+    title: "Cardio Health Check Up Package",
+    tag: "Cardiac Screening",
+    icon: Activity,
+  },
+  {
+    title: "Well Women Checkup Executive Package",
+    tag: "Women's Health",
+    icon: HeartHandshake,
+  },
+  {
+    title: "Complete Health Check Up Package",
+    tag: "Full Body Assessment",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Diabetic Health Check Package",
+    tag: "Diabetic Care",
+    icon: Stethoscope,
+  },
+  {
+    title: "Premium Diabetic Health Check Package",
+    tag: "Advanced Diabetes",
+    icon: Sparkles,
+  },
+];
 
 const checkupPillars = [
   {
@@ -328,8 +362,76 @@ export default function MasterHealthCheckupPage() {
         </div>
       </section>
 
-      {/* 4. Our Preventive Healthcare Services - 6 Cards */}
+      {/* 4. MHC Package List - Clean Heading Cards */}
       <section className="section-padding bg-slate-100/60 py-16 sm:py-20 border-t border-slate-200/70">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="mx-auto max-w-3xl text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-red-600">
+              <ClipboardList className="h-3.5 w-3.5" />
+              MHC Package List
+            </span>
+            <h2 className="mt-3 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">
+              Master Health Checkup <span className="text-red-600">Packages</span>
+            </h2>
+            <p className="mt-3 text-sm text-slate-600 sm:text-base">
+              Explore our curated preventive health checkup packages designed for every age group and wellness requirement.
+            </p>
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {mhcPackagesList.map((pkg, idx) => {
+              const Icon = pkg.icon;
+              return (
+                <motion.div
+                  key={pkg.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.35, delay: idx * 0.05 }}
+                  whileHover={{ y: -4 }}
+                  className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm transition hover:border-red-300 hover:shadow-lg"
+                >
+                  <div className="absolute top-0 right-0 h-16 w-16 bg-gradient-to-bl from-red-500/10 to-transparent rounded-bl-3xl" />
+
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-red-50 text-red-600 transition group-hover:bg-red-600 group-hover:text-white">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-600">
+                        {pkg.tag}
+                      </span>
+                    </div>
+
+                    <h3 className="mt-4 text-base font-bold text-slate-900 group-hover:text-red-600 transition-colors">
+                      {pkg.title}
+                    </h3>
+                  </div>
+
+                  <div className="mt-6 flex items-center justify-between pt-3 border-t border-slate-100 text-xs font-semibold text-red-600">
+                    <span className="flex items-center gap-1.5 text-slate-500">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                      <span>Hospital Package</span>
+                    </span>
+                    <a
+                      href={mapimsHealthCheckupUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-red-600 hover:text-red-700 font-bold group-hover:translate-x-0.5 transition-transform"
+                    >
+                      <span>Book</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </a>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Our Preventive Healthcare Services - 6 Cards */}
+      <section className="section-padding bg-white py-16 sm:py-20 border-t border-slate-200/70">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-red-600">
@@ -540,8 +642,8 @@ export default function MasterHealthCheckupPage() {
 
           {/* Hospital Commitment Banner (Last Position) */}
           <div className="mt-12 overflow-hidden rounded-3xl bg-gradient-to-r from-red-700 via-red-600 to-red-800 p-8 text-white shadow-xl sm:p-10 border border-red-800/40">
-            <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
-              <div className="max-w-3xl">
+            <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
+              <div className="flex-1 min-w-0 max-w-none">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold tracking-wide text-white backdrop-blur-md">
                   <HeartPulse className="h-3.5 w-3.5" />
                   Our Preventive Care Commitment

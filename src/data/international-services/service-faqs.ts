@@ -71,7 +71,7 @@ export const serviceFaqsBySlug: Record<string, InternationalServiceFaq[]> = {
     {
       question: "What types of lab tests are available?",
       answer:
-        "Our Central Laboratory offers hematology, clinical chemistry, microbiology, immunology, serology, endocrinology, and toxicology testing — from routine blood work to specialized assays for complex diagnoses.",
+        "Our Central Laboratory offers hematology, clinical chemistry, microbiology, immunology, serology, and endocrinology testing — from routine blood work to specialized assays for complex diagnoses.",
     },
     {
       question: "How quickly will I receive test results?",

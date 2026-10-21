@@ -4,7 +4,7 @@ export const anaesthesiologyHeroTagline =
 export const anaesthesiologyIntro = {
   preview:
     "At Adhiparasakthi Hospitals, our Department of Anaesthesiology, Critical Care & Pain Medicine is committed to delivering world-class perioperative safety, advanced organ support, and comprehensive pain relief across all surgical specialties and intensive care units.",
-  full: "With 17 state-of-the-art modular operation theatres, specialized critical care units, and round-the-clock emergency resuscitative coverage, our highly skilled anaesthesiologists and intensivists ensure each patient receives vigilant, personalized, evidence-based care from preoperative assessment through complete postoperative recovery.",
+  full: "With 14+ state-of-the-art modular operation theatres, specialized critical care units, and round-the-clock emergency resuscitative coverage, our highly skilled anaesthesiologists and intensivists ensure each patient receives vigilant, personalized, evidence-based care from preoperative assessment through complete postoperative recovery.",
 };
 
 export const whyChooseAnaesthesiology = [
@@ -14,7 +14,7 @@ export const whyChooseAnaesthesiology = [
       "Board-certified anaesthesiologists with specialized expertise across cardiac, neuro, pediatric, and organ transplant anaesthesia.",
   },
   {
-    title: "Advanced 17 Modular Operation Theatres",
+    title: "Advanced 14+ Modular Operation Theatres",
     description:
       "Equipped with modern anaesthesia workstations, laminar airflow, advanced ventilator modes, and depth-of-anaesthesia monitoring.",
   },
@@ -101,7 +101,22 @@ export const anaesthesiologyServices = [
     imageCaption: "Pre-Anaesthetic Medical Optimization, Airway Management and Rapid Emergency Resuscitation",
     imagePosition: "center 50%",
   },
+  {
+    title: "Non-Operating Room Anaesthesia (NORA)",
+    bullets: [
+      "Monitored Anaesthesia Care (MAC) for Endoscopy & Colonoscopy",
+      "Sedation for Advanced MRI, CT & Interventional Radiology Suites",
+      "Anaesthesia Support for Cardiac Catheterization & Electrophysiology",
+      "Paediatric & Claustrophobic Patient Sedation for Diagnostic Scans",
+    ],
+    image: "/images/anaesthesia-nora-services.jpg",
+    badge: "Specialized Remote Care",
+    badgeColor: "blue" as const,
+    imageCaption: "Monitored Anaesthesia Care & Conscious Sedation in Diagnostic and Interventional Suites",
+    imagePosition: "center 45%",
+  },
 ];
+
 
 export const anaesthesiologyConditions = [
   "Major Cardiothoracic & Vascular Surgeries",
@@ -119,7 +134,7 @@ export const anaesthesiologyConditions = [
 ];
 
 export const anaesthesiologyInfrastructure = [
-  "17 Modern Modular Operation Theatres with Laminar Air Flow",
+  "14+ Modern Modular Operation Theatres with Laminar Air Flow",
   "Advanced Anaesthesia Workstations with Integrated Ventilators",
   "High-End Multi-Parameter Monitors (ECG, IBP, CVP, SpO2, EtCO2)",
   "Bispectral Index (BIS) Depth of Anaesthesia Monitoring",

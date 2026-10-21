@@ -20,6 +20,7 @@ import {
   ArrowRight,
   ChevronRight,
   Accessibility,
+  Pill,
 } from "lucide-react";
 
 const outpatientPillars = [
@@ -27,6 +28,11 @@ const outpatientPillars = [
     icon: Stethoscope,
     title: "Multi-Specialty OPD",
     desc: "Medical & surgical consultations covering 25+ clinical disciplines.",
+  },
+  {
+    icon: Pill,
+    title: "Free OP Pharmacy",
+    desc: "Free OP pharmacy dispensing for certain prescribed essential drugs.",
   },
   {
     icon: Compass,
@@ -121,12 +127,22 @@ const outpatientServicesList = [
     desc: "Courteous guidance and dedicated assistance throughout the outpatient visit from arrival until departure.",
     tag: "Patient Assistance",
   },
+  {
+    icon: Pill,
+    title: "Free OP Pharmacy for Certain Drugs",
+    desc: "Complimentary OP pharmacy dispensing for designated essential medicines and prescribed medications to support accessible, affordable healing.",
+    tag: "Free OP Pharmacy",
+  },
 ];
 
 const whyChoosePoints = [
   {
     title: "Comprehensive Specialty Access",
     desc: "Access to consultations across multiple medical and surgical specialties under one roof.",
+  },
+  {
+    title: "Free OP Pharmacy for Certain Drugs",
+    desc: "Free OP pharmacy dispensing for prescribed essential medications supporting affordable, patient-centred care.",
   },
   {
     title: "Experienced Healthcare Professionals",
@@ -240,7 +256,27 @@ export default function OutpatientServicePage() {
                     className="object-cover transition-transform duration-700 hover:scale-105"
                     priority
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+
+                  {/* OPD Highlight Floating Badge */}
+                  <div className="absolute bottom-3 left-3 right-3 rounded-2xl border border-emerald-500/30 bg-slate-950/85 p-3.5 backdrop-blur-md shadow-xl">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                        <Pill className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                            OPD Highlight
+                          </span>
+                        </div>
+                        <p className="text-xs sm:text-sm font-bold text-white">
+                          Free OP Pharmacy for Certain Drugs
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -250,7 +286,7 @@ export default function OutpatientServicePage() {
 
       {/* 2. Key Pillars Strip */}
       <section className="relative z-20 -mt-10 container mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {outpatientPillars.map((pillar, idx) => {
             const Icon = pillar.icon;
             return (
@@ -347,7 +383,7 @@ export default function OutpatientServicePage() {
             </p>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {outpatientServicesList.map((service, index) => {
               const Icon = service.icon;
               return (
@@ -431,8 +467,8 @@ export default function OutpatientServicePage() {
 
           {/* Hospital Commitment Banner */}
           <div className="mt-12 overflow-hidden rounded-3xl bg-gradient-to-r from-red-700 via-red-600 to-red-800 p-8 text-white shadow-xl sm:p-10 border border-red-800/40">
-            <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
-              <div className="max-w-3xl">
+            <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
+              <div className="flex-1 min-w-0 max-w-none">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold tracking-wide text-white backdrop-blur-md">
                   <HeartHandshake className="h-3.5 w-3.5" />
                   Our Outpatient Commitment

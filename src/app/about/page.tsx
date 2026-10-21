@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import AboutHero from "@/components/about/AboutHero";
 import AboutStats from "@/components/about/AboutStats";
 import AboutContent from "@/components/about/AboutContent";
-import AboutHighlights from "@/components/about/AboutHighlights";
 import AboutValueAddedServices from "@/components/about/AboutValueAddedServices";
 import OurUniqueServices from "@/components/about/OurUniqueServices";
 import CertificationSection from "@/components/about/CertificationSection";
@@ -24,7 +23,6 @@ export default async function AboutPage() {
       <AboutContent />
       <AboutValueAddedServices />
       <OurUniqueServices />
-      <AboutHighlights />
       <CertificationSection />
       <AboutFAQ />
       {/* Removed for now: <AboutSpecialistDoctors doctors={doctors} /> */}

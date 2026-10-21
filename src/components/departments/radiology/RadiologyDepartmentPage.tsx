@@ -6,6 +6,7 @@ import {
   Activity,
   Radio,
   ShieldCheck,
+  Ribbon,
 } from "lucide-react";
 import DepartmentHeroStats from "@/components/departments/DepartmentHeroStats";
 import DepartmentPatientCareSection from "@/components/departments/DepartmentPatientCareSection";
@@ -37,7 +38,15 @@ import {
   DepartmentExcellenceNote,
 } from "@/components/departments/design";
 
-const serviceIcons = [Scan, Layers, Activity, Radio, ShieldCheck] as const;
+const serviceIcons = [
+  Scan,
+  Layers,
+  Activity,
+  Radio,
+  ShieldCheck,
+  Ribbon,
+] as const;
+
 
 export default function RadiologyDepartmentPage() {
   return (

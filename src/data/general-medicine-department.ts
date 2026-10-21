@@ -125,7 +125,7 @@ export const generalMedicineInfrastructure = [
   "Real-Time Patient Monitoring Systems",
   "Advanced Telemedicine Services",
   "Dedicated Inpatient & Outpatient Facilities",
-  "17 State-of-the-Art Operation Theatres",
+  "14+ State-of-the-Art Operation Theatres",
   "In-house Laboratory & Diagnostic Support",
 ];
 

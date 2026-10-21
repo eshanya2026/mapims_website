@@ -68,14 +68,14 @@ export async function generateMetadata({
     return {
       title: "Comprehensive Outpatient Services (OPD) | Adhiparasakthi Hospitals",
       description:
-        "Outpatient Consultation Services at Adhiparasakthi Hospitals, Melmaruvathur: clinical evaluations, specialist care, diagnostic coordination, and patient assistance.",
+        "Outpatient Consultation Services at Adhiparasakthi Hospitals, Melmaruvathur: clinical evaluations, specialist care, free OP pharmacy for certain drugs, and patient assistance.",
     };
   }
   if (slug === "inpatient-service") {
     return {
       title: "Comprehensive Inpatient Services (IPD) | Adhiparasakthi Hospitals",
       description:
-        "Inpatient Admission & Hospital Care at Adhiparasakthi Hospitals, Melmaruvathur: comprehensive medical care, continuous observation, dedicated nursing, and supportive recovery.",
+        "Inpatient Admission & Hospital Care at Adhiparasakthi Hospitals, Melmaruvathur: comprehensive medical care, continuous observation, free IP pharmacy for certain drugs, and supportive recovery.",
     };
   }
   if (slug === "blood-bank") {

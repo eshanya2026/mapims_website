@@ -123,7 +123,8 @@ export const plasticSurgeryStats: DepartmentHeroStat[] = [
 
 export const medicalGastroenterologyStats: DepartmentHeroStat[] = [
   {
-    end: 17,
+    end: 14,
+    suffix: "+",
     label: "Operation Theatres",
     sublabel: "State-of-the-art surgical suites",
   },
@@ -392,7 +393,7 @@ export const radiologyStats: DepartmentHeroStat[] = [
   {
     display: "CT & MRI",
     label: "Advanced Scanners",
-    sublabel: "128 slice CT scan and 1.5 T MRI scan",
+    sublabel: "128 slice Cardiac CT scan and 1.5 T MRI scan",
   },
   {
     end: 6,
@@ -409,7 +410,7 @@ export const radiologyStats: DepartmentHeroStat[] = [
 
 export const anaesthesiologyStats: DepartmentHeroStat[] = [
   {
-    end: 17,
+    end: 14,
     suffix: "+",
     label: "Modular Operation Theatres",
     sublabel: "Advanced surgical suites",
@@ -549,5 +550,123 @@ export const generalSurgeryStats: DepartmentHeroStat[] = [
   },
 ];
 
+export const pulmonologyStats: DepartmentHeroStat[] = [
+  {
+    display: "24/7",
+    label: "Respiratory Emergency Care",
+    sublabel: "Rapid assessment of acute breathing problems",
+  },
+  {
+    display: "Advanced",
+    label: "Pulmonary Diagnostics",
+    sublabel: "Comprehensive evaluation of lung disorders",
+  },
+  {
+    display: "Expert",
+    label: "Respiratory Specialists",
+    sublabel: "Personalised care for acute & chronic conditions",
+  },
+  {
+    end: 5,
+    suffix: "+",
+    label: "Clinical Care Programs",
+    sublabel: "Asthma, COPD to critical care",
+  },
+];
+
+export const transfusionMedicineStats: DepartmentHeroStat[] = [
+  {
+    display: "24/7*",
+    label: "Blood Transfusion Support",
+    sublabel: "Support for urgent transfusion needs, subject to availability",
+  },
+  {
+    display: "Safe",
+    label: "Compatibility Testing",
+    sublabel: "Patient identification, grouping & compatibility checks",
+  },
+  {
+    display: "Quality",
+    label: "Blood Component Support",
+    sublabel: "Appropriate component selection & transfusion guidance",
+  },
+  {
+    end: 5,
+    suffix: "+",
+    label: "Clinical Care Programs",
+    sublabel: "Testing, components to haemovigilance",
+  },
+];
+
+export const criticalCareMedicineStats: DepartmentHeroStat[] = [
+  {
+    display: "24/7*",
+    label: "Critical Care Support",
+    sublabel: "For life-threatening illness & acute organ dysfunction",
+  },
+  {
+    display: "Advanced",
+    label: "Continuous Monitoring",
+    sublabel: "Close observation & timely clinical intervention",
+  },
+  {
+    display: "Team-Based",
+    label: "Multidisciplinary Care",
+    sublabel: "Coordinated treatment & recovery planning",
+  },
+  {
+    end: 9,
+    label: "Specialised ICU Units",
+    sublabel: "IMCU, ICCU, IRCU, SICU, TICU, NICU, PICU, PACU & Burns",
+  },
+];
+
+export const psychiatryStats: DepartmentHeroStat[] = [
+  {
+    display: "Confidential",
+    label: "Mental Health Consultations",
+    sublabel: "Respectful assessment & individualised care",
+  },
+  {
+    display: "Holistic",
+    label: "Psychological Support",
+    sublabel: "Care focused on emotional, behavioural & social wellbeing",
+  },
+  {
+    display: "Expert",
+    label: "Psychiatric Care",
+    sublabel: "Evidence-based assessment & treatment planning",
+  },
+  {
+    end: 5,
+    suffix: "+",
+    label: "Clinical Care Programs",
+    sublabel: "Assessment, mood, addiction to family guidance",
+  },
+];
+
+export const oralMaxillofacialSurgeryStats: DepartmentHeroStat[] = [
+  {
+    display: "Expert",
+    label: "Surgical Care",
+    sublabel: "Assessment & treatment planning for oral & facial conditions",
+  },
+  {
+    display: "Advanced",
+    label: "Diagnosis & Planning",
+    sublabel: "Clinical assessment & appropriate imaging support",
+  },
+  {
+    display: "Integrated",
+    label: "Multidisciplinary Care",
+    sublabel: "Coordination with dental & medical specialties",
+  },
+  {
+    end: 6,
+    suffix: "+",
+    label: "Specialised Programs",
+    sublabel: "Dentoalveolar, trauma, orthognathic & reconstruction",
+  },
+];
 
 

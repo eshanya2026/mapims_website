@@ -20,6 +20,7 @@ export const outpatientService: InternationalServiceData = {
       title: "Our Outpatient Services",
       items: [
         "Medical consultations across various specialties and departments.",
+        "Free OP pharmacy dispensing for certain prescribed and essential drugs.",
         "Specialist consultations for the evaluation and management of health conditions.",
         "Preventive healthcare guidance and general health advice.",
         "Assistance with patient registration and directions to the appropriate departments.",
@@ -40,6 +41,7 @@ export const outpatientService: InternationalServiceData = {
   whyChooseTitle: "Why Choose Our Outpatient Services?",
   whyChoose: [
     "Access to consultations across multiple medical and surgical specialties.",
+    "Free OP pharmacy support for certain essential prescribed medications.",
     "Patient-focused care from experienced healthcare professionals.",
     "Guidance throughout the outpatient consultation process.",
     "A welcoming and supportive environment for patients and their attendants.",

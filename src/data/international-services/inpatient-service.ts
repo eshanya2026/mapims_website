@@ -31,6 +31,7 @@ export const inpatientService: InternationalServiceData = {
       items: [
         "Continuous 24/7 Resident Doctor, Duty Medical Officer, and Specialist Consultant coverage.",
         "High nurse-to-patient ratio ensuring timely medication administration, vitals monitoring, and empathetic patient assistance.",
+        "Free IP pharmacy dispensing for certain prescribed and essential inpatient medications.",
         "In-house dietary department preparing customized, clinically balanced therapeutic meals based on doctor recommendations.",
         "Central medical gas pipeline system, bedside suction, multi-parameter monitors, and motorized hospital beds.",
         "Integrated infection prevention, daily environmental sanitization, and strict hygiene protocols.",
@@ -50,6 +51,7 @@ export const inpatientService: InternationalServiceData = {
   whyChoose: [
     "24/7 intensivist and specialist medical supervision",
     "Comprehensive critical care backup with state-of-the-art ICUs",
+    "Free IP pharmacy support for certain essential prescribed medications",
     "Empathetic, well-trained nursing and patient care attendants",
     "Clean, peaceful healing environment with green campus surroundings",
   ],

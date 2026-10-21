@@ -5,11 +5,6 @@ import FaqAccordion, { type FaqItem } from "@/components/shared/FaqAccordion";
 
 const faqs: FaqItem[] = [
   {
-    question: "Can I consult online?",
-    answer:
-      "Yes. You can request an online consultation through our website by booking an appointment or contacting us at +91 94990 59966 or contact@mapims.edu.in. Our team will guide you on available teleconsultation options, required reports, and follow-up care at the hospitals when needed.",
-  },
-  {
     question: "Is the hospitals NABH accredited?",
     answer:
       "Yes. Adhiparasakthi Hospitals is NABH accredited and recognized by the Government of Tamil Nadu for maintaining high standards in patient safety, clinical excellence, and quality healthcare delivery.",
