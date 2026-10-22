@@ -162,4 +162,4 @@ export const pulmonologyJourneyPillars = [
   },
 ];
 
-export const pulmonologyHeroImage = "/images/general%20med.png";
+export const pulmonologyHeroImage = "/images/departments/pulmonology.jpg";

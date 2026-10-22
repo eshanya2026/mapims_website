@@ -605,19 +605,20 @@ export const criticalCareMedicineStats: DepartmentHeroStat[] = [
     sublabel: "For life-threatening illness & acute organ dysfunction",
   },
   {
-    display: "Advanced",
-    label: "Continuous Monitoring",
-    sublabel: "Close observation & timely clinical intervention",
-  },
-  {
-    display: "Team-Based",
-    label: "Multidisciplinary Care",
-    sublabel: "Coordinated treatment & recovery planning",
+    end: 65,
+    suffix: "+",
+    label: "Critical Care Beds",
+    sublabel: "Dedicated ICU, CCU, NICU, PICU & step-down beds",
   },
   {
     end: 9,
     label: "Specialised ICU Units",
     sublabel: "IMCU, ICCU, IRCU, SICU, TICU, NICU, PICU, PACU & Burns",
+  },
+  {
+    display: "Advanced",
+    label: "Continuous Monitoring",
+    sublabel: "Close observation & timely clinical intervention",
   },
 ];
 

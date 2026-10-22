@@ -4,7 +4,7 @@ export const criticalCareMedicineHeroTagline =
 export const criticalCareMedicineIntro = {
   preview:
     "At Adhiparasakthi Hospitals, the Critical Care Medicine service provides coordinated care for patients with life-threatening illness, severe injury, or acute organ dysfunction. The service brings together critical care clinicians, nurses and multidisciplinary specialists to support rapid stabilisation, continuous assessment, organ support and recovery. Care is individualised according to clinical needs and the hospital's available facilities.",
-  full: "From medical and surgical emergencies to specialized neonatal, pediatric, coronary, respiratory, and burns intensive care, our high-acuity units deliver round-the-clock life-sustaining monitoring and treatment.",
+  full: "With 65+ dedicated critical care beds spanning specialized neonatal, pediatric, coronary, respiratory, trauma, surgical, and burns intensive care, our high-acuity units deliver round-the-clock life-sustaining monitoring and treatment.",
 };
 
 export const whyChooseCriticalCareMedicine = [
@@ -205,7 +205,7 @@ export const criticalCareMedicineConditions = [
 ];
 
 export const criticalCareMedicineInfrastructure = [
-  "Critical care beds and monitoring systems, subject to unit availability",
+  "65+ dedicated critical care & intensive monitoring beds across specialised units",
   "Ventilatory and respiratory support according to available equipment",
   "Cardiac monitoring and resuscitation equipment as appropriate",
   "Infusion pumps and physiological monitoring systems",

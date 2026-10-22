@@ -140,7 +140,7 @@ export const departments: Department[] = [
     name: "Pulmonology",
     description:
       "Advanced respiratory and pulmonary medicine—asthma, allergy, COPD, sleep medicine, interstitial lung diseases, and bronchoscopy.",
-    image: "/images/general%20med.png",
+    image: "/images/departments/pulmonology.jpg",
   },
   {
     slug: "general-surgery",
@@ -279,22 +279,22 @@ export const departments: Department[] = [
     slug: "critical-care-medicine",
     name: "Critical Care Medicine",
     description:
-      "Round-the-clock intensive care units (ICU, CCU, NICU, PICU) equipped with advanced ventilators, hemodynamic monitoring, and intensivists.",
-    image: "/images/hospital-casualty-emergency.png",
+      "Round-the-clock intensive care units (ICU, CCU, NICU, PICU) with 65+ critical care beds, advanced ventilators, hemodynamic monitoring, and intensivists.",
+    image: "/images/departments/critical-care-medicine.jpg",
   },
   {
     slug: "transfusion-medicine",
     name: "Transfusion Medicine",
     description:
       "State-of-the-art licensed blood center and transfusion medicine services with component separation, apheresis, and strict safety testing.",
-    image: "/images/international/central lab.png",
+    image: "/images/departments/transfusion-medicine.jpg",
   },
   {
     slug: "oral-maxillofacial-surgery",
     name: "Oral and Maxillofacial Surgery",
     description:
       "Specialized surgical care for facial trauma, jaw reconstruction, orthognathic correction, oral pathology, and advanced dental surgery.",
-    image: "/images/ent.png",
+    image: "/images/departments/oral-maxillofacial-surgery.jpg",
   },
 ];
 
