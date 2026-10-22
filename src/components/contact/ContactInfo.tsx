@@ -18,7 +18,7 @@ const ADDRESS =
 const primaryContacts = [
   {
     icon: Phone,
-    label: "Helpline",
+    label: "Toll Free",
     value: "1800 599 0999",
     href: "tel:18005990999",
     hint: "Mon–Sat 8 AM – 8 PM",
@@ -105,7 +105,7 @@ export default function ContactInfo() {
         <h2 className="text-2xl font-bold text-slate-900 sm:text-3xl">Talk to our team</h2>
         <p className="mt-3 max-w-md text-sm leading-relaxed text-slate-600 sm:text-base">
           Call, email, or visit us. For emergencies, dial{" "}
-          <span className="font-semibold text-red-600">1066</span> — available 24/7.
+          <span className="font-semibold text-red-600">+91 94990 59966</span> — available 24/7.
         </p>
       </div>
 
@@ -132,7 +132,7 @@ export default function ContactInfo() {
       </ul>
 
       <a
-        href="tel:1066"
+        href="tel:+919499059966"
         className={cn(
           "group mt-8 flex w-full max-w-md items-center gap-4 rounded-full border-2 border-red-200 bg-white py-2 pl-2 pr-5 shadow-sm",
           "transition-all duration-200 hover:border-red-400 hover:shadow-md hover:shadow-red-100",
@@ -141,17 +141,17 @@ export default function ContactInfo() {
       >
         <span className="relative flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-red-600 text-white shadow-md ring-4 ring-red-600/15 transition-transform group-hover:scale-105">
           <span className="absolute inset-0 rounded-full bg-red-500/40 animate-ping opacity-30" />
-          <Ambulance className="relative h-6 w-6" aria-hidden />
+          <Phone className="relative h-6 w-6" aria-hidden />
         </span>
         <span className="min-w-0 flex-1">
           <span className="block text-[10px] font-bold uppercase tracking-[0.2em] text-red-600">
-            Emergency · 24/7
+            Emergency Call · 24/7
           </span>
-          <span className="mt-0.5 block text-3xl font-black leading-none tracking-tight text-slate-900">
-            1066
+          <span className="mt-0.5 block text-2xl sm:text-3xl font-black leading-none tracking-tight text-slate-900">
+            +91 94990 59966
           </span>
           <span className="mt-0.5 block text-xs text-slate-500">
-            Tap to call casualty &amp; ambulance
+            Tap to call casualty &amp; emergency care
           </span>
         </span>
         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-red-600 text-white transition-colors group-hover:bg-red-700">

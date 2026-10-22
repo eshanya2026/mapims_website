@@ -6,7 +6,7 @@ const HOSPITAL_CONTACT_EMAIL = "contact@mapims.edu.in";
 const HOSPITAL_CONTACT_PHONE = "+91 94990 59966";
 
 /** Set to true when patient appointment confirmation emails should be sent again. */
-export const PATIENT_APPOINTMENT_CONFIRMATION_EMAIL_ENABLED = false;
+export const PATIENT_APPOINTMENT_CONFIRMATION_EMAIL_ENABLED = true;
 
 function escapeHtml(value: string) {
   return value

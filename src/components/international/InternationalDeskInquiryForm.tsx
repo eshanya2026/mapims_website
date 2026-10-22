@@ -77,12 +77,13 @@ export default function InternationalDeskInquiryForm() {
     return {
       name: name.length < 2 ? "Please enter your name." : "",
       country: "",
-      email:
-        email.length > 0 && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-          ? "Please enter a valid email."
-          : "",
+      email: !email
+        ? "Please enter your email."
+        : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+        ? "Please enter a valid email."
+        : "",
       phone:
-        phone.length < 7 || !/^[0-9+() -]{7,}$/.test(phone)
+        phone.length > 0 && (phone.length < 7 || !/^[0-9+() -]{7,}$/.test(phone))
           ? "Please enter a valid phone number."
           : "",
       medicalCondition: "",
@@ -343,7 +344,7 @@ export default function InternationalDeskInquiryForm() {
 
           <div>
             <label className="mb-1 block text-sm font-semibold text-slate-900" htmlFor="intl-inq-email">
-              Email
+              Email <span className="text-red-600">*</span>
             </label>
             <input
               id="intl-inq-email"
@@ -353,13 +354,14 @@ export default function InternationalDeskInquiryForm() {
               onBlur={() => setTouched((t) => ({ ...t, email: true }))}
               className={inputClass}
               autoComplete="email"
+              placeholder="e.g. name@example.com"
             />
             {err("email") ? <p className="mt-1 text-xs text-red-600">{err("email")}</p> : null}
           </div>
 
           <div>
             <label className="mb-1 block text-sm font-semibold text-slate-900" htmlFor="intl-inq-phone">
-              Phone <span className="text-red-600">*</span>
+              Mobile / Phone
             </label>
             <input
               id="intl-inq-phone"
@@ -369,6 +371,7 @@ export default function InternationalDeskInquiryForm() {
               className={inputClass}
               autoComplete="tel"
               inputMode="tel"
+              placeholder="e.g. +1 234 567 8900"
             />
             {err("phone") || callbackErr("phone") ? (
               <p className="mt-1 text-xs text-red-600">{err("phone") || callbackErr("phone")}</p>

@@ -51,7 +51,7 @@ const ambulanceWorkflow = [
   {
     step: "01",
     title: "Instant Emergency Call",
-    desc: "Call 1066 or +91 94990 59966. Triage coordinators identify patient condition and GPS location.",
+    desc: "Call Emergency +91 94990 59966 or Toll Free 1800 599 0999. Triage coordinators identify patient condition and GPS location.",
     icon: Phone,
   },
   {
@@ -188,19 +188,19 @@ export default function AmbulanceServicePage() {
               {/* Action Buttons */}
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <a
-                  href="tel:1066"
+                  href="tel:+919499059966"
                   className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-red-600 px-7 text-sm font-bold text-white shadow-lg shadow-red-600/30 transition-all hover:bg-red-700 hover:shadow-red-600/50"
                 >
                   <Siren className="h-4 w-4 animate-pulse" />
-                  Emergency Call: 1066
+                  Emergency Call: +91 94990 59966
                   <ArrowRight className="h-4 w-4" />
                 </a>
                 <a
-                  href="tel:+919499059966"
+                  href="tel:18005990999"
                   className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-7 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20 hover:border-white/40"
                 >
                   <Phone className="h-4 w-4 text-red-400" />
-                  <span>Helpline: +91 94990 59966</span>
+                  <span>Toll Free: 1800 599 0999</span>
                 </a>
               </div>
             </motion.div>
@@ -536,23 +536,23 @@ export default function AmbulanceServicePage() {
                   Rapid Emergency Ambulance Mobilization
                 </h3>
                 <p className="mt-3 text-xs leading-relaxed text-red-50 sm:text-sm lg:whitespace-nowrap">
-                  For emergency ambulance dispatch in and around Melmaruvathur, call our 24/7 Emergency Helpline immediately at +91 94990 59966 or 1066.
+                  For emergency ambulance dispatch in and around Melmaruvathur, call our 24/7 Emergency Call immediately at +91 94990 59966 or Toll Free 1800 599 0999.
                 </p>
               </div>
               <div className="flex shrink-0 flex-wrap items-center gap-3">
                 <a
-                  href="tel:1066"
+                  href="tel:+919499059966"
                   className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-white px-6 text-sm font-bold text-red-700 shadow-md transition hover:bg-red-50"
                 >
                   <Siren className="h-4 w-4 animate-pulse text-red-600" />
-                  Call 1066
+                  Emergency Call: +91 94990 59966
                 </a>
                 <a
-                  href="tel:+919499059966"
+                  href="tel:18005990999"
                   className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/10 px-6 text-sm font-bold text-white backdrop-blur-md transition hover:bg-white/20"
                 >
                   <Phone className="h-4 w-4" />
-                  +91 94990 59966
+                  Toll Free: 1800 599 0999
                 </a>
               </div>
             </div>

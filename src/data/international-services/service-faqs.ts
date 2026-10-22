@@ -327,7 +327,7 @@ export const serviceFaqsBySlug: Record<string, InternationalServiceFaq[]> = {
     {
       question: "How do I request an emergency ambulance?",
       answer:
-        "Call our 24/7 Emergency Helpline at +91 94990 59966 or 1066. Our dispatch coordinator will track the closest ambulance and provide immediate medical guidance over the phone.",
+        "Call our 24/7 Emergency Call at +91 94990 59966 or Toll Free 1800 599 0999. Our dispatch coordinator will track the closest ambulance and provide immediate medical guidance over the phone.",
     },
     {
       question: "What life-support equipment is available in your ambulances?",

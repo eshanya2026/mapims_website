@@ -1,7 +1,7 @@
 import { liveChatContact } from "@/data/live-chat";
 
 const IN_SCOPE_KEYWORDS =
-  /\b(mapims|adhiparasakthi|melmaruvathur|hospitals|appointment|appointments|opd|emergency|ambulance|department|departments|specialit|specialt|doctor|doctors|patient|patients|helpline|health checkup|health package|international patient|contact@mapims|nabh|booking|book an appointment|cardiology|orthopaedic|nephrology|oncology|neurology|urology|diabetology|paediatric|pediatric|gastroenterology|ophthalmology|ent|transplant|gynaecology|gynecology|casualty|lab report|visit us|location|timings|careers|job application|1066|94990|59966)\b/i;
+  /\b(mapims|adhiparasakthi|melmaruvathur|hospitals|appointment|appointments|opd|emergency|ambulance|department|departments|specialit|specialt|doctor|doctors|patient|patients|helpline|toll free|health checkup|health package|international patient|contact@mapims|nabh|booking|book an appointment|cardiology|orthopaedic|nephrology|oncology|neurology|urology|diabetology|paediatric|pediatric|gastroenterology|ophthalmology|ent|transplant|gynaecology|gynecology|casualty|lab report|visit us|location|timings|careers|job application|1066|94990|59966|1800|5990999)\b/i;
 
 const OUT_OF_SCOPE_PATTERNS: RegExp[] = [
   /\b\d+\s*[\+\-\*x×\/]\s*\d+\b/i,

@@ -10,7 +10,7 @@ export const bloodBankService: InternationalServiceData = {
   titleHighlight: "Blood Bank & Component Center",
   seoTitle: "24/7 Blood Bank & Blood Component Separation | Adhiparasakthi Hospitals",
   breadcrumbLabel: "Blood Bank",
-  heroBadge: "24/7 Blood Bank",
+  heroBadge: "24/7 NABL Accredited Blood Bank",
   heroSubtitle:
     "Round-the-clock state-of-the-art licensed blood transfusion services, advanced component separation, and stringent safety testing at Melmaruvathur.",
   intro:
@@ -29,7 +29,7 @@ export const bloodBankService: InternationalServiceData = {
     {
       title: "Stringent Quality & Safety Protocols",
       items: [
-        "Mandatory chemiluminescence & ELISA testing for transfusion-transmissible infections (HIV 1 & 2, Hepatitis B, Hepatitis C, Syphilis, and Malaria).",
+        "NABL accredited quality standards with mandatory chemiluminescence & ELISA testing for transfusion-transmissible infections (HIV 1 & 2, Hepatitis B, Hepatitis C, Syphilis, and Malaria).",
         "Fully automated gel card cross-matching and advanced antibody screening techniques.",
         "Continuous digital temperature logging (-80°C deep freezers, 2°C–6°C blood bank refrigerators, and 22°C platelet agitators).",
         "Voluntary blood donation promotion and organized community mobile blood donation camps.",
@@ -46,7 +46,7 @@ export const bloodBankService: InternationalServiceData = {
   ],
   whyChooseTitle: "Why Choose Our Blood Bank?",
   whyChoose: [
-    "Fully licensed by Central & State Drug Standard Control Authorities",
+    "NABL accredited testing and fully licensed by Central & State Drug Standard Control Authorities",
     "Complete blood component separation facility on-site",
     "24/7 availability with immediate issue for emergency cases",
     "Highest standards of donor screening and blood recipient safety",

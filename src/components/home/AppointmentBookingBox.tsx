@@ -362,17 +362,17 @@ export default function AppointmentBookingBox({
           </Button>
 
           <p className="text-center text-xs leading-relaxed text-slate-500 sm:text-sm">
-            For emergencies, call{" "}
-            <a href="tel:1066" className="font-bold text-red-600 hover:underline">
-              1066
+            Emergency Call:{" "}
+            <a href="tel:+919499059966" className="font-bold text-red-600 hover:underline">
+              +91 94990 59966
             </a>
-            <span className="hidden sm:inline"> or ambulance </span>
+            <span className="hidden sm:inline"> | Toll Free: </span>
             <span className="sm:hidden">
               <br />
-              or ambulance{" "}
+              Toll Free:{" "}
             </span>
-            <a href="tel:+919876543210" className="font-bold text-red-600 hover:underline">
-              +91 98765 43210
+            <a href="tel:18005990999" className="font-bold text-red-600 hover:underline">
+              1800 599 0999
             </a>
           </p>
         </form>

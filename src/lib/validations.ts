@@ -132,8 +132,8 @@ export const internationalFormSchema = z.object({
   type: z.literal("international"),
   name: z.string().trim().min(2),
   country: z.string().optional().transform((value) => value?.trim() ?? ""),
-  email: optionalEmailField,
-  phone: phoneField,
+  email: z.string().trim().email("Please enter a valid email"),
+  phone: optionalPhoneField,
   medicalCondition: z.string().optional().transform((value) => value?.trim() ?? ""),
   message: z.string().trim().min(10),
   documentUrls: z

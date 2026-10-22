@@ -369,16 +369,16 @@ export default function BookAppointmentSection() {
                       </Button>
 
                       <p className="text-center text-xs leading-relaxed text-slate-500 sm:text-sm">
-                        For emergencies, call{" "}
-                        <a href="tel:1066" className="font-bold text-red-600 hover:underline">
-                          1066
+                        Emergency Call:{" "}
+                        <a href="tel:+919499059966" className="font-bold text-red-600 hover:underline">
+                          +91 94990 59966
                         </a>{" "}
-                        or ambulance{" "}
+                        | Toll Free:{" "}
                         <a
-                          href="tel:+919876543210"
+                          href="tel:18005990999"
                           className="font-bold text-red-600 hover:underline"
                         >
-                          +91 98765 43210
+                          1800 599 0999
                         </a>
                       </p>
                     </div>

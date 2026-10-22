@@ -9,7 +9,7 @@ const actions = [
   { icon: Calendar, title: "Book Appointment", desc: "Schedule a visit with our experts", color: "bg-blue-50 text-blue-600", href: "/#book-appointment" },
   { icon: Sparkles, title: "AI-Based Master Health Checkup", desc: "Smart comprehensive screening", color: "bg-purple-50 text-purple-600", href: mapimsHealthCheckupUrl, external: true },
   { icon: HeartPulse, title: "Master Health Checkup", desc: "Health checkup packages", color: "bg-emerald-50 text-emerald-600", href: "/#health-packages" },
-  { icon: Ambulance, title: "Emergency Care", desc: "24/7 immediate medical help", color: "bg-red-50 text-red-700", href: "tel:1066" },
+  { icon: Ambulance, title: "Emergency Care", desc: "24/7 immediate medical help", color: "bg-red-50 text-red-700", href: "tel:+919499059966" },
 ];
 
 export default function QuickActions() {

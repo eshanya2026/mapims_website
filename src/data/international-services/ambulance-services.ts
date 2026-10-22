@@ -51,7 +51,7 @@ export const ambulanceServices: InternationalServiceData = {
     "Seamless golden-hour coordination with on-site trauma surgeons",
   ],
   closing:
-    "For emergency ambulance dispatch in and around Melmaruvathur, call our 24/7 Emergency Helpline immediately at +91 94990 59966 or 1066.",
+    "For emergency ambulance dispatch in and around Melmaruvathur, call our 24/7 Emergency Call immediately at +91 94990 59966 or Toll Free 1800 599 0999.",
   image: "/images/services/ambulance-emergency-hero.jpg",
   heroImage: "/images/services/ambulance-emergency-hero.jpg",
 };

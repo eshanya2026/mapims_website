@@ -112,6 +112,33 @@ export const servicesList: ServiceListItem[] = [
     image: "/images/services/insurance-tpa-hero.png",
     category: "support",
   },
+  {
+    slug: "bliss-skill-simulation-lab",
+    path: "/services/bliss-skill-simulation-lab",
+    label: "Bliss Skill Simulation Lab",
+    description:
+      "Structured simulation-based clinical training, high-fidelity emergency drills, ACLS/BCLS resuscitation certification, and hands-on skill development for healthcare professionals.",
+    image: "/images/services/bliss-skill-lab-hero.jpg",
+    category: "support",
+  },
+  {
+    slug: "community-outreach-services",
+    path: "/services/community-outreach-services",
+    label: "Community Outreach",
+    description:
+      "Extending healthcare beyond hospital walls through free medical screening camps, health awareness drives, eye camps, and government scheme support.",
+    image: "/images/services/community-outreach-hero.jpg",
+    category: "support",
+  },
+  {
+    slug: "sustainability-green-healthcare",
+    path: "/services/sustainability-green-healthcare",
+    label: "Sustainability & Green Healthcare",
+    description:
+      "Responsible resource management, rooftop solar energy, water recycling (STP/ETP), plastic reduction, and green campus eco-initiatives.",
+    image: "/images/services/sustainability-green-healthcare-hero.jpg",
+    category: "support",
+  },
 ];
 
 export const serviceCards = servicesList.map((s) => ({

@@ -73,6 +73,27 @@ const serviceLoaders: Record<
   },
   insurance: async () =>
     (await import("@/data/international-services/insurance")).insuranceService,
+  "bliss-skill-simulation-lab": async () =>
+    (await import("@/data/international-services/bliss-skill-simulation-lab"))
+      .blissSkillLabService,
+  "bliss-skill-lab": async () =>
+    (await import("@/data/international-services/bliss-skill-simulation-lab"))
+      .blissSkillLabService,
+  "biss-skill-lab": async () =>
+    (await import("@/data/international-services/bliss-skill-simulation-lab"))
+      .blissSkillLabService,
+  "community-outreach-services": async () =>
+    (await import("@/data/international-services/community-outreach"))
+      .communityOutreachService,
+  "community-outreach": async () =>
+    (await import("@/data/international-services/community-outreach"))
+      .communityOutreachService,
+  "sustainability-green-healthcare": async () =>
+    (await import("@/data/international-services/sustainability-green-healthcare"))
+      .sustainabilityService,
+  sustainability: async () =>
+    (await import("@/data/international-services/sustainability-green-healthcare"))
+      .sustainabilityService,
 
   // Backward compatibility aliases
   "central-laboratory": async () =>

@@ -25,8 +25,8 @@ import {
 const dialysisPillars = [
   {
     icon: Droplets,
-    title: "Hemodialysis Care",
-    desc: "Dedicated kidney support with monitored blood purification and electrolyte balancing.",
+    title: "24/7 Hemodialysis Care",
+    desc: "Round-the-clock kidney support with monitored blood purification, emergency dialysis, and electrolyte balancing.",
   },
   {
     icon: ShieldCheck,
@@ -35,8 +35,8 @@ const dialysisPillars = [
   },
   {
     icon: HeartPulse,
-    title: "ICU Renal Support",
-    desc: "Continuous dialysis capabilities for critically ill patients in Intensive Care Units.",
+    title: "24/7 ICU Renal Support",
+    desc: "Continuous round-the-clock dialysis capabilities for critically ill patients in Intensive Care Units.",
   },
   {
     icon: HeartHandshake,
@@ -75,10 +75,10 @@ const dialysisWorkflow = [
 const dialysisServicesList = [
   {
     number: "01",
-    title: "Kidney Function Support",
-    desc: "Hemodialysis treatment for patients who require kidney function support.",
+    title: "24/7 Kidney Function Support",
+    desc: "24/7 hemodialysis treatment for patients who require kidney function support and emergency renal care.",
     icon: Droplets,
-    badge: "Hemodialysis",
+    badge: "24/7 Hemodialysis",
   },
   {
     number: "02",
@@ -119,8 +119,8 @@ const dialysisServicesList = [
 
 const whyChooseDialysis = [
   {
-    title: "Dedicated Care for Hemodialysis",
-    desc: "Focused renal care and blood purification delivered with compassion and professional rigor.",
+    title: "24/7 Dedicated Care for Hemodialysis",
+    desc: "Round-the-clock focused renal care and blood purification delivered with compassion and professional rigor.",
   },
   {
     title: "Individual Clinical Needs",
@@ -180,7 +180,7 @@ export default function DialysisServicePage() {
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-red-300 backdrop-blur-md">
                 <Sparkles className="h-3.5 w-3.5 text-red-400" />
-                Renal Care &amp; Hemodialysis Services
+                24/7 Renal Care &amp; Hemodialysis Services
               </span>
 
               <h1 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-5xl">
@@ -196,7 +196,7 @@ export default function DialysisServicePage() {
 
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
                 The Dialysis Centre at Adhiparasakthi Hospitals, Melmaruvathur,
-                provides hemodialysis services for patients with kidney failure
+                provides 24/7 hemodialysis services for patients with kidney failure
                 and other conditions requiring renal support. Our team focuses
                 on delivering safe, supportive, and patient-centred care to help
                 patients manage their treatment needs and maintain their
@@ -365,21 +365,35 @@ export default function DialysisServicePage() {
             {/* Left Showcase: Our Dialysis Centre */}
             <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm sm:p-10">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-red-600">
-                <Building2 className="h-3.5 w-3.5" />
-                Centre Facilities
+                <Clock className="h-3.5 w-3.5" />
+                24/7 Centre Highlights
               </span>
               <h3 className="mt-4 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
                 Our Dialysis Centre
               </h3>
               <p className="mt-3 text-xs leading-relaxed text-slate-600 sm:text-sm">
-                Our centre is equipped to support patients requiring
+                Our centre is equipped to support patients requiring 24/7
                 hemodialysis, with a focus on appropriate treatment procedures,
                 infection prevention, and patient comfort. The care team works
-                to support continuity of treatment according to each
+                round the clock to support continuity of treatment according to each
                 patient&apos;s clinical needs.
               </p>
 
               <div className="mt-8 space-y-4">
+                <div className="flex items-start gap-3.5 rounded-xl border border-slate-100 bg-slate-50/60 p-4">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-600">
+                    <Clock className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900">
+                      24/7 Hemodialysis Availability
+                    </h4>
+                    <p className="mt-0.5 text-xs text-slate-600 leading-relaxed">
+                      Continuous round-the-clock hemodialysis services for scheduled treatment shifts and acute renal emergencies.
+                    </p>
+                  </div>
+                </div>
+
                 <div className="flex items-start gap-3.5 rounded-xl border border-slate-100 bg-slate-50/60 p-4">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-600">
                     <Activity className="h-4 w-4" />

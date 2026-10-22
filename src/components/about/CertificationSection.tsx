@@ -18,6 +18,18 @@ const certificates = [
     alt: "NABH 6th Edition Certificate of Accreditation 2026-2030 for Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research",
   },
   {
+    id: "nabl",
+    tabLabel: "NABL (2026–30)",
+    titlePrefix: "NABL",
+    titleHighlight: "Accreditation",
+    description:
+      "Central Laboratory at Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research is accredited in accordance with the standard ISO 15189:2022 for Medical Testing, valid from July 2026 to July 2030.",
+    badges: ["ISO 15189:2022", "Medical Testing", "NABL Accredited", "Central Laboratory"],
+    image: "/doc/nabl-lab.webp",
+    pdf: "/doc/NABL lab.pdf",
+    alt: "NABL Certificate of Accreditation ISO 15189:2022 for Central Laboratory, Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research",
+  },
+  {
     id: "2025",
     tabLabel: "2025",
     titlePrefix: "Certificate of",
@@ -214,20 +226,20 @@ export default function CertificationSection() {
                   style={{ transform: `translateX(-${activeIndex * 100}%)` }}
                 >
                   {certificates.map((cert) => {
-                    const isNabh = cert.id === "nabh";
+                    const isScrollable = cert.id === "nabh" || cert.id === "nabl";
                     const is2024 = cert.id === "2024";
                     return (
                       <div
                         key={cert.id}
                         className={`w-full h-full shrink-0 flex items-center justify-center p-0 overflow-hidden ${
-                          isNabh ? "group cursor-pointer" : is2024 ? "bg-white" : ""
+                          isScrollable ? "group cursor-pointer" : is2024 ? "bg-white" : ""
                         }`}
                       >
                         <img
                           src={cert.image}
                           alt={cert.alt}
                           className={
-                            isNabh
+                            isScrollable
                               ? "w-full h-full object-cover object-top origin-top transition-[object-position] duration-1000 ease-in-out group-hover:object-bottom hover:object-bottom"
                               : is2024
                               ? "w-full h-full object-contain p-1.5"
@@ -235,7 +247,7 @@ export default function CertificationSection() {
                           }
                         />
 
-                        {isNabh && (
+                        {isScrollable && (
                           <div className="pointer-events-none absolute bottom-3 right-3 rounded-full bg-slate-900/75 px-3 py-1 text-[11px] font-medium text-white/90 backdrop-blur-sm shadow-md opacity-80 group-hover:opacity-0 transition-opacity duration-300">
                             Hover to scroll ↓
                           </div>

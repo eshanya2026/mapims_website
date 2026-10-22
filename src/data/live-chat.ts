@@ -63,7 +63,7 @@ export const liveChatFaqs: LiveChatFaq[] = [
     id: "emergency",
     question: "How do I reach emergency care?",
     answer:
-      "For emergencies, call 1066 — our casualty and ambulance team is available 24/7. You can also visit the emergency department at Melmaruvathur anytime.",
+      "For emergencies, call our 24/7 Emergency Call at +91 94990 59966 or Toll Free 1800 599 0999. You can also visit the emergency department at Melmaruvathur anytime.",
   },
   {
     id: "helpline",
@@ -116,6 +116,6 @@ export const liveChatContact = {
   helplineHref: "tel:18005990999",
   email: "contact@mapims.edu.in",
   emailHref: "mailto:contact@mapims.edu.in",
-  emergency: "1066",
-  emergencyHref: "tel:1066",
+  emergency: "+91 94990 59966",
+  emergencyHref: "tel:+919499059966",
 };

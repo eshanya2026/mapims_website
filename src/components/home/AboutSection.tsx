@@ -11,6 +11,7 @@ import {
   HeartPulse,
   ShieldCheck,
   ArrowRight,
+  Microscope,
 } from "lucide-react";
 
 const features = [
@@ -28,6 +29,11 @@ const features = [
     title: "Advanced ICU",
     desc: "State-of-the-art intensive care units with modern life-support systems.",
     icon: ShieldPlus,
+  },
+  {
+    title: "Advanced Diagnosis",
+    desc: "State-of-the-art diagnostic laboratories and modern imaging technology for precise evaluation.",
+    icon: Microscope,
   },
   {
     title: "Expert Doctors",

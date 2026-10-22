@@ -51,14 +51,22 @@ export default function Footer() {
                   District, Tamilnadu, India 603319
                 </span>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-red-500 shrink-0" />
-                <a
-                  href="tel:+919499059966"
-                  className="text-sm text-white hover:text-red-400 transition-colors"
-                >
-                  +91 94990 59966
-                </a>
+              <li className="flex items-start gap-3">
+                <Phone className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                <div className="flex flex-col text-sm space-y-1">
+                  <a
+                    href="tel:18005990999"
+                    className="text-white hover:text-red-400 transition-colors"
+                  >
+                    Toll Free: <span className="font-semibold">1800 599 0999</span>
+                  </a>
+                  <a
+                    href="tel:+919499059966"
+                    className="text-white hover:text-red-400 transition-colors"
+                  >
+                    Emergency Call: <span className="font-semibold">+91 94990 59966</span>
+                  </a>
+                </div>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-red-500 shrink-0" />

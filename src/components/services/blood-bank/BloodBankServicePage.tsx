@@ -19,6 +19,7 @@ import {
   Clock,
   HeartPulse,
   Syringe,
+  Award,
 } from "lucide-react";
 
 const bloodBankPillars = [
@@ -39,8 +40,8 @@ const bloodBankPillars = [
   },
   {
     icon: ShieldCheck,
-    title: "Safety & Quality Protocols",
-    desc: "Adherence to safety procedures for donor screening, storage, and compatibility testing.",
+    title: "NABL Safety & Quality",
+    desc: "NABL accredited testing protocols, donor screening, and cold-chain temperature control procedures.",
   },
 ];
 
@@ -82,9 +83,9 @@ const bloodBankServicesList = [
   {
     number: "02",
     title: "Grouping & Compatibility Testing",
-    desc: "Blood grouping and compatibility testing as required for clinical accuracy and patient safety.",
+    desc: "NABL-accredited blood grouping, antibody screening, and compatibility cross-matching protocols.",
     icon: TestTube2,
-    badge: "Laboratory Testing",
+    badge: "NABL Accredited",
   },
   {
     number: "03",
@@ -129,8 +130,8 @@ const whyChooseBloodBank = [
     desc: "Dedicated support for patients requiring blood transfusions during routine care and critical situations.",
   },
   {
-    title: "Safety & Quality Procedures",
-    desc: "Strict attention to blood safety and quality procedures at every phase of processing and issue.",
+    title: "NABL Accredited & Licensed Center",
+    desc: "NABL accredited testing protocols and full licensing from Central & State Drug Standard Control Authorities.",
   },
   {
     title: "Clinical Department Coordination",
@@ -178,7 +179,7 @@ export default function BloodBankServicePage() {
             >
               <div className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-red-400 backdrop-blur-md">
                 <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
-                Blood Bank Services
+                NABL Accredited Blood Bank
               </div>
 
               <h1 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-5xl">
@@ -388,21 +389,33 @@ export default function BloodBankServicePage() {
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-50 px-3.5 py-1 text-xs font-bold text-red-600">
                 <ShieldCheck className="h-3.5 w-3.5" />
-                Blood Safety &amp; Quality
+                NABL Blood Safety &amp; Quality
               </span>
 
               <h3 className="mt-4 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-                Safety Standards &amp; Testing
+                NABL Safety Standards &amp; Testing
               </h3>
 
               <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
                 We recognize the importance of blood safety in patient care.
-                Our services follow applicable standards and procedures for donor
+                Our services follow NABL-accredited laboratory procedures for donor
                 screening, blood testing, storage, handling, and compatibility
                 assessment to help ensure the safe use of blood and blood components.
               </p>
 
               <div className="mt-8 space-y-3.5">
+                <div className="flex items-start gap-3.5 rounded-2xl bg-white p-4 border border-slate-200/70 shadow-sm transition-colors group-hover:border-red-100">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-red-50 text-red-600">
+                    <Award className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900">NABL Accredited Testing</h4>
+                    <p className="mt-0.5 text-xs text-slate-600 leading-relaxed">
+                      NABL accredited testing methodologies ensuring absolute recipient safety, precise blood grouping, and zero-compromise cross-matching.
+                    </p>
+                  </div>
+                </div>
+
                 <div className="flex items-start gap-3.5 rounded-2xl bg-white p-4 border border-slate-200/70 shadow-sm transition-colors group-hover:border-red-100">
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-red-50 text-red-600">
                     <Syringe className="h-4 w-4" />

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Award, Clock, ShieldPlus, UserCheck, Laptop, HeartPulse } from "lucide-react";
+import { Award, Clock, ShieldPlus, UserCheck, Laptop, HeartPulse, Microscope } from "lucide-react";
 
 const features = [
   {
@@ -18,6 +18,11 @@ const features = [
     icon: ShieldPlus,
     title: "Advanced ICU",
     desc: "State-of-the-art intensive care units with modern life-support systems.",
+  },
+  {
+    icon: Microscope,
+    title: "Advanced Diagnosis",
+    desc: "State-of-the-art diagnostic laboratories and modern imaging technology for precise evaluation.",
   },
   {
     icon: UserCheck,

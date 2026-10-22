@@ -9,6 +9,10 @@ import {
   notifyCandidateOfJobApplication,
   notifyHrOfFormSubmission,
 } from "@/lib/hr-form-notifications";
+import {
+  notifyHospitalOfInquiry,
+  notifyPatientOfInquiry,
+} from "@/lib/inquiry-notifications";
 import { getClientIpFromRequest } from "@/lib/request-client-ip";
 import { formSubmissionSchema } from "@/lib/validations";
 
@@ -60,6 +64,17 @@ export async function POST(request: Request) {
         } catch (emailError) {
           console.error("[forms POST] appointment confirmation email failed:", emailError);
         }
+      }
+
+      if (submission.type === "contact" || submission.type === "international") {
+        await Promise.allSettled([
+          notifyPatientOfInquiry(submission).catch((emailError) => {
+            console.error("[forms POST] patient inquiry email failed:", emailError);
+          }),
+          notifyHospitalOfInquiry(submission).catch((emailError) => {
+            console.error("[forms POST] hospital inquiry notification failed:", emailError);
+          }),
+        ]);
       }
     };
 

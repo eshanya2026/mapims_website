@@ -2,7 +2,10 @@ import { Phone, Mail } from "lucide-react";
 import { socialLinks } from "@/data/site-social";
 
 const iconClass = "h-3.5 w-3.5 shrink-0 text-red-500";
-const AMBULANCE_TEL = "+919499059966";
+const TOLL_FREE_DISPLAY = "1800 599 0999";
+const TOLL_FREE_TEL = "18005990999";
+const EMERGENCY_DISPLAY = "+91 94990 59966";
+const EMERGENCY_TEL = "+919499059966";
 
 function SocialIconLinks({ size = "md" }: { size?: "sm" | "md" }) {
   const buttonClass =
@@ -35,28 +38,30 @@ export default function TopHeader() {
     <div className="relative z-[60] overflow-visible bg-slate-900 text-slate-200 text-xs sm:text-sm">
       {/* Mobile */}
       <div className="px-3 py-2.5 md:hidden">
-        <div className="grid grid-cols-2 gap-x-3 gap-y-2.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-2">
           <a
-            href="tel:1066"
+            href={`tel:${TOLL_FREE_TEL}`}
             className="flex items-center gap-1.5 font-medium text-white"
           >
             <Phone className={iconClass} />
             <span className="leading-tight">
-              Emergency: <span className="font-bold">1066</span>
+              Toll Free: <span className="font-bold">{TOLL_FREE_DISPLAY}</span>
             </span>
           </a>
 
           <a
-            href={`tel:${AMBULANCE_TEL}`}
-            className="flex items-center justify-end gap-1.5 text-right font-medium text-white"
+            href={`tel:${EMERGENCY_TEL}`}
+            className="flex items-center gap-1.5 font-medium text-white"
           >
             <Phone className={iconClass} />
-            <span className="leading-tight">Ambulance</span>
+            <span className="leading-tight">
+              Emergency Call: <span className="font-bold">{EMERGENCY_DISPLAY}</span>
+            </span>
           </a>
 
           <a
             href="mailto:info@adhiparasakthihospitals.com"
-            className="col-span-2 flex min-w-0 items-start gap-1.5 text-slate-300"
+            className="col-span-full flex min-w-0 items-start gap-1.5 text-slate-300"
           >
             <Mail className={`${iconClass} mt-0.5`} />
             <span className="break-all text-[10px] leading-snug sm:text-[11px]">
@@ -78,22 +83,23 @@ export default function TopHeader() {
         <div className="flex items-center justify-between gap-4">
           <div className="flex min-w-0 flex-wrap items-center gap-x-6 gap-y-1">
             <a
-              href="tel:1066"
+              href={`tel:${TOLL_FREE_TEL}`}
               className="flex shrink-0 items-center space-x-2 transition-colors hover:text-white"
             >
               <Phone className="h-4 w-4 text-red-600" />
               <span>
-                Emergency: <span className="font-bold text-white">1066</span>
+                Toll Free:{" "}
+                <span className="font-bold text-white">{TOLL_FREE_DISPLAY}</span>
               </span>
             </a>
             <a
-              href={`tel:${AMBULANCE_TEL}`}
+              href={`tel:${EMERGENCY_TEL}`}
               className="flex shrink-0 items-center space-x-2 transition-colors hover:text-white"
             >
               <Phone className="h-4 w-4 text-red-600" />
               <span>
-                Ambulance:{" "}
-                <span className="font-bold text-white">+91 94990 59966</span>
+                Emergency Call:{" "}
+                <span className="font-bold text-white">{EMERGENCY_DISPLAY}</span>
               </span>
             </a>
             <a

@@ -23,6 +23,9 @@ import PhysiotherapyServicePage from "@/components/services/physiotherapy/Physio
 import LaboratoryServicePage from "@/components/services/laboratory/LaboratoryServicePage";
 import DialysisServicePage from "@/components/services/dialysis/DialysisServicePage";
 import InsuranceServicePage from "@/components/services/insurance/InsuranceServicePage";
+import BlissSkillLabPage from "@/components/services/bliss-skill-lab/BlissSkillLabPage";
+import CommunityOutreachServicePage from "@/components/services/community-outreach/CommunityOutreachServicePage";
+import SustainabilityServicePage from "@/components/services/sustainability/SustainabilityServicePage";
 
 type ServicePageProps = {
   params: Promise<{ slug: string }>;
@@ -122,12 +125,12 @@ export async function generateMetadata({
         "Welcome to the Central Laboratory at Adhiparasakthi Hospitals, your hub for accurate and timely diagnostic testing. Our state-of-the-art laboratory is equipped with the latest technology to provide comprehensive diagnostic services essential for effective treatment and patient care.",
     };
   }
-  if (slug === "dialysis-services") {
+  if (slug === "dialysis-services" || slug === "hemodialysis") {
     return {
       title:
         "Dialysis Services (Hemodialysis) | Adhiparasakthi Hospitals",
       description:
-        "Safe, compassionate hemodialysis and renal support care, ICU dialysis capabilities, and infection-control standards at Adhiparasakthi Hospitals, Melmaruvathur.",
+        "24/7 safe, compassionate hemodialysis and renal support care, ICU dialysis capabilities, and infection-control standards at Adhiparasakthi Hospitals, Melmaruvathur.",
     };
   }
   if (slug === "insurance") {
@@ -136,6 +139,39 @@ export async function generateMetadata({
         "TPA & Cashless Insurance Services | Adhiparasakthi Hospitals",
       description:
         "Health insurance assistance, cashless hospitalization formalities, TPA coordination, pre-authorization, and government health schemes at Adhiparasakthi Hospitals, Melmaruvathur.",
+    };
+  }
+  if (
+    slug === "bliss-skill-simulation-lab" ||
+    slug === "bliss-skill-lab" ||
+    slug === "biss-skill-lab"
+  ) {
+    return {
+      title: "Bliss Skill Simulation Lab | Adhiparasakthi Hospitals",
+      description:
+        "The Bliss Skill Simulation Lab at Adhiparasakthi Hospitals provides a structured learning environment for healthcare professionals and postgraduate students to develop essential clinical, emergency, and patient-care skills through simulation-based training.",
+    };
+  }
+  if (
+    slug === "community-outreach-services" ||
+    slug === "community-outreach"
+  ) {
+    return {
+      title:
+        "Community Outreach | Adhiparasakthi Hospitals",
+      description:
+        "Extending healthcare beyond hospital walls through free medical screening camps, health awareness drives, eye camps, and government scheme support in Melmaruvathur.",
+    };
+  }
+  if (
+    slug === "sustainability-green-healthcare" ||
+    slug === "sustainability"
+  ) {
+    return {
+      title:
+        "Sustainability & Green Healthcare | Adhiparasakthi Hospitals",
+      description:
+        "Responsible resource management, rooftop solar energy, water recycling (STP/ETP), plastic reduction, and green campus eco-initiatives at Adhiparasakthi Hospitals, Melmaruvathur.",
     };
   }
   const service = await getServiceBySlug(slug);
@@ -150,6 +186,25 @@ export async function generateMetadata({
 export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const { slug } = await params;
 
+  if (
+    slug === "sustainability-green-healthcare" ||
+    slug === "sustainability"
+  ) {
+    return <SustainabilityServicePage />;
+  }
+  if (
+    slug === "community-outreach-services" ||
+    slug === "community-outreach"
+  ) {
+    return <CommunityOutreachServicePage />;
+  }
+  if (
+    slug === "bliss-skill-simulation-lab" ||
+    slug === "bliss-skill-lab" ||
+    slug === "biss-skill-lab"
+  ) {
+    return <BlissSkillLabPage />;
+  }
   if (slug === "outpatient-service") {
     return <OutpatientServicePage />;
   }
@@ -174,7 +229,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   if (slug === "laboratory" || slug === "central-laboratory") {
     return <LaboratoryServicePage />;
   }
-  if (slug === "dialysis-services") {
+  if (slug === "dialysis-services" || slug === "hemodialysis") {
     return <DialysisServicePage />;
   }
   if (slug === "insurance") {

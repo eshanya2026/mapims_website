@@ -117,7 +117,7 @@
           "Wide Range of Tests: From routine blood tests to specialized assays, we offer a complete suite of diagnostic services.",
           "Rapid Turnaround: Our efficient processes guarantee quick results, helping your healthcare team make timely decisions.",
           "Expert Team: Our skilled laboratory technicians and pathologists are dedicated to delivering high-quality diagnostic support.",
-          "Quality Assurance: We adhere to stringent quality control protocols to maintain the highest standards of accuracy and reliability.",
+          "Quality Assurance & NABL Accreditation: NABL-accredited diagnostic laboratory adhering to stringent quality control protocols to maintain highest standards of accuracy and reliability.",
           "Patient-Centric Care: We prioritize patient comfort and confidentiality throughout the diagnostic process."
         ]
       },
@@ -129,13 +129,15 @@
           "Microbiology: Culture and sensitivity tests for infection diagnosis.",
           "Immunology: Tests for autoimmune disorders and immunological assessments.",
           "Serology: Screening for viral, bacterial, and other infections.",
-          "Endocrinology: Hormone assays for thyroid, adrenal, and other endocrine functions."
+          "Endocrinology: Hormone assays for thyroid, adrenal, and other endocrine functions.",
+          "Blood Bank & Component Center: 24/7 NABL-accredited blood bank providing blood grouping, cross-matching, and component separation."
         ]
       },
       {
         "heading": "Must-Know Information",
         "paragraphs": [
-          "Accredited Laboratory: Our laboratory is accredited by national and international standards.",
+          "NABL Accredited Laboratory: Our central laboratory holds NABL accreditation, adhering to the highest national and international diagnostic standards.",
+          "NABL Accredited Blood Bank: Round-the-clock NABL-accredited blood bank facility providing safe blood components and emergency transfusion support.",
           "Integrated Services: Seamlessly integrated with our hospitals&rsquo;s departments for comprehensive care.",
           "Emergency Testing: Fast-track testing services available for urgent medical situations.",
           "Patient Portal: Access your test results online through our secure patient portal.",
@@ -246,14 +248,19 @@
   {
     "slug": "hemodialysis",
     "label": "Hemodialysis",
-    "title": "Hemodialysis",
-    "seoTitle": "Hemodialogy hospitalss in chennai",
-    "description": "We also having advance dia-filtration machine which can provide eminent dialysis 25x7 eminent dialysis services available. Dialysis facilities also available in ICU.",
-    "image": "https://adhiparasakthihospitalss.net/uploads/2024/04/8cbI3Ww5yVAXh5g6AJ02hPPhdYESVVwj.png",
+    "title": "Hemodialysis & Dialysis Centre",
+    "seoTitle": "Hemodialysis hospitalss in chennai",
+    "description": "24/7 Hemodialysis and advanced renal dialysis care with 26+ modern dialyzers, ICU dia-filtration, and dedicated positive patient units at Adhiparasakthi Hospitals.",
+    "image": "/images/services/dialysis-hemodialysis-hero.png",
     "sections": [
       {
-        "heading": "The Dialysis Centre in our hospitals is one of the largest dialysis Centre in Kanchipuram Dist. With 26 new model dialyzers. We also having advance dia-filtration machine which can provide eminent dialysis 25x7 eminent dialysis services available. Dialysis facilities also available in ICU. We provide separate dialysis unit for Positive Patients. Ear and nose stud piercing Tattooing Intra lesional therapy",
-        "paragraphs": []
+        "heading": "24/7 Hemodialysis & Centre Highlights",
+        "paragraphs": [
+          "24/7 Hemodialysis Availability: Round-the-clock hemodialysis services for scheduled shifts and urgent emergencies.",
+          "26 New-Model Dialyzers: High-efficiency hemodialysis treatment with advanced dia-filtration technology.",
+          "24/7 ICU Renal Support: Bedside SLED & CRRT dialysis facilities in Intensive Care Units for critically ill patients.",
+          "Dedicated Isolation Unit: Separate, specialized dialysis units for seropositive patients ensuring complete safety."
+        ]
       }
     ],
     "path": "/services/hemodialysis"
@@ -401,5 +408,134 @@
       }
     ],
     "path": "/services/surgical-oncology"
+  },
+  {
+    "slug": "bliss-skill-simulation-lab",
+    "label": "Bliss Skill Simulation Lab",
+    "title": "Bliss Skill Simulation Lab",
+    "seoTitle": "Bliss Skill Simulation Lab | Adhiparasakthi Hospitals",
+    "description": "The Bliss Skill Simulation Lab at Adhiparasakthi Hospitals provides a structured learning environment for healthcare professionals and postgraduate students to develop and strengthen essential clinical, emergency, and patient-care skills through simulation-based training.",
+    "image": "/images/services/bliss-skill-lab-hero.jpg",
+    "sections": [
+      {
+        "heading": "Simulation & Clinical Skills Training",
+        "paragraphs": [
+          "High-Fidelity Simulation Training: Advanced computerized patient simulators replicating complex physiological reactions and pharmacological responses.",
+          "Critical Care Simulation: Intensive care unit management scenarios, mechanical ventilation, and multi-organ crisis stabilization.",
+          "Paediatric Care Training: Specialized neonatal and pediatric resuscitation, airway management, and acute pediatric emergencies.",
+          "Labour Room & Maternal Care Simulation: Normal and complicated obstetric deliveries, postpartum hemorrhage protocols, and maternal emergency drills.",
+          "Emergency Response & Resuscitation Training: High-stakes trauma resuscitation, defibrillation, code blue execution, and airway intervention protocols.",
+          "Hands-on Clinical Skills Development: Vascular access, central lines, arterial cannulation, lumbar puncture, and wound closure techniques.",
+          "Scenario-Based Team Training: Multidisciplinary team communication, crisis resource management (CRM), and situational leadership."
+        ]
+      },
+      {
+        "heading": "Professional Training Programs",
+        "paragraphs": [
+          "Basic Cardiac Life Support (BCLS)",
+          "Advanced Cardiac Life Support (ACLS)",
+          "Training for Healthcare Professionals",
+          "Training for Postgraduate Students",
+          "Emergency and Resuscitation Skills Training",
+          "Continuous Clinical Skills Development"
+        ]
+      },
+      {
+        "heading": "Training & Recognition",
+        "paragraphs": [
+          "The Bliss Skill Simulation Lab supports competency-based learning through practical training, simulated clinical scenarios, and supervised skill development. The facility helps healthcare professionals improve clinical preparedness, teamwork, communication, and response to emergency situations.",
+          "Where applicable, training programs are conducted in accordance with the requirements of recognized professional and academic bodies."
+        ]
+      }
+    ],
+    "path": "/services/bliss-skill-simulation-lab"
+  },
+  {
+    "slug": "community-outreach-services",
+    "label": "Community Outreach",
+    "title": "Community Outreach",
+    "seoTitle": "Community Outreach | Adhiparasakthi Hospitals",
+    "description": "Adhiparasakthi Hospitals is committed to making healthcare accessible to the community through outreach activities, health awareness initiatives, medical camps, and support for eligible government and insurance healthcare schemes.",
+    "image": "/images/services/community-outreach-hero.jpg",
+    "sections": [
+      {
+        "heading": "Extending Healthcare Beyond the Hospital",
+        "paragraphs": [
+          "Adhiparasakthi Hospitals is committed to making healthcare accessible to the community through outreach activities, health awareness initiatives, medical camps, and support for eligible government and insurance healthcare schemes.",
+          "Our community outreach programs focus on promoting preventive healthcare, early identification of health concerns, and access to appropriate medical guidance and treatment."
+        ]
+      },
+      {
+        "heading": "Community Healthcare Services",
+        "paragraphs": [
+          "Free Medical & Health Screening Camps",
+          "Community Health Awareness Programs",
+          "Preventive Health Screening Initiatives",
+          "Eye Screening & Community Eye Camps",
+          "Health Education and Wellness Activities",
+          "Referral Support for Patients Requiring Further Medical Care"
+        ]
+      },
+      {
+        "heading": "Healthcare Scheme Support",
+        "paragraphs": [
+          "We assist eligible patients in accessing treatment through applicable government healthcare schemes and supported health insurance programs, subject to eligibility, authorization, and prevailing scheme guidelines."
+        ]
+      },
+      {
+        "heading": "Serving Our Community",
+        "paragraphs": [
+          "Through regular outreach activities, Adhiparasakthi Hospitals works to improve health awareness and extend healthcare services to communities in and around Melmaruvathur.",
+          "Our healthcare teams participate in community-based initiatives aimed at encouraging early diagnosis, preventive care, and timely access to medical services."
+        ]
+      },
+      {
+        "heading": "Our Commitment",
+        "paragraphs": [
+          "We remain committed to compassionate and socially responsible healthcare by extending our services beyond the hospital and supporting the health and well-being of the communities we serve."
+        ]
+      }
+    ],
+    "path": "/services/community-outreach-services"
+  },
+  {
+    "slug": "sustainability-green-healthcare",
+    "label": "Sustainability & Green Healthcare",
+    "title": "Sustainability & Green Healthcare",
+    "seoTitle": "Sustainability & Green Healthcare | Adhiparasakthi Hospitals",
+    "description": "At Adhiparasakthi Hospitals, we recognize that a healthy environment contributes to a healthier community. Our sustainability initiatives focus on responsible resource management, environmental conservation, waste reduction, and the adoption of greener practices across the hospital campus.",
+    "image": "/images/services/sustainability-green-healthcare-hero.jpg",
+    "sections": [
+      {
+        "heading": "Caring for Health, Caring for the Environment",
+        "paragraphs": [
+          "At Adhiparasakthi Hospitals, we recognize that a healthy environment contributes to a healthier community. Our sustainability initiatives focus on responsible resource management, environmental conservation, waste reduction, and the adoption of greener practices across the hospital campus."
+        ]
+      },
+      {
+        "heading": "Our Green Initiatives",
+        "paragraphs": [
+          "Green Campus Development – Promoting tree plantation and maintaining green spaces across the hospital campus.",
+          "Renewable Energy – Utilizing solar energy to support sustainable energy practices and reduce dependence on conventional power sources.",
+          "Water Management – Supporting responsible water management through sewage and effluent treatment systems.",
+          "Plastic Reduction – Encouraging the reduction of single-use plastics and promoting environmentally responsible alternatives.",
+          "Responsible Waste Management – Following appropriate practices for the segregation, handling, and disposal of healthcare and general waste.",
+          "Environmental Awareness – Encouraging staff, students, patients, and visitors to participate in environmentally responsible practices."
+        ]
+      },
+      {
+        "heading": "Building a Greener Healthcare Environment",
+        "paragraphs": [
+          "Our approach to green healthcare extends beyond patient care. We continually work towards creating a cleaner, safer, and more sustainable hospital environment through responsible use of energy, water, and other resources."
+        ]
+      },
+      {
+        "heading": "Our Commitment",
+        "paragraphs": [
+          "Adhiparasakthi Hospitals remains committed to integrating environmental responsibility with healthcare delivery. Through sustainable practices and continued green initiatives, we aim to contribute to the well-being of our patients, our community, and the environment."
+        ]
+      }
+    ],
+    "path": "/services/sustainability-green-healthcare"
   }
 ]

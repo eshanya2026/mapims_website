@@ -26,6 +26,7 @@ import {
   Lock,
   CreditCard,
   Zap,
+  Droplets,
 } from "lucide-react";
 
 const labPillars = [
@@ -46,8 +47,8 @@ const labPillars = [
   },
   {
     icon: ShieldCheck,
-    title: "Stringent Quality Assurance",
-    desc: "National and international quality benchmarks with rigorous daily multi-level calibration controls.",
+    title: "NABL Quality Assurance",
+    desc: "NABL accredited testing adhering to rigorous national and international benchmarks with daily calibration controls.",
   },
 ];
 
@@ -121,6 +122,13 @@ const scopeOfServices = [
     icon: Activity,
     badge: "Hormone Profiles",
   },
+  {
+    number: "07",
+    title: "Blood Bank & Component Center",
+    desc: "24/7 NABL-accredited blood bank providing blood grouping, cross-matching, and component separation.",
+    icon: Droplets,
+    badge: "NABL Accredited",
+  },
 ];
 
 const whyChooseLab = [
@@ -141,8 +149,8 @@ const whyChooseLab = [
     desc: "Our skilled laboratory technicians and pathologists are dedicated to delivering high-quality diagnostic support.",
   },
   {
-    title: "Quality Assurance",
-    desc: "We adhere to stringent quality control protocols to maintain the highest standards of accuracy and reliability.",
+    title: "NABL Quality Assurance",
+    desc: "NABL-accredited laboratory adhering to stringent quality control protocols to maintain the highest standards of accuracy and reliability.",
   },
   {
     title: "Patient-Centric Care",
@@ -424,10 +432,24 @@ export default function LaboratoryServicePage() {
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-slate-900">
-                      Accredited Laboratory
+                      NABL Accredited Laboratory
                     </h4>
                     <p className="mt-0.5 text-xs text-slate-600 leading-relaxed">
-                      Our laboratory is accredited by national and international standards.
+                      Our central laboratory holds NABL accreditation, adhering to the highest national and international diagnostic standards.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5 rounded-xl border border-slate-100 bg-slate-50/60 p-4">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-600">
+                    <Droplets className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900">
+                      NABL Accredited Blood Bank
+                    </h4>
+                    <p className="mt-0.5 text-xs text-slate-600 leading-relaxed">
+                      Round-the-clock NABL-accredited blood bank facility providing safe blood components and emergency transfusion support.
                     </p>
                   </div>
                 </div>
