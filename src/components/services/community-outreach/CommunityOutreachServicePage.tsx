@@ -419,7 +419,7 @@ export default function CommunityOutreachServicePage() {
                     <span>Call: +91 94990 59966</span>
                   </a>
                   <Link
-                    href="/contact"
+                    href="/contact#contact-form"
                     className="inline-flex h-12 items-center justify-center rounded-xl border border-white/30 bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20"
                   >
                     Enquire Online

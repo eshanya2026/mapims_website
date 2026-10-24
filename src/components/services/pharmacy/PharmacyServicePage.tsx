@@ -202,20 +202,20 @@ export default function PharmacyServicePage() {
               {/* Action Buttons */}
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <Link
-                  href="/#book-appointment"
+                  href="/contact#contact-form"
                   className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-red-600 px-7 text-sm font-bold text-white shadow-lg shadow-red-600/30 transition-all hover:bg-red-700 hover:shadow-red-600/50"
                 >
                   <Pill className="h-4 w-4" />
                   Contact Hospital Desk
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link
-                  href="/#book-appointment"
+                <a
+                  href="tel:+919499059966"
                   className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-7 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20 hover:border-white/40"
                 >
-                  <HelpCircle className="h-4 w-4 text-red-400" />
-                  <span>General Inquiries</span>
-                </Link>
+                  <Phone className="h-4 w-4 text-red-400" />
+                  <span>Call Pharmacy: +91 94990 59966</span>
+                </a>
               </div>
             </motion.div>
 
@@ -559,7 +559,7 @@ export default function PharmacyServicePage() {
               </div>
               <div className="flex shrink-0 items-center gap-3">
                 <Link
-                  href="/#book-appointment"
+                  href="/contact#contact-form"
                   className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-bold text-red-700 shadow-md transition hover:bg-red-50"
                 >
                   Contact Hospital Desk

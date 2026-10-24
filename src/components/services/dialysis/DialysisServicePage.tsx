@@ -206,7 +206,7 @@ export default function DialysisServicePage() {
               {/* Action Buttons */}
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <Link
-                  href="/#book-appointment"
+                  href="/contact#contact-form"
                   className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-red-600 px-7 text-sm font-bold text-white shadow-lg shadow-red-600/30 transition-all hover:bg-red-700 hover:shadow-red-600/50"
                 >
                   <Calendar className="h-4 w-4" />
@@ -214,11 +214,11 @@ export default function DialysisServicePage() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
-                  href="/#book-appointment"
+                  href="#dialysis-services"
                   className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-7 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20 hover:border-white/40"
                 >
-                  <Building2 className="h-4 w-4 text-red-400" />
-                  <span>Contact Hospital Desk</span>
+                  <Droplets className="h-4 w-4 text-red-400" />
+                  <span>Explore Dialysis Services</span>
                 </Link>
               </div>
             </motion.div>
@@ -316,7 +316,7 @@ export default function DialysisServicePage() {
       </section>
 
       {/* 4. Our Dialysis Services (Exact user list) */}
-      <section className="section-padding bg-white py-16 sm:py-20 border-t border-slate-200/70">
+      <section id="dialysis-services" className="section-padding bg-white py-16 sm:py-20 border-t border-slate-200/70 scroll-mt-20">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-red-600">
@@ -566,17 +566,17 @@ export default function DialysisServicePage() {
               </div>
               <div className="flex shrink-0 flex-wrap items-center gap-3">
                 <Link
-                  href="/#book-appointment"
+                  href="/contact#contact-form"
                   className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-bold text-red-700 shadow-md transition hover:bg-red-50"
                 >
-                  Contact Hospital Desk
+                  Book Dialysis Consultation
                 </Link>
                 <Link
-                  href="/#book-appointment"
+                  href="#dialysis-services"
                   className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/10 px-6 text-sm font-bold text-white backdrop-blur-md transition hover:bg-white/20"
                 >
-                  <Calendar className="h-4 w-4" />
-                  Dialysis Appointments
+                  <Droplets className="h-4 w-4" />
+                  Explore Services
                 </Link>
               </div>
             </div>

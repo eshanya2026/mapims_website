@@ -300,7 +300,10 @@ export default function InternationalDeskInquiryForm() {
     touched[key] ? callbackErrors[key] : "";
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-lg shadow-slate-200/40 sm:p-6 md:p-7">
+    <div
+      id="international-desk-form"
+      className="scroll-mt-28 rounded-2xl border border-slate-200 bg-white p-5 shadow-lg shadow-slate-200/40 sm:p-6 md:p-7"
+    >
       <h3 className="text-lg font-bold text-slate-900 sm:text-xl">
         Inquiry Form
       </h3>

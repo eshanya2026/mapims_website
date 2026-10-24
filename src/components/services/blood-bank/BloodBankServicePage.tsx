@@ -203,7 +203,7 @@ export default function BloodBankServicePage() {
               {/* Action Buttons */}
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <Link
-                  href="/#book-appointment"
+                  href="/contact#contact-form"
                   className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-red-600 px-7 text-sm font-bold text-white shadow-lg shadow-red-600/30 transition-all hover:bg-red-700 hover:shadow-red-600/50"
                 >
                   <Droplets className="h-4 w-4" />
@@ -569,7 +569,7 @@ export default function BloodBankServicePage() {
               </div>
               <div className="flex shrink-0 items-center gap-3">
                 <Link
-                  href="/#book-appointment"
+                  href="/contact#contact-form"
                   className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-bold text-red-700 shadow-md transition hover:bg-red-50"
                 >
                   Contact Blood Bank

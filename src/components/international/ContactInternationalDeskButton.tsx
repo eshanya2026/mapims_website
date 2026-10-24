@@ -1,5 +1,5 @@
+import Link from "next/link";
 import { Headphones } from "lucide-react";
-import { internationalDesk } from "@/data/international-patients";
 import { cn } from "@/lib/utils";
 
 type ContactInternationalDeskButtonProps = {
@@ -14,8 +14,8 @@ export default function ContactInternationalDeskButton({
   showIcon = true,
 }: ContactInternationalDeskButtonProps) {
   return (
-    <a
-      href={internationalDesk.tollFreeTel}
+    <Link
+      href="/international#contact-international-desk"
       className={cn(
         "inline-flex h-12 items-center justify-center rounded-full px-8 text-base font-medium transition-all",
         variant === "primary" &&
@@ -29,6 +29,6 @@ export default function ContactInternationalDeskButton({
     >
       {showIcon ? <Headphones className="mr-2 h-5 w-5 shrink-0" /> : null}
       Contact International Desk
-    </a>
+    </Link>
   );
 }

@@ -16,7 +16,7 @@ export default function ContactPage() {
     <main className="min-h-screen">
       <ContactHero />
 
-      <section className="section-padding bg-slate-50">
+      <section id="contact-form" className="section-padding bg-slate-50 scroll-mt-20">
         <div className="page-container">
           <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-10 xl:gap-12">
             <ContactInfo />

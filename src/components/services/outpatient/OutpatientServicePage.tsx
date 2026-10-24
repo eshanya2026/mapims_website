@@ -222,20 +222,20 @@ export default function OutpatientServicePage() {
               {/* Action Buttons */}
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <Link
-                  href="/#book-appointment"
+                  href="/contact#contact-form"
                   className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-red-600 px-7 text-sm font-bold text-white shadow-lg shadow-red-600/30 transition-all hover:bg-red-700 hover:shadow-red-600/50"
                 >
                   <Calendar className="h-4 w-4" />
                   Book OP Consultation
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-                <a
-                  href="tel:+919499059966"
+                <Link
+                  href="#op-services"
                   className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-7 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20 hover:border-white/40"
                 >
-                  <Phone className="h-4 w-4 text-red-400" />
-                  <span>Call Now</span>
-                </a>
+                  <Stethoscope className="h-4 w-4 text-red-400" />
+                  <span>Explore OP Services</span>
+                </Link>
               </div>
             </motion.div>
 
@@ -369,7 +369,7 @@ export default function OutpatientServicePage() {
       </section>
 
       {/* 4. Our Outpatient Services (8 Distinct Feature Cards) */}
-      <section className="section-padding bg-slate-100/70 py-16 sm:py-20">
+      <section id="op-services" className="section-padding bg-slate-100/70 py-16 sm:py-20 scroll-mt-20">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="mx-auto max-w-3xl text-center">
             <span className="text-xs font-bold uppercase tracking-wider text-red-600">
@@ -483,12 +483,19 @@ export default function OutpatientServicePage() {
                   consultation journey.
                 </p>
               </div>
-              <div className="flex shrink-0 items-center gap-3">
+              <div className="flex shrink-0 flex-wrap items-center gap-3">
                 <Link
-                  href="/#book-appointment"
+                  href="/contact#contact-form"
                   className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-bold text-red-700 shadow-md transition hover:bg-red-50"
                 >
                   Book OP Consultation
+                </Link>
+                <Link
+                  href="#op-services"
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/10 px-6 text-sm font-bold text-white backdrop-blur-md transition hover:bg-white/20"
+                >
+                  <Stethoscope className="h-4 w-4" />
+                  Explore Services
                 </Link>
               </div>
             </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -21,28 +22,40 @@ import {
   Landmark,
   Scale,
   Users2,
+  Search,
+  Download,
 } from "lucide-react";
+import {
+  governmentInsuranceSchemes,
+  governmentOrganizations,
+  privateInsuranceCompaniesAndTPAs,
+  officialInsuranceDocPath,
+} from "@/data/international-services/insurance";
 
 const insurancePillars = [
   {
     icon: CreditCard,
+    tag: "Cashless Care",
     title: "Cashless Hospitalization",
-    desc: "Seamless pre-authorization and cashless settlement with empaneled insurance providers and TPAs.",
+    desc: "A medical facility where the patient receives covered treatment without paying hospital bills upfront out of pocket; admissible expenses are settled directly between the hospital and the insurance company or TPA.",
   },
   {
     icon: Building2,
+    tag: "Hospital-to-Insurer",
     title: "TPA Coordination",
-    desc: "Active liaison with Third Party Administrators ensuring timely approvals and claim tracking.",
+    desc: "The hospital's dedicated liaison submitting medical records, treatment estimates, and bills directly to the insurer's Third Party Administrator (TPA) to secure fast pre-authorizations, query resolutions, and claim approvals.",
   },
   {
     icon: FileText,
+    tag: "Required Documents",
     title: "Documentation Support",
-    desc: "Step-by-step guidance compiling policy papers, KYC documents, and medical pre-auth forms.",
+    desc: "Guidance preparing mandatory hospital papers: Health Insurance E-card/Policy, Patient Photo ID (Aadhaar/Voter ID), Treating Doctor's Admission Advice note, and diagnostic test reports.",
   },
   {
     icon: Landmark,
+    tag: "Welfare Schemes",
     title: "Government Schemes",
-    desc: "Assistance and eligibility guidance for recognized government health schemes and welfare benefits.",
+    desc: "Guidance and eligibility assistance for Chief Minister's Comprehensive Health Insurance Scheme (CMCHIS) and approved public healthcare benefits.",
   },
 ];
 
@@ -71,34 +84,40 @@ const cashlessProcess = [
     desc: "Assistance is provided with final authorization and claim-related formalities, subject to insurer approval and policy conditions.",
     icon: FileCheck2,
   },
+  {
+    step: "05",
+    title: "Settlements",
+    desc: "Direct claim settlement between the hospital and the insurance provider or TPA, ensuring a seamless, transparent closing.",
+    icon: BadgeCheck,
+  },
 ];
 
 const insuranceServicesList = [
   {
     number: "01",
     title: "Health Insurance Documentation",
-    desc: "Assistance with health insurance documentation and formalities.",
+    desc: "Assistance preparing essential hospital papers: Active Insurance E-Card/Policy, Patient Photo ID (Aadhaar/Voter ID), Doctor's Admission Advice, and diagnostic reports.",
     icon: FileText,
-    badge: "Documentation",
+    badge: "Required Documents",
   },
   {
     number: "02",
     title: "Cashless Hospitalization Guidance",
-    desc: "Guidance on cashless hospitalization procedures.",
+    desc: "Assistance with cashless hospitalization where admissible expenses are settled directly between hospital and insurer, eliminating upfront out-of-pocket costs.",
     icon: CreditCard,
     badge: "Cashless Care",
   },
   {
     number: "03",
     title: "Pre-Authorization Support",
-    desc: "Support with insurance pre-authorization requests.",
+    desc: "Support with insurance pre-authorization requests, queries, and prompt approvals.",
     icon: BadgeCheck,
     badge: "Pre-Auth",
   },
   {
     number: "04",
     title: "TPA & Provider Coordination",
-    desc: "Coordination with insurance providers and TPAs regarding claim processing.",
+    desc: "Hospital-to-insurer liaison: our desk coordinates directly with Third Party Administrators (TPAs) to submit medical files, answer queries, and track claims.",
     icon: Building2,
     badge: "Liaison",
   },
@@ -128,15 +147,15 @@ const insuranceServicesList = [
 const whyChooseInsurance = [
   {
     title: "Documentation & Procedure Guidance",
-    desc: "Guidance through insurance documentation and procedures.",
+    desc: "Checklist assistance for required hospital papers: Insurance card, Aadhaar/photo ID, doctor admission note, and lab reports.",
   },
   {
     title: "Cashless Hospitalization Formalities",
-    desc: "Assistance with cashless hospitalization formalities.",
+    desc: "Direct coordination enabling patients to access care without paying covered hospital expenses upfront.",
   },
   {
     title: "Active TPA & Insurer Coordination",
-    desc: "Coordination with insurers and TPAs.",
+    desc: "Dedicated hospital-to-TPA liaison submitting medical records and speeding up claim approvals.",
   },
   {
     title: "Stay-Long Query Resolution",
@@ -149,6 +168,19 @@ const whyChooseInsurance = [
 ];
 
 export default function InsuranceServicePage() {
+  const [insuranceSearch, setInsuranceSearch] = useState("");
+
+  const query = insuranceSearch.trim().toLowerCase();
+  const filteredGovtSchemes = governmentInsuranceSchemes.filter((s) =>
+    s.toLowerCase().includes(query)
+  );
+  const filteredGovtOrgs = governmentOrganizations.filter((o) =>
+    o.toLowerCase().includes(query)
+  );
+  const filteredPrivateInsurers = privateInsuranceCompaniesAndTPAs.filter((p) =>
+    p.toLowerCase().includes(query)
+  );
+
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900 selection:bg-red-500 selection:text-white">
       {/* 1. Hero Section */}
@@ -174,7 +206,7 @@ export default function InsuranceServicePage() {
             </Link>
             <ChevronRight className="h-3.5 w-3.5 text-slate-600" />
             <span className="text-red-400 font-semibold">
-              TPA &amp; Cashless Insurance
+              Insurance &amp; Corporate Cashless Services
             </span>
           </nav>
 
@@ -192,10 +224,10 @@ export default function InsuranceServicePage() {
               </span>
 
               <h1 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-5xl">
-                <span className="block">TPA &amp; Cashless</span>
+                <span className="block">Insurance &amp; Corporate</span>
                 <span className="block mt-1">
                   <span className="text-red-500">
-                    Insurance Services
+                    Cashless Services
                   </span>
                 </span>
               </h1>
@@ -217,16 +249,27 @@ export default function InsuranceServicePage() {
 
               {/* Action Buttons */}
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <Link
-                  href="/#book-appointment"
-                  className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-red-600 px-7 text-sm font-bold text-white shadow-lg shadow-red-600/30 transition-all hover:bg-red-700 hover:shadow-red-600/50"
+                <a
+                  href="#insurance-list"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const section = document.getElementById("insurance-list");
+                    if (section) {
+                      section.scrollIntoView({ behavior: "smooth", block: "start" });
+                      const searchInput = section.querySelector<HTMLInputElement>("input[type='text']");
+                      if (searchInput) {
+                        setTimeout(() => searchInput.focus(), 500);
+                      }
+                    }
+                  }}
+                  className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-red-600 px-7 text-sm font-bold text-white shadow-lg shadow-red-600/30 transition-all hover:bg-red-700 hover:shadow-red-600/50 cursor-pointer"
                 >
                   <CreditCard className="h-4 w-4" />
                   Check Insurance Eligibility
                   <ArrowRight className="h-4 w-4" />
-                </Link>
+                </a>
                 <Link
-                  href="/#book-appointment"
+                  href="/contact#contact-form"
                   className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-7 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20 hover:border-white/40"
                 >
                   <Building2 className="h-4 w-4 text-red-400" />
@@ -267,17 +310,26 @@ export default function InsuranceServicePage() {
             {insurancePillars.map((pillar, idx) => (
               <div
                 key={idx}
-                className="group relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-6 shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-red-500/40 hover:shadow-xl"
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-6 shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-red-500/40 hover:shadow-xl"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-50 text-red-600 transition-colors group-hover:bg-red-600 group-hover:text-white">
-                  <pillar.icon className="h-6 w-6" />
+                <div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-50 text-red-600 transition-colors group-hover:bg-red-600 group-hover:text-white">
+                      <pillar.icon className="h-6 w-6" />
+                    </div>
+                    {pillar.tag && (
+                      <span className="rounded-full bg-red-50/80 px-2.5 py-0.5 text-[11px] font-semibold text-red-600 transition-colors group-hover:bg-red-100">
+                        {pillar.tag}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="mt-4 text-base font-bold text-slate-900">
+                    {pillar.title}
+                  </h3>
+                  <p className="mt-2 text-xs text-slate-600 leading-relaxed sm:text-sm">
+                    {pillar.desc}
+                  </p>
                 </div>
-                <h3 className="mt-4 text-base font-bold text-slate-900">
-                  {pillar.title}
-                </h3>
-                <p className="mt-1 text-xs text-slate-600 leading-relaxed sm:text-sm">
-                  {pillar.desc}
-                </p>
               </div>
             ))}
           </div>
@@ -301,7 +353,7 @@ export default function InsuranceServicePage() {
             </p>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             {cashlessProcess.map((item, idx) => (
               <div
                 key={idx}
@@ -327,8 +379,195 @@ export default function InsuranceServicePage() {
         </div>
       </section>
 
-      {/* 4. Our Insurance Services (Exact user list) */}
-      <section className="section-padding bg-white py-16 sm:py-20 border-t border-slate-200/70">
+      {/* 4. List of Insurance We Offer (Clean Structured Showcase) */}
+      <section
+        id="insurance-list"
+        className="section-padding bg-slate-50/70 py-16 sm:py-20 border-t border-slate-200/70"
+      >
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+            <div>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-red-600">
+                <ShieldCheck className="h-3.5 w-3.5" />
+                Empaneled Networks &amp; Corporate Tie-ups
+              </span>
+              <h2 className="mt-3 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">
+                List of Insurance We Offer
+              </h2>
+              <p className="mt-2 max-w-2xl text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Melmaruvathur Adhiparasakthi Institute of Medical Sciences &amp; Research is empaneled with major Government Schemes, Public Sector Organizations, and 30+ leading Private Insurance Providers &amp; TPAs for hassle-free cashless hospitalization.
+              </p>
+            </div>
+            <a
+              href={officialInsuranceDocPath}
+              download="insurance_company_detail_MAPIMS.docx"
+              className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-700 shadow-xs transition hover:border-red-300 hover:text-red-600 hover:shadow-sm"
+            >
+              <Download className="h-4 w-4 text-red-600" />
+              Download Official List (.docx)
+            </a>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-12">
+            {/* Left Column: Government Schemes & Organizations (5 cols) */}
+            <div className="space-y-6 lg:col-span-5">
+              {/* Box 1: Government Insurance Schemes */}
+              <div className="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-7 shadow-xs">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                      <Landmark className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-base font-bold text-slate-900">
+                        Government Schemes
+                      </h3>
+                      <p className="text-xs text-slate-500">State &amp; Central welfare coverage</p>
+                    </div>
+                  </div>
+                  <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-emerald-700">
+                    {governmentInsuranceSchemes.length} Schemes
+                  </span>
+                </div>
+
+                <ul className="mt-5 space-y-2.5">
+                  {filteredGovtSchemes.length > 0 ? (
+                    filteredGovtSchemes.map((scheme, idx) => (
+                      <li
+                        key={idx}
+                        className="flex items-start gap-3 rounded-xl bg-slate-50/80 p-3 text-xs sm:text-sm font-medium text-slate-800 transition hover:bg-emerald-50/50"
+                      >
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
+                        <span>{scheme}</span>
+                      </li>
+                    ))
+                  ) : (
+                    <li className="py-4 text-center text-xs text-slate-400">
+                      No government scheme matching &quot;{insuranceSearch}&quot;
+                    </li>
+                  )}
+                </ul>
+              </div>
+
+              {/* Box 2: Government Organizations & PSUs */}
+              <div className="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-7 shadow-xs">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                      <Building2 className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-base font-bold text-slate-900">
+                        Public Sector &amp; PSUs
+                      </h3>
+                      <p className="text-xs text-slate-500">Corporate &amp; department tie-ups</p>
+                    </div>
+                  </div>
+                  <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-bold text-blue-700">
+                    {governmentOrganizations.length} Empaneled
+                  </span>
+                </div>
+
+                <ul className="mt-5 space-y-2">
+                  {filteredGovtOrgs.length > 0 ? (
+                    filteredGovtOrgs.map((org, idx) => (
+                      <li
+                        key={idx}
+                        className="flex items-start gap-3 rounded-xl bg-slate-50/80 p-3 text-xs sm:text-sm font-medium text-slate-800 transition hover:bg-blue-50/50"
+                      >
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-blue-600" />
+                        <span>{org}</span>
+                      </li>
+                    ))
+                  ) : (
+                    <li className="py-4 text-center text-xs text-slate-400">
+                      No organization matching &quot;{insuranceSearch}&quot;
+                    </li>
+                  )}
+                </ul>
+              </div>
+            </div>
+
+            {/* Right Column: Private Insurance Companies & Leading TPAs (7 cols) */}
+            <div className="rounded-3xl border border-slate-200/90 bg-white p-6 sm:p-7 shadow-xs lg:col-span-7 flex flex-col justify-between">
+              <div>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-50 text-red-600">
+                      <ShieldCheck className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-base font-bold text-slate-900">
+                        Private Insurance &amp; TPAs
+                      </h3>
+                      <p className="text-xs text-slate-500">Cashless claim settlement network</p>
+                    </div>
+                  </div>
+                  <span className="self-start sm:self-auto rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-bold text-red-600">
+                    31 Providers
+                  </span>
+                </div>
+
+                {/* Subtle Search input inside panel */}
+                <div className="mt-4 relative">
+                  <Search className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  <input
+                    type="text"
+                    value={insuranceSearch}
+                    onChange={(e) => setInsuranceSearch(e.target.value)}
+                    placeholder="Search provider (e.g., Star Health, HDFC, Medi Assist, Vidal)..."
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50/80 py-2.5 pl-10 pr-9 text-xs sm:text-sm text-slate-900 placeholder-slate-400 outline-none transition focus:border-red-400 focus:bg-white focus:ring-2 focus:ring-red-100"
+                  />
+                  {insuranceSearch && (
+                    <button
+                      type="button"
+                      onClick={() => setInsuranceSearch("")}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+
+                {/* Clean 2-column directory list */}
+                <div className="mt-4 max-h-[440px] overflow-y-auto pr-1">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {filteredPrivateInsurers.length > 0 ? (
+                      filteredPrivateInsurers.map((name, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-center gap-2.5 rounded-xl border border-slate-100 bg-slate-50/60 px-3.5 py-2.5 text-xs sm:text-sm text-slate-800 transition hover:border-red-200 hover:bg-white hover:shadow-xs"
+                        >
+                          <CheckCircle2 className="h-4 w-4 shrink-0 text-red-500" />
+                          <span className="truncate font-medium">{name}</span>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="col-span-full py-8 text-center text-xs text-slate-500">
+                        No private insurer or TPA matching &quot;{insuranceSearch}&quot;.
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Support note */}
+              <div className="mt-5 border-t border-slate-100 pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-slate-500">
+                <span>Coverage is subject to individual policy terms and insurer pre-authorization.</span>
+                <Link
+                  href="/contact#contact-form"
+                  className="font-bold text-red-600 hover:underline shrink-0"
+                >
+                  Verify Your Policy &rarr;
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Our Insurance Services (Exact user list) */}
+      <section className="section-padding bg-slate-50 py-16 sm:py-20 border-t border-slate-200/70">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-red-600">
@@ -428,17 +667,10 @@ export default function InsuranceServicePage() {
               </div>
               <div className="flex shrink-0 flex-wrap items-center gap-3">
                 <Link
-                  href="/#book-appointment"
+                  href="/contact#contact-form"
                   className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-bold text-red-700 shadow-md transition hover:bg-red-50"
                 >
                   Contact Insurance Desk
-                </Link>
-                <Link
-                  href="/#book-appointment"
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/10 px-6 text-sm font-bold text-white backdrop-blur-md transition hover:bg-white/20"
-                >
-                  <Building2 className="h-4 w-4" />
-                  Hospital Inquiries
                 </Link>
               </div>
             </div>

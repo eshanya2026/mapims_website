@@ -106,7 +106,7 @@ export const servicesList: ServiceListItem[] = [
   {
     slug: "insurance",
     path: "/services/insurance",
-    label: "Insurance",
+    label: "Insurance & Corporate Cashless Services",
     description:
       "Dedicated TPA and insurance helpdesk providing hassle-free cashless hospitalization, CMCHIS scheme benefits, and private insurance coordination.",
     image: "/images/services/insurance-tpa-hero.png",

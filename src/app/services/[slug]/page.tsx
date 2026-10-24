@@ -133,12 +133,16 @@ export async function generateMetadata({
         "24/7 safe, compassionate hemodialysis and renal support care, ICU dialysis capabilities, and infection-control standards at Adhiparasakthi Hospitals, Melmaruvathur.",
     };
   }
-  if (slug === "insurance") {
+  if (
+    slug === "insurance" ||
+    slug === "insurance-and-corporate-cashless-services" ||
+    slug === "corporate-cashless-services"
+  ) {
     return {
       title:
-        "TPA & Cashless Insurance Services | Adhiparasakthi Hospitals",
+        "Insurance and Corporate Cashless Services | Adhiparasakthi Hospitals",
       description:
-        "Health insurance assistance, cashless hospitalization formalities, TPA coordination, pre-authorization, and government health schemes at Adhiparasakthi Hospitals, Melmaruvathur.",
+        "Health insurance assistance, cashless hospitalization formalities, TPA and corporate coordination, pre-authorization, and government health schemes at Adhiparasakthi Hospitals, Melmaruvathur.",
     };
   }
   if (
@@ -232,7 +236,11 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   if (slug === "dialysis-services" || slug === "hemodialysis") {
     return <DialysisServicePage />;
   }
-  if (slug === "insurance") {
+  if (
+    slug === "insurance" ||
+    slug === "insurance-and-corporate-cashless-services" ||
+    slug === "corporate-cashless-services"
+  ) {
     return <InsuranceServicePage />;
   }
   if (slug === "accident-emergency-services") {
