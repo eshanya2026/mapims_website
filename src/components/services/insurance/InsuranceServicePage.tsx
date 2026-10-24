@@ -23,13 +23,11 @@ import {
   Scale,
   Users2,
   Search,
-  Download,
 } from "lucide-react";
 import {
   governmentInsuranceSchemes,
   governmentOrganizations,
   privateInsuranceCompaniesAndTPAs,
-  officialInsuranceDocPath,
 } from "@/data/international-services/insurance";
 
 const insurancePillars = [
@@ -385,27 +383,17 @@ export default function InsuranceServicePage() {
         className="section-padding bg-slate-50/70 py-16 sm:py-20 border-t border-slate-200/70"
       >
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-            <div>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-red-600">
-                <ShieldCheck className="h-3.5 w-3.5" />
-                Empaneled Networks &amp; Corporate Tie-ups
-              </span>
-              <h2 className="mt-3 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">
-                List of Insurance We Offer
-              </h2>
-              <p className="mt-2 max-w-2xl text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Melmaruvathur Adhiparasakthi Institute of Medical Sciences &amp; Research is empaneled with major Government Schemes, Public Sector Organizations, and 30+ leading Private Insurance Providers &amp; TPAs for hassle-free cashless hospitalization.
-              </p>
-            </div>
-            <a
-              href={officialInsuranceDocPath}
-              download="insurance_company_detail_MAPIMS.docx"
-              className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-700 shadow-xs transition hover:border-red-300 hover:text-red-600 hover:shadow-sm"
-            >
-              <Download className="h-4 w-4 text-red-600" />
-              Download Official List (.docx)
-            </a>
+          <div className="max-w-3xl">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-red-600">
+              <ShieldCheck className="h-3.5 w-3.5" />
+              Empaneled Networks &amp; Corporate Tie-ups
+            </span>
+            <h2 className="mt-3 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">
+              List of Insurance We Offer
+            </h2>
+            <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Melmaruvathur Adhiparasakthi Institute of Medical Sciences &amp; Research is empaneled with major Government Schemes, Public Sector Organizations, and 30+ leading Private Insurance Providers &amp; TPAs for hassle-free cashless hospitalization.
+            </p>
           </div>
 
           <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-12">
