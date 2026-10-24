@@ -7,7 +7,7 @@ import {
   Activity,
   Baby,
   Droplets,
-  Microscope,
+  Ribbon,
   Pill,
   Eye,
   Ear,
@@ -234,12 +234,6 @@ export const internationalSpecialities: InternationalSpeciality[] = [
     href: "/departments/paediatric",
   },
   {
-    name: "Pathologist",
-    desc: "Advanced diagnostic and lab services",
-    icon: Microscope,
-    href: "/departments",
-  },
-  {
     name: "General Medicine",
     desc: "Primary and internal medicine services",
     icon: Stethoscope,
@@ -268,6 +262,12 @@ export const internationalSpecialities: InternationalSpeciality[] = [
     desc: "Urological and minimally invasive care",
     icon: Droplets,
     href: "/departments/urology",
+  },
+  {
+    name: "Oncology",
+    desc: "Comprehensive cancer care and therapies",
+    icon: Ribbon,
+    href: "/departments/oncology",
   },
 ];
 
