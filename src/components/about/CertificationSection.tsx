@@ -30,6 +30,18 @@ const certificates = [
     alt: "NABL Certificate of Accreditation ISO 15189:2022 for Central Laboratory, Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research",
   },
   {
+    id: "nabh-blood-bank",
+    tabLabel: "NABH Blood Bank (2024–27)",
+    titlePrefix: "NABH Blood Bank",
+    titleHighlight: "Accreditation",
+    description:
+      "Department of Transfusion Medicine at Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research is accredited under NABH Accreditation Standards for Blood Banks / Blood Centres and Transfusion Services, valid from September 2024 to September 2027.",
+    badges: ["NABH Standards", "Blood Centres & Transfusion", "Cert. No. BB-2021-0124", "ISQua Accredited"],
+    image: "/bloodbank nabh.jpeg",
+    pdf: "/doc/NABH Blood Bank 2024-2027.pdf",
+    alt: "NABH Certificate of Accreditation for Department of Transfusion Medicine (Blood Bank), Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research",
+  },
+  {
     id: "2025",
     tabLabel: "2025",
     titlePrefix: "Certificate of",
@@ -226,7 +238,10 @@ export default function CertificationSection() {
                   style={{ transform: `translateX(-${activeIndex * 100}%)` }}
                 >
                   {certificates.map((cert) => {
-                    const isScrollable = cert.id === "nabh" || cert.id === "nabl";
+                    const isScrollable =
+                      cert.id === "nabh" ||
+                      cert.id === "nabl" ||
+                      cert.id === "nabh-blood-bank";
                     const is2024 = cert.id === "2024";
                     return (
                       <div
