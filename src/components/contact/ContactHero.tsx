@@ -9,6 +9,9 @@ import { cn } from "@/lib/utils";
 const heroButtonBase =
   "inline-flex h-12 items-center justify-center rounded-full px-8 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 active:translate-y-px";
 
+const HOSPITAL_EMAIL = process.env.NEXT_PUBLIC_HOSPITAL_EMAIL || "contact@mapims.edu.in";
+const TOLL_FREE_PHONE = process.env.NEXT_PUBLIC_TOLL_FREE_PHONE || "1800 599 0999";
+
 export default function ContactHero() {
   return (
     <section className="relative flex min-h-[52vh] items-center overflow-hidden md:min-h-[60vh]">
@@ -63,24 +66,24 @@ export default function ContactHero() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
             <a
-              href="tel:18005990999"
+              href={`tel:${TOLL_FREE_PHONE.replace(/[^0-9+]/g, "")}`}
               className={cn(
                 heroButtonBase,
                 "bg-red-600 text-white shadow-lg shadow-red-700/30 hover:-translate-y-0.5 hover:bg-red-700 focus-visible:ring-red-500/70"
               )}
             >
               <Phone className="mr-2 w-5 h-5" />
-              1800 599 0999
+              {TOLL_FREE_PHONE}
             </a>
             <a
-              href="mailto:contact@mapims.edu.in"
+              href={`mailto:${HOSPITAL_EMAIL}`}
               className={cn(
                 heroButtonBase,
                 "border border-white/30 bg-white/12 text-white backdrop-blur-md hover:-translate-y-0.5 hover:bg-white/20 focus-visible:ring-white/60"
               )}
             >
               <Mail className="mr-2 w-5 h-5" />
-              contact@mapims.edu.in
+              {HOSPITAL_EMAIL}
             </a>
           </div>
         </motion.div>

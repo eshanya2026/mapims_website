@@ -3,8 +3,10 @@ import { formatDisplayDateLong } from "@/lib/format-display-date";
 import { getHrNotificationEmail, getSiteUrl, sendMail } from "@/lib/mail";
 import { isRecruitmentInquiry, isRecruitmentStatus } from "@/lib/inquiry-status";
 
-const HR_CONTACT_EMAIL = "contact@mapims.online";
-const HR_CONTACT_PHONE = "+91 94990 59959";
+const HR_CONTACT_EMAIL =
+  process.env.HR_CONTACT_EMAIL?.trim() || "contact@mapims.online";
+const HR_CONTACT_PHONE =
+  process.env.HR_CONTACT_PHONE?.trim() || "+91 94990 59959";
 
 function hrEmailSignatureText(options?: { includeContact?: boolean }) {
   const lines = [

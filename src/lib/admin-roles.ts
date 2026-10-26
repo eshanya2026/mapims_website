@@ -24,7 +24,7 @@ export const ENQUIRY_TYPES_BY_FILTER: Record<
   readonly string[]
 > = {
   appointment: ["appointment"],
-  contact: ["contact"],
+  contact: ["contact", "insurance"],
   international: ["international"],
   career: ["career", "job_application"],
 };
@@ -75,7 +75,12 @@ export function canAccessEnquiryType(role: AdminRole, type: string) {
     return type === "career" || type === "job_application";
   }
   if (role === "front_office") {
-    return type === "appointment" || type === "contact" || type === "international";
+    return (
+      type === "appointment" ||
+      type === "contact" ||
+      type === "international" ||
+      type === "insurance"
+    );
   }
   return false;
 }

@@ -179,8 +179,10 @@ function buildHrEmailContent(submission: FormSubmissionRecord) {
   };
 }
 
-const HR_CONTACT_EMAIL = "contact@mapims.online";
-const HR_CONTACT_PHONE = "+91 94990 59959";
+const HR_CONTACT_EMAIL =
+  process.env.HR_CONTACT_EMAIL?.trim() || "contact@mapims.online";
+const HR_CONTACT_PHONE =
+  process.env.HR_CONTACT_PHONE?.trim() || "+91 94990 59959";
 
 function buildCandidateConfirmationEmail(submission: FormSubmissionRecord) {
   const name = submission.name.trim();

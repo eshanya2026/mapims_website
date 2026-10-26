@@ -28,6 +28,7 @@ import type {
   appointmentFormSchema,
   careerApplicationFormSchema,
   contactFormSchema,
+  insuranceFormSchema,
   internationalFormSchema,
   jobApplicationFormSchema,
 } from "@/lib/validations";
@@ -36,6 +37,7 @@ export { formTypeLabels };
 
 type AppointmentData = z.infer<typeof appointmentFormSchema>;
 type ContactData = z.infer<typeof contactFormSchema>;
+type InsuranceData = z.infer<typeof insuranceFormSchema>;
 type InternationalData = z.infer<typeof internationalFormSchema>;
 type CareerApplicationData = z.infer<typeof careerApplicationFormSchema>;
 type JobApplicationData = z.infer<typeof jobApplicationFormSchema>;
@@ -43,6 +45,7 @@ type JobApplicationData = z.infer<typeof jobApplicationFormSchema>;
 export type FormSubmissionInput =
   | AppointmentData
   | ContactData
+  | InsuranceData
   | InternationalData
   | CareerApplicationData
   | JobApplicationData;
@@ -132,6 +135,26 @@ export async function createFormSubmission(
       name: data.name,
       phone: data.phone || null,
       email: data.email || null,
+      message: data.message,
+    });
+  }
+
+  if (data.type === "insurance") {
+    const details = [
+      data.insuranceProvider ? `Provider / TPA: ${data.insuranceProvider}` : null,
+      data.policyNumber ? `Policy / Card: ${data.policyNumber}` : null,
+      data.queryType ? `Type: ${data.queryType}` : null,
+    ]
+      .filter(Boolean)
+      .join(" | ");
+
+    return createFormSubmissionRecord({
+      type: data.type,
+      name: data.name,
+      phone: data.phone,
+      email: data.email || null,
+      department: "Insurance Desk",
+      medicalCondition: details || null,
       message: data.message,
     });
   }

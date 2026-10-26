@@ -1,9 +1,18 @@
 import type { FormSubmissionRecord } from "@/lib/db/types";
 import { getHrNotificationEmail, getSiteUrl, sendMail } from "@/lib/mail";
 
-const HOSPITAL_CONTACT_EMAIL = "contact@mapims.edu.in";
-const HOSPITAL_CONTACT_PHONE = "+91 94990 59966";
-const INTERNATIONAL_DESK_PHONE = "1800 599 0999";
+const HOSPITAL_CONTACT_EMAIL =
+  process.env.HOSPITAL_CONTACT_EMAIL?.trim() || "contact@mapims.edu.in";
+const HOSPITAL_CONTACT_PHONE =
+  process.env.HOSPITAL_CONTACT_PHONE?.trim() || "+91 94990 59966";
+const INTERNATIONAL_DESK_PHONE =
+  process.env.INTERNATIONAL_DESK_PHONE?.trim() || "1800 599 0999";
+const INSURANCE_CONTACT_EMAIL =
+  process.env.INSURANCE_NOTIFICATION_EMAIL?.trim() || "Insurance@mapims.org";
+const INSURANCE_CONTACT_PHONE =
+  process.env.INSURANCE_CONTACT_PHONE?.trim() ||
+  process.env.NEXT_PUBLIC_INSURANCE_PHONE?.trim() ||
+  "9499059970";
 
 function escapeHtml(value: string) {
   return value
@@ -27,22 +36,27 @@ function fieldLine(label: string, value: string | null | undefined) {
 export function buildInquiryConfirmationEmail(submission: FormSubmissionRecord) {
   const name = submission.name.trim();
   const isInternational = submission.type === "international";
+  const isInsurance = submission.type === "insurance";
   const isCallback = Boolean(
     submission.message?.includes("[Callback requested") ||
       submission.message?.toLowerCase().includes("please call")
   );
 
-  const title = isInternational
-    ? isCallback
-      ? "International Patient Callback Request"
-      : "International Patient Inquiry"
-    : "Query / Message";
+  const title = isInsurance
+    ? "Insurance Desk & Policy Verification Query"
+    : isInternational
+      ? isCallback
+        ? "International Patient Callback Request"
+        : "International Patient Inquiry"
+      : "Query / Message";
 
-  const intro = isInternational
-    ? isCallback
-      ? "Thank you for requesting a callback from the International Patient Desk at Adhiparasakthi Hospitals (MAPIMS). We have received your request and our international coordinators will review your details and call you back shortly."
-      : "Thank you for reaching out to the International Patient Desk at Adhiparasakthi Hospitals (MAPIMS). We have received your inquiry and our international patient coordinators will review your requirements and contact you shortly."
-    : "Thank you for contacting Adhiparasakthi Hospitals (MAPIMS). We have received your query and our team will get in touch with you as soon as possible.";
+  const intro = isInsurance
+    ? "Thank you for contacting the Insurance Desk at Adhiparasakthi Hospitals (MAPIMS). We have received your insurance query / policy verification request. Our insurance coordinators will review your details and contact you shortly."
+    : isInternational
+      ? isCallback
+        ? "Thank you for requesting a callback from the International Patient Desk at Adhiparasakthi Hospitals (MAPIMS). We have received your request and our international coordinators will review your details and call you back shortly."
+        : "Thank you for reaching out to the International Patient Desk at Adhiparasakthi Hospitals (MAPIMS). We have received your inquiry and our international patient coordinators will review your requirements and contact you shortly."
+      : "Thank you for contacting Adhiparasakthi Hospitals (MAPIMS). We have received your query and our team will get in touch with you as soon as possible.";
 
   const textLines = [
     `Dear ${name},`,
@@ -54,23 +68,35 @@ export function buildInquiryConfirmationEmail(submission: FormSubmissionRecord) 
     `Name: ${name}`,
     submission.email ? `Email: ${submission.email.trim()}` : undefined,
     fieldLine("Mobile / Phone", submission.phone),
+    isInsurance && submission.medicalCondition
+      ? fieldLine("Insurance Details", submission.medicalCondition)
+      : undefined,
     isInternational && submission.country ? fieldLine("Country", submission.country) : undefined,
     isInternational && submission.medicalCondition
       ? fieldLine("Medical Condition", submission.medicalCondition)
       : undefined,
     submission.message?.trim() ? `Message:\n${submission.message.trim()}` : undefined,
     "",
-    "Hospitals Contact",
-    `Email: ${HOSPITAL_CONTACT_EMAIL}`,
-    ...(isInternational
+    isInsurance ? "Insurance Desk Contact" : "Hospitals Contact",
+    `Email: ${isInsurance ? INSURANCE_CONTACT_EMAIL : HOSPITAL_CONTACT_EMAIL}`,
+    ...(isInsurance
       ? [
-          `Toll Free: ${INTERNATIONAL_DESK_PHONE}`,
-          `Phone: ${HOSPITAL_CONTACT_PHONE}`,
+          `Direct Insurance Helpline: ${INSURANCE_CONTACT_PHONE}`,
+          `Hospital General Phone: ${HOSPITAL_CONTACT_PHONE}`,
         ]
-      : [`Phone: ${HOSPITAL_CONTACT_PHONE}`]),
+      : isInternational
+        ? [
+            `Toll Free: ${INTERNATIONAL_DESK_PHONE}`,
+            `Phone: ${HOSPITAL_CONTACT_PHONE}`,
+          ]
+        : [`Phone: ${HOSPITAL_CONTACT_PHONE}`]),
     "",
     "Regards,",
-    isInternational ? "International Patient Desk" : "Patient Services",
+    isInsurance
+      ? "Insurance Helpdesk"
+      : isInternational
+        ? "International Patient Desk"
+        : "Patient Services",
     "Adhiparasakthi Hospitals (MAPIMS)",
   ]
     .filter((line) => line !== undefined)
@@ -81,6 +107,7 @@ export function buildInquiryConfirmationEmail(submission: FormSubmissionRecord) 
     fieldRow("Name", name),
     submission.email ? fieldRow("Email", submission.email) : "",
     fieldRow("Mobile / Phone", submission.phone),
+    isInsurance ? fieldRow("Insurance Details", submission.medicalCondition) : "",
     isInternational ? fieldRow("Country", submission.country) : "",
     isInternational ? fieldRow("Medical Condition", submission.medicalCondition) : "",
     submission.documentUrls && submission.documentUrls.length > 0
@@ -115,30 +142,36 @@ export function buildInquiryConfirmationEmail(submission: FormSubmissionRecord) 
       </div>
 
       <div style="margin:0 0 24px;padding:16px;background:#fef2f2;border:1px solid #fecaca;border-radius:12px;">
-        <p style="margin:0 0 8px;font-size:14px;font-weight:700;color:#991b1b;">Hospital Contact Details</p>
+        <p style="margin:0 0 8px;font-size:14px;font-weight:700;color:#991b1b;">
+          ${isInsurance ? "Insurance Desk Contact Details" : "Hospital Contact Details"}
+        </p>
         <p style="margin:0;font-size:13px;color:#7f1d1d;line-height:1.6;">
-          Email: <a href="mailto:${HOSPITAL_CONTACT_EMAIL}" style="color:#dc2626;text-decoration:none;font-weight:600;">${HOSPITAL_CONTACT_EMAIL}</a><br />
+          Email: <a href="mailto:${isInsurance ? INSURANCE_CONTACT_EMAIL : HOSPITAL_CONTACT_EMAIL}" style="color:#dc2626;text-decoration:none;font-weight:600;">${isInsurance ? INSURANCE_CONTACT_EMAIL : HOSPITAL_CONTACT_EMAIL}</a><br />
           ${
-            isInternational
-              ? `Toll Free: <strong>${INTERNATIONAL_DESK_PHONE}</strong><br />Phone: <strong>${HOSPITAL_CONTACT_PHONE}</strong>`
-              : `Phone: <strong>${HOSPITAL_CONTACT_PHONE}</strong>`
+            isInsurance
+              ? `Direct Insurance Helpline: <strong>${INSURANCE_CONTACT_PHONE}</strong><br />Hospital General Phone: <strong>${HOSPITAL_CONTACT_PHONE}</strong>`
+              : isInternational
+                ? `Toll Free: <strong>${INTERNATIONAL_DESK_PHONE}</strong><br />Phone: <strong>${HOSPITAL_CONTACT_PHONE}</strong>`
+                : `Phone: <strong>${HOSPITAL_CONTACT_PHONE}</strong>`
           }
         </p>
       </div>
 
       <p style="margin:0;color:#475569;line-height:1.6;">
         Regards,<br />
-        ${isInternational ? "International Patient Desk" : "Patient Services"}<br />
+        ${isInsurance ? "Insurance Helpdesk" : isInternational ? "International Patient Desk" : "Patient Services"}<br />
         Adhiparasakthi Hospitals (MAPIMS)
       </p>
     </div>
   `.trim();
 
-  const subject = isInternational
-    ? isCallback
-      ? "MAPIMS — International Patient Callback Request Received"
-      : "MAPIMS — International Patient Inquiry Received"
-    : "MAPIMS — Thank you for contacting us (Query Received)";
+  const subject = isInsurance
+    ? "MAPIMS — Insurance Desk Query Received"
+    : isInternational
+      ? isCallback
+        ? "MAPIMS — International Patient Callback Request Received"
+        : "MAPIMS — International Patient Inquiry Received"
+      : "MAPIMS — Thank you for contacting us (Query Received)";
 
   return { subject, text: textLines, html };
 }
@@ -155,6 +188,7 @@ function adminRow(label: string, value: string | null | undefined, linkHref?: st
 export function buildHospitalInquiryEmail(submission: FormSubmissionRecord) {
   const name = submission.name.trim();
   const isInternational = submission.type === "international";
+  const isInsurance = submission.type === "insurance";
   const isCallback = Boolean(
     submission.message?.includes("[Callback requested") ||
       submission.message?.toLowerCase().includes("please call")
@@ -162,17 +196,21 @@ export function buildHospitalInquiryEmail(submission: FormSubmissionRecord) {
 
   const cleanMessage = submission.message?.trim() || "";
 
-  const typeLabel = isInternational
-    ? isCallback
-      ? "International Patient Callback Request"
-      : "International Patient Inquiry"
-    : "Website Query";
+  const typeLabel = isInsurance
+    ? "Insurance Desk & Policy Verification Query"
+    : isInternational
+      ? isCallback
+        ? "International Patient Callback Request"
+        : "International Patient Inquiry"
+      : "Website Query";
 
-  const subject = isInternational
-    ? isCallback
-      ? `[MAPIMS] Callback Request: ${name}${submission.country ? ` (${submission.country})` : ""}`
-      : `[MAPIMS] International Inquiry: ${name}${submission.country ? ` (${submission.country})` : ""}`
-    : `[MAPIMS] Website Query: ${name}`;
+  const subject = isInsurance
+    ? `[MAPIMS Insurance Desk] Query: ${name}`
+    : isInternational
+      ? isCallback
+        ? `[MAPIMS] Callback Request: ${name}${submission.country ? ` (${submission.country})` : ""}`
+        : `[MAPIMS] International Inquiry: ${name}${submission.country ? ` (${submission.country})` : ""}`
+      : `[MAPIMS] Website Query: ${name}`;
 
   const siteUrl = getSiteUrl();
 
@@ -279,6 +317,7 @@ export async function notifyPatientOfInquiry(submission: FormSubmissionRecord) {
     return;
   }
 
+  const isInsurance = submission.type === "insurance";
   const { subject, text, html } = buildInquiryConfirmationEmail(submission);
 
   await sendMail({
@@ -286,13 +325,15 @@ export async function notifyPatientOfInquiry(submission: FormSubmissionRecord) {
     subject,
     text,
     html,
-    replyTo: HOSPITAL_CONTACT_EMAIL,
+    replyTo: isInsurance ? INSURANCE_CONTACT_EMAIL : HOSPITAL_CONTACT_EMAIL,
   });
 }
 
 export async function notifyHospitalOfInquiry(submission: FormSubmissionRecord) {
-  const notificationEmail =
-    process.env.INQUIRY_NOTIFICATION_EMAIL?.trim() || getHrNotificationEmail();
+  const isInsurance = submission.type === "insurance";
+  const notificationEmail = isInsurance
+    ? process.env.INSURANCE_NOTIFICATION_EMAIL?.trim() || INSURANCE_CONTACT_EMAIL
+    : process.env.INQUIRY_NOTIFICATION_EMAIL?.trim() || getHrNotificationEmail();
   if (!notificationEmail) {
     return;
   }

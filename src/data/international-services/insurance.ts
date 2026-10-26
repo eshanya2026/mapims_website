@@ -107,7 +107,7 @@ export const insuranceService: InternationalServiceData = {
     "Fast-track query resolution to minimize discharge waiting time",
   ],
   closing:
-    "Have questions regarding your health insurance coverage, TPA pre-authorization, or CMCHIS benefits? Visit our Insurance Desk on the hospital ground floor or call +91 94990 59966 for dedicated guidance.",
+    "Have questions regarding your health insurance coverage, TPA pre-authorization, or CMCHIS benefits? Visit our Insurance Desk on the hospital ground floor, email Insurance@mapims.org, or call our direct insurance desk at 9499059970 (Hospital Desk: +91 94990 59966) for dedicated guidance.",
   image: "/images/services/insurance-tpa-hero.png",
   heroImage: "/images/services/insurance-tpa-hero.png",
 };

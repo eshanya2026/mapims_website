@@ -128,6 +128,17 @@ export const contactFormSchema = z.object({
   message: z.string().trim().min(10),
 });
 
+export const insuranceFormSchema = z.object({
+  type: z.literal("insurance"),
+  name: z.string().trim().min(2, "Please enter your name"),
+  phone: phoneField,
+  email: optionalEmailField,
+  insuranceProvider: z.string().optional().transform((value) => value?.trim() ?? ""),
+  policyNumber: z.string().optional().transform((value) => value?.trim() ?? ""),
+  queryType: z.string().optional().transform((value) => value?.trim() ?? ""),
+  message: z.string().trim().min(10, "Please enter at least 10 characters describing your query"),
+});
+
 export const internationalFormSchema = z.object({
   type: z.literal("international"),
   name: z.string().trim().min(2),
@@ -182,6 +193,7 @@ export const jobApplicationFormSchema = z.object({
 export const formSubmissionSchema = z.discriminatedUnion("type", [
   appointmentFormSchema,
   contactFormSchema,
+  insuranceFormSchema,
   internationalFormSchema,
   careerApplicationFormSchema,
   jobApplicationFormSchema,

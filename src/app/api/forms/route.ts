@@ -66,7 +66,11 @@ export async function POST(request: Request) {
         }
       }
 
-      if (submission.type === "contact" || submission.type === "international") {
+      if (
+        submission.type === "contact" ||
+        submission.type === "international" ||
+        submission.type === "insurance"
+      ) {
         await Promise.allSettled([
           notifyPatientOfInquiry(submission).catch((emailError) => {
             console.error("[forms POST] patient inquiry email failed:", emailError);

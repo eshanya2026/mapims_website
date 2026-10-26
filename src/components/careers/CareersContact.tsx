@@ -10,7 +10,7 @@ const careersContact = {
     { display: "044-27528528", href: "tel:+914427528528" },
     { display: "9499059959", href: "tel:+919499059959" },
   ],
-  email: "contact@mapims.online",
+  email: process.env.NEXT_PUBLIC_HR_CONTACT_EMAIL || "contact@mapims.online",
 };
 
 type CareersContactCardProps = {

@@ -15,8 +15,12 @@ const BRAND_RED = "#b91c1c";
 const BRAND_RED_DARK = "#991b1b";
 const LOGO_URL = "/images/adhiparasakthi-hospitals-emblem.png";
 const CERT_URL = "/images/nabh-nabl-certifications.png";
-const HELPLINE = "1800 599 0999";
-const CONTACT_EMAIL = "contact@mapims.edu.in";
+const HELPLINE =
+  process.env.INTERNATIONAL_DESK_PHONE?.trim() || "1800 599 0999";
+const CONTACT_EMAIL =
+  process.env.NEWSLETTER_CONTACT_EMAIL?.trim() ||
+  process.env.HOSPITAL_CONTACT_EMAIL?.trim() ||
+  "contact@mapims.edu.in";
 
 function escapeHtml(value: string) {
   return value

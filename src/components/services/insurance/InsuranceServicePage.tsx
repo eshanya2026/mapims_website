@@ -267,12 +267,19 @@ export default function InsuranceServicePage() {
                   <ArrowRight className="h-4 w-4" />
                 </a>
                 <Link
-                  href="/contact#contact-form"
+                  href="/services/insurance/contact"
                   className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-7 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20 hover:border-white/40"
                 >
                   <Building2 className="h-4 w-4 text-red-400" />
                   <span>Contact Insurance Desk</span>
                 </Link>
+                <a
+                  href="tel:9499059970"
+                  className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/15 px-6 text-sm font-semibold text-emerald-300 backdrop-blur-md transition hover:bg-emerald-500/25"
+                >
+                  <Phone className="h-4 w-4 text-emerald-400" />
+                  <span>Call Desk: 9499059970</span>
+                </a>
               </div>
             </motion.div>
 
@@ -543,7 +550,7 @@ export default function InsuranceServicePage() {
               <div className="mt-5 border-t border-slate-100 pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-slate-500">
                 <span>Coverage is subject to individual policy terms and insurer pre-authorization.</span>
                 <Link
-                  href="/contact#contact-form"
+                  href="/services/insurance/contact"
                   className="font-bold text-red-600 hover:underline shrink-0"
                 >
                   Verify Your Policy &rarr;
@@ -649,17 +656,24 @@ export default function InsuranceServicePage() {
                   procedures easier to understand, helping patients and their
                   families focus on treatment and recovery. For information
                   about insurance coverage, cashless hospitalization, or
-                  eligible health schemes, please contact Adhiparasakthi
-                  Hospitals directly.
+                  policy verification, please contact our dedicated Insurance Desk
+                  at <strong>9499059970</strong> or email <strong>Insurance@mapims.org</strong> (Hospital Desk: +91 94990 59966).
                 </p>
               </div>
               <div className="flex shrink-0 flex-wrap items-center gap-3">
                 <Link
-                  href="/contact#contact-form"
+                  href="/services/insurance/contact"
                   className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-bold text-red-700 shadow-md transition hover:bg-red-50"
                 >
                   Contact Insurance Desk
                 </Link>
+                <a
+                  href="tel:9499059970"
+                  className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20"
+                >
+                  <Phone className="h-4 w-4 text-white" />
+                  <span>Call 9499059970</span>
+                </a>
               </div>
             </div>
           </div>

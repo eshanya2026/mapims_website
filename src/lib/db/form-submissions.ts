@@ -22,6 +22,7 @@ import type {
   appointmentFormSchema,
   careerApplicationFormSchema,
   contactFormSchema,
+  insuranceFormSchema,
   internationalFormSchema,
   jobApplicationFormSchema,
 } from "@/lib/validations";
@@ -29,6 +30,7 @@ import type {
 type FormSubmissionInput =
   | z.infer<typeof appointmentFormSchema>
   | z.infer<typeof contactFormSchema>
+  | z.infer<typeof insuranceFormSchema>
   | z.infer<typeof internationalFormSchema>
   | z.infer<typeof careerApplicationFormSchema>
   | z.infer<typeof jobApplicationFormSchema>;
@@ -301,6 +303,21 @@ export async function findRecentDuplicateSubmission(data: FormSubmissionInput) {
         type: data.type,
         name,
         phone: data.phone ? data.phone.trim() : null,
+        email: data.email?.trim() || null,
+        message: data.message,
+        createdAt: { $gte: since },
+      }),
+      { sort: { createdAt: -1 } }
+    );
+    return doc ? toFormSubmissionRecord(doc) : null;
+  }
+
+  if (data.type === "insurance") {
+    const doc = await collection.findOne(
+      mergeNotDeleted({
+        type: data.type,
+        name,
+        phone: data.phone.trim(),
         email: data.email?.trim() || null,
         message: data.message,
         createdAt: { $gte: since },

@@ -14,6 +14,10 @@ function FooterHeading({ children }: { children: React.ReactNode }) {
   );
 }
 
+const HOSPITAL_EMAIL = process.env.NEXT_PUBLIC_HOSPITAL_EMAIL || "contact@mapims.edu.in";
+const TOLL_FREE_PHONE = process.env.NEXT_PUBLIC_TOLL_FREE_PHONE || "1800 599 0999";
+const HOSPITAL_PHONE = process.env.NEXT_PUBLIC_HOSPITAL_PHONE || "+91 94990 59966";
+
 export default function Footer() {
   return (
     <footer className="bg-slate-950 text-slate-300 border-t border-slate-800">
@@ -55,26 +59,26 @@ export default function Footer() {
                 <Phone className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
                 <div className="flex flex-col text-sm space-y-1">
                   <a
-                    href="tel:18005990999"
+                    href={`tel:${TOLL_FREE_PHONE.replace(/[^0-9+]/g, "")}`}
                     className="text-white hover:text-red-400 transition-colors"
                   >
-                    Toll Free: <span className="font-semibold">1800 599 0999</span>
+                    Toll Free: <span className="font-semibold">{TOLL_FREE_PHONE}</span>
                   </a>
                   <a
-                    href="tel:+919499059966"
+                    href={`tel:${HOSPITAL_PHONE.replace(/[^0-9+]/g, "")}`}
                     className="text-white hover:text-red-400 transition-colors"
                   >
-                    Emergency Call: <span className="font-semibold">+91 94990 59966</span>
+                    Emergency Call: <span className="font-semibold">{HOSPITAL_PHONE}</span>
                   </a>
                 </div>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-red-500 shrink-0" />
                 <a
-                  href="mailto:contact@mapims.edu.in"
+                  href={`mailto:${HOSPITAL_EMAIL}`}
                   className="text-sm text-white hover:text-red-400 transition-colors break-all"
                 >
-                  contact@mapims.edu.in
+                  {HOSPITAL_EMAIL}
                 </a>
               </li>
             </ul>

@@ -2,8 +2,10 @@ import type { FormSubmissionRecord } from "@/lib/db/types";
 import { formatDisplayDateLong } from "@/lib/format-display-date";
 import { sendMail } from "@/lib/mail";
 
-const HOSPITAL_CONTACT_EMAIL = "contact@mapims.edu.in";
-const HOSPITAL_CONTACT_PHONE = "+91 94990 59966";
+const HOSPITAL_CONTACT_EMAIL =
+  process.env.HOSPITAL_CONTACT_EMAIL?.trim() || "contact@mapims.edu.in";
+const HOSPITAL_CONTACT_PHONE =
+  process.env.HOSPITAL_CONTACT_PHONE?.trim() || "+91 94990 59966";
 
 /** Set to true when patient appointment confirmation emails should be sent again. */
 export const PATIENT_APPOINTMENT_CONFIRMATION_EMAIL_ENABLED = true;

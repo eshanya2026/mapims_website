@@ -21,6 +21,8 @@ import JobApplyButton from "@/components/careers/JobApplyButton";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
+const HR_CONTACT_EMAIL = process.env.HR_CONTACT_EMAIL?.trim() || "contact@mapims.online";
+
 type CareerDetailPageProps = {
   params: Promise<{ slug: string }>;
 };
@@ -188,8 +190,8 @@ export default async function CareerDetailPage({ params }: CareerDetailPageProps
                 ) : (
                   <p className="rounded-lg bg-slate-50 px-4 py-3 text-sm text-slate-600">
                     Or email HR at{" "}
-                    <a href="mailto:contact@mapims.edu.in" className="font-medium text-red-600">
-                      contact@mapims.edu.in
+                    <a href={`mailto:${HR_CONTACT_EMAIL}`} className="font-medium text-red-600">
+                      {HR_CONTACT_EMAIL}
                     </a>
                   </p>
                 )}

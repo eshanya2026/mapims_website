@@ -37,7 +37,7 @@ export default function CareersJobList({ jobs }: CareersJobListProps) {
               reach out to our HR team.
             </p>
             <a
-              href="mailto:contact@mapims.online"
+              href={`mailto:${process.env.NEXT_PUBLIC_HR_CONTACT_EMAIL || "contact@mapims.online"}`}
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-red-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-red-700"
             >
               <Mail className="h-4 w-4" />
