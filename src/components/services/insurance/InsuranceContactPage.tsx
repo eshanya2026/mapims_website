@@ -27,9 +27,6 @@ type FormState = {
   name: string;
   phone: string;
   email: string;
-  insuranceProvider: string;
-  policyNumber: string;
-  queryType: string;
   message: string;
 };
 
@@ -44,9 +41,6 @@ const INITIAL_STATE: FormState = {
   name: "",
   phone: "",
   email: "",
-  insuranceProvider: "",
-  policyNumber: "",
-  queryType: "Cashless Hospitalization Eligibility",
   message: "",
 };
 
@@ -60,9 +54,6 @@ export default function InsuranceContactPage() {
     name: false,
     phone: false,
     email: false,
-    insuranceProvider: false,
-    policyNumber: false,
-    queryType: false,
     message: false,
   });
   const [loading, setLoading] = useState(false);
@@ -88,7 +79,7 @@ export default function InsuranceContactPage() {
           : "",
       message:
         message.length < 10
-          ? "Please provide details about your insurance query (minimum 10 characters)."
+          ? "Please describe your query (minimum 10 characters)."
           : "",
     };
   }, [state]);
@@ -105,9 +96,6 @@ export default function InsuranceContactPage() {
       name: true,
       phone: true,
       email: true,
-      insuranceProvider: true,
-      policyNumber: true,
-      queryType: true,
       message: true,
     });
 
@@ -123,9 +111,6 @@ export default function InsuranceContactPage() {
         name: normalizeSpaces(state.name),
         phone: normalizeSpaces(state.phone),
         email: normalizeSpaces(state.email),
-        insuranceProvider: normalizeSpaces(state.insuranceProvider),
-        policyNumber: normalizeSpaces(state.policyNumber),
-        queryType: state.queryType,
         message: normalizeSpaces(state.message),
       });
 
@@ -135,9 +120,6 @@ export default function InsuranceContactPage() {
         name: false,
         phone: false,
         email: false,
-        insuranceProvider: false,
-        policyNumber: false,
-        queryType: false,
         message: false,
       });
     } catch (error) {
@@ -481,99 +463,26 @@ export default function InsuranceContactPage() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                    {/* Email Address */}
-                    <div>
-                      <label
-                        htmlFor="ins-email"
-                        className="block text-xs font-bold uppercase tracking-wider text-slate-700"
-                      >
-                        Email Address <span className="text-slate-400 font-normal">(Optional)</span>
-                      </label>
-                      <input
-                        id="ins-email"
-                        type="email"
-                        value={state.email}
-                        onChange={(e) => setState({ ...state, email: e.target.value })}
-                        onBlur={() => setTouched({ ...touched, email: true })}
-                        placeholder="e.g. ramesh@example.com"
-                        className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-red-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20"
-                      />
-                      {touched.email && errors.email && (
-                        <p className="mt-1 text-xs text-red-600">{errors.email}</p>
-                      )}
-                    </div>
-
-                    {/* Query Type */}
-                    <div>
-                      <label
-                        htmlFor="ins-query-type"
-                        className="block text-xs font-bold uppercase tracking-wider text-slate-700"
-                      >
-                        Query Category <span className="text-red-500">*</span>
-                      </label>
-                      <select
-                        id="ins-query-type"
-                        value={state.queryType}
-                        onChange={(e) => setState({ ...state, queryType: e.target.value })}
-                        className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-2.5 text-sm text-slate-900 focus:border-red-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20"
-                      >
-                        <option value="Cashless Hospitalization Eligibility">
-                          Cashless Hospitalization Eligibility
-                        </option>
-                        <option value="Policy Pre-Authorization / Verification">
-                          Policy Pre-Authorization / Verification
-                        </option>
-                        <option value="Chief Minister's Scheme (CMCHIS)">
-                          Chief Minister&apos;s Scheme (CMCHIS)
-                        </option>
-                        <option value="Emergency Admission Insurance Assistance">
-                          Emergency Admission Insurance Assistance
-                        </option>
-                        <option value="Claim Reimbursement Formalities">
-                          Claim Reimbursement Formalities
-                        </option>
-                        <option value="Other Insurance Query">Other Insurance Query</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                    {/* Insurance Company / TPA */}
-                    <div>
-                      <label
-                        htmlFor="ins-provider"
-                        className="block text-xs font-bold uppercase tracking-wider text-slate-700"
-                      >
-                        Insurance Provider / TPA Name
-                      </label>
-                      <input
-                        id="ins-provider"
-                        type="text"
-                        value={state.insuranceProvider}
-                        onChange={(e) => setState({ ...state, insuranceProvider: e.target.value })}
-                        placeholder="e.g. Star Health / Medi Assist / CMCHIS"
-                        className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-red-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20"
-                      />
-                    </div>
-
-                    {/* Policy / Card Number */}
-                    <div>
-                      <label
-                        htmlFor="ins-policy"
-                        className="block text-xs font-bold uppercase tracking-wider text-slate-700"
-                      >
-                        Policy / TPA Card Number
-                      </label>
-                      <input
-                        id="ins-policy"
-                        type="text"
-                        value={state.policyNumber}
-                        onChange={(e) => setState({ ...state, policyNumber: e.target.value })}
-                        placeholder="e.g. P/123456/01/2026"
-                        className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-red-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20"
-                      />
-                    </div>
+                  {/* Email Address */}
+                  <div>
+                    <label
+                      htmlFor="ins-email"
+                      className="block text-xs font-bold uppercase tracking-wider text-slate-700"
+                    >
+                      Email Address <span className="text-slate-400 font-normal">(Optional)</span>
+                    </label>
+                    <input
+                      id="ins-email"
+                      type="email"
+                      value={state.email}
+                      onChange={(e) => setState({ ...state, email: e.target.value })}
+                      onBlur={() => setTouched({ ...touched, email: true })}
+                      placeholder="e.g. ramesh@example.com"
+                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-red-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20"
+                    />
+                    {touched.email && errors.email && (
+                      <p className="mt-1 text-xs text-red-600">{errors.email}</p>
+                    )}
                   </div>
 
                   {/* Message */}
@@ -582,7 +491,7 @@ export default function InsuranceContactPage() {
                       htmlFor="ins-message"
                       className="block text-xs font-bold uppercase tracking-wider text-slate-700"
                     >
-                      Query Details / Medical Concern <span className="text-red-500">*</span>
+                      Query Details <span className="text-red-500">*</span>
                     </label>
                     <textarea
                       id="ins-message"
@@ -590,7 +499,7 @@ export default function InsuranceContactPage() {
                       value={state.message}
                       onChange={(e) => setState({ ...state, message: e.target.value })}
                       onBlur={() => setTouched({ ...touched, message: true })}
-                      placeholder="Please mention treatment requirement, proposed admission date, or specific policy verification query..."
+                      placeholder="Please mention treatment requirement, policy details, or specific query..."
                       className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50/50 p-4 text-sm text-slate-900 placeholder:text-slate-400 focus:border-red-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20"
                       required
                     />

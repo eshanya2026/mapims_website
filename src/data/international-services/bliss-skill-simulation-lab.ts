@@ -47,7 +47,7 @@ export const blissSkillLabService: InternationalServiceData = {
     {
       title: "Training & Recognition",
       items: [
-        "IRCF (Indian Resuscitation Council Federation): Recognized training partner and certification center conducting life support programs under IRCF standards.",
+        "IRCF (Indian Resuscitation Council Federation): Authorized Comprehensive Resuscitation Training Centre (CRTC) for Bangaru Lakshmi Institute of Simulation Skills (BLISS), MAPIMS, to conduct certified resuscitation courses (Period: 15th Apr 2025 – 15th Apr 2027).",
         "The Tamil Nadu Dr. M.G.R. Medical University: Officially designated Nodal Center for Neonatal Life Support (NLS) and Advanced Cardiac Life Support (ACLS).",
       ],
     },
@@ -61,6 +61,6 @@ export const blissSkillLabService: InternationalServiceData = {
   ],
   closing:
     "Empowering healthcare professionals through practical clinical simulation and competency-based training. For simulation lab scheduling and program inquiries, contact Adhiparasakthi Hospitals at +91 94990 59966.",
-  image: "/images/services/bliss-skill-lab-hero.jpg",
-  heroImage: "/images/services/bliss-skill-lab-hero.jpg",
+  image: "/images/services/bliss-skill-slide-1.webp",
+  heroImage: "/images/services/bliss-skill-slide-1.webp",
 };

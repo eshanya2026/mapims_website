@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import InitialAvatar from "@/components/shared/InitialAvatar";
+import HomeFeedbackCard from "@/components/home/HomeFeedbackCard";
 
 const testimonials = [
   {
@@ -101,6 +102,9 @@ export default function Testimonials() {
             </motion.div>
           ))}
         </div>
+
+        {/* Feedback submitting section in white space */}
+        <HomeFeedbackCard />
       </div>
     </section>
   );
