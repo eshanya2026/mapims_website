@@ -56,44 +56,55 @@ export default function FaqAccordion({
           className
         )}
       >
-        {faqs.map((faq, index) => (
-          <AccordionItem
-            key={faq.question}
-            value={`${idPrefix}-${index}`}
-            className={cn(
-              "overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all duration-300",
-              "border-l-4 border-l-transparent",
-              "hover:border-slate-300 hover:bg-slate-50/80",
-              "has-[[aria-expanded=true]]:border-l-red-600 has-[[aria-expanded=true]]:bg-red-50/40 has-[[aria-expanded=true]]:shadow-md"
-            )}
-          >
-            <AccordionTrigger
+        {faqs.map((faq, index) => {
+          const itemId = `${idPrefix}-${index}`;
+          const triggerId = `${itemId}-trigger`;
+          const contentId = `${itemId}-content`;
+          return (
+            <AccordionItem
+              key={faq.question}
+              value={itemId}
               className={cn(
-                "w-full px-4 py-4 text-left text-base font-semibold text-slate-900 sm:px-5 sm:py-5",
-                "hover:bg-slate-50/90 hover:text-red-600 hover:no-underline",
-                "group-aria-expanded/accordion-trigger:bg-red-50/50 group-aria-expanded/accordion-trigger:text-red-700",
-                "[&_[data-slot=accordion-trigger-icon]]:hidden"
+                "overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all duration-300",
+                "border-l-4 border-l-transparent",
+                "hover:border-slate-300 hover:bg-slate-50/80",
+                "has-[[aria-expanded=true]]:border-l-red-600 has-[[aria-expanded=true]]:bg-red-50/40 has-[[aria-expanded=true]]:shadow-md"
               )}
             >
-              <span className="pr-4 leading-snug">{faq.question}</span>
-              <span
-                aria-hidden
+              <AccordionTrigger
+                id={triggerId}
+                aria-controls={contentId}
                 className={cn(
-                  "ml-auto flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300",
-                  "border-slate-200 bg-slate-100 text-slate-600",
-                  "group-hover/accordion-trigger:border-red-200 group-hover/accordion-trigger:bg-red-50 group-hover/accordion-trigger:text-red-600",
-                  "group-aria-expanded/accordion-trigger:border-red-600 group-aria-expanded/accordion-trigger:bg-red-600 group-aria-expanded/accordion-trigger:text-white"
+                  "w-full px-4 py-4 text-left text-base font-semibold text-slate-900 sm:px-5 sm:py-5",
+                  "hover:bg-slate-50/90 hover:text-red-600 hover:no-underline",
+                  "group-aria-expanded/accordion-trigger:bg-red-50/50 group-aria-expanded/accordion-trigger:text-red-700",
+                  "[&_[data-slot=accordion-trigger-icon]]:hidden"
                 )}
               >
-                <Plus className="h-4 w-4 group-aria-expanded/accordion-trigger:hidden" />
-                <Minus className="hidden h-4 w-4 group-aria-expanded/accordion-trigger:block" />
-              </span>
-            </AccordionTrigger>
-            <AccordionContent className="px-4 pb-5 text-slate-600 leading-relaxed sm:px-5 sm:pb-6 [&>div]:pb-0">
-              {faq.answer}
-            </AccordionContent>
-          </AccordionItem>
-        ))}
+                <span className="pr-4 leading-snug">{faq.question}</span>
+                <span
+                  aria-hidden
+                  className={cn(
+                    "ml-auto flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-300",
+                    "border-slate-200 bg-slate-100 text-slate-600",
+                    "group-hover/accordion-trigger:border-red-200 group-hover/accordion-trigger:bg-red-50 group-hover/accordion-trigger:text-red-600",
+                    "group-aria-expanded/accordion-trigger:border-red-600 group-aria-expanded/accordion-trigger:bg-red-600 group-aria-expanded/accordion-trigger:text-white"
+                  )}
+                >
+                  <Plus className="h-4 w-4 group-aria-expanded/accordion-trigger:hidden" />
+                  <Minus className="hidden h-4 w-4 group-aria-expanded/accordion-trigger:block" />
+                </span>
+              </AccordionTrigger>
+              <AccordionContent
+                id={contentId}
+                aria-labelledby={triggerId}
+                className="px-4 pb-5 text-slate-600 leading-relaxed sm:px-5 sm:pb-6 [&>div]:pb-0"
+              >
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          );
+        })}
       </Accordion>
     </>
   );

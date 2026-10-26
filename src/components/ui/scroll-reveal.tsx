@@ -2,7 +2,6 @@
 
 import {
   motion,
-  useReducedMotion,
   type HTMLMotionProps,
   type Variants,
 } from "framer-motion";
@@ -36,12 +35,7 @@ export function ScrollReveal({
   duration = 0.5,
   ...props
 }: ScrollRevealProps) {
-  const reduceMotion = useReducedMotion();
   const offset = hiddenOffset[direction];
-
-  if (reduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
 
   return (
     <motion.div
@@ -84,12 +78,6 @@ export function StaggerReveal({
   className,
   stagger = 0.08,
 }: StaggerRevealProps) {
-  const reduceMotion = useReducedMotion();
-
-  if (reduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
   return (
     <motion.div
       initial="hidden"
@@ -113,12 +101,6 @@ export function StaggerItem({
   children: ReactNode;
   className?: string;
 }) {
-  const reduceMotion = useReducedMotion();
-
-  if (reduceMotion) {
-    return <div className={cn(className)}>{children}</div>;
-  }
-
   return (
     <motion.div variants={staggerItem} className={className}>
       {children}

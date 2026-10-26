@@ -113,10 +113,40 @@ const trainingPrograms = [
     tag: "Advanced Certification",
   },
   {
+    icon: AlertTriangle,
+    title: "Advance Trauma Life Support (ATLS)",
+    desc: "Systematic initial assessment, airway control, trauma resuscitation, cervical spine immobilization, and urgent management of acute life-threatening trauma.",
+    tag: "Trauma Life Support",
+  },
+  {
+    icon: Baby,
+    title: "Pediatric Advance Life Support (PALS)",
+    desc: "Comprehensive resuscitation algorithms for pediatric emergencies, respiratory failure management, vascular access, and pediatric shock stabilization.",
+    tag: "Pediatric Certification",
+  },
+  {
+    icon: Baby,
+    title: "Neonatal Life Support (NLS)",
+    desc: "Evidence-based resuscitation and stabilization of newly born infants, positive-pressure bag-valve-mask ventilation, heart rate assessment, and thermal regulation.",
+    tag: "Neonatal Resuscitation",
+  },
+  {
+    icon: HeartPulse,
+    title: "Compression-Only Life Support (COLS)",
+    desc: "High-performance, continuous hands-only chest compression techniques ensuring uninterrupted coronary and cerebral perfusion during sudden cardiac arrest.",
+    tag: "Resuscitation Drill",
+  },
+  {
     icon: Users,
     title: "Training for Healthcare Professionals",
-    desc: "Tailored upskilling workshops for staff nurses, emergency room medical officers, critical care specialists, and multidisciplinary hospital teams.",
+    desc: "Tailored upskilling workshops for staff nurses, Technicians, emergency room medical officers, critical care specialists, and multidisciplinary hospital teams.",
     tag: "Professional Upskilling",
+  },
+  {
+    icon: BookOpen,
+    title: "Training for Undergraduate Students",
+    desc: "Structured clinical foundation drills, procedural competencies, examination techniques, and simulation-based basic bedside skills training for undergraduate students.",
+    tag: "Undergraduate Education",
   },
   {
     icon: GraduationCap,
@@ -131,7 +161,7 @@ const trainingPrograms = [
     tag: "Emergency Protocols",
   },
   {
-    icon: BookOpen,
+    icon: Layers,
     title: "Continuous Clinical Skills Development",
     desc: "Regular clinical competency assessments, evidence-based refresher sessions, and procedural drills reinforcing highest hospital safety standards.",
     tag: "Continuous Learning",
@@ -140,16 +170,14 @@ const trainingPrograms = [
 
 const trainingRecognitionPoints = [
   {
-    title: "Competency-Based Learning",
-    desc: "The Bliss Skill Simulation Lab supports competency-based learning through practical training, simulated clinical scenarios, and supervised skill development.",
+    title: "IRCF (Indian Resuscitation Council Federation)",
+    desc: "Recognized training partner and certification center conducting life support programs in accordance with the evidence-based standards and protocols of the Indian Resuscitation Council Federation (IRCF).",
+    badge: "National Federation",
   },
   {
-    title: "Clinical Preparedness & Teamwork",
-    desc: "The facility helps healthcare professionals improve clinical preparedness, teamwork, communication, and rapid response to emergency situations.",
-  },
-  {
-    title: "Recognized Standards & Accreditations",
-    desc: "Where applicable, training programs are conducted in accordance with the requirements of recognized professional and academic bodies.",
+    title: "The Tamil Nadu Dr. M.G.R. Medical University Nodal Center for NLS and ACLS",
+    desc: "Officially designated Nodal Center for conducting certified Neonatal Life Support (NLS) and Advanced Cardiac Life Support (ACLS) programs under The Tamil Nadu Dr. M.G.R. Medical University.",
+    badge: "University Nodal Center",
   },
 ];
 
@@ -414,7 +442,7 @@ export default function BlissSkillLabPage() {
             </p>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 max-w-5xl mx-auto">
             {trainingRecognitionPoints.map((item, idx) => (
               <motion.div
                 key={idx}
@@ -422,17 +450,30 @@ export default function BlissSkillLabPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: idx * 0.1 }}
-                className="relative overflow-hidden rounded-2xl border border-slate-200/90 bg-slate-50/60 p-7 transition hover:border-red-200 hover:bg-white hover:shadow-md"
+                className="relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 bg-slate-50/60 p-7 transition hover:border-red-200 hover:bg-white hover:shadow-lg"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-600 text-white shadow-md shadow-red-600/30">
-                  <CheckCircle2 className="h-5 w-5" />
+                <div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-red-600 text-white shadow-md shadow-red-600/30">
+                      <Award className="h-5 w-5" />
+                    </div>
+                    {item.badge && (
+                      <span className="rounded-full bg-red-50 border border-red-200/80 px-3 py-1 text-xs font-semibold text-red-700">
+                        {item.badge}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="mt-5 text-lg font-bold text-slate-900 leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2.5 text-xs leading-relaxed text-slate-600 sm:text-sm">
+                    {item.desc}
+                  </p>
                 </div>
-                <h3 className="mt-5 text-lg font-bold text-slate-900">
-                  {item.title}
-                </h3>
-                <p className="mt-2.5 text-xs leading-relaxed text-slate-600 sm:text-sm">
-                  {item.desc}
-                </p>
+                <div className="mt-6 flex items-center gap-1.5 text-xs font-semibold text-red-600 pt-4 border-t border-slate-200/60">
+                  <CheckCircle2 className="h-4 w-4" />
+                  <span>Officially Recognized Accreditation</span>
+                </div>
               </motion.div>
             ))}
           </div>

@@ -40,8 +40,8 @@ const pharmacyPillars = [
   },
   {
     icon: HeartHandshake,
-    title: "Patient & Attendant Support",
-    desc: "Compassionate guidance addressing prescription queries, dosage clarification, and proper drug usage.",
+    title: "Free IP & OP Pharmacy",
+    desc: "Free pharmacy dispensing for particular prescribed drugs across Inpatient (IP) and Outpatient (OP) care.",
   },
 ];
 
@@ -82,10 +82,10 @@ const pharmacyServicesList = [
   },
   {
     number: "02",
-    title: "OPD & Inpatient Support",
-    desc: "Support for medication requirements during outpatient consultations and hospital stays, including free OP & IP pharmacy for certain prescribed drugs.",
+    title: "Free IP & OP Pharmacy Support",
+    desc: "Dedicated outpatient (OP) and inpatient (IP) medication dispensing, including free pharmacy for particular prescribed drugs.",
     icon: Activity,
-    badge: "Clinical Care",
+    badge: "Free IP & OP Drugs",
   },
   {
     number: "03",
@@ -125,6 +125,10 @@ const pharmacyServicesList = [
 ];
 
 const whyChoosePharmacy = [
+  {
+    title: "Free IP & OP Medication Access",
+    desc: "Free pharmacy dispensing for particular prescribed medications for both Inpatient (IP) and Outpatient (OP) care.",
+  },
   {
     title: "Prescribed Medication Support",
     desc: "Reliable support for prescribed medication requirements across medical and surgical disciplines.",
@@ -177,9 +181,15 @@ export default function PharmacyServicePage() {
               transition={{ duration: 0.55 }}
               className="lg:col-span-7"
             >
-              <div className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-red-400 backdrop-blur-md">
-                <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
-                Hospital Pharmacy &amp; Prescription Services
+              <div className="flex flex-wrap items-center gap-2.5">
+                <div className="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-red-400 backdrop-blur-md">
+                  <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+                  Hospital Pharmacy &amp; Prescription Services
+                </div>
+                <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/15 px-3.5 py-1.5 text-xs font-semibold text-emerald-300 backdrop-blur-md">
+                  <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
+                  Free IP &amp; OP Pharmacy for Particular Drugs
+                </div>
               </div>
 
               <h1 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl lg:text-5xl">
@@ -193,10 +203,10 @@ export default function PharmacyServicePage() {
 
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
                 The Pharmacy Services at Adhiparasakthi Hospitals, Melmaruvathur,
-                support patients by providing access to prescribed medications and
-                pharmaceutical care as part of their treatment. Our pharmacy team
-                is committed to safe medication dispensing, appropriate storage,
-                and guidance on the proper use of medicines.
+                support patients by providing 24/7 access to authentic medications,
+                including free IP and OP pharmacy dispensing for particular prescribed
+                drugs. Our pharmacy team is committed to safe medication dispensing,
+                proper storage, and guidance on the proper use of medicines.
               </p>
 
               {/* Action Buttons */}
@@ -458,12 +468,25 @@ export default function PharmacyServicePage() {
 
               <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">
                 Our pharmacy services aim to make access to prescribed medicines
-                convenient for patients and their attendants. Patients can seek
+                convenient for patients and their attendants, including free pharmacy
+                dispensing for particular prescribed IP and OP drugs. Patients can seek
                 assistance regarding prescriptions, medication availability, and
                 instructions for the proper use of medicines.
               </p>
 
               <div className="mt-8 space-y-3.5">
+                <div className="flex items-start gap-3.5 rounded-2xl bg-white p-4 border border-emerald-200/80 shadow-sm transition-colors group-hover:border-emerald-300">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                    <Pill className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900">Free IP &amp; OP Pharmacy for Particular Drugs</h4>
+                    <p className="mt-0.5 text-xs text-slate-600 leading-relaxed">
+                      Free medication dispensing available for particular prescribed drugs across Inpatient (IP) and Outpatient (OP) care.
+                    </p>
+                  </div>
+                </div>
+
                 <div className="flex items-start gap-3.5 rounded-2xl bg-white p-4 border border-slate-200/70 shadow-sm transition-colors group-hover:border-slate-300">
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
                     <Clock className="h-4 w-4" />

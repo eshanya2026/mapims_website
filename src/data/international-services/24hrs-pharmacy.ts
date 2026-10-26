@@ -12,9 +12,9 @@ export const pharmacy24hrsService: InternationalServiceData = {
   breadcrumbLabel: "24hrs Pharmacy",
   heroBadge: "24/7 Pharmacy",
   heroSubtitle:
-    "Round-the-clock authentic medications, critical emergency drugs, surgical consumables, and free pharmacy assistance at Melmaruvathur.",
+    "Round-the-clock authentic medications, critical emergency drugs, surgical consumables, and free IP & OP pharmacy dispensing for particular prescribed drugs at Melmaruvathur.",
   intro:
-    "The 24hrs Pharmacy at Adhiparasakthi Hospitals operates non-stop, 365 days a year, providing an uninterrupted supply of genuine prescription medications, emergency life-saving pharmaceuticals, surgical disposables, and healthcare consumables. Supervised by registered, experienced pharmacists, our pharmacy units ensure strict adherence to drug storage standards, medication safety protocols, and personalized patient counseling.",
+    "The 24hrs Pharmacy at Adhiparasakthi Hospitals operates non-stop, 365 days a year, providing an uninterrupted supply of genuine prescription medications, emergency life-saving pharmaceuticals, surgical disposables, and healthcare consumables. Supervised by registered, experienced pharmacists, our pharmacy units ensure strict adherence to drug storage standards, medication safety protocols, personalized patient counseling, and free IP & OP pharmacy assistance for select prescribed drugs.",
   sections: [
     {
       title: "Comprehensive Pharmaceutical Inventory",
@@ -23,6 +23,7 @@ export const pharmacy24hrsService: InternationalServiceData = {
         "Emergency, cardiac, neurological, oncological, pediatric, and critical care pharmaceuticals constantly in stock.",
         "Complete range of surgical consumables, implants, orthopedic braces, wound dressings, and medical disposables.",
         "Cold-chain storage units maintaining 2°C–8°C for insulin, biological products, vaccines, and monoclonal antibodies.",
+        "Free IP and OP pharmacy dispensing for particular essential and prescribed medications supporting patient recovery.",
         "Community free-pharmacy counter supporting economically vulnerable patients with essential prescribed medications.",
       ],
     },
@@ -47,6 +48,7 @@ export const pharmacy24hrsService: InternationalServiceData = {
   whyChooseTitle: "Why Choose Our 24hrs Pharmacy?",
   whyChoose: [
     "Open 24 hours a day, 7 days a week, 365 days a year",
+    "Free IP and OP pharmacy dispensing available for particular prescribed drugs",
     "Verified authentic medications stored under certified temperature conditions",
     "Multi-counter digital billing ensuring minimal waiting time",
     "Free essential medication initiatives for underprivileged community members",

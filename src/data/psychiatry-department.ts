@@ -80,7 +80,7 @@ export const psychiatryServices = [
     title: "Addiction & Behavioural Health",
     description: "Recovery Support & Lifestyle Modification",
     bullets: [
-      "Assessment of alcohol and other substance-use concerns",
+      "Assessment of alcohol, smoking de-addiction & behavioral center and other substance-use concerns",
       "Motivational support and structured treatment planning",
       "Sleep disorders and behavioural concerns management",
       "Referral to specialised rehabilitation services when needed",
@@ -106,12 +106,28 @@ export const psychiatryServices = [
     imageCaption: "Supportive Counselling, Psychoeducation & Family Involvement",
     imagePosition: "center 40%",
   },
+  {
+    title: "Electroconvulsive Therapy (ECT)",
+    description: "Advanced Neurostimulation & Interventional Care",
+    bullets: [
+      "Modern modified ECT performed under brief general anaesthesia",
+      "Pre-procedure clinical evaluation with continuous EEG and vital monitoring",
+      "Effective therapeutic relief for severe treatment-resistant depression",
+      "Safe, structured clinical protocol with dedicated post-procedure recovery",
+    ],
+    image: "/images/psychiatry-ect.jpg",
+    badge: "Advanced Neurostimulation",
+    badgeColor: "red" as const,
+    imageCaption: "Modified Electroconvulsive Therapy (ECT) with Continuous Monitoring",
+    imagePosition: "center 40%",
+  },
 ];
 
 export const psychiatryConditions = [
   "Depressive disorders",
   "Anxiety disorders and panic attacks",
   "Bipolar disorder",
+  "Treatment-resistant depression",
   "Psychotic disorders",
   "Obsessive-compulsive disorder",
   "Sleep-related concerns",
@@ -124,6 +140,7 @@ export const psychiatryConditions = [
 export const psychiatryInfrastructure = [
   "Outpatient psychiatric assessment, subject to clinic schedule",
   "Private, confidential consultation setting",
+  "Dedicated ECT suite with anaesthesia & recovery monitoring facilities",
   "Medication review and follow-up planning",
   "Coordination with psychology and other services, where available",
   "Emergency referral pathways for urgent mental health needs",
@@ -131,6 +148,7 @@ export const psychiatryInfrastructure = [
 ];
 
 export const psychiatryTechnology = [
+  "Modern modified Electroconvulsive Therapy (ECT) with multi-lead EEG & hemodynamic monitoring",
   "Mental health care guided by structured clinical assessment and shared decision-making",
   "Confidential consultation environment protecting patient dignity and privacy",
   "Individualised psychopharmacology tailored to clinical symptoms with ongoing monitoring",

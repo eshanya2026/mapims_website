@@ -434,7 +434,12 @@
         "paragraphs": [
           "Basic Cardiac Life Support (BCLS)",
           "Advanced Cardiac Life Support (ACLS)",
-          "Training for Healthcare Professionals",
+          "Advance Trauma Life Support (ATLS)",
+          "Pediatric Advance Life Support (PALS)",
+          "Neonatal Life Support (NLS)",
+          "Compression-Only Life Support (COLS)",
+          "Training for Healthcare Professionals (Tailored upskilling workshops for staff nurses, Technicians, emergency room medical officers, critical care specialists, and multidisciplinary hospital teams)",
+          "Training for Undergraduate Students",
           "Training for Postgraduate Students",
           "Emergency and Resuscitation Skills Training",
           "Continuous Clinical Skills Development"
@@ -443,8 +448,8 @@
       {
         "heading": "Training & Recognition",
         "paragraphs": [
-          "The Bliss Skill Simulation Lab supports competency-based learning through practical training, simulated clinical scenarios, and supervised skill development. The facility helps healthcare professionals improve clinical preparedness, teamwork, communication, and response to emergency situations.",
-          "Where applicable, training programs are conducted in accordance with the requirements of recognized professional and academic bodies."
+          "IRCF (Indian Resuscitation Council Federation)",
+          "The Tamil Nadu Dr. M.G.R. Medical University Nodal Center for NLS and ACLS"
         ]
       }
     ],

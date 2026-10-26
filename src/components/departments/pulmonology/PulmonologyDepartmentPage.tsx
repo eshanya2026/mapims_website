@@ -1,6 +1,13 @@
 "use client";
 
-import { Wind, ShieldAlert, Activity, Moon, HeartPulse } from "lucide-react";
+import {
+  Wind,
+  ShieldAlert,
+  Activity,
+  Microscope,
+  Moon,
+  HeartPulse,
+} from "lucide-react";
 import DepartmentHeroStats from "@/components/departments/DepartmentHeroStats";
 import DepartmentPatientCareSection from "@/components/departments/DepartmentPatientCareSection";
 import DepartmentFAQ from "@/components/departments/DepartmentFAQ";
@@ -34,6 +41,7 @@ const serviceIcons = [
   Wind,
   ShieldAlert,
   Activity,
+  Microscope,
   Moon,
   HeartPulse,
 ] as const;

@@ -6,6 +6,7 @@ import {
   Activity,
   ShieldCheck,
   Users,
+  Zap,
 } from "lucide-react";
 import DepartmentHeroStats from "@/components/departments/DepartmentHeroStats";
 import DepartmentPatientCareSection from "@/components/departments/DepartmentPatientCareSection";
@@ -42,6 +43,7 @@ const serviceIcons = [
   Activity,
   ShieldCheck,
   Users,
+  Zap,
 ] as const;
 
 export default function PsychiatryDepartmentPage() {

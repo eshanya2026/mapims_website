@@ -658,9 +658,9 @@ export const departmentFaqsBySlug: Record<string, FaqItem[]> = {
   ],
   "critical-care-medicine": [
     {
-      question: "What is the difference between an ICU and an IMCU (Step-Down Unit)?",
+      question: "What is the difference between an ICU and an ICU (Step-Down Unit)?",
       answer:
-        "An Intensive Care Unit (ICU) provides continuous life-support, advanced mechanical ventilation, invasive monitoring, and 1:1 or 1:2 nursing care for critically ill patients. An Intermediate Medical Care Unit (IMCU/Step-Down Unit) is designed for patients who require close observation and frequent monitoring but do not need invasive organ support, providing a safe transition between the ICU and a general ward.",
+        "An Intensive Care Unit (ICU) is for patients needing continuous life-support, invasive monitoring, and ventilators. An ICU Step-Down Unit is for recovering patients who still need close cardiac and vital monitoring before moving safely to a general ward.",
     },
     {
       question: "Can family members visit patients in the ICU?",

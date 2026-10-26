@@ -21,7 +21,7 @@ export const whyChoosePulmonology = [
   {
     title: "Pulmonary Diagnostics",
     description:
-      "Appropriate lung-function assessment, imaging and other investigations to guide diagnosis and treatment.",
+      "Appropriate lung-function assessment, imaging, Bronchoscopies and other investigations to guide diagnosis and treatment.",
   },
   {
     title: "Patient-Centred Care",
@@ -74,6 +74,20 @@ export const pulmonologyServices = [
     imagePosition: "center 40%",
   },
   {
+    title: "Diagnosis & Interventional Services (Bronchoscopy)",
+    bullets: [
+      "Flexible video bronchoscopy for direct airway visualization",
+      "Bronchoalveolar lavage (BAL) and bronchial washings",
+      "Endobronchial biopsy and tissue sampling for pathology",
+      "Diagnostic and therapeutic airway clearance and mucus plug extraction",
+    ],
+    image: "/images/pulmonology-bronchoscopy.jpg",
+    badge: "Interventional Care",
+    badgeColor: "blue" as const,
+    imageCaption: "Advanced Video Bronchoscopy & Interventional Airway Suite",
+    imagePosition: "center 40%",
+  },
+  {
     title: "Sleep & Allergy-Related Breathing Problems",
     bullets: [
       "Assessment of suspected sleep-related breathing disorders",
@@ -83,7 +97,7 @@ export const pulmonologyServices = [
     ],
     image: "/images/pulmonology-sleep-allergy.jpg",
     badge: "Sleep & Allergy",
-    badgeColor: "blue" as const,
+    badgeColor: "red" as const,
     imageCaption: "Assessment of Sleep Apnea & Allergic Airway Disorders",
     imagePosition: "center 35%",
   },
@@ -97,7 +111,7 @@ export const pulmonologyServices = [
     ],
     image: "/images/pulmonology-acute-care.jpg",
     badge: "24/7 Acute Care",
-    badgeColor: "red" as const,
+    badgeColor: "blue" as const,
     imageCaption: "24/7 Emergency Care & ICU Support for Acute Respiratory Distress",
     imagePosition: "center 45%",
   },
@@ -117,6 +131,7 @@ export const pulmonologyConditions = [
 ];
 
 export const pulmonologyTechnology = [
+  "Flexible Video Bronchoscopy & Diagnostic Airway Interventions",
   "Computerised Spirometry & Pulmonary Function Testing",
   "High-Resolution Computed Tomography (HRCT) Chest Imaging",
   "Digital Low-Dose Chest Radiography (X-Ray)",
@@ -128,7 +143,7 @@ export const pulmonologyTechnology = [
 ];
 
 export const pulmonologyInfrastructure = [
-  "Pulmonary function testing facilities, where available",
+  "Pulmonary function testing facilities, Bronchoscopy test where available",
   "Chest X-ray, CT and other high-resolution imaging through hospital services",
   "24/7 Laboratory and microbiology diagnostic support",
   "Continuous oxygenation and respiratory vital signs monitoring",

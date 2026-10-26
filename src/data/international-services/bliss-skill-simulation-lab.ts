@@ -33,7 +33,12 @@ export const blissSkillLabService: InternationalServiceData = {
       items: [
         "Basic Cardiac Life Support (BCLS): Foundational CPR, AED utilization, and adult/child choking management.",
         "Advanced Cardiac Life Support (ACLS): Advanced airway protocols, arrhythmia management, electrical therapies, and cardiac arrest resuscitation.",
-        "Training for Healthcare Professionals: Regular upskilling workshops for medical officers, emergency physicians, and nursing teams.",
+        "Advance Trauma Life Support (ATLS): Systematic trauma evaluation, airway resuscitation, thoracic trauma interventions, and critical stabilization.",
+        "Pediatric Advance Life Support (PALS): Comprehensive pediatric resuscitation, vascular access, respiratory arrest, and shock protocols.",
+        "Neonatal Life Support (NLS): Immediate neonatal resuscitation, newborn thermal care, bag-valve-mask ventilation, and transitional care.",
+        "Compression-Only Life Support (COLS): Hands-only continuous chest compression techniques for bystander and community resuscitation.",
+        "Training for Healthcare Professionals: Tailored upskilling workshops for staff nurses, Technicians, emergency room medical officers, critical care specialists, and multidisciplinary hospital teams.",
+        "Training for Undergraduate Students: Practical clinical skills orientation, core procedural competencies, and simulation-based basic bedside training.",
         "Training for Postgraduate Students: Structured residency clinical skills milestones, procedural drills, and simulation-based evaluations.",
         "Emergency and Resuscitation Skills Training: Rapid response training and immediate stabilization procedures during life-threatening events.",
         "Continuous Clinical Skills Development: Ongoing competency assessments, refresher courses, and evidence-based clinical drills.",
@@ -42,9 +47,8 @@ export const blissSkillLabService: InternationalServiceData = {
     {
       title: "Training & Recognition",
       items: [
-        "Competency-Based Learning: Structured practical training, simulated clinical scenarios, and supervised skill development ensuring safe, error-free clinical practice.",
-        "Preparedness & Teamwork: Helps healthcare professionals improve clinical preparedness, teamwork, inter-professional communication, and response to acute emergencies.",
-        "Recognized Standards: Where applicable, training programs are conducted in accordance with the requirements of recognized professional and academic bodies.",
+        "IRCF (Indian Resuscitation Council Federation): Recognized training partner and certification center conducting life support programs under IRCF standards.",
+        "The Tamil Nadu Dr. M.G.R. Medical University: Officially designated Nodal Center for Neonatal Life Support (NLS) and Advanced Cardiac Life Support (ACLS).",
       ],
     },
   ],
