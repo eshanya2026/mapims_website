@@ -33,7 +33,7 @@ const cmsUsers = [
     role: "front_office",
   },
   {
-    email: "insurance@mapims.org",
+    email: "insurance@mapims.edu.in",
     password: process.env.INSURANCE_PASSWORD ?? "insurance123",
     name: "Insurance Desk",
     role: "insurance",
