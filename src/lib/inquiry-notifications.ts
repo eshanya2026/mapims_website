@@ -254,6 +254,9 @@ export function buildHospitalInquiryEmail(submission: FormSubmissionRecord) {
     submission.email
       ? adminRow("Email", submission.email, `mailto:${submission.email.trim()}`)
       : "",
+    isInsurance && submission.medicalCondition
+      ? adminRow("UHID / Details", submission.medicalCondition)
+      : "",
     isInternational ? adminRow("Country", submission.country) : "",
     isInternational ? adminRow("Medical Condition", submission.medicalCondition) : "",
     submission.referenceId ? adminRow("Reference ID", submission.referenceId) : "",
@@ -347,5 +350,145 @@ export async function notifyHospitalOfInquiry(submission: FormSubmissionRecord) 
     html,
     replyTo: submission.email?.trim() || undefined,
   });
+}
+
+export async function sendInsuranceReplyEmail({
+  submission,
+  replyMessage,
+  subject: customSubject,
+  senderName,
+}: {
+  submission: FormSubmissionRecord;
+  replyMessage: string;
+  subject?: string;
+  senderName?: string;
+}) {
+  const recipientEmail = submission.email?.trim();
+  if (!recipientEmail) {
+    throw new Error("Patient inquiry does not have a recipient email address.");
+  }
+
+  const patientName = submission.name.trim();
+  const subject =
+    customSubject?.trim() || `Re: MAPIMS Insurance Desk Query - ${patientName}`;
+  const insuranceEmail =
+    process.env.INSURANCE_NOTIFICATION_EMAIL?.trim() || INSURANCE_CONTACT_EMAIL;
+  const insurancePhone =
+    process.env.INSURANCE_CONTACT_PHONE?.trim() ||
+    process.env.NEXT_PUBLIC_INSURANCE_PHONE?.trim() ||
+    "9499059970";
+  const hospitalPhone =
+    process.env.HOSPITAL_CONTACT_PHONE?.trim() || "+91 94990 59966";
+
+  const cleanReply = replyMessage.trim();
+  const cleanOriginal = submission.message?.trim() || "";
+
+  const textLines = [
+    `Dear ${patientName},`,
+    "",
+    cleanReply,
+    "",
+    "--------------------------------------------------",
+    "ORIGINAL QUERY DETAILS:",
+    `Patient Name: ${patientName}`,
+    submission.medicalCondition
+      ? `Patient UHID / Details: ${submission.medicalCondition}`
+      : undefined,
+    submission.phone ? `Contact Phone: ${submission.phone}` : undefined,
+    cleanOriginal ? `Your Message:\n${cleanOriginal}` : undefined,
+    "--------------------------------------------------",
+    "",
+    "Need further assistance?",
+    `Direct Insurance Helpline: ${insurancePhone}`,
+    `Insurance Desk Email: ${insuranceEmail}`,
+    `Hospital General Phone: ${hospitalPhone}`,
+    "",
+    "Warm regards,",
+    senderName ? `${senderName} (Insurance Desk)` : "Insurance Desk & TPA Cell",
+    "Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research (MAPIMS)",
+    "GST Road, Melmaruvathur, Tamil Nadu 603319",
+  ]
+    .filter((line) => line !== undefined)
+    .join("\n");
+
+  const html = `
+    <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;max-width:620px;margin:0 auto;padding:0;background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;color:#1e293b;line-height:1.6;">
+      <!-- Header Banner -->
+      <div style="background:linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);padding:24px 28px;color:#ffffff;">
+        <p style="margin:0;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fecaca;">Melmaruvathur Adhiparasakthi Institute of Medical Sciences (MAPIMS)</p>
+        <h1 style="margin:6px 0 0;font-size:20px;font-weight:700;color:#ffffff;">
+          Insurance Desk &amp; TPA Services
+        </h1>
+      </div>
+
+      <div style="padding:28px;">
+        <p style="margin:0 0 16px;font-size:15px;color:#0f172a;font-weight:600;">Dear ${escapeHtml(patientName)},</p>
+
+        <!-- Response Body -->
+        <div style="margin:0 0 24px;padding:18px 20px;background:#f8fafc;border-left:4px solid #dc2626;border-radius:6px;font-size:14px;color:#1e293b;line-height:1.7;white-space:pre-wrap;">${escapeHtml(cleanReply)}</div>
+
+        <!-- Original Query Box -->
+        <div style="margin:0 0 24px;padding:16px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;">
+          <p style="margin:0 0 8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#475569;">
+            Your Original Inquiry
+          </p>
+          <table style="width:100%;border-collapse:collapse;font-size:13px;color:#334155;">
+            <tbody>
+              ${
+                submission.medicalCondition
+                  ? `<tr><td style="padding:4px 0;width:140px;color:#64748b;font-weight:600;">UHID / Details:</td><td style="padding:4px 0;font-weight:600;color:#0f172a;">${escapeHtml(submission.medicalCondition)}</td></tr>`
+                  : ""
+              }
+              ${
+                submission.phone
+                  ? `<tr><td style="padding:4px 0;width:140px;color:#64748b;font-weight:600;">Contact Phone:</td><td style="padding:4px 0;">${escapeHtml(submission.phone)}</td></tr>`
+                  : ""
+              }
+              ${
+                cleanOriginal
+                  ? `<tr><td style="padding:4px 0;width:140px;color:#64748b;font-weight:600;vertical-align:top;">Query Message:</td><td style="padding:4px 0;white-space:pre-wrap;">${escapeHtml(cleanOriginal)}</td></tr>`
+                  : ""
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Contact Box -->
+        <div style="margin:0 0 24px;padding:16px 20px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;">
+          <p style="margin:0 0 8px;font-size:13px;font-weight:700;color:#991b1b;">
+            Insurance Helpdesk Contact
+          </p>
+          <p style="margin:0;font-size:13px;color:#7f1d1d;line-height:1.6;">
+            <strong>Direct Insurance Helpline:</strong> <a href="tel:${escapeHtml(insurancePhone)}" style="color:#dc2626;text-decoration:none;font-weight:700;">${escapeHtml(insurancePhone)}</a><br />
+            <strong>Official Insurance Email:</strong> <a href="mailto:${escapeHtml(insuranceEmail)}" style="color:#dc2626;text-decoration:none;font-weight:700;">${escapeHtml(insuranceEmail)}</a><br />
+            <strong>Hospital Main Line:</strong> ${escapeHtml(hospitalPhone)}
+          </p>
+        </div>
+
+        <!-- Signature -->
+        <div style="border-top:1px solid #e2e8f0;padding-top:16px;font-size:13px;color:#475569;line-height:1.6;">
+          <p style="margin:0 0 4px;font-weight:700;color:#0f172a;">${senderName ? escapeHtml(senderName) : "Insurance Desk Coordinator"}</p>
+          <p style="margin:0;color:#64748b;">
+            Insurance &amp; TPA Services Helpdesk<br />
+            Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research (MAPIMS)<br />
+            GST Road, Melmaruvathur, Tamil Nadu 603319
+          </p>
+        </div>
+      </div>
+    </div>
+  `.trim();
+
+  const fromAddress = `"MAPIMS Insurance Desk" <${process.env.SMTP_USER || "Insurance@mapims.org"}>`;
+
+  await sendMail({
+    to: recipientEmail,
+    from: fromAddress,
+    replyTo: insuranceEmail,
+    subject,
+    text: textLines,
+    html,
+  });
+
+  return { success: true };
 }
 

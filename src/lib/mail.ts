@@ -8,6 +8,7 @@ type SendMailOptions = {
   subject: string;
   text: string;
   html: string;
+  from?: string;
   replyTo?: string;
   attachments?: Attachment[];
   headers?: Record<string, string>;
@@ -100,7 +101,7 @@ export async function sendMail(options: SendMailOptions) {
   });
 
   await transporter.sendMail({
-    from: getMailFrom(),
+    from: options.from || getMailFrom(),
     to: options.to,
     replyTo: options.replyTo,
     subject: options.subject,

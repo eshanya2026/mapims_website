@@ -654,6 +654,21 @@ export default function EnquiriesWorkspace({
                       </>
                     ) : null}
 
+                    {selected.type === "insurance" ? (
+                      <>
+                        {selected.medicalCondition ? (
+                          <DetailRow
+                            label="Patient UHID"
+                            value={
+                              <span className="font-mono font-semibold text-red-700">
+                                {selected.medicalCondition}
+                              </span>
+                            }
+                          />
+                        ) : null}
+                      </>
+                    ) : null}
+
                     <DetailRow
                       label="Message"
                       value={
@@ -667,6 +682,42 @@ export default function EnquiriesWorkspace({
                   </dl>
 
                   <InterviewBlock enquiry={selected} />
+
+                  {selected.replies && selected.replies.length > 0 ? (
+                    <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50/70 p-4">
+                      <p className="mb-3 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-600">
+                        <Mail className="h-4 w-4 text-red-600" /> Replies Sent ({selected.replies.length})
+                      </p>
+                      <div className="space-y-3">
+                        {selected.replies.map((reply, idx) => (
+                          <div
+                            key={reply.id || idx}
+                            className="rounded-lg border border-slate-200 bg-white p-3.5 shadow-sm text-xs"
+                          >
+                            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2">
+                              <span className="font-semibold text-slate-900">
+                                {reply.subject || "Reply Email"}
+                              </span>
+                              <span className="text-[11px] text-slate-400">
+                                {formatDate(reply.repliedAt)}
+                              </span>
+                            </div>
+                            <p className="mt-2.5 whitespace-pre-wrap leading-relaxed text-slate-700">
+                              {reply.message}
+                            </p>
+                            <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 pt-2 text-[11px] text-slate-500">
+                              <span>
+                                Sent by: <strong className="text-slate-700">{reply.repliedBy || "Insurance Desk"}</strong>
+                              </span>
+                              <span className="rounded bg-red-50 px-2 py-0.5 font-medium text-red-700">
+                                From Insurance@mapims.org
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
 
                 <div className="border-t border-slate-100 bg-slate-50 px-5 py-5 sm:px-6">
@@ -678,6 +729,10 @@ export default function EnquiriesWorkspace({
                     type={selected.type}
                     status={selected.status}
                     candidateName={selected.name}
+                    recipientEmail={selected.email}
+                    phone={selected.phone}
+                    medicalCondition={selected.medicalCondition}
+                    message={selected.message}
                     interview={{
                       interviewDate: selected.interviewDate,
                       interviewTime: selected.interviewTime,

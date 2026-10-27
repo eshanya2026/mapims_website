@@ -105,6 +105,14 @@ export type AppointmentScheduleRecord = {
   updatedAt: Date;
 };
 
+export type InquiryReplyRecord = {
+  id: string;
+  message: string;
+  subject?: string;
+  repliedBy?: string | null;
+  repliedAt: Date;
+};
+
 export type FormSubmissionRecord = {
   id: string;
   referenceId: string | null;
@@ -135,6 +143,7 @@ export type FormSubmissionRecord = {
   interviewAddress: string | null;
   documentUrls: string[];
   status: string;
+  replies?: InquiryReplyRecord[];
   createdAt: Date;
   deletedAt?: Date | null;
   phoneNormalized?: string | null;

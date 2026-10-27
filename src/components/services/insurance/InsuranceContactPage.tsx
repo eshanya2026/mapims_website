@@ -27,6 +27,7 @@ type FormState = {
   name: string;
   phone: string;
   email: string;
+  uhid: string;
   message: string;
 };
 
@@ -41,6 +42,7 @@ const INITIAL_STATE: FormState = {
   name: "",
   phone: "",
   email: "",
+  uhid: "",
   message: "",
 };
 
@@ -54,6 +56,7 @@ export default function InsuranceContactPage() {
     name: false,
     phone: false,
     email: false,
+    uhid: false,
     message: false,
   });
   const [loading, setLoading] = useState(false);
@@ -74,9 +77,11 @@ export default function InsuranceContactPage() {
           ? "Please enter a valid phone number (at least 7 digits)."
           : "",
       email:
-        email.length > 0 && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-          ? "Please enter a valid email address."
-          : "",
+        email.length === 0
+          ? "Please enter your email address."
+          : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+            ? "Please enter a valid email address."
+            : "",
       message:
         message.length < 10
           ? "Please describe your query (minimum 10 characters)."
@@ -96,6 +101,7 @@ export default function InsuranceContactPage() {
       name: true,
       phone: true,
       email: true,
+      uhid: true,
       message: true,
     });
 
@@ -111,6 +117,7 @@ export default function InsuranceContactPage() {
         name: normalizeSpaces(state.name),
         phone: normalizeSpaces(state.phone),
         email: normalizeSpaces(state.email),
+        uhid: normalizeSpaces(state.uhid),
         message: normalizeSpaces(state.message),
       });
 
@@ -120,6 +127,7 @@ export default function InsuranceContactPage() {
         name: false,
         phone: false,
         email: false,
+        uhid: false,
         message: false,
       });
     } catch (error) {
@@ -463,26 +471,48 @@ export default function InsuranceContactPage() {
                     </div>
                   </div>
 
-                  {/* Email Address */}
-                  <div>
-                    <label
-                      htmlFor="ins-email"
-                      className="block text-xs font-bold uppercase tracking-wider text-slate-700"
-                    >
-                      Email Address <span className="text-slate-400 font-normal">(Optional)</span>
-                    </label>
-                    <input
-                      id="ins-email"
-                      type="email"
-                      value={state.email}
-                      onChange={(e) => setState({ ...state, email: e.target.value })}
-                      onBlur={() => setTouched({ ...touched, email: true })}
-                      placeholder="e.g. ramesh@example.com"
-                      className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-red-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20"
-                    />
-                    {touched.email && errors.email && (
-                      <p className="mt-1 text-xs text-red-600">{errors.email}</p>
-                    )}
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    {/* Email Address */}
+                    <div>
+                      <label
+                        htmlFor="ins-email"
+                        className="block text-xs font-bold uppercase tracking-wider text-slate-700"
+                      >
+                        Email Address <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        id="ins-email"
+                        type="email"
+                        value={state.email}
+                        onChange={(e) => setState({ ...state, email: e.target.value })}
+                        onBlur={() => setTouched({ ...touched, email: true })}
+                        placeholder="e.g. ramesh@example.com"
+                        className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-red-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20"
+                        required
+                      />
+                      {touched.email && errors.email && (
+                        <p className="mt-1 text-xs text-red-600">{errors.email}</p>
+                      )}
+                    </div>
+
+                    {/* Patient UHID (Optional) */}
+                    <div>
+                      <label
+                        htmlFor="ins-uhid"
+                        className="block text-xs font-bold uppercase tracking-wider text-slate-700"
+                      >
+                        Patient UHID <span className="text-slate-400 font-normal">(Optional)</span>
+                      </label>
+                      <input
+                        id="ins-uhid"
+                        type="text"
+                        value={state.uhid}
+                        onChange={(e) => setState({ ...state, uhid: e.target.value })}
+                        onBlur={() => setTouched({ ...touched, uhid: true })}
+                        placeholder="e.g. MAPIMS/123456"
+                        className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-red-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-red-500/20"
+                      />
+                    </div>
                   </div>
 
                   {/* Message */}

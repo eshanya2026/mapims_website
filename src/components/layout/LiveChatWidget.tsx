@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 import { Bot, MessageSquarePlus, X, Send, Loader2, Mic } from "lucide-react";
 import ChatTypingIndicator from "@/components/layout/ChatTypingIndicator";
 import {
@@ -530,7 +531,25 @@ export default function LiveChatWidget() {
           </div>
         ) : null}
 
-        <div className={cn("relative", !open && "chat-launcher-jump")}>
+        <motion.div
+          animate={
+            !open
+              ? {
+                  y: [0, 2, -18, 0, -8, 0, 0],
+                  scaleY: [1, 0.94, 1.08, 0.97, 1.03, 1, 1],
+                  scaleX: [1, 1.06, 0.94, 1.03, 0.97, 1, 1],
+                }
+              : { y: 0, scale: 1 }
+          }
+          transition={{
+            duration: 2.6,
+            repeat: Infinity,
+            ease: "easeInOut",
+            times: [0, 0.08, 0.22, 0.36, 0.48, 0.6, 1],
+            repeatDelay: 1.2,
+          }}
+          className="relative origin-bottom"
+        >
           {!open ? (
             <>
               <span
@@ -570,7 +589,7 @@ export default function LiveChatWidget() {
               </>
             )}
           </button>
-        </div>
+        </motion.div>
       </div>
     </>
   );

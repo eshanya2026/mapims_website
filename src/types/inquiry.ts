@@ -1,3 +1,11 @@
+export type InquiryReply = {
+  id: string;
+  message: string;
+  subject?: string;
+  repliedBy?: string | null;
+  repliedAt: string;
+};
+
 export type InquiryRecord = {
   id: string;
   referenceId: string | null;
@@ -27,5 +35,6 @@ export type InquiryRecord = {
   interviewAddress: string | null;
   documentUrls: string[];
   status: string;
+  replies?: InquiryReply[];
   createdAt: string;
 };

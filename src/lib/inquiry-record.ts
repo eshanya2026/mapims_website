@@ -41,6 +41,15 @@ export function toInquiryRecord(
     interviewAddress: record.interviewAddress ?? null,
     documentUrls: Array.isArray(record.documentUrls) ? record.documentUrls : [],
     status: record.status,
+    replies: Array.isArray(record.replies)
+      ? record.replies.map((reply) => ({
+          id: String(reply.id),
+          message: reply.message,
+          subject: reply.subject,
+          repliedBy: reply.repliedBy ?? null,
+          repliedAt: toIsoString(reply.repliedAt) ?? new Date().toISOString(),
+        }))
+      : [],
     createdAt: toIsoString(record.createdAt) ?? new Date().toISOString(),
   };
 }

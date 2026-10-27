@@ -7,8 +7,6 @@ import { footerQuickLinks, type FooterQuickLink } from "@/data/quick-links";
 const linkClassName =
   "text-sm text-slate-400 hover:text-white transition-colors";
 
-const quickLinkSplitIndex = 5;
-
 function QuickLinkItem({ link }: { link: FooterQuickLink }) {
   if (link.appointment) {
     return (
@@ -51,8 +49,9 @@ function QuickLinkList({ links }: { links: FooterQuickLink[] }) {
 }
 
 export default function FooterQuickLinks() {
-  const firstColumn = footerQuickLinks.slice(0, quickLinkSplitIndex);
-  const secondColumn = footerQuickLinks.slice(quickLinkSplitIndex);
+  const splitIndex = Math.ceil(footerQuickLinks.length / 2);
+  const firstColumn = footerQuickLinks.slice(0, splitIndex);
+  const secondColumn = footerQuickLinks.slice(splitIndex);
 
   return (
     <div className="flex gap-8 sm:gap-10">

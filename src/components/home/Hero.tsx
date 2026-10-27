@@ -65,7 +65,8 @@ export default function Hero() {
     <section className="relative overflow-hidden bg-slate-50 py-8 sm:flex sm:min-h-[90vh] sm:items-center sm:py-12 lg:py-16">
       <HeroBackground
         imageSrc="/images/mapims-flow-gwr-poster.jpg"
-        videoSrc="/videos/mapims flow_gwr_video_mvp.mp4"
+        videoSrc="/videos/mapims-flow-gwr-video-mvp.mp4"
+        videoWebmSrc="/videos/mapims-flow-gwr-video-mvp.webm"
         overlayClassName="bg-gradient-to-r from-slate-950/95 via-slate-900/85 to-slate-900/40 sm:from-slate-950/92 sm:via-slate-900/80 sm:to-slate-900/30"
         imageClassName="object-[center_42%] sm:object-[center_45%] contrast-150"
         videoClassName="object-center contrast-150"

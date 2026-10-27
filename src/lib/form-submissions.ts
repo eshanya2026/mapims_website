@@ -141,6 +141,7 @@ export async function createFormSubmission(
 
   if (data.type === "insurance") {
     const details = [
+      data.uhid ? `Patient UHID: ${data.uhid}` : null,
       data.insuranceProvider ? `Provider / TPA: ${data.insuranceProvider}` : null,
       data.policyNumber ? `Policy / Card: ${data.policyNumber}` : null,
       data.queryType ? `Type: ${data.queryType}` : null,

@@ -396,13 +396,23 @@
 }
 
 @keyframes chat-launcher-jump {
-  0%,
-  100% {
-    transform: translateY(0);
+  0%, 100% {
+    transform: translateY(0) scale(1);
   }
-
-  50% {
-    transform: translateY(-8px);
+  8% {
+    transform: translateY(3px) scale(1.05, 0.95);
+  }
+  20% {
+    transform: translateY(-18px) scale(0.95, 1.06);
+  }
+  32% {
+    transform: translateY(0) scale(1.03, 0.97);
+  }
+  42% {
+    transform: translateY(-9px) scale(0.98, 1.02);
+  }
+  52% {
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -416,18 +426,11 @@
 }
 
 .chat-launcher-jump {
-  animation: chat-launcher-jump 2s ease-in-out infinite;
+  animation: chat-launcher-jump 3.2s cubic-bezier(0.25, 0.8, 0.35, 1) infinite;
+  transform-origin: bottom center;
+  will-change: transform;
 }
 
 .chat-launcher-online-ping {
   animation: chat-launcher-pulse 2.5s ease-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .chat-typing-dot,
-  .chat-launcher-pulse,
-  .chat-launcher-jump,
-  .chat-launcher-online-ping {
-    animation: none;
-  }
 }

@@ -33,12 +33,31 @@ export default function HeroBackground({
   const splitRight = imageLayout === "split-right";
 
   useEffect(() => {
-    if (!videoRef.current) return;
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (mediaQuery.matches) {
-      videoRef.current.pause();
-    }
-  }, []);
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Browsers strictly require DOM property muted = true for autoplay
+    video.defaultMuted = true;
+    video.muted = true;
+
+    const playVideo = () => {
+      const promise = video.play();
+      if (promise !== undefined) {
+        promise.catch(() => {
+          // Autoplay blocked by browser policy until interaction
+        });
+      }
+    };
+
+    playVideo();
+    video.addEventListener("canplay", playVideo, { once: true });
+    video.addEventListener("loadeddata", playVideo, { once: true });
+
+    return () => {
+      video.removeEventListener("canplay", playVideo);
+      video.removeEventListener("loadeddata", playVideo);
+    };
+  }, [hasVideo]);
 
   return (
     <div
@@ -66,17 +85,6 @@ export default function HeroBackground({
         >
           {videoWebmSrc && <source src={videoWebmSrc} type="video/webm" />}
           {videoSrc && <source src={videoSrc} type="video/mp4" />}
-          {showImage && (
-            <img
-              src={imageSrc}
-              alt=""
-              aria-hidden
-              className={cn(
-                "absolute inset-0 h-full w-full object-cover object-center",
-                imageClassName
-              )}
-            />
-          )}
         </video>
       ) : showImage &&
         (splitRight ? (

@@ -53,6 +53,6 @@ export const communityOutreachService: InternationalServiceData = {
   ],
   closing:
     "Partner with us to organize a community health camp or enquire about our outreach programs. Contact Adhiparasakthi Hospitals at +91 94990 59966 or Toll Free 1800 599 0999.",
-  image: "/images/services/community-outreach-hero.jpg",
-  heroImage: "/images/services/community-outreach-hero.jpg",
+  image: "/images/services/community-outreach-camp-1.webp",
+  heroImage: "/images/services/community-outreach-camp-1.webp",
 };

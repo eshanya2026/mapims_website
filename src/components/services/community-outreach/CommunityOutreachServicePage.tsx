@@ -1,8 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Heart,
   ShieldCheck,
@@ -10,6 +11,7 @@ import {
   Phone,
   ArrowRight,
   ChevronRight,
+  ChevronLeft,
   Sparkles,
   HeartHandshake,
   Calendar,
@@ -20,6 +22,7 @@ import {
   MapPin,
   GraduationCap,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const outreachPillars = [
   {
@@ -107,7 +110,39 @@ const schemeHighlights = [
   },
 ];
 
+const heroSlides = [
+  {
+    id: 1,
+    src: "/images/services/community-outreach-camp-1.webp",
+    alt: "Free Community Eye Care & Medical Camp 2026 at Adhiparasakthi Hospitals",
+    badge: "Free Eye Care Camp",
+    tagline: "Specialist Eye Screening & Treatment Drive",
+    icon: Eye,
+    objectPosition: "object-center",
+  },
+  {
+    id: 2,
+    src: "/images/services/community-outreach-camp-2.webp",
+    alt: "Doctors Conducting Rural Medical Consultations & Health Checkups",
+    badge: "Rural Medical Outreach",
+    tagline: "Free Clinical Consultations & Health Checks",
+    icon: HeartHandshake,
+    objectPosition: "object-[center_28%]",
+  },
+];
+
 export default function CommunityOutreachServicePage() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [isPaused]);
+
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900 selection:bg-red-500 selection:text-white">
       {/* 1. Hero Section */}
@@ -189,29 +224,106 @@ export default function CommunityOutreachServicePage() {
               </div>
             </motion.div>
 
-            {/* Right Card / Visual Showcase */}
+            {/* Right Card / Visual Showcase Carousel */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.15 }}
               className="lg:col-span-5"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
             >
-              <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-slate-900/80 p-2 shadow-2xl backdrop-blur-xl">
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl">
-                  <Image
-                    src="/images/services/community-outreach-hero.jpg"
-                    alt="Community Outreach and Free Medical Screening Camp by Adhiparasakthi Hospitals"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 550px"
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-red-600/95 px-3.5 py-1 text-xs font-semibold text-white backdrop-blur-md">
-                      <HeartHandshake className="h-3.5 w-3.5" />
-                      Serving Communities in &amp; Around Melmaruvathur
+              <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-slate-900/90 p-2 shadow-2xl backdrop-blur-xl">
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-950">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentSlide}
+                      initial={{ opacity: 0, scale: 1.04 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={heroSlides[currentSlide].src}
+                        alt={heroSlides[currentSlide].alt}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 550px"
+                        className={cn(
+                          "object-cover transition-transform duration-700 hover:scale-105",
+                          heroSlides[currentSlide].objectPosition
+                        )}
+                        priority={currentSlide === 0}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent" />
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {/* Top Badge: Outreach Status & Counter */}
+                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-900/80 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur-md border border-white/10 shadow-sm">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      Free Medical Camp Drive
                     </span>
+                    <span className="rounded-full bg-slate-900/80 px-2.5 py-1 text-[11px] font-semibold text-slate-300 backdrop-blur-md border border-white/10">
+                      {currentSlide + 1} / {heroSlides.length}
+                    </span>
+                  </div>
+
+                  {/* Navigation Arrows */}
+                  <div className="absolute inset-y-0 left-2 right-2 flex items-center justify-between pointer-events-none z-10">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+                      }
+                      className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-md transition hover:bg-red-600 hover:scale-110 border border-white/20 cursor-pointer shadow-lg"
+                      aria-label="Previous camp image"
+                    >
+                      <ChevronLeft className="h-5 w-5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
+                      }
+                      className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-md transition hover:bg-red-600 hover:scale-110 border border-white/20 cursor-pointer shadow-lg"
+                      aria-label="Next camp image"
+                    >
+                      <ChevronRight className="h-5 w-5" />
+                    </button>
+                  </div>
+
+                  {/* Bottom Caption Pill & Indicators */}
+                  <div className="absolute bottom-3 left-3 right-3 z-10">
+                    <div className="rounded-xl bg-slate-950/80 p-2.5 backdrop-blur-md border border-white/10 flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="inline-flex items-center gap-1 rounded-md bg-red-600 px-2 py-0.5 text-[10px] font-bold text-white uppercase tracking-wider shrink-0">
+                          {heroSlides[currentSlide].badge}
+                        </span>
+                        <p className="text-xs font-semibold text-white truncate">
+                          {heroSlides[currentSlide].tagline}
+                        </p>
+                      </div>
+
+                      {/* Slide Indicator Dots */}
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        {heroSlides.map((_, idx) => (
+                          <button
+                            key={idx}
+                            type="button"
+                            onClick={() => setCurrentSlide(idx)}
+                            aria-label={`Go to slide ${idx + 1}`}
+                            className={cn(
+                              "h-1.5 rounded-full transition-all cursor-pointer",
+                              idx === currentSlide
+                                ? "w-5 bg-red-500"
+                                : "w-1.5 bg-white/40 hover:bg-white/70"
+                            )}
+                          />
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

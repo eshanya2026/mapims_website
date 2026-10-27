@@ -14,14 +14,6 @@ export const footerQuickLinks: FooterQuickLink[] = [
     label: "Master Health Check Up Package",
     href: "/#health-package-master-health-checkup",
   },
-  {
-    label: "Cardio Health Check Up Package",
-    href: "/#health-package-cardio-health-checkup",
-  },
-  {
-    label: "Well Women Checkup Executive Package",
-    href: "/#health-package-well-women-executive",
-  },
   { label: "Blog", href: "/blog/health-insights" },
   { label: "Appointment", href: "/#book-appointment", appointment: true },
   {

@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { getDb } from "@/lib/mongodb";
 import { ensureDbIndexes } from "@/lib/db/indexes";
 import { deletedOnlyFilter, mergeNotDeleted, notDeletedFilter, softDeleteFields } from "@/lib/db/soft-delete";
@@ -69,6 +70,15 @@ function toFormSubmissionRecord(
     emailNormalized: record.emailNormalized ?? null,
     clientIp: record.clientIp ?? null,
     deletedAt: record.deletedAt ?? null,
+    replies: Array.isArray(record.replies)
+      ? record.replies.map((reply) => ({
+          id: String(reply.id),
+          message: reply.message,
+          subject: reply.subject,
+          repliedBy: reply.repliedBy ?? null,
+          repliedAt: reply.repliedAt instanceof Date ? reply.repliedAt : new Date(reply.repliedAt),
+        }))
+      : [],
   };
 }
 
@@ -236,6 +246,43 @@ export async function updateFormSubmission(
   const doc = await collection.findOneAndUpdate(
     mergeNotDeleted({ _id: objectId }),
     { $set: data },
+    { returnDocument: "after" }
+  );
+
+  return doc ? toFormSubmissionRecord(doc) : null;
+}
+
+export async function addInquiryReply(
+  id: string,
+  reply: {
+    message: string;
+    subject?: string;
+    repliedBy?: string | null;
+  },
+  newStatus?: string
+) {
+  const objectId = toObjectId(id);
+  if (!objectId) return null;
+
+  const collection = await formSubmissionsCollection();
+  const replyItem = {
+    id: new ObjectId().toHexString(),
+    message: reply.message.trim(),
+    subject: reply.subject?.trim(),
+    repliedBy: reply.repliedBy?.trim() || null,
+    repliedAt: now(),
+  };
+
+  const updateDoc: Record<string, unknown> = {
+    $push: { replies: replyItem },
+  };
+  if (newStatus) {
+    updateDoc.$set = { status: newStatus };
+  }
+
+  const doc = await collection.findOneAndUpdate(
+    mergeNotDeleted({ _id: objectId }),
+    updateDoc as Parameters<typeof collection.findOneAndUpdate>[1],
     { returnDocument: "after" }
   );
 
