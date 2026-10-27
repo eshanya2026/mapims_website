@@ -11,8 +11,12 @@ export const footerQuickLinks: FooterQuickLink[] = [
   { label: "Mission & Vision", href: "/about#mission-vision" },
   { label: "International Patients", href: "/international" },
   {
-    label: "Master Health Check Up Package",
-    href: "/#health-package-master-health-checkup",
+    label: "General Surgery Package",
+    href: "/blog/special-concession-packages-for-general-surgery-procedures",
+  },
+  {
+    label: "ENT Surgery Package",
+    href: "/blog/ent-surgery-special-concession-packages",
   },
   { label: "Blog", href: "/blog/health-insights" },
   { label: "Appointment", href: "/#book-appointment", appointment: true },
