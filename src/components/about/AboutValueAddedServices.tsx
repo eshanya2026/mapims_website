@@ -1,8 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, HeartHandshake, Bus, Pill } from "lucide-react";
+import {
+  ChevronDown,
+  HeartHandshake,
+  Bus,
+  Pill,
+  PhoneCall,
+  Sparkles,
+} from "lucide-react";
 import { valueAddedServices } from "@/data/value-added-services";
 import { cn } from "@/lib/utils";
 
@@ -108,6 +116,68 @@ export default function AboutValueAddedServices() {
                   </div>
                 );
               })}
+            </div>
+
+            {/* Inpatient Care Welfare Announcement Banner */}
+            <div className="mt-5 overflow-hidden rounded-2xl border border-red-200/90 bg-gradient-to-br from-white via-rose-50/25 to-amber-50/30 shadow-md">
+              <div className="p-2.5 pb-0">
+                <div className="relative overflow-hidden rounded-xl border border-red-100 shadow-xs bg-slate-50">
+                  <Image
+                    src="/images/about/value-added-inpatient-care-banner.jpg"
+                    alt="ஆதிபராசக்தி மருத்துவமனை - பொதுவார்டு உள்நோயாளிகளுக்கு மருந்துகள் இலவசம் & பரிசோதனையில் 50% தள்ளுபடி"
+                    width={1024}
+                    height={853}
+                    unoptimized
+                    priority
+                    className="w-full h-auto object-cover"
+                  />
+                </div>
+              </div>
+
+              <div className="p-3.5 pt-2.5">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-red-100 px-2.5 py-0.5 text-[10px] font-bold text-red-700">
+                    <Sparkles className="h-3 w-3" /> Special Inpatient Scheme
+                  </span>
+                  <span className="text-[10px] font-semibold text-slate-500">
+                    General Ward
+                  </span>
+                </div>
+
+                <div className="mt-2.5 space-y-1.5 text-xs text-slate-700">
+                  <div className="flex items-start gap-2">
+                    <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-[10px] font-bold text-emerald-700">
+                      ✓
+                    </span>
+                    <p className="leading-tight">
+                      <strong>100% Free Medicines:</strong> Essential medicines provided free of charge for general ward inpatients
+                    </p>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-red-100 text-[10px] font-bold text-red-700">
+                      ✓
+                    </span>
+                    <p className="leading-tight">
+                      <strong>50% Special Concession:</strong> 50% discount on all lab investigations &amp; diagnostic tests
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-1 border-t border-red-100/80 pt-2.5 text-[11px] text-slate-600 font-medium">
+                  <a
+                    href="tel:044-27528528"
+                    className="flex items-center gap-1 font-semibold text-red-600 hover:underline"
+                  >
+                    <PhoneCall className="h-3 w-3" /> 044-27528528
+                  </a>
+                  <a
+                    href="tel:18005990999"
+                    className="font-semibold text-slate-700 hover:text-red-600"
+                  >
+                    Toll Free: 1800 599 0999
+                  </a>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
