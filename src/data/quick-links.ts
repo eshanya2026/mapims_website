@@ -18,7 +18,10 @@ export const footerQuickLinks: FooterQuickLink[] = [
     label: "ENT Surgery Package",
     href: "/blog/ent-surgery-special-concession-packages",
   },
-  { label: "Blog", href: "/blog/health-insights" },
+  {
+    label: "Master Health Checkup",
+    href: "/#health-package-master-health-checkup",
+  },
   { label: "Appointment", href: "/#book-appointment", appointment: true },
   {
     label: "Patient Feedback",
