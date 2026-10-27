@@ -3,6 +3,7 @@ export const ADMIN_ROLES = {
   hr: "HR Team",
   marketing: "Marketing Team",
   front_office: "Front Office / Admin Staff",
+  insurance: "Insurance Desk / TPA Cell",
 } as const;
 
 export type AdminRole = keyof typeof ADMIN_ROLES;
@@ -17,14 +18,21 @@ export type AdminPermission =
   | "users"
   | "settings";
 
-export type EnquiryFilter = "all" | "appointment" | "contact" | "international" | "career";
+export type EnquiryFilter =
+  | "all"
+  | "appointment"
+  | "contact"
+  | "insurance"
+  | "international"
+  | "career";
 
 export const ENQUIRY_TYPES_BY_FILTER: Record<
   Exclude<EnquiryFilter, "all">,
   readonly string[]
 > = {
   appointment: ["appointment"],
-  contact: ["contact", "insurance"],
+  contact: ["contact"],
+  insurance: ["insurance"],
   international: ["international"],
   career: ["career", "job_application"],
 };
@@ -43,14 +51,23 @@ export const ROLE_PERMISSIONS: Record<AdminRole, readonly AdminPermission[]> = {
   hr: ["dashboard", "jobs", "inquiries"],
   marketing: ["dashboard", "posts"],
   front_office: ["dashboard", "appointment_schedules", "inquiries"],
+  insurance: ["dashboard", "inquiries"],
 };
 
 /** Which enquiry tabs each role may use in the admin panel. */
 export const ROLE_ENQUIRY_FILTERS: Record<AdminRole, readonly EnquiryFilter[]> = {
-  super_admin: ["all", "appointment", "contact", "international", "career"],
+  super_admin: [
+    "all",
+    "appointment",
+    "contact",
+    "insurance",
+    "international",
+    "career",
+  ],
   hr: ["career"],
   marketing: [],
-  front_office: ["all", "appointment", "contact", "international"],
+  front_office: ["all", "appointment", "contact", "insurance", "international"],
+  insurance: ["insurance"],
 };
 
 export function isAdminRole(value: string): value is AdminRole {
@@ -74,6 +91,9 @@ export function canAccessEnquiryType(role: AdminRole, type: string) {
   if (role === "hr") {
     return type === "career" || type === "job_application";
   }
+  if (role === "insurance") {
+    return type === "insurance";
+  }
   if (role === "front_office") {
     return (
       type === "appointment" ||
@@ -90,7 +110,7 @@ export function resolveEnquiryFilterForRole(
   filter?: string | null
 ): EnquiryFilter {
   const allowed = getAllowedEnquiryFilters(role);
-  if (allowed.length === 0) return "all";
+  if (allowed.length === 0) return "insurance";
   if (filter && allowed.includes(filter as EnquiryFilter)) {
     return filter as EnquiryFilter;
   }
@@ -111,9 +131,13 @@ export function enquiryTypesForRole(role: AdminRole, filter: EnquiryFilter): str
     return ["career", "job_application"];
   }
 
+  if (role === "insurance") {
+    return ["insurance"];
+  }
+
   if (role === "front_office") {
     if (filter === "all") {
-      return ["appointment", "contact", "international"];
+      return ["appointment", "contact", "insurance", "international"];
     }
     if (filter === "career") return [];
     return enquiryTypesForFilter(filter);
@@ -128,6 +152,8 @@ export function getDefaultAdminPath(role: AdminRole) {
       return "/admin/inquiries?type=career";
     case "marketing":
       return "/admin/posts";
+    case "insurance":
+      return "/admin/inquiries?type=insurance";
     case "front_office":
       return "/admin/inquiries";
     default:

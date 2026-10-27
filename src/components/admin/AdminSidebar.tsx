@@ -79,15 +79,23 @@ export default function AdminSidebar({ role, email, name }: AdminSidebarProps) {
 
       <nav className="flex-1 space-y-1 overflow-y-auto p-4">
         {visibleLinks.map((link) => {
+          const targetHref =
+            link.permission === "inquiries"
+              ? role === "insurance"
+                ? "/admin/inquiries?type=insurance"
+                : role === "hr"
+                  ? "/admin/inquiries?type=career"
+                  : link.href
+              : link.href;
           const active = link.exact
-            ? pathname === link.href
+            ? pathname === targetHref
             : pathname.startsWith(link.href);
           const Icon = link.icon;
 
           return (
             <Link
               key={link.href}
-              href={link.href}
+              href={targetHref}
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
                 active
@@ -96,7 +104,9 @@ export default function AdminSidebar({ role, email, name }: AdminSidebarProps) {
               )}
             >
               <Icon className="h-4 w-4" />
-              {link.label}
+              {link.permission === "inquiries" && role === "insurance"
+                ? "Insurance Queries"
+                : link.label}
             </Link>
           );
         })}

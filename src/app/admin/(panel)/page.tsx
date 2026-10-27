@@ -33,9 +33,11 @@ export default async function AdminDashboardPage() {
   const { total: inquiryCount, new: newInquiries } = inquiryCounts;
 
   const enquiriesHref =
-    session.role === "hr"
-      ? "/admin/inquiries?type=career"
-      : "/admin/inquiries";
+    session.role === "insurance"
+      ? "/admin/inquiries?type=insurance"
+      : session.role === "hr"
+        ? "/admin/inquiries?type=career"
+        : "/admin/inquiries";
 
   return (
     <div className="p-8">

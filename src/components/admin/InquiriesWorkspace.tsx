@@ -40,6 +40,7 @@ const filters = [
   { value: "all", label: "All" },
   { value: "appointment", label: "Appointments" },
   { value: "contact", label: "Contact" },
+  { value: "insurance", label: "Insurance" },
   { value: "international", label: "International" },
   { value: "career", label: "Careers" },
 ] as const;

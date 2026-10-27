@@ -32,6 +32,12 @@ const cmsUsers = [
     name: "Front Office",
     role: "front_office",
   },
+  {
+    email: "insurance@mapims.org",
+    password: process.env.INSURANCE_PASSWORD ?? "insurance123",
+    name: "Insurance Desk",
+    role: "insurance",
+  },
 ] as const;
 
 async function seedAdminUsers() {

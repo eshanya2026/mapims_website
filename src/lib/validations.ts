@@ -13,6 +13,7 @@ export const adminRoleSchema = z.enum([
   "hr",
   "marketing",
   "front_office",
+  "insurance",
 ]);
 
 export const createAdminUserSchema = z.object({
