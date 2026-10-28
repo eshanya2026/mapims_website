@@ -344,29 +344,7 @@ export default function OutpatientServicePage() {
                     </button>
                   </div>
 
-                  {/* Bottom Caption Pill & Indicators */}
-                  <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10">
-                    <div className="rounded-xl bg-slate-950/80 p-2 backdrop-blur-md border border-white/10 flex items-center justify-between gap-3">
-                      <p className="text-xs font-semibold text-white truncate pl-1">
-                        {heroSlides[currentSlide].tagline}
-                      </p>
 
-                      {/* Slide Indicator Dots */}
-                      <div className="flex items-center gap-1.5 shrink-0 pr-1">
-                        {heroSlides.map((_, dotIdx) => (
-                          <button
-                            key={dotIdx}
-                            type="button"
-                            onClick={() => setCurrentSlide(dotIdx)}
-                            className={`h-1.5 rounded-full transition-all cursor-pointer ${
-                              currentSlide === dotIdx ? "w-4 bg-red-500" : "w-1.5 bg-white/40 hover:bg-white/70"
-                            }`}
-                            aria-label={`Go to slide ${dotIdx + 1}`}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
                 {/* OPD Highlight Floating Badge */}
