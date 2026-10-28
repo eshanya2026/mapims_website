@@ -216,7 +216,11 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   ) {
     return <OutpatientServicePage />;
   }
-  if (slug === "inpatient-service") {
+  if (
+    slug === "inpatient-service" ||
+    slug === "inpatient" ||
+    slug === "ipd"
+  ) {
     return <InpatientServicePage />;
   }
   if (slug === "blood-bank") {

@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Bed,
   HeartHandshake,
@@ -12,6 +13,7 @@ import {
   Phone,
   ArrowRight,
   ChevronRight,
+  ChevronLeft,
   ClipboardCheck,
   Sparkles,
   Stethoscope,
@@ -20,7 +22,188 @@ import {
   Activity,
   FileCheck2,
   Building2,
+  Maximize2,
+  X,
+  Tag,
+  Check,
+  Info,
 } from "lucide-react";
+
+export type SpecialWardRoom = {
+  id: string;
+  name: string;
+  type: string;
+  price: number;
+  priceLabel: string;
+  period: string;
+  badge: string;
+  popular?: boolean;
+  description: string;
+  images: {
+    src: string;
+    label: string;
+    alt: string;
+  }[];
+  features: string[];
+};
+
+const specialWardRooms: SpecialWardRoom[] = [
+  {
+    id: "deluxe",
+    name: "Deluxe Room",
+    type: "Private Air-Conditioned Room",
+    price: 2500,
+    priceLabel: "₹2,500",
+    period: "/ per day",
+    badge: "Private & Comfortable",
+    description:
+      "Comfortable air-conditioned private room designed for peaceful patient recovery with an adjustable patient bed, dedicated attendant cot, bedside storage, and 24/7 nursing care.",
+    images: [
+      {
+        src: "/images/services/inpatient/deluxe-room-1.png",
+        label: "Deluxe Room",
+        alt: "Deluxe Inpatient Room with Patient Bed and Attendant Cot at Adhiparasakthi Hospitals",
+      },
+    ],
+    features: [
+      "Fully Air-Conditioned Private Patient Room",
+      "Ergonomic Patient Bed with Side Safety Rails",
+      "Dedicated Attendant Cot with Bedding",
+      "Bedside Storage Locker, Wardrobe & Intercom",
+      "Central Medical Oxygen & Vacuum Suction Console",
+      "Attached Private Bathroom with Daily Sanitization",
+    ],
+  },
+  {
+    id: "super-deluxe",
+    name: "Super Deluxe Room",
+    type: "Premium Private Room",
+    price: 3500,
+    priceLabel: "₹3,500",
+    period: "/ per day",
+    badge: "Premium Comfort",
+    description:
+      "Spacious designer air-conditioned private room featuring an advanced multi-function patient bed, dedicated attendant day diwan, wall-mounted entertainment TV, and personal care amenities.",
+    images: [
+      {
+        src: "/images/services/inpatient/super-deluxe-room.png",
+        label: "Super Deluxe Room",
+        alt: "Super Deluxe Inpatient Room at Adhiparasakthi Hospitals",
+      },
+    ],
+    features: [
+      "Spacious Private Air-Conditioned Room with Designer Finish",
+      "Advanced Multi-Function Patient Bed with Side Rails",
+      "Dedicated Attendant Diwan / Day Bed with Cushioning",
+      "Wall-Mounted LED Television & Direct Nurse Call Bell",
+      "Attached Modern Restroom with Hot Water Facility",
+      "Bedside Oxygen Console, Food Tray Table & Storage",
+    ],
+  },
+  {
+    id: "suite",
+    name: "Suite Room",
+    type: "Ultra-Luxury Suite",
+    price: 4800,
+    priceLabel: "₹4,800",
+    period: "/ per day",
+    badge: "Ultra Luxury & Privacy",
+    popular: true,
+    description:
+      "Exclusive two-room suite featuring a private master patient bedroom, an independent attendant living & dining lounge with sofa recliner, dining table, and premium hospital amenities.",
+    images: [
+      {
+        src: "/images/services/inpatient/suite-room-main.png",
+        label: "Master Suite & Patient Bed",
+        alt: "Suite Room Master Patient Bedroom with Fowler Bed at Adhiparasakthi Hospitals",
+      },
+      {
+        src: "/images/services/inpatient/suite-room-lounge.png",
+        label: "Attendant Lounge & Dining Area",
+        alt: "Suite Room Attendant Living and Dining Lounge at Adhiparasakthi Hospitals",
+      },
+    ],
+    features: [
+      "Separate Patient Master Bedroom & Attendant Living Lounge",
+      "Motorized Paramount Fowler Bed & Dedicated Medical Console",
+      "Leatherette Recliner Sofa, Dining Table & Attendant Cot",
+      "Central Air Conditioning, LED TV & Food Pantry Counter",
+      "Attached Private Restroom with Hot Water Facility",
+      "24/7 Dedicated Nursing Call & Priority Doctor Reviews",
+    ],
+  },
+  {
+    id: "sharing",
+    name: "Sharing Room",
+    type: "Twin Sharing AC",
+    price: 1500,
+    priceLabel: "₹1,500",
+    period: "/ per day",
+    badge: "Economical & Comfortable",
+    description:
+      "Air-conditioned twin-sharing accommodation offering clean, hygienic recovery with full privacy curtain partitions, dedicated patient beds, attendant seating, and bedside storage lockers.",
+    images: [
+      {
+        src: "/images/services/inpatient/sharing-room-1.png",
+        label: "Bed & Locker View",
+        alt: "Twin Sharing Room Bed and Privacy Setup at Adhiparasakthi Hospitals",
+      },
+      {
+        src: "/images/services/inpatient/sharing-room-2.png",
+        label: "Room Overview",
+        alt: "Twin Sharing Inpatient Room Overview at Adhiparasakthi Hospitals",
+      },
+    ],
+    features: [
+      "Air-Conditioned Twin Sharing Room with Privacy Curtains",
+      "Adjustable Patient Bed with Side Rails & Oxygen Point",
+      "Comfortable Attendant Seating & Personal Storage Locker",
+      "Shared Hygienic Bathroom with Regular Sanitization",
+      "24/7 Clinical Monitoring & Round-the-Clock Nursing",
+      "Free IP Pharmacy Access for Essential Prescribed Drugs",
+    ],
+  },
+];
+
+const generalWardBenefits = [
+  {
+    title: "100% Free Essential Medicines",
+    desc: "Prescribed essential inpatient medicines provided completely free of charge to general ward patients.",
+    badge: "Free IP Pharmacy",
+    icon: Pill,
+    highlight: true,
+  },
+  {
+    title: "50% Special Concession on Diagnostics",
+    desc: "50% direct discount on all laboratory investigations, diagnostic scans, and clinical testing.",
+    badge: "50% Concession",
+    icon: Activity,
+    highlight: true,
+  },
+  {
+    title: "Clean, Well-Ventilated Multi-Bed Wards",
+    desc: "Spacious wards with ample airflow, privacy curtains between beds, and regular sanitization.",
+    badge: "Hygienic Facility",
+    icon: Bed,
+    highlight: false,
+  },
+  {
+    title: "24/7 Qualified Nursing & Doctor Rounds",
+    desc: "Continuous vital signs tracking, timely medication administration, and regular specialist rounds.",
+    badge: "Continuous Care",
+    icon: Stethoscope,
+    highlight: false,
+  },
+];
+
+const generalWardAmenities = [
+  "Spacious multi-bed ward with curtained privacy screens around each bed",
+  "Central medical oxygen ports and vacuum suction line at bedside",
+  "24/7 Dedicated nursing station and round-the-clock Resident Medical Officers",
+  "Regular consultant physician and surgeon clinical evaluation rounds",
+  "Clean attendant waiting halls and hygienic drinking water facilities",
+  "Emergency code response and immediate critical care transfer backup",
+];
 
 const inpatientPillars = [
   {
@@ -168,6 +351,41 @@ const whyChooseInpatient = [
 ];
 
 export default function InpatientServicePage() {
+  const [wardTab, setWardTab] = useState<"all" | "general" | "special">("all");
+  const [roomImageIndexes, setRoomImageIndexes] = useState<Record<string, number>>({
+    suite: 0,
+    "super-deluxe": 0,
+    deluxe: 0,
+    sharing: 0,
+  });
+  const [lightboxImage, setLightboxImage] = useState<{
+    src: string;
+    alt: string;
+    title: string;
+    price?: string;
+  } | null>(null);
+
+  const handleNextRoomImage = (roomId: string, total: number) => {
+    setRoomImageIndexes((prev) => ({
+      ...prev,
+      [roomId]: ((prev[roomId] ?? 0) + 1) % total,
+    }));
+  };
+
+  const handlePrevRoomImage = (roomId: string, total: number) => {
+    setRoomImageIndexes((prev) => ({
+      ...prev,
+      [roomId]: ((prev[roomId] ?? 0) - 1 + total) % total,
+    }));
+  };
+
+  const handleSetRoomImage = (roomId: string, index: number) => {
+    setRoomImageIndexes((prev) => ({
+      ...prev,
+      [roomId]: index,
+    }));
+  };
+
   return (
     <main className="min-h-screen bg-slate-50/50">
       {/* 1. Hero Section */}
@@ -232,11 +450,11 @@ export default function InpatientServicePage() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
-                  href="#inpatient-services"
+                  href="#available-ward-facilities"
                   className="inline-flex h-12 items-center justify-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-7 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/20 hover:border-white/40"
                 >
                   <Bed className="h-4 w-4 text-red-400" />
-                  <span>Explore Inpatient Services</span>
+                  <span>Available Ward Facilities</span>
                 </Link>
               </div>
             </motion.div>
@@ -308,6 +526,433 @@ export default function InpatientServicePage() {
               </div>
             );
           })}
+        </div>
+      </section>
+
+      {/* 2.5 Available Ward Facilities (General Ward & Special Ward) */}
+      <section
+        id="available-ward-facilities"
+        className="section-padding bg-slate-50 py-16 sm:py-20 border-t border-slate-200/70 scroll-mt-20"
+      >
+        <div className="container mx-auto px-4 sm:px-6">
+          {/* Section Header */}
+          <div className="mx-auto max-w-3xl text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-red-600">
+              <Building2 className="h-3.5 w-3.5" />
+              Ward Accommodation &amp; Rooms
+            </span>
+            <h2 className="mt-3 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">
+              Available Ward Facilities
+            </h2>
+            <p className="mt-3 text-sm text-slate-600 sm:text-base">
+              Explore our comprehensive inpatient accommodation — from community-focused General Wards with free essential medicines to premium air-conditioned Special Wards with private attendant amenities.
+            </p>
+
+            {/* Filter Tabs */}
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-2 p-1.5 rounded-2xl bg-white border border-slate-200/90 shadow-sm max-w-xl mx-auto">
+              <button
+                type="button"
+                onClick={() => setWardTab("all")}
+                className={`flex-1 min-w-[120px] rounded-xl px-4 py-2 text-xs font-bold transition-all cursor-pointer ${
+                  wardTab === "all"
+                    ? "bg-red-600 text-white shadow-md shadow-red-600/20"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                }`}
+              >
+                All Facilities
+              </button>
+              <button
+                type="button"
+                onClick={() => setWardTab("general")}
+                className={`flex-1 min-w-[140px] rounded-xl px-4 py-2 text-xs font-bold transition-all cursor-pointer ${
+                  wardTab === "general"
+                    ? "bg-red-600 text-white shadow-md shadow-red-600/20"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                }`}
+              >
+                1. General Ward
+              </button>
+              <button
+                type="button"
+                onClick={() => setWardTab("special")}
+                className={`flex-1 min-w-[140px] rounded-xl px-4 py-2 text-xs font-bold transition-all cursor-pointer ${
+                  wardTab === "special"
+                    ? "bg-red-600 text-white shadow-md shadow-red-600/20"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                }`}
+              >
+                2. Special Ward
+              </button>
+            </div>
+          </div>
+
+          {/* 1. GENERAL WARD SECTION */}
+          {(wardTab === "all" || wardTab === "general") && (
+            <div className="mt-14">
+              <div className="mb-6 flex flex-wrap items-end justify-between gap-4 border-b border-slate-200 pb-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-red-600 text-xs font-black text-white">
+                      1
+                    </span>
+                    <h3 className="text-xl font-extrabold text-slate-900 sm:text-2xl">
+                      General Ward Facilities
+                    </h3>
+                  </div>
+                  <p className="mt-1 text-xs text-slate-600 sm:text-sm">
+                    Subsidized community inpatient care with 100% free medicines and 50% concession on diagnostic tests.
+                  </p>
+                </div>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700 border border-emerald-200">
+                  <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
+                  Special Inpatient Scheme
+                </span>
+              </div>
+
+              {/* General Ward Card */}
+              <div className="overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-lg shadow-slate-100">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
+                  {/* Left Column: Welfare Benefits & Details */}
+                  <div className="p-6 sm:p-8 lg:col-span-7 flex flex-col justify-between">
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="rounded-md bg-red-100 px-2.5 py-1 text-xs font-bold text-red-700">
+                          Equitable Healthcare
+                        </span>
+                        <span className="rounded-md bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-800">
+                          100% Free Essential Drugs
+                        </span>
+                        <span className="rounded-md bg-blue-100 px-2.5 py-1 text-xs font-bold text-blue-800">
+                          50% Lab Concession
+                        </span>
+                      </div>
+
+                      <h4 className="mt-4 text-xl sm:text-2xl font-bold text-slate-900">
+                        Accessible &amp; Compassionate Inpatient Care
+                      </h4>
+                      <p className="mt-2 text-xs leading-relaxed text-slate-600 sm:text-sm">
+                        Adhiparasakthi Hospitals operates extensive, well-ventilated General Wards with a commitment to dignified, patient-first recovery. Patients admitted to general wards receive comprehensive clinical treatment backed by landmark welfare relief benefits.
+                      </p>
+
+                      {/* 4 Feature Highlights */}
+                      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        {generalWardBenefits.map((benefit, idx) => {
+                          const Icon = benefit.icon;
+                          return (
+                            <div
+                              key={idx}
+                              className={`rounded-2xl p-4 border transition-all ${
+                                benefit.highlight
+                                  ? "bg-red-50/40 border-red-200/80 shadow-sm"
+                                  : "bg-slate-50 border-slate-200/70"
+                              }`}
+                            >
+                              <div className="flex items-center gap-2.5">
+                                <div
+                                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${
+                                    benefit.highlight
+                                      ? "bg-red-600 text-white"
+                                      : "bg-slate-200 text-slate-700"
+                                  }`}
+                                >
+                                  <Icon className="h-4 w-4" />
+                                </div>
+                                <div>
+                                  <span className="text-[10px] font-bold uppercase tracking-wider text-red-600">
+                                    {benefit.badge}
+                                  </span>
+                                  <h5 className="text-xs font-bold text-slate-900 leading-tight">
+                                    {benefit.title}
+                                  </h5>
+                                </div>
+                              </div>
+                              <p className="mt-2 text-[11px] text-slate-600 leading-relaxed">
+                                {benefit.desc}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Amenities List */}
+                      <div className="mt-6 rounded-2xl bg-slate-50 p-4 border border-slate-200/70">
+                        <h5 className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-3 flex items-center gap-1.5">
+                          <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                          Key General Ward Facilities
+                        </h5>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-700">
+                          {generalWardAmenities.map((amenity, idx) => (
+                            <div key={idx} className="flex items-start gap-2">
+                              <span className="mt-0.5 flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-[9px] font-bold text-emerald-700">
+                                ✓
+                              </span>
+                              <span className="leading-tight">{amenity}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-6 flex flex-wrap items-center gap-3 pt-4 border-t border-slate-100">
+                      <Link
+                        href="/contact#contact-form"
+                        className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-red-600 px-6 text-xs font-bold text-white shadow-md shadow-red-600/20 hover:bg-red-700 transition"
+                      >
+                        <Calendar className="h-4 w-4" />
+                        Inquire for Admission
+                      </Link>
+                      <a
+                        href="tel:+919499059966"
+                        className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition"
+                      >
+                        <Phone className="h-4 w-4 text-red-600" />
+                        Admissions: +91 94990 59966
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Right Column: Visual Showcase */}
+                  <div className="relative bg-slate-900 lg:col-span-5 flex flex-col justify-between p-6 sm:p-8 text-white min-h-[360px]">
+                    <div className="absolute inset-0">
+                      <Image
+                        src="/images/service-inpatient-ipd.jpg"
+                        alt="General Ward and Inpatient Care at Adhiparasakthi Hospitals"
+                        fill
+                        className="object-cover opacity-35"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/40" />
+                    </div>
+
+                    <div className="relative z-10">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-red-600/90 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur-md">
+                        <Bed className="h-3.5 w-3.5" />
+                        Community Inpatient Wing
+                      </span>
+                      <h4 className="mt-4 text-xl sm:text-2xl font-bold text-white">
+                        Compassionate Healing for All
+                      </h4>
+                      <p className="mt-2 text-xs text-slate-300 leading-relaxed">
+                        Round-the-clock supportive care delivered by senior specialists, resident doctors, and dedicated nursing teams.
+                      </p>
+                    </div>
+
+                    {/* Inpatient Scheme Banner Callout */}
+                    <div className="relative z-10 mt-6 rounded-2xl border border-emerald-500/40 bg-slate-900/90 p-4 backdrop-blur-md shadow-xl">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                          <Pill className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                            Welfare Benefit
+                          </span>
+                          <p className="text-xs sm:text-sm font-bold text-white">
+                            Zero Medicine Cost for General Ward
+                          </p>
+                          <p className="text-[11px] text-slate-300">
+                            Plus 50% discount on laboratory investigations
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 2. SPECIAL WARD SECTION */}
+          {(wardTab === "all" || wardTab === "special") && (
+            <div className="mt-16">
+              <div className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-slate-200 pb-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-red-600 text-xs font-black text-white">
+                      2
+                    </span>
+                    <h3 className="text-xl font-extrabold text-slate-900 sm:text-2xl">
+                      Special Ward Facilities
+                    </h3>
+                  </div>
+                  <p className="mt-1 text-xs text-slate-600 sm:text-sm">
+                    4 Room Types offering personalized comfort, air-conditioned privacy, attendant day beds, and dedicated nursing care.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-semibold text-slate-500">
+                    Total 4 Room Types
+                  </span>
+                </div>
+              </div>
+
+              {/* 4 Special Ward Room Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                {specialWardRooms.map((room) => {
+                  const currentImgIdx = roomImageIndexes[room.id] ?? 0;
+                  const currentImage = room.images[currentImgIdx] ?? room.images[0];
+                  const hasMultipleImages = room.images.length > 1;
+
+                  return (
+                    <div
+                      key={room.id}
+                      className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-md hover:shadow-2xl hover:border-red-300 transition-all duration-300"
+                    >
+                      {/* Top Visual Image Section */}
+                      <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-950">
+                        <Image
+                          src={currentImage.src}
+                          alt={currentImage.alt}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 600px"
+                          className="object-cover transition-transform duration-700 group-hover:scale-105 cursor-pointer"
+                          onClick={() =>
+                            setLightboxImage({
+                              src: currentImage.src,
+                              alt: currentImage.alt,
+                              title: `${room.name} (${currentImage.label})`,
+                              price: `${room.priceLabel} ${room.period}`,
+                            })
+                          }
+                          priority={room.id === "deluxe" || room.id === "suite"}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none" />
+
+                        {/* Top Left: Room Badge */}
+                        <div className="absolute top-3 left-3 z-10 pointer-events-none flex items-center gap-1.5">
+                          <span className="rounded-full bg-slate-900/85 px-3 py-1 text-[11px] font-bold text-white uppercase tracking-wider backdrop-blur-md border border-white/20 shadow-sm">
+                            {room.badge}
+                          </span>
+                        </div>
+
+                        {/* Top Right: Daily Tariff Badge */}
+                        <div className="absolute top-3 right-3 z-10 pointer-events-none">
+                          <div className="flex items-center gap-1.5 rounded-full bg-red-600/95 px-3.5 py-1 text-xs font-extrabold text-white shadow-lg backdrop-blur-md border border-white/25">
+                            <Tag className="h-3 w-3" />
+                            <span>{room.priceLabel}</span>
+                            <span className="text-[10px] font-medium text-white/90">
+                              {room.period}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Bottom Bar: Image Controls & Zoom */}
+                        <div className="absolute bottom-3 left-3 right-3 z-10 flex items-center justify-between pointer-events-none">
+                          {/* Image Switcher Pills for Suite & Sharing */}
+                          {hasMultipleImages ? (
+                            <div className="pointer-events-auto flex items-center gap-1 rounded-xl bg-slate-950/80 p-1 backdrop-blur-md border border-white/15">
+                              {room.images.map((img, idx) => (
+                                <button
+                                  key={idx}
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleSetRoomImage(room.id, idx);
+                                  }}
+                                  className={`rounded-lg px-2.5 py-1 text-[11px] font-bold transition-all cursor-pointer ${
+                                    currentImgIdx === idx
+                                      ? "bg-red-600 text-white shadow-sm"
+                                      : "text-slate-300 hover:text-white hover:bg-white/10"
+                                  }`}
+                                >
+                                  {img.label}
+                                </button>
+                              ))}
+                            </div>
+                          ) : (
+                            <span className="pointer-events-auto rounded-lg bg-slate-950/75 px-2.5 py-1 text-[11px] font-semibold text-slate-300 backdrop-blur-md border border-white/10">
+                              {currentImage.label}
+                            </span>
+                          )}
+
+                          {/* Full Screen Zoom Button */}
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setLightboxImage({
+                                src: currentImage.src,
+                                alt: currentImage.alt,
+                                title: `${room.name} - ${currentImage.label}`,
+                                price: `${room.priceLabel} ${room.period}`,
+                              });
+                            }}
+                            className="pointer-events-auto flex h-8 w-8 items-center justify-center rounded-xl bg-slate-950/80 text-white hover:bg-red-600 transition backdrop-blur-md border border-white/20 cursor-pointer shadow-md"
+                            aria-label={`View full photo of ${room.name}`}
+                          >
+                            <Maximize2 className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Card Content */}
+                      <div className="flex flex-col justify-between flex-1 p-6 sm:p-7">
+                        <div>
+                          {/* Title & Tariff Header */}
+                          <div className="flex items-start justify-between gap-4">
+                            <div>
+                              <span className="text-[11px] font-bold uppercase tracking-wider text-red-600">
+                                {room.type}
+                              </span>
+                              <h4 className="text-xl sm:text-2xl font-extrabold text-slate-900">
+                                {room.name}
+                              </h4>
+                            </div>
+                            <div className="text-right shrink-0">
+                              <span className="block text-2xl font-black text-red-600 leading-none">
+                                {room.priceLabel}
+                              </span>
+                              <span className="text-[11px] font-semibold text-slate-500">
+                                {room.period}
+                              </span>
+                            </div>
+                          </div>
+
+                          <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            {room.description}
+                          </p>
+
+                          {/* Amenities / Features List */}
+                          <div className="mt-5 space-y-2 pt-4 border-t border-slate-100">
+                            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 block mb-2">
+                              Room Amenities &amp; Inclusions:
+                            </span>
+                            <div className="grid grid-cols-1 gap-1.5 text-xs text-slate-700">
+                              {room.features.map((feature, fIdx) => (
+                                <div key={fIdx} className="flex items-start gap-2">
+                                  <span className="mt-0.5 flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-[9px] font-bold text-emerald-700">
+                                    ✓
+                                  </span>
+                                  <span className="leading-tight">{feature}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Card Bottom Actions */}
+                        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-100">
+                          <Link
+                            href="/contact#contact-form"
+                            className="inline-flex h-11 flex-1 min-w-[150px] items-center justify-center gap-2 rounded-xl bg-red-600 px-5 text-xs font-bold text-white shadow-md shadow-red-600/20 hover:bg-red-700 transition"
+                          >
+                            <Calendar className="h-4 w-4" />
+                            Book / Inquire Room
+                          </Link>
+                          <a
+                            href="tel:+919499059966"
+                            className="inline-flex h-11 items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-4 text-xs font-bold text-slate-700 hover:bg-white hover:border-slate-300 transition"
+                          >
+                            <Phone className="h-3.5 w-3.5 text-red-600" />
+                            <span>Inpatient Helpline</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -617,6 +1262,54 @@ export default function InpatientServicePage() {
           </div>
         </div>
       </section>
+
+      {/* Lightbox Modal for Room Photos */}
+      <AnimatePresence>
+        {lightboxImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-md"
+            onClick={() => setLightboxImage(null)}
+          >
+            <div
+              className="relative max-h-[92vh] max-w-4xl w-full overflow-hidden rounded-3xl border border-white/20 bg-slate-950 p-2 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative aspect-[16/10] w-full max-h-[75vh] overflow-hidden rounded-2xl bg-black">
+                <Image
+                  src={lightboxImage.src}
+                  alt={lightboxImage.alt}
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              <div className="flex items-center justify-between p-4 text-white">
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold">
+                    {lightboxImage.title}
+                  </h3>
+                  {lightboxImage.price && (
+                    <p className="text-xs sm:text-sm font-semibold text-red-400">
+                      Tariff: {lightboxImage.price}
+                    </p>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setLightboxImage(null)}
+                  className="rounded-full bg-white/10 p-2 text-white hover:bg-red-600 transition cursor-pointer"
+                  aria-label="Close photo preview"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
