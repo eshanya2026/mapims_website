@@ -1,8 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Stethoscope,
   Activity,
@@ -19,9 +20,34 @@ import {
   Sparkles,
   ArrowRight,
   ChevronRight,
+  ChevronLeft,
   Accessibility,
   Pill,
 } from "lucide-react";
+
+const heroSlides = [
+  {
+    id: 1,
+    src: "/images/services/opd-consultation-room.png",
+    alt: "Doctor Consultation Suite at Adhiparasakthi Hospitals Outpatient Department",
+    badge: "Consultation Suite",
+    tagline: "Specialist Doctor Consultation Room",
+  },
+  {
+    id: 2,
+    src: "/images/services/opd-eye-diagnostic-suite.png",
+    alt: "Ophthalmology and Eye Diagnostics at Adhiparasakthi Hospitals OPD",
+    badge: "Eye Diagnostics",
+    tagline: "Ophthalmology Diagnostic & Care Suite",
+  },
+  {
+    id: 3,
+    src: "/images/services/opd-fertility-procedure-room.png",
+    alt: "Specialized Clinical Procedure and Examination Suite at Adhiparasakthi Hospitals OPD",
+    badge: "Procedure Suite",
+    tagline: "Specialized Clinical Examination & Care Room",
+  },
+];
 
 const outpatientPillars = [
   {
@@ -163,6 +189,17 @@ const whyChoosePoints = [
 ];
 
 export default function OutpatientServicePage() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [isPaused]);
+
   return (
     <main className="min-h-screen bg-slate-50/60">
       {/* 1. Bespoke OP Hero Section */}
@@ -245,36 +282,109 @@ export default function OutpatientServicePage() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.15 }}
               className="lg:col-span-5"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
             >
               <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-slate-900/80 p-2 shadow-2xl backdrop-blur-xl">
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl">
-                  <Image
-                    src="/images/services/opd-care-hero.jpg"
-                    alt="Outpatient Department Consultation at Adhiparasakthi Hospitals"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 550px"
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+                {/* Main Image Slider */}
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-950">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentSlide}
+                      initial={{ opacity: 0, scale: 1.04 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={heroSlides[currentSlide].src}
+                        alt={heroSlides[currentSlide].alt}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 550px"
+                        className="object-cover transition-transform duration-700 hover:scale-105"
+                        priority
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/15 to-transparent" />
+                    </motion.div>
+                  </AnimatePresence>
 
-                  {/* OPD Highlight Floating Badge */}
-                  <div className="absolute bottom-3 left-3 right-3 rounded-2xl border border-emerald-500/30 bg-slate-950/85 p-3.5 backdrop-blur-md shadow-xl">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                        <Pill className="h-5 w-5" />
+                  {/* Top Badge: Facility Status & Counter */}
+                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-900/85 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur-md border border-white/15 shadow-sm">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      {heroSlides[currentSlide].badge}
+                    </span>
+                    <span className="rounded-full bg-slate-900/85 px-2.5 py-1 text-[11px] font-semibold text-slate-300 backdrop-blur-md border border-white/15">
+                      {currentSlide + 1} / {heroSlides.length}
+                    </span>
+                  </div>
+
+                  {/* Navigation Arrows */}
+                  <div className="absolute inset-y-0 left-2 right-2 flex items-center justify-between pointer-events-none z-10">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+                      }
+                      className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition hover:bg-red-600 hover:scale-110 border border-white/20 cursor-pointer shadow-lg"
+                      aria-label="Previous slide"
+                    >
+                      <ChevronLeft className="h-5 w-5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
+                      }
+                      className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition hover:bg-red-600 hover:scale-110 border border-white/20 cursor-pointer shadow-lg"
+                      aria-label="Next slide"
+                    >
+                      <ChevronRight className="h-5 w-5" />
+                    </button>
+                  </div>
+
+                  {/* Bottom Caption Pill & Indicators */}
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10">
+                    <div className="rounded-xl bg-slate-950/80 p-2 backdrop-blur-md border border-white/10 flex items-center justify-between gap-3">
+                      <p className="text-xs font-semibold text-white truncate pl-1">
+                        {heroSlides[currentSlide].tagline}
+                      </p>
+
+                      {/* Slide Indicator Dots */}
+                      <div className="flex items-center gap-1.5 shrink-0 pr-1">
+                        {heroSlides.map((_, dotIdx) => (
+                          <button
+                            key={dotIdx}
+                            type="button"
+                            onClick={() => setCurrentSlide(dotIdx)}
+                            className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                              currentSlide === dotIdx ? "w-4 bg-red-500" : "w-1.5 bg-white/40 hover:bg-white/70"
+                            }`}
+                            aria-label={`Go to slide ${dotIdx + 1}`}
+                          />
+                        ))}
                       </div>
-                      <div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-                            OPD Highlight
-                          </span>
-                        </div>
-                        <p className="text-xs sm:text-sm font-bold text-white">
-                          Free OP Pharmacy for Certain Drugs
-                        </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* OPD Highlight Floating Badge */}
+                <div className="mt-2 rounded-2xl border border-emerald-500/30 bg-slate-950/85 p-3 backdrop-blur-md shadow-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                      <Pill className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                          OPD Highlight
+                        </span>
                       </div>
+                      <p className="text-xs sm:text-sm font-bold text-white">
+                        Free OP Pharmacy for Certain Drugs
+                      </p>
                     </div>
                   </div>
                 </div>

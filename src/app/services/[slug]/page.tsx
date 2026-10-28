@@ -209,7 +209,11 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   ) {
     return <BlissSkillLabPage />;
   }
-  if (slug === "outpatient-service") {
+  if (
+    slug === "outpatient-service" ||
+    slug === "outpatient" ||
+    slug === "opd"
+  ) {
     return <OutpatientServicePage />;
   }
   if (slug === "inpatient-service") {
