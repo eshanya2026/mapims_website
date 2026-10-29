@@ -23,6 +23,7 @@ type PostFormData = {
   published: boolean;
   featured: boolean;
   isIncoming?: boolean;
+  eventDate?: string;
 };
 
 type PostFormProps = {
@@ -54,6 +55,7 @@ export default function PostForm({ initial, mode }: PostFormProps) {
     published: initial?.published ?? false,
     featured: initial?.featured ?? false,
     isIncoming: initial?.isIncoming ?? false,
+    eventDate: initial?.eventDate ?? "",
   });
 
   function updateField<K extends keyof PostFormData>(key: K, value: PostFormData[K]) {
@@ -240,6 +242,22 @@ export default function PostForm({ initial, mode }: PostFormProps) {
             />
             Mark as Incoming Event (Shown first)
           </label>
+        ) : null}
+        {form.section === "hospitals-events" && form.isIncoming ? (
+          <div className="sm:col-span-2 rounded-xl border border-emerald-200 bg-emerald-50/70 p-3.5 space-y-1.5">
+            <label className="block text-xs font-semibold text-emerald-900">
+              Event Completion / End Date (Optional)
+            </label>
+            <Input
+              type="date"
+              value={form.eventDate || ""}
+              onChange={(e) => updateField("eventDate", e.target.value)}
+              className="bg-white border-emerald-300 text-slate-800"
+            />
+            <p className="text-xs text-emerald-700 leading-relaxed">
+              Once this date passes, the event will automatically move to <strong>Past Events</strong> without requiring manual changes.
+            </p>
+          </div>
         ) : null}
       </div>
 

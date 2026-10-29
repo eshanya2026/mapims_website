@@ -46,6 +46,7 @@ export const postSchema = z.object({
   published: z.boolean().default(false),
   featured: z.boolean().default(false),
   isIncoming: z.boolean().optional(),
+  eventDate: z.string().optional().nullable(),
 });
 
 const phoneField = z

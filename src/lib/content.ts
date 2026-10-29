@@ -15,6 +15,7 @@ export type ContentPost = {
   content: string;
   featured: boolean;
   isIncoming?: boolean;
+  eventDate?: string;
 };
 
 export type ContentJob = {
@@ -67,7 +68,18 @@ function mapPost(post: {
   publishedAt: Date;
   featured: boolean;
   isIncoming?: boolean;
+  eventDate?: string | null;
 }): ContentPost {
+  let isIncoming = Boolean(post.isIncoming);
+  if (isIncoming && post.eventDate) {
+    // If eventDate is provided (e.g. YYYY-MM-DD), set to end of that day (23:59:59.999)
+    const eventTime = new Date(post.eventDate);
+    eventTime.setHours(23, 59, 59, 999);
+    if (!isNaN(eventTime.getTime()) && Date.now() > eventTime.getTime()) {
+      isIncoming = false;
+    }
+  }
+
   return {
     id: post.id,
     slug: post.slug,
@@ -80,7 +92,8 @@ function mapPost(post: {
     excerpt: post.excerpt,
     content: post.content,
     featured: post.featured,
-    isIncoming: Boolean(post.isIncoming),
+    isIncoming,
+    eventDate: post.eventDate || undefined,
   };
 }
 

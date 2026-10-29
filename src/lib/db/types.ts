@@ -22,6 +22,7 @@ export type PostRecord = {
   published: boolean;
   featured: boolean;
   isIncoming?: boolean;
+  eventDate?: string | null;
   publishedAt: Date;
   createdAt: Date;
   updatedAt: Date;

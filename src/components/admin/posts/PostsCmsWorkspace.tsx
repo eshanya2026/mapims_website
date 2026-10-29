@@ -29,6 +29,15 @@ function toContentPost(
   data: PostFormData,
   options?: { id?: string; date?: string }
 ): ContentPost {
+  let isIncoming = Boolean(data.isIncoming);
+  if (isIncoming && data.eventDate) {
+    const eventTime = new Date(data.eventDate);
+    eventTime.setHours(23, 59, 59, 999);
+    if (!isNaN(eventTime.getTime()) && Date.now() > eventTime.getTime()) {
+      isIncoming = false;
+    }
+  }
+
   return {
     id: options?.id ?? data.id ?? "draft",
     slug: data.slug || "preview",
@@ -41,7 +50,8 @@ function toContentPost(
     excerpt: data.excerpt || "Add an excerpt to see it in the listing preview.",
     content: data.content,
     featured: data.featured,
-    isIncoming: Boolean(data.isIncoming),
+    isIncoming,
+    eventDate: data.eventDate || undefined,
   };
 }
 
@@ -59,6 +69,7 @@ function recordToForm(post: AdminPostRecord): PostFormData {
     published: post.published,
     featured: post.featured,
     isIncoming: Boolean(post.isIncoming),
+    eventDate: post.eventDate ?? "",
   };
 }
 

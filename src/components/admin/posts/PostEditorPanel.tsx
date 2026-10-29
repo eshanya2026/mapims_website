@@ -67,6 +67,7 @@ export default function PostEditorPanel({
     initial?.excerpt,
     initial?.content,
     initial?.isIncoming,
+    initial?.eventDate,
     defaultSection,
   ]);
 
@@ -335,6 +336,23 @@ export default function PostEditorPanel({
             </label>
           ) : null}
         </div>
+
+        {form.section === "hospitals-events" && form.isIncoming ? (
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-3.5 space-y-1.5">
+            <label className="block text-xs font-semibold text-emerald-900">
+              Event Completion / End Date (Optional)
+            </label>
+            <Input
+              type="date"
+              value={form.eventDate || ""}
+              onChange={(e) => updateField("eventDate", e.target.value)}
+              className="bg-white border-emerald-300 text-slate-800"
+            />
+            <p className="text-xs text-emerald-700 leading-relaxed">
+              Once this date passes, the event will automatically move to <strong>Past Events</strong> without requiring manual changes.
+            </p>
+          </div>
+        ) : null}
 
         {error ? (
           <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>
