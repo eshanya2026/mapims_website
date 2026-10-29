@@ -21,42 +21,22 @@ export const LIVE_CHAT_WELCOME = `${LIVE_CHAT_WELCOME_INTRO}\n\n${LIVE_CHAT_WELC
 export const liveChatStarterOptions: LiveChatStarterOption[] = [
   {
     id: "book-appointment",
-    label: "📅 Book Appointment",
+    label: "Book Appointment",
     prompt: "I need to book an appointment at MAPIMS. How can I do that?",
   },
   {
-    id: "inpatient-ward-pricing",
-    label: "🛏️ Ward & Room Pricing",
-    prompt: "What are the inpatient ward facilities and room tariffs at MAPIMS?",
-  },
-  {
-    id: "surgery-packages",
-    label: "🩺 Surgery Concession Packages",
-    prompt: "What special concession surgery packages are available at MAPIMS (e.g. ENT, General Surgery)?",
-  },
-  {
-    id: "upcoming-events",
-    label: "✨ Upcoming Events & Workshops",
-    prompt: "What are the upcoming events or medical workshops happening at MAPIMS?",
-  },
-  {
     id: "health-checkup",
-    label: "🧪 Master Health Checkup",
+    label: "Master Health Checkup",
     prompt: "What health checkup packages are available at MAPIMS?",
   },
   {
-    id: "insurance",
-    label: "🛡️ Insurance & Cashless",
-    prompt: "What health insurance and cashless hospitalization options are accepted at MAPIMS?",
-  },
-  {
     id: "emergency",
-    label: "🚑 Emergency & Ambulance",
+    label: "Emergency and Ambulance",
     prompt: "What is the emergency contact number and ambulance support at MAPIMS?",
   },
   {
     id: "international",
-    label: "🌍 International Patients",
+    label: "International Patients",
     prompt: "Tell me about international patient services at MAPIMS.",
   },
 ];
