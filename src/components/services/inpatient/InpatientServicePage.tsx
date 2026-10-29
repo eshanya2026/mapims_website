@@ -210,76 +210,59 @@ const specialWardRooms = [
   {
     id: "sharing",
     name: "Sharing Room",
-    badge: "Twin Sharing",
-    image: "/images/services/inpatient/sharing-room-1.png",
-    alt: "Twin Sharing Semi-Private Room at Adhiparasakthi Hospitals",
-    description:
-      "Semi-private air-conditioned twin accommodation with privacy partition curtains, individual attendant beds, and dedicated storage.",
-    features: [
-      "Twin bed setup with full privacy curtains",
-      "Dedicated attendant bed & bedside table",
-      "Individual wardrobe cupboard & locker",
-      "Attached sanitized washroom & A/C",
+    price: "₹1,500",
+    period: "per day",
+    images: [
+      {
+        src: "/images/services/inpatient/sharing-room-1.png",
+        label: "View 1",
+        alt: "Sharing Inpatient Room at Adhiparasakthi Hospitals - Bed View",
+      },
+      {
+        src: "/images/services/inpatient/sharing-room-2.png",
+        label: "View 2",
+        alt: "Sharing Inpatient Room at Adhiparasakthi Hospitals - Ward View",
+      },
     ],
   },
   {
     id: "deluxe",
     name: "Deluxe Room",
-    badge: "Single Private Room",
+    price: "₹2,500",
+    period: "per day",
     image: "/images/services/inpatient/deluxe-room-1.png",
-    alt: "Private Deluxe Inpatient Room at Adhiparasakthi Hospitals",
-    description:
-      "Independent private room ensuring quiet recovery, motorized patient bed, private attendant bed, and attached modern bathroom.",
-    features: [
-      "Completely private air-conditioned room",
-      "Motorized / adjustable multi-position bed",
-      "Dedicated wooden attendant cot & chair",
-      "Bedside nurse call system & attached bath",
-    ],
+    alt: "Deluxe Inpatient Room at Adhiparasakthi Hospitals",
   },
   {
     id: "super-deluxe",
     name: "Super Deluxe Room",
-    badge: "Premium Private Room",
+    price: "₹3,500",
+    period: "per day",
     image: "/images/services/inpatient/super-deluxe-room.png",
-    alt: "Super Deluxe Private Room at Adhiparasakthi Hospitals",
-    description:
-      "Spacious luxury accommodation with decorative wall finishes, flat-screen television, chaise lounge attendant bed, and personalized care.",
-    features: [
-      "Expansive private room with boutique decor",
-      "Flat-screen LED Television for relaxation",
-      "Comfortable attendant chaise lounge bed",
-      "Direct bedside clinical monitoring console",
-    ],
+    alt: "Super Deluxe Inpatient Room at Adhiparasakthi Hospitals",
   },
   {
     id: "suite",
     name: "Suite Room",
-    badge: "Executive VIP Suite",
+    price: "₹4,800",
+    period: "per day",
     images: [
       {
         src: "/images/services/inpatient/suite-room-main.png",
         label: "Bedroom",
-        alt: "Executive Suite Patient Bedroom at Adhiparasakthi Hospitals",
+        alt: "Suite Room Patient Bedroom at Adhiparasakthi Hospitals",
       },
       {
         src: "/images/services/inpatient/suite-room-lounge.png",
         label: "Living Lounge",
-        alt: "Executive Suite Living and Dining Lounge at Adhiparasakthi Hospitals",
+        alt: "Suite Room Living Lounge at Adhiparasakthi Hospitals",
       },
-    ],
-    description:
-      "Premium multi-room healthcare suite featuring an executive private patient bedroom and a separate living & dining lounge.",
-    features: [
-      "Dual-room suite with private living lounge",
-      "Dining table with visitor chairs & TV",
-      "Plush leather recliner armchair & attendant cot",
-      "Pantry corner with microwave & mini fridge",
     ],
   },
 ];
 
 export default function InpatientServicePage() {
+  const [sharingImageIndex, setSharingImageIndex] = useState(0);
   const [suiteImageIndex, setSuiteImageIndex] = useState(0);
   return (
     <main className="min-h-screen bg-slate-50/50">
@@ -684,96 +667,80 @@ export default function InpatientServicePage() {
             </div>
 
             {/* Special Ward Rooms 4-column Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {specialWardRooms.map((room) => {
-                const isSuite = room.id === "suite";
                 const currentImgSrc =
-                  (isSuite && room.images
-                    ? room.images[suiteImageIndex]?.src
-                    : room.image) || "/images/services/inpatient/suite-room-main.png";
+                  room.images
+                    ? (room.id === "sharing"
+                        ? room.images[sharingImageIndex]?.src
+                        : room.images[suiteImageIndex]?.src) || room.images[0].src
+                    : room.image || "/images/services/inpatient/deluxe-room-1.png";
                 const currentImgAlt =
-                  (isSuite && room.images
-                    ? room.images[suiteImageIndex]?.alt
-                    : room.alt) || room.name;
+                  room.images
+                    ? (room.id === "sharing"
+                        ? room.images[sharingImageIndex]?.alt
+                        : room.images[suiteImageIndex]?.alt) || room.name
+                    : room.alt || room.name;
 
                 return (
                   <div
                     key={room.id}
-                    className="group flex flex-col justify-between overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-red-300 hover:shadow-xl"
+                    className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-sm transition-all duration-300 hover:shadow-md hover:border-slate-300 flex flex-col"
                   >
-                    <div>
-                      {/* Room Photo */}
-                      <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
-                        <Image
-                          src={currentImgSrc}
-                          alt={currentImgAlt}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 300px"
-                          className="object-cover transition-transform duration-700 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
+                    {/* Room Photo */}
+                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
+                      <Image
+                        src={currentImgSrc}
+                        alt={currentImgAlt}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 300px"
+                        className="object-cover transition-transform duration-500 hover:scale-105"
+                      />
 
-                        {/* Top Badge */}
-                        <div className="absolute top-3 left-3 z-10">
-                          <span className="inline-flex items-center rounded-full bg-slate-950/80 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur-md border border-white/20">
-                            {room.badge}
-                          </span>
-                        </div>
-
-                        {/* Suite Room Switcher Buttons */}
-                        {isSuite && room.images && (
-                          <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10 flex items-center justify-center gap-1.5 bg-slate-950/80 p-1 rounded-xl backdrop-blur-md border border-white/15">
-                            {room.images.map((img, imgIdx) => (
+                      {/* Multiple images switcher pills (for Sharing Room and Suite Room) */}
+                      {room.images && room.images.length > 1 && (
+                        <div className="absolute bottom-2.5 left-2.5 right-2.5 z-10 flex items-center justify-center gap-1.5 bg-slate-950/80 p-1 rounded-xl backdrop-blur-md border border-white/15">
+                          {room.images.map((img, imgIdx) => {
+                            const isSelected =
+                              (room.id === "sharing" ? sharingImageIndex : suiteImageIndex) ===
+                              imgIdx;
+                            return (
                               <button
                                 key={img.label}
                                 type="button"
-                                onClick={() => setSuiteImageIndex(imgIdx)}
-                                className={`flex-1 text-[10px] font-bold py-1 px-2 rounded-lg transition-all cursor-pointer ${
-                                  suiteImageIndex === imgIdx
+                                onClick={() => {
+                                  if (room.id === "sharing") setSharingImageIndex(imgIdx);
+                                  else setSuiteImageIndex(imgIdx);
+                                }}
+                                className={`flex-1 text-[11px] font-bold py-1 px-2 rounded-lg transition-all cursor-pointer ${
+                                  isSelected
                                     ? "bg-red-600 text-white shadow-sm"
                                     : "text-slate-300 hover:text-white hover:bg-white/10"
                                 }`}
                               >
                                 {img.label}
                               </button>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Card Content */}
-                      <div className="p-5 sm:p-6">
-                        <h4 className="text-lg font-bold text-slate-900 group-hover:text-red-600 transition-colors">
-                          {room.name}
-                        </h4>
-                        <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-                          {room.description}
-                        </p>
-
-                        {/* Feature Points */}
-                        <ul className="mt-4 space-y-2 border-t border-slate-100 pt-4">
-                          {room.features.map((feat, fIdx) => (
-                            <li
-                              key={fIdx}
-                              className="flex items-start gap-2 text-xs text-slate-700"
-                            >
-                              <CheckCircle2 className="h-3.5 w-3.5 text-red-500 shrink-0 mt-0.5" />
-                              <span className="leading-tight">{feat}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
 
-                    {/* Bottom CTA / Booking helper */}
-                    <div className="p-5 sm:p-6 pt-0">
-                      <Link
-                        href="/contact#contact-form"
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 py-2.5 text-xs font-bold text-slate-800 transition hover:bg-red-600 hover:text-white hover:border-red-600 group/btn"
-                      >
-                        <span>Enquire Availability</span>
-                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-1" />
-                      </Link>
+                    {/* Room Name and Tariff */}
+                    <div className="p-4 sm:p-5 flex items-center justify-between gap-3">
+                      <div>
+                        <h4 className="text-base font-bold text-slate-900">
+                          {room.name}
+                        </h4>
+                      </div>
+                      <div className="text-right shrink-0">
+                        <div className="text-lg font-extrabold text-red-600">
+                          {room.price}
+                        </div>
+                        <div className="text-[11px] font-medium text-slate-500">
+                          {room.period}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 );
