@@ -41,6 +41,7 @@ function toContentPost(
     excerpt: data.excerpt || "Add an excerpt to see it in the listing preview.",
     content: data.content,
     featured: data.featured,
+    isIncoming: Boolean(data.isIncoming),
   };
 }
 
@@ -57,6 +58,7 @@ function recordToForm(post: AdminPostRecord): PostFormData {
     section: post.section,
     published: post.published,
     featured: post.featured,
+    isIncoming: Boolean(post.isIncoming),
   };
 }
 

@@ -12,6 +12,7 @@ export type PostFormData = {
   section: BlogSection;
   published: boolean;
   featured: boolean;
+  isIncoming?: boolean;
 };
 
 export type AdminPostRecord = PostFormData & {
@@ -44,6 +45,7 @@ export function createEmptyPost(section: BlogSection): PostFormData {
     section,
     published: false,
     featured: false,
+    isIncoming: false,
   };
 }
 

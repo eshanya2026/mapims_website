@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import BlogHero from "@/components/blog/BlogHero";
-import BlogGrid from "@/components/blog/BlogGrid";
+import HospitalsEventsGrid from "@/components/blog/HospitalsEventsGrid";
 import BlogComingSoon from "@/components/blog/BlogComingSoon";
 import BlogSectionNav from "@/components/blog/BlogSectionNav";
 import { getPublishedPosts } from "@/lib/content";
@@ -22,7 +22,7 @@ export default async function HospitalsEventsPage() {
       <BlogHero section="hospitals-events" />
       <BlogSectionNav active="hospitals-events" />
       {posts.length > 0 ? (
-        <BlogGrid posts={posts} />
+        <HospitalsEventsGrid posts={posts} />
       ) : (
         <BlogComingSoon section="hospitals-events" />
       )}

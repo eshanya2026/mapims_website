@@ -45,6 +45,7 @@ export const postSchema = z.object({
   section: z.enum(["hospitals-events", "hospitals-news", "health-insights"]),
   published: z.boolean().default(false),
   featured: z.boolean().default(false),
+  isIncoming: z.boolean().optional(),
 });
 
 const phoneField = z

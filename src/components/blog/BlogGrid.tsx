@@ -31,8 +31,19 @@ export default function BlogGrid({ posts }: BlogGridProps) {
                   decoding="async"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-red-600 shadow-sm backdrop-blur-sm">
-                  {post.category}
+                <div className="absolute left-4 top-4 flex flex-wrap gap-2">
+                  {post.isIncoming ? (
+                    <span className="flex items-center gap-1.5 rounded-full bg-emerald-600 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm">
+                      <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75"></span>
+                        <span className="relative inline-flex h-2 w-2 rounded-full bg-white"></span>
+                      </span>
+                      Incoming Event
+                    </span>
+                  ) : null}
+                  <div className="rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-red-600 shadow-sm backdrop-blur-sm">
+                    {post.category}
+                  </div>
                 </div>
               </div>
               <div className="p-6">

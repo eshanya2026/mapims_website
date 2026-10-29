@@ -14,6 +14,7 @@ export type ContentPost = {
   excerpt: string;
   content: string;
   featured: boolean;
+  isIncoming?: boolean;
 };
 
 export type ContentJob = {
@@ -65,6 +66,7 @@ function mapPost(post: {
   section: string;
   publishedAt: Date;
   featured: boolean;
+  isIncoming?: boolean;
 }): ContentPost {
   return {
     id: post.id,
@@ -78,6 +80,7 @@ function mapPost(post: {
     excerpt: post.excerpt,
     content: post.content,
     featured: post.featured,
+    isIncoming: Boolean(post.isIncoming),
   };
 }
 
@@ -112,7 +115,15 @@ export async function getPublishedPosts(
           }
         : {}),
     });
-    return posts.map(mapPost);
+    const mapped = posts.map(mapPost);
+    if (section === "hospitals-events") {
+      return mapped.sort((a, b) => {
+        if (a.isIncoming && !b.isIncoming) return -1;
+        if (!a.isIncoming && b.isIncoming) return 1;
+        return 0;
+      });
+    }
+    return mapped;
   }, []);
 }
 

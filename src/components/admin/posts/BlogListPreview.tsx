@@ -79,6 +79,11 @@ function PostPreviewCard({
               ★ Featured on Home
             </span>
           ) : null}
+          {post.isIncoming ? (
+            <span className="rounded-full bg-emerald-600 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm flex items-center gap-1">
+              🟢 Incoming Event
+            </span>
+          ) : null}
           {isDraft ? (
             <span className="rounded-full bg-amber-500 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm">
               Draft preview

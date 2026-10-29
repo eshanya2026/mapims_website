@@ -21,6 +21,7 @@ export type PostRecord = {
   sortOrder: number;
   published: boolean;
   featured: boolean;
+  isIncoming?: boolean;
   publishedAt: Date;
   createdAt: Date;
   updatedAt: Date;

@@ -22,6 +22,7 @@ type PostFormData = {
   section: BlogSection;
   published: boolean;
   featured: boolean;
+  isIncoming?: boolean;
 };
 
 type PostFormProps = {
@@ -52,6 +53,7 @@ export default function PostForm({ initial, mode }: PostFormProps) {
     section: initial?.section ?? "hospitals-news",
     published: initial?.published ?? false,
     featured: initial?.featured ?? false,
+    isIncoming: initial?.isIncoming ?? false,
   });
 
   function updateField<K extends keyof PostFormData>(key: K, value: PostFormData[K]) {
@@ -228,6 +230,17 @@ export default function PostForm({ initial, mode }: PostFormProps) {
           />
           Feature on homepage
         </label>
+        {form.section === "hospitals-events" ? (
+          <label className="flex items-center gap-2 text-sm font-medium text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200 cursor-pointer sm:col-span-2">
+            <input
+              type="checkbox"
+              checked={Boolean(form.isIncoming)}
+              onChange={(e) => updateField("isIncoming", e.target.checked)}
+              className="accent-emerald-600 rounded"
+            />
+            Mark as Incoming Event (Shown first)
+          </label>
+        ) : null}
       </div>
 
       {error ? (
