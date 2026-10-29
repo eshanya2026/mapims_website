@@ -20,6 +20,10 @@ type ChatTopic =
   | "department"
   | "location"
   | "opd"
+  | "ward-pricing"
+  | "surgery-packages"
+  | "events"
+  | "insurance"
   | "general";
 
 const departmentAliases: Record<string, RegExp> = {
@@ -86,7 +90,7 @@ const specialitiesAction: LiveChatRelatedAction = {
 
 const locationAction: LiveChatRelatedAction = {
   id: "location",
-  label: "Hospitals Location",
+  label: "Hospital Location",
   href: "/contact",
 };
 
@@ -102,6 +106,30 @@ const cancerAction: LiveChatRelatedAction = {
   href: "/departments/oncology",
 };
 
+const wardPricingAction: LiveChatRelatedAction = {
+  id: "ward-pricing",
+  label: "View Ward Facilities & Rates",
+  href: "/services/inpatient-service#ward-facilities",
+};
+
+const surgeryPackagesAction: LiveChatRelatedAction = {
+  id: "surgery-packages",
+  label: "Surgery Concession Packages",
+  href: "/blog/ent-surgery-special-concession-packages",
+};
+
+const eventsAction: LiveChatRelatedAction = {
+  id: "hospital-events",
+  label: "Hospital Events & Workshops",
+  href: "/blog/hospitals-events",
+};
+
+const insuranceAction: LiveChatRelatedAction = {
+  id: "insurance-desk",
+  label: "Insurance & Cashless Desk",
+  href: "/insurance",
+};
+
 const topicActions: Record<ChatTopic, LiveChatRelatedAction[]> = {
   international: [internationalAction, contactInternationalDeskAction, contactDepartmentAction],
   appointment: [bookAppointmentAction, specialitiesAction, contactDepartmentAction],
@@ -112,6 +140,10 @@ const topicActions: Record<ChatTopic, LiveChatRelatedAction[]> = {
   department: [bookAppointmentAction, specialitiesAction, contactDepartmentAction],
   location: [locationAction, bookAppointmentAction, contactDepartmentAction],
   opd: [opdTimingsAction, bookAppointmentAction, contactDepartmentAction],
+  "ward-pricing": [wardPricingAction, bookAppointmentAction, contactDepartmentAction],
+  "surgery-packages": [surgeryPackagesAction, bookAppointmentAction, contactDepartmentAction],
+  events: [eventsAction, bookAppointmentAction, contactDepartmentAction],
+  insurance: [insuranceAction, bookAppointmentAction, contactDepartmentAction],
   general: [bookAppointmentAction, specialitiesAction, contactDepartmentAction],
 };
 
@@ -133,6 +165,22 @@ function detectDepartmentAction(context: string): LiveChatRelatedAction | null {
 function detectTopic(userQuestion: string | null): ChatTopic {
   const context = (userQuestion ?? "").trim().toLowerCase();
   if (!context) return "general";
+
+  if (/\b(ward|room|tariff|deluxe|suite|sharing room|charges|bed charge|inpatient room|special ward|general ward)\b/i.test(context)) {
+    return "ward-pricing";
+  }
+
+  if (/\b(package|surgery package|surgical package|concession|ent surgery|adenotonsillectomy|septoplasty|tympanoplasty|fess|cholecystectomy|hernia surgery)\b/i.test(context)) {
+    return "surgery-packages";
+  }
+
+  if (/\b(event|events|workshop|primer|ecg ignited|echosmart|cme|conference|seminar|camp)\b/i.test(context)) {
+    return "events";
+  }
+
+  if (/\b(insurance|cashless|tpa|star health|medi assist|cmchis|kaappeettu|policy|mediclaim)\b/i.test(context)) {
+    return "insurance";
+  }
 
   if (/\b(international|abroad|foreign patient|travel guidance|visa)\b/i.test(context)) {
     return "international";
@@ -158,7 +206,7 @@ function detectTopic(userQuestion: string | null): ChatTopic {
     return "opd";
   }
 
-  if (/\b(location|address|directions|where is|melmaruvathur|reach the hospitals)\b/i.test(context)) {
+  if (/\b(location|address|directions|where is|melmaruvathur|reach the hospitals?)\b/i.test(context)) {
     return "location";
   }
 

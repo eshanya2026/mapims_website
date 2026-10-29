@@ -94,12 +94,91 @@ Would you like information about a specific department?`;
 export function buildEmergencyChatAnswer(): string {
   return `🚑 Emergency Care
 
-For medical emergencies, please call the hospitals immediately.
+For medical emergencies, please call the hospital immediately.
 
 📞 Emergency / Ambulance: ${liveChatContact.emergency}
-📞 Hospitals Contact: ${liveChatContact.phone}
+📞 Hospital Contact: ${liveChatContact.phone}
 
-Our emergency services are available 24/7.`;
+Our emergency services and trauma resuscitation are available 24/7.`;
+}
+
+export function buildWardPricingChatAnswer(): string {
+  return `🛏️ Inpatient Ward Facilities & Room Charges
+
+MAPIMS offers transparent accommodation tailored to patient care and recovery:
+
+1. General Ward:
+• 100% Free Consultation & Bed Charges
+• 100% Free prescribed essential inpatient medicines
+• 50% Special Concession on lab tests & diagnostic scans
+• Supported by community welfare with 24/7 nursing supervision
+
+2. Special Ward Rooms:
+• Sharing Room: ₹1,500 / per day
+• Deluxe Room: ₹2,500 / per day (AC private room with attached bath)
+• Super Deluxe Room: ₹3,500 / per day (spacious executive room)
+• Suite Room: ₹4,800 / per day (bedroom + private living lounge)
+
+📞 Admission Desk: ${liveChatContact.phone}`;
+}
+
+export function buildSurgeryPackagesChatAnswer(): string {
+  return `🩺 Special Concession Surgery Packages
+
+MAPIMS provides special packages for selected surgical procedures to ensure affordable, high-quality care:
+
+• ENT Surgery Concession Packages:
+  - Adenotonsillectomy (Adult & Paediatric)
+  - Septoplasty
+  - FESS / Polypectomy (Endoscopic Sinus Surgery)
+  - Tympanoplasty (Ear Drum Repair)
+  - Cortical Mastoidectomy / MRM
+  📞 ENT Enquiries: 044-2752 8528 / 9499 905 995 / 8917 671 9999
+
+• General & Laparoscopic Surgery:
+  - Laparoscopic Gallbladder Removal (Cholecystectomy)
+  - Laparoscopic Appendectomy
+  - Hernia Repair (Inguinal, Umbilical, Ventral)
+  - Proctology (Piles / MIPH, Fissure, Fistula)
+
+📞 General Hospital Desk: ${liveChatContact.phone}`;
+}
+
+export function buildUpcomingEventsChatAnswer(): string {
+  return `✨ Upcoming Events & Medical Programs
+
+1. ECG Ignited and Echocardiogram Primer Workshop (Incoming Event):
+• Dates: October 30 & 31, 2026 (2-day workshop)
+• Theme: “Learn | Interpret | Improve”
+• Course Director: Dr. M. Chenninappan
+• Venue: Diamond Jubilee Auditorium, Adhiparasakthi Hospital
+• Organized by: Dept. of Internal Medicine (endorsed by API Chengalpattu Branch)
+
+2. AACE 2026 – ECHOSMART:
+• Date: November 15, 2026 (Sunday)
+• Focus: Cardiac Ultrasound Basics & Hemodynamic Assessment
+• Venue: BLISS Skill Lab, 4th Floor
+• Chairperson: Prof. Dr. Kumaresan S (Dept. of Anaesthesia & Critical Care)
+• Registration Fee: ₹1,500/- (Max 50 seats, CME credits applied)
+• Contacts: +91 81485 28890 / +91 63790 75140
+
+Check our Hospitals Events page on the website for schedules and registration.`;
+}
+
+export function buildInsuranceChatAnswer(): string {
+  return `🛡️ Health Insurance & Cashless Hospitalization
+
+MAPIMS has an active dedicated Insurance Desk:
+
+• Cashless Hospitalization:
+Empanelled with leading private and corporate health insurance companies & TPAs (Star Health, Medi Assist, MD India, Paramount, Heritage, Vidal, etc.).
+
+• Government Healthcare Scheme:
+Empanelled under Chief Minister's Comprehensive Health Insurance Scheme (CMCHIS / Kalaignar Kaappeettu Thittam).
+
+📞 Insurance Desk Phone: ${liveChatContact.insurancePhone}
+📧 Insurance Email: ${liveChatContact.insuranceEmail}
+Working Hours: Monday to Saturday, 9:00 AM – 6:00 PM`;
 }
 
 const starterAnswerBuilders: Record<string, () => string> = {
@@ -108,6 +187,10 @@ const starterAnswerBuilders: Record<string, () => string> = {
   specialities: buildSpecialitiesChatAnswer,
   emergency: buildEmergencyChatAnswer,
   "health-checkup": buildHealthCheckupChatAnswer,
+  "inpatient-ward-pricing": buildWardPricingChatAnswer,
+  "surgery-packages": buildSurgeryPackagesChatAnswer,
+  "upcoming-events": buildUpcomingEventsChatAnswer,
+  insurance: buildInsuranceChatAnswer,
 };
 
 export function getStarterAnswer(starterId: string): string | undefined {
