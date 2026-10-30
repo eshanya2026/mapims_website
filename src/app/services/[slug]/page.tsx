@@ -125,7 +125,7 @@ export async function generateMetadata({
         "Welcome to the Central Laboratory at Adhiparasakthi Hospitals, your hub for accurate and timely diagnostic testing. Our state-of-the-art laboratory is equipped with the latest technology to provide comprehensive diagnostic services essential for effective treatment and patient care.",
     };
   }
-  if (slug === "dialysis-services" || slug === "hemodialysis") {
+  if (slug === "dialysis-services" || slug === "dialysis" || slug === "hemodialysis") {
     return {
       title:
         "Dialysis Services (Hemodialysis) | Adhiparasakthi Hospitals",
@@ -241,7 +241,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   if (slug === "laboratory" || slug === "central-laboratory") {
     return <LaboratoryServicePage />;
   }
-  if (slug === "dialysis-services" || slug === "hemodialysis") {
+  if (slug === "dialysis-services" || slug === "dialysis" || slug === "hemodialysis") {
     return <DialysisServicePage />;
   }
   if (

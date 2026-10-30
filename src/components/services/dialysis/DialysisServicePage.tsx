@@ -1,14 +1,16 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Activity,
   ShieldCheck,
   CheckCircle2,
   Phone,
   ArrowRight,
+  ChevronLeft,
   ChevronRight,
   Sparkles,
   HeartHandshake,
@@ -21,6 +23,24 @@ import {
   Sparkle,
   Zap,
 } from "lucide-react";
+
+const heroSlides = [
+  {
+    src: "/images/services/dialysis-facility-1.png",
+    alt: "Hemodialysis Care Station and Medical Equipment at Adhiparasakthi Hospitals",
+    badge: "Dialysis Unit",
+  },
+  {
+    src: "/images/services/dialysis-facility-2.png",
+    alt: "Renal Care Facility and Inpatient Dialysis Bays at Adhiparasakthi Hospitals",
+    badge: "Renal Care Bay",
+  },
+  {
+    src: "/images/services/dialysis-facility-3.png",
+    alt: "Advanced Kidney Support and Continuous Monitoring at Adhiparasakthi Hospitals",
+    badge: "Inpatient Dialysis Care",
+  },
+];
 
 const dialysisPillars = [
   {
@@ -141,6 +161,17 @@ const whyChooseDialysis = [
 ];
 
 export default function DialysisServicePage() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [isPaused]);
+
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900 selection:bg-red-500 selection:text-white">
       {/* 1. Hero Section */}
@@ -223,24 +254,116 @@ export default function DialysisServicePage() {
               </div>
             </motion.div>
 
-            {/* Right Card / Visual Showcase */}
+            {/* Right Card / Visual Showcase Slider */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.15 }}
               className="lg:col-span-5"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
             >
-              <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-slate-900/80 p-2 shadow-2xl backdrop-blur-xl">
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl">
-                  <Image
-                    src="/images/services/dialysis-hemodialysis-hero.png"
-                    alt="Hemodialysis Machine and Treatment at Adhiparasakthi Hospitals"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 550px"
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
+              <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-slate-900/80 p-2.5 shadow-2xl backdrop-blur-xl">
+                {/* Main Image Slider */}
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-950">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentSlide}
+                      initial={{ opacity: 0, scale: 1.04 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={heroSlides[currentSlide].src}
+                        alt={heroSlides[currentSlide].alt}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 550px"
+                        className="object-cover transition-transform duration-700 hover:scale-105"
+                        priority={currentSlide === 0}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/15 to-transparent" />
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {/* Top Badge: Facility Status & Counter */}
+                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-900/85 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur-md border border-white/15 shadow-sm">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      {heroSlides[currentSlide].badge}
+                    </span>
+                    <span className="rounded-full bg-slate-900/85 px-2.5 py-1 text-[11px] font-semibold text-slate-300 backdrop-blur-md border border-white/15">
+                      {currentSlide + 1} / {heroSlides.length}
+                    </span>
+                  </div>
+
+                  {/* Navigation Arrows */}
+                  <div className="absolute inset-y-0 left-2 right-2 flex items-center justify-between pointer-events-none z-10">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+                      }
+                      className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition hover:bg-red-600 hover:scale-110 border border-white/20 cursor-pointer shadow-lg"
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft className="h-5 w-5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
+                      }
+                      className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition hover:bg-red-600 hover:scale-110 border border-white/20 cursor-pointer shadow-lg"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight className="h-5 w-5" />
+                    </button>
+                  </div>
+
+                  {/* Bottom Indicator Dots */}
+                  <div className="absolute bottom-3 inset-x-0 flex items-center justify-center gap-1.5 z-10">
+                    {heroSlides.map((_, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setCurrentSlide(idx)}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${
+                          currentSlide === idx
+                            ? "w-6 bg-red-500 shadow-md shadow-red-500/50"
+                            : "w-1.5 bg-white/40 hover:bg-white/80"
+                        }`}
+                        aria-label={`Go to slide ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Thumbnail Strip */}
+                <div className="mt-2.5 grid grid-cols-3 gap-2">
+                  {heroSlides.map((slide, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setCurrentSlide(idx)}
+                      className={`relative aspect-[16/10] overflow-hidden rounded-xl border-2 transition-all duration-300 ${
+                        currentSlide === idx
+                          ? "border-red-500 ring-2 ring-red-500/30 scale-[1.02]"
+                          : "border-transparent opacity-60 hover:opacity-100 hover:border-white/30"
+                      }`}
+                      aria-label={`Thumbnail ${idx + 1}`}
+                    >
+                      <Image
+                        src={slide.src}
+                        alt={slide.alt}
+                        fill
+                        sizes="160px"
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-slate-950/20" />
+                    </button>
+                  ))}
                 </div>
               </div>
             </motion.div>
