@@ -339,32 +339,6 @@ export default function DialysisServicePage() {
                     ))}
                   </div>
                 </div>
-
-                {/* Thumbnail Strip */}
-                <div className="mt-2.5 grid grid-cols-3 gap-2">
-                  {heroSlides.map((slide, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => setCurrentSlide(idx)}
-                      className={`relative aspect-[16/10] overflow-hidden rounded-xl border-2 transition-all duration-300 ${
-                        currentSlide === idx
-                          ? "border-red-500 ring-2 ring-red-500/30 scale-[1.02]"
-                          : "border-transparent opacity-60 hover:opacity-100 hover:border-white/30"
-                      }`}
-                      aria-label={`Thumbnail ${idx + 1}`}
-                    >
-                      <Image
-                        src={slide.src}
-                        alt={slide.alt}
-                        fill
-                        sizes="160px"
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-slate-950/20" />
-                    </button>
-                  ))}
-                </div>
               </div>
             </motion.div>
           </div>
