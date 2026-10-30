@@ -15,6 +15,7 @@ export type PostRecord = {
   excerpt: string;
   content: string;
   image: string;
+  video?: string | null;
   author: string | null;
   category: string;
   section: string;

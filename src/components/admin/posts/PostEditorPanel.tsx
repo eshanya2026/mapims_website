@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ImagePlus, Loader2, X } from "lucide-react";
+import { ImagePlus, Loader2, Trash2, Video, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -40,6 +40,8 @@ export default function PostEditorPanel({
   const [error, setError] = useState("");
   const [uploading, setUploading] = useState(false);
   const [dragging, setDragging] = useState(false);
+  const [videoUploading, setVideoUploading] = useState(false);
+  const [videoDragging, setVideoDragging] = useState(false);
 
   const [form, setForm] = useState<PostFormData>(() => ({
     ...createEmptyPost(defaultSection),
@@ -64,6 +66,7 @@ export default function PostEditorPanel({
     initial?.section,
     initial?.category,
     initial?.image,
+    initial?.video,
     initial?.excerpt,
     initial?.content,
     initial?.isIncoming,
@@ -131,6 +134,57 @@ export default function PostEditorPanel({
     setDragging(false);
     const file = event.dataTransfer.files?.[0];
     if (file) void uploadImage(file);
+  }
+
+  async function uploadVideo(file: File) {
+    if (!file.type.startsWith("video/")) {
+      setError("Please upload a valid video file (MP4, WebM, MOV, etc.)");
+      return;
+    }
+
+    if (file.size > 100 * 1024 * 1024) {
+      setError("Video file is too large. Maximum size is 100MB.");
+      return;
+    }
+
+    setVideoUploading(true);
+    setError("");
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        updateField("video", data.url);
+      } else {
+        const data = await response.json().catch(() => ({}));
+        setError(
+          typeof data.error === "string" ? data.error : "Video upload failed"
+        );
+      }
+    } catch {
+      setError("Network error while uploading video");
+    } finally {
+      setVideoUploading(false);
+    }
+  }
+
+  async function handleVideoInput(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (file) await uploadVideo(file);
+  }
+
+  function handleVideoDrop(event: React.DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    setVideoDragging(false);
+    const file = event.dataTransfer.files?.[0];
+    if (file) void uploadVideo(file);
   }
 
   async function handleSubmit(event: React.FormEvent) {
@@ -232,6 +286,106 @@ export default function PostEditorPanel({
               <Loader2 className="h-6 w-6 animate-spin text-red-600" />
             </div>
           ) : null}
+        </div>
+
+        {/* Video Upload Section (for Events & News) */}
+        <div className="space-y-2.5 rounded-xl border border-slate-200 bg-slate-50/80 p-3.5">
+          <div className="flex items-center justify-between">
+            <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-800">
+              <Video className="h-4 w-4 text-red-600" />
+              Event / News Video (Optional)
+            </label>
+            {form.video ? (
+              <button
+                type="button"
+                onClick={() => updateField("video", "")}
+                className="inline-flex items-center gap-1 text-xs font-medium text-red-600 hover:text-red-700 hover:underline"
+              >
+                <Trash2 className="h-3 w-3" />
+                Remove video
+              </button>
+            ) : null}
+          </div>
+
+          {form.video ? (
+            <div className="space-y-2">
+              <div className="relative overflow-hidden rounded-lg bg-black aspect-video flex items-center justify-center border border-slate-200 shadow-inner">
+                <video
+                  src={form.video}
+                  controls
+                  playsInline
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <Input
+                  value={form.video}
+                  onChange={(e) => updateField("video", e.target.value)}
+                  placeholder="https://... or /uploads/..."
+                  className="h-8 text-xs bg-white font-mono"
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              <div
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setVideoDragging(true);
+                }}
+                onDragLeave={() => setVideoDragging(false)}
+                onDrop={handleVideoDrop}
+                className={cn(
+                  "relative flex flex-col items-center justify-center gap-1.5 rounded-lg border-2 border-dashed p-4 text-center transition-colors",
+                  videoDragging
+                    ? "border-red-500 bg-red-50"
+                    : "border-slate-300 bg-white hover:border-red-300"
+                )}
+              >
+                <Video className="h-6 w-6 text-slate-400" />
+                <p className="text-xs font-medium text-slate-700">
+                  {videoUploading ? "Uploading video..." : "Upload event / news video"}
+                </p>
+                <p className="text-[11px] text-slate-400">
+                  Drag & drop or click to browse (MP4, WebM, MOV, max 100MB)
+                </p>
+
+                <label className="absolute inset-0 cursor-pointer">
+                  <input
+                    type="file"
+                    accept="video/mp4,video/webm,video/ogg,video/quicktime,video/*"
+                    className="sr-only"
+                    disabled={videoUploading}
+                    onChange={handleVideoInput}
+                  />
+                </label>
+
+                {videoUploading ? (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 bg-white/95 backdrop-blur-sm rounded-lg">
+                    <Loader2 className="h-6 w-6 animate-spin text-red-600" />
+                    <span className="text-xs font-semibold text-slate-800">
+                      Uploading video... Please wait
+                    </span>
+                    <span className="text-[10px] text-slate-500">
+                      (Larger files may take a few moments)
+                    </span>
+                  </div>
+                ) : null}
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] text-slate-400 font-medium shrink-0">
+                  Or enter video URL:
+                </span>
+                <Input
+                  value={form.video || ""}
+                  onChange={(e) => updateField("video", e.target.value)}
+                  placeholder="https://example.com/video.mp4"
+                  className="h-8 text-xs bg-white"
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         <div>
@@ -360,7 +514,11 @@ export default function PostEditorPanel({
       </div>
 
       <div className="flex flex-wrap items-center gap-2 border-t border-slate-200 px-5 py-4">
-        <Button type="submit" disabled={loading || uploading} className="bg-red-600 hover:bg-red-700">
+        <Button
+          type="submit"
+          disabled={loading || uploading || videoUploading}
+          className="bg-red-600 hover:bg-red-700"
+        >
           {loading ? "Saving..." : mode === "create" ? "Create post" : "Save changes"}
         </Button>
         <Button type="button" variant="outline" onClick={onClose}>

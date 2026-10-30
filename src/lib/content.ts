@@ -11,6 +11,7 @@ export type ContentPost = {
   category: string;
   section: BlogSection;
   image: string;
+  video?: string;
   excerpt: string;
   content: string;
   featured: boolean;
@@ -62,6 +63,7 @@ function mapPost(post: {
   excerpt: string;
   content: string;
   image: string;
+  video?: string | null;
   author: string | null;
   category: string;
   section: string;
@@ -89,6 +91,7 @@ function mapPost(post: {
     category: post.category,
     section: normalizeBlogSection(post.section),
     image: post.image,
+    video: post.video || undefined,
     excerpt: post.excerpt,
     content: post.content,
     featured: post.featured,

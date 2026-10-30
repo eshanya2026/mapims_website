@@ -38,6 +38,8 @@ export async function POST(request: Request) {
     const post = await createPost({
       ...data,
       author: data.author || null,
+      video: data.video || null,
+      eventDate: data.eventDate || null,
       sortOrder: maxSortOrder + 1,
       publishedAt: new Date(),
     });

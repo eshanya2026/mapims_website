@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Video } from "lucide-react";
 import Link from "next/link";
 import type { ContentPost } from "@/lib/content";
 
@@ -46,8 +46,14 @@ function NewsCard({
           decoding="async"
           className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
         />
-        <div className="absolute left-2.5 top-2.5">
+        <div className="absolute left-2.5 top-2.5 flex items-center gap-1.5">
           <CategoryBadge category={item.category} />
+          {item.video ? (
+            <span className="inline-flex items-center gap-1 rounded-full bg-slate-900/90 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm backdrop-blur-sm">
+              <Video className="h-2.5 w-2.5 text-red-400" />
+              Video
+            </span>
+          ) : null}
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4">

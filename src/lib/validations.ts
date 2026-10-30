@@ -40,6 +40,7 @@ export const postSchema = z.object({
       "Content must be at least 20 characters."
     ),
   image: z.string().min(1),
+  video: z.string().optional().nullable(),
   author: z.string().optional(),
   category: z.string().min(2),
   section: z.enum(["hospitals-events", "hospitals-news", "health-insights"]),

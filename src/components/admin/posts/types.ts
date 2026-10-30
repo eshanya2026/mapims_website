@@ -7,6 +7,7 @@ export type PostFormData = {
   excerpt: string;
   content: string;
   image: string;
+  video?: string;
   author: string;
   category: string;
   section: BlogSection;
@@ -41,6 +42,7 @@ export function createEmptyPost(section: BlogSection): PostFormData {
     excerpt: "",
     content: "",
     image: "",
+    video: "",
     author: "",
     category: "",
     section,

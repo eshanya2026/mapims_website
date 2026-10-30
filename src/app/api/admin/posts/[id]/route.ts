@@ -44,6 +44,8 @@ export async function PUT(request: Request, context: RouteContext) {
     const post = await updatePost(id, {
       ...data,
       author: data.author || null,
+      video: data.video || null,
+      eventDate: data.eventDate || null,
       publishedAt:
         data.published && !existing.published ? new Date() : existing.publishedAt,
     });

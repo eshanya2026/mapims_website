@@ -17,11 +17,23 @@ export default function BlogArticlePreview({ post }: BlogArticlePreviewProps) {
     <div className="min-h-full bg-slate-50 py-6 sm:py-10 md:py-14">
       <div className="container mx-auto px-4 sm:px-6">
         <article className="mx-auto max-w-4xl overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm sm:rounded-3xl">
-          <img
-            src={post.image || BLOG_PLACEHOLDER_IMAGE}
-            alt={post.title}
-            className="h-48 w-full object-cover sm:h-60 md:h-72 lg:h-80"
-          />
+          {post.video ? (
+            <div className="overflow-hidden bg-slate-950 aspect-video flex items-center justify-center">
+              <video
+                src={post.video}
+                controls
+                playsInline
+                poster={post.image || undefined}
+                className="w-full h-full object-contain mx-auto"
+              />
+            </div>
+          ) : (
+            <img
+              src={post.image || BLOG_PLACEHOLDER_IMAGE}
+              alt={post.title}
+              className="h-48 w-full object-cover sm:h-60 md:h-72 lg:h-80"
+            />
+          )}
 
           <div className="p-5 sm:p-8 md:p-10">
             <span className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-red-600 sm:mb-8">
@@ -30,9 +42,17 @@ export default function BlogArticlePreview({ post }: BlogArticlePreviewProps) {
             </span>
 
             <header className="space-y-3 border-b border-slate-100 pb-6 sm:space-y-4 sm:pb-8">
-              <span className="inline-flex max-w-full rounded-full bg-red-50 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-red-600 sm:text-xs">
-                {post.category || "Category"}
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex max-w-full rounded-full bg-red-50 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-red-600 sm:text-xs">
+                  {post.category || "Category"}
+                </span>
+                {post.video ? (
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white sm:text-xs">
+                    <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
+                    Video Included
+                  </span>
+                ) : null}
+              </div>
 
               <h1 className="text-2xl font-bold leading-snug text-slate-900 sm:text-3xl md:text-4xl">
                 {post.title || "Untitled post"}

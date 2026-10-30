@@ -20,7 +20,7 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { ArrowRight, Calendar, GripVertical } from "lucide-react";
+import { ArrowRight, Calendar, GripVertical, Video } from "lucide-react";
 import BlogHero from "@/components/blog/BlogHero";
 import { blogSections, type BlogSection } from "@/data/blog-posts";
 import type { ContentPost } from "@/lib/content";
@@ -92,6 +92,11 @@ function PostPreviewCard({
           {isUnpublished ? (
             <span className="rounded-full bg-slate-700 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm">
               Unpublished
+            </span>
+          ) : null}
+          {post.video ? (
+            <span className="rounded-full bg-slate-900/90 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm backdrop-blur-sm flex items-center gap-1">
+              <Video className="h-3 w-3 text-red-400" /> Video
             </span>
           ) : null}
           <span className="whitespace-nowrap rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-red-600 shadow-sm backdrop-blur-sm">

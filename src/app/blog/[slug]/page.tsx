@@ -47,20 +47,35 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <main className="min-h-screen bg-slate-50 py-6 sm:py-10 md:py-14">
       <div className="container mx-auto px-4 sm:px-6">
         <article className="mx-auto max-w-4xl overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm sm:rounded-3xl">
-          <div className="overflow-hidden">
-            <img
-              src={post.image}
-              alt={post.title}
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
-              className={
-                isNewsOrEvent
-                  ? "block w-full h-auto"
-                  : "h-48 w-full object-cover sm:h-60 md:h-72 lg:h-80"
-              }
-            />
-          </div>
+          {post.video ? (
+            <div className="overflow-hidden bg-slate-950 aspect-video flex items-center justify-center">
+              <video
+                src={post.video}
+                controls
+                playsInline
+                preload="metadata"
+                poster={post.image || undefined}
+                className="w-full h-full object-contain mx-auto"
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          ) : (
+            <div className="overflow-hidden">
+              <img
+                src={post.image}
+                alt={post.title}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                className={
+                  isNewsOrEvent
+                    ? "block w-full h-auto"
+                    : "h-48 w-full object-cover sm:h-60 md:h-72 lg:h-80"
+                }
+              />
+            </div>
+          )}
 
           <div className="p-5 sm:p-8 md:p-10">
             <Link
@@ -72,9 +87,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </Link>
 
             <header className="space-y-3 border-b border-slate-100 pb-6 sm:space-y-4 sm:pb-8">
-              <span className="inline-flex max-w-full rounded-full bg-red-50 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-red-600 sm:text-xs">
-                {post.category}
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex max-w-full rounded-full bg-red-50 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-red-600 sm:text-xs">
+                  {post.category}
+                </span>
+                {post.video ? (
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white sm:text-xs">
+                    <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
+                    Video Included
+                  </span>
+                ) : null}
+              </div>
 
               <h1 className="text-2xl font-bold leading-snug text-slate-900 sm:text-3xl md:text-4xl">
                 {post.title}

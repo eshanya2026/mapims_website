@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Calendar, ArrowRight, Sparkles, Clock } from "lucide-react";
+import { Calendar, ArrowRight, Sparkles, Clock, Video } from "lucide-react";
 import type { ContentPost } from "@/lib/content";
 
 type HospitalsEventsGridProps = {
@@ -210,6 +210,12 @@ function EventCard({
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-white"></span>
               </span>
               Incoming Event
+            </span>
+          ) : null}
+          {post.video ? (
+            <span className="flex items-center gap-1.5 rounded-full bg-slate-900/90 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm backdrop-blur-sm">
+              <Video className="h-3 w-3 text-red-400" />
+              Video
             </span>
           ) : null}
           <div className="rounded-full bg-white/95 px-3 py-1 text-xs font-bold uppercase tracking-wider text-red-600 shadow-sm backdrop-blur-sm">

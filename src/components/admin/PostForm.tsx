@@ -17,6 +17,7 @@ type PostFormData = {
   excerpt: string;
   content: string;
   image: string;
+  video?: string;
   author: string;
   category: string;
   section: BlogSection;
@@ -42,6 +43,7 @@ export default function PostForm({ initial, mode }: PostFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [videoUploading, setVideoUploading] = useState(false);
 
   const [form, setForm] = useState<PostFormData>({
     title: initial?.title ?? "",
@@ -49,6 +51,7 @@ export default function PostForm({ initial, mode }: PostFormProps) {
     excerpt: initial?.excerpt ?? "",
     content: initial?.content ?? "",
     image: initial?.image ?? "",
+    video: initial?.video ?? "",
     author: initial?.author ?? "",
     category: initial?.category ?? "",
     section: initial?.section ?? "hospitals-news",
@@ -88,6 +91,39 @@ export default function PostForm({ initial, mode }: PostFormProps) {
       setError("Image upload failed");
     }
     setUploading(false);
+  }
+
+  async function handleVideoUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("video/")) {
+      setError("Please upload a valid video file (MP4, WebM, MOV)");
+      return;
+    }
+
+    if (file.size > 100 * 1024 * 1024) {
+      setError("Video file is too large (max 100MB)");
+      return;
+    }
+
+    setVideoUploading(true);
+    setError("");
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await fetch("/api/admin/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      updateField("video", data.url);
+    } else {
+      setError("Video upload failed");
+    }
+    setVideoUploading(false);
   }
 
   async function handleSubmit(event: React.FormEvent) {
@@ -216,6 +252,48 @@ export default function PostForm({ initial, mode }: PostFormProps) {
             required
           />
         </div>
+        <div className="sm:col-span-2 rounded-xl border border-slate-200 bg-slate-50/70 p-4 space-y-3">
+          <div className="flex items-center justify-between">
+            <label className="block text-sm font-semibold text-slate-800">
+              Event / News Video (Optional)
+            </label>
+            {form.video ? (
+              <button
+                type="button"
+                onClick={() => updateField("video", "")}
+                className="text-xs font-medium text-red-600 hover:underline"
+              >
+                Clear Video
+              </button>
+            ) : null}
+          </div>
+          <Input
+            type="file"
+            accept="video/mp4,video/webm,video/ogg,video/quicktime,video/*"
+            onChange={handleVideoUpload}
+          />
+          {videoUploading ? (
+            <p className="text-xs font-medium text-red-600 animate-pulse">
+              Uploading video (up to 100MB)... Please wait.
+            </p>
+          ) : null}
+          {form.video ? (
+            <div className="mt-2 overflow-hidden rounded-lg bg-black aspect-video max-w-md">
+              <video
+                src={form.video}
+                controls
+                playsInline
+                className="w-full h-full object-contain"
+              />
+            </div>
+          ) : null}
+          <Input
+            value={form.video || ""}
+            onChange={(e) => updateField("video", e.target.value)}
+            placeholder="Or enter video URL (e.g. /uploads/... or https://...)"
+            className="text-xs font-mono"
+          />
+        </div>
         <label className="flex items-center gap-2 text-sm">
           <input
             type="checkbox"
@@ -266,7 +344,11 @@ export default function PostForm({ initial, mode }: PostFormProps) {
       ) : null}
 
       <div className="flex gap-3">
-        <Button type="submit" disabled={loading} className="bg-red-600 hover:bg-red-700">
+        <Button
+          type="submit"
+          disabled={loading || uploading || videoUploading}
+          className="bg-red-600 hover:bg-red-700"
+        >
           {loading ? "Saving..." : mode === "create" ? "Create post" : "Save changes"}
         </Button>
         <Button type="button" variant="outline" onClick={() => router.back()}>
