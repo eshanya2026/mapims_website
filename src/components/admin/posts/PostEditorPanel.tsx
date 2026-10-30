@@ -95,8 +95,11 @@ export default function PostEditorPanel({
   );
 
   async function uploadImage(file: File) {
-    if (!file.type.startsWith("image/")) {
-      setError("Please upload an image file");
+    const isImage =
+      file.type.startsWith("image/") ||
+      /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(file.name);
+    if (!isImage) {
+      setError("Please upload an image file (JPG, PNG, WebP, GIF)");
       return;
     }
 
@@ -106,22 +109,26 @@ export default function PostEditorPanel({
     const formData = new FormData();
     formData.append("file", file);
 
-    const response = await fetch("/api/admin/upload", {
-      method: "POST",
-      body: formData,
-    });
+    try {
+      const response = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: formData,
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      updateField("image", data.url);
-    } else {
-      const data = await response.json().catch(() => ({}));
-      setError(
-        typeof data.error === "string" ? data.error : "Image upload failed"
-      );
+      if (response.ok) {
+        const data = await response.json();
+        updateField("image", data.url);
+      } else {
+        const data = await response.json().catch(() => ({}));
+        setError(
+          typeof data.error === "string" ? data.error : "Image upload failed"
+        );
+      }
+    } catch {
+      setError("Network error while uploading image");
+    } finally {
+      setUploading(false);
     }
-
-    setUploading(false);
   }
 
   async function handleImageInput(event: React.ChangeEvent<HTMLInputElement>) {
@@ -137,7 +144,10 @@ export default function PostEditorPanel({
   }
 
   async function uploadVideo(file: File) {
-    if (!file.type.startsWith("video/")) {
+    const isVideo =
+      file.type.startsWith("video/") ||
+      /\.(mp4|webm|ogg|mov|m4v|mkv|avi)$/i.test(file.name);
+    if (!isVideo) {
       setError("Please upload a valid video file (MP4, WebM, MOV, etc.)");
       return;
     }
@@ -163,10 +173,18 @@ export default function PostEditorPanel({
         const data = await response.json();
         updateField("video", data.url);
       } else {
-        const data = await response.json().catch(() => ({}));
-        setError(
-          typeof data.error === "string" ? data.error : "Video upload failed"
-        );
+        let msg = "Video upload failed";
+        try {
+          const data = await response.json();
+          if (data?.error) msg = data.error;
+        } catch {
+          if (response.status === 413) {
+            msg = "File too large (exceeds server limits)";
+          } else if (response.status === 401) {
+            msg = "Unauthorized. Please log in again.";
+          }
+        }
+        setError(msg);
       }
     } catch {
       setError("Network error while uploading video");
