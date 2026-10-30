@@ -181,59 +181,59 @@ export default function Hero() {
         </div>
 
         {/* Highlight cards */}
-        <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4 lg:mt-12 lg:gap-5">
+        <div className="mt-6 flex flex-wrap gap-2.5 sm:mt-10 sm:gap-4 lg:mt-12">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex items-center gap-3.5 rounded-2xl border border-white/30 bg-white/95 p-4 shadow-xl backdrop-blur-xl transition-all duration-300 hover:bg-white hover:shadow-2xl sm:gap-4 sm:p-5"
+            className="flex w-full items-center gap-3 rounded-xl border border-white/20 bg-white/90 p-3.5 shadow-xl backdrop-blur-xl sm:w-auto sm:min-w-[240px] sm:gap-4 sm:rounded-2xl sm:p-5"
           >
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-100 text-blue-600 sm:h-12 sm:w-12 shadow-sm">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 sm:h-12 sm:w-12">
               <Users className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-semibold text-slate-500 sm:text-sm">
+              <p className="text-xs font-medium text-slate-500 sm:text-sm">
                 Expert Specialists
               </p>
-              <p className="text-sm font-bold text-slate-900 sm:text-base lg:text-lg truncate">
+              <p className="text-sm font-bold text-slate-900 sm:text-lg">
                 Multispeciality Care
               </p>
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex items-center gap-3.5 rounded-2xl border border-white/30 bg-white/95 p-4 shadow-xl backdrop-blur-xl transition-all duration-300 hover:bg-white hover:shadow-2xl sm:gap-4 sm:p-5"
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex w-full items-center gap-3 rounded-xl border border-white/20 bg-white/90 p-3.5 shadow-xl backdrop-blur-xl sm:w-auto sm:min-w-[240px] sm:gap-4 sm:rounded-2xl sm:p-5"
           >
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-red-100 text-red-600 sm:h-12 sm:w-12 shadow-sm">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-red-100 text-red-600 sm:h-12 sm:w-12">
               <Ambulance className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-semibold text-slate-500 sm:text-sm">
+              <p className="text-xs font-medium text-slate-500 sm:text-sm">
                 24/7 Emergency Care
               </p>
-              <p className="text-sm font-bold text-slate-900 sm:text-base lg:text-lg truncate">
+              <p className="text-sm font-bold text-slate-900 sm:text-lg">
                 Always Ready
               </p>
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex items-center gap-3.5 rounded-2xl border border-white/30 bg-white/95 p-4 shadow-xl backdrop-blur-xl transition-all duration-300 hover:bg-white hover:shadow-2xl sm:gap-4 sm:p-5"
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="flex w-full items-center gap-3 rounded-xl border border-white/20 bg-white/90 p-3.5 shadow-xl backdrop-blur-xl sm:w-auto sm:min-w-[240px] sm:gap-4 sm:rounded-2xl sm:p-5"
           >
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-amber-100 text-amber-600 sm:h-12 sm:w-12 shadow-sm">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-600 sm:h-12 sm:w-12">
               <Microscope className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-semibold text-slate-500 sm:text-sm">
+              <p className="text-xs font-medium text-slate-500 sm:text-sm">
                 Advanced Diagnostics
               </p>
-              <p className="text-sm font-bold text-slate-900 sm:text-base lg:text-lg truncate">
+              <p className="text-sm font-bold text-slate-900 sm:text-lg">
                 Accurate & Fast Results
               </p>
             </div>

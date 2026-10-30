@@ -14,7 +14,7 @@ const actions = [
 
 export default function QuickActions() {
   return (
-    <section className="relative z-30 px-3 py-6 sm:px-4 sm:py-8 lg:py-10 bg-slate-50/80">
+    <section className="relative z-40 -mt-4 px-3 pb-2 sm:-mt-10 sm:px-4 md:-mt-14 lg:-mt-16">
       <div className="container mx-auto">
         <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-4 lg:gap-5">
           {actions.map((action, index) => {
