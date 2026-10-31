@@ -84,7 +84,7 @@ export default function Hero() {
         </svg>
       </div>
 
-      <div className="container mx-auto px-4 lg:px-8 xl:px-12 2xl:px-4 z-20 relative">
+      <div className="container mx-auto px-4 lg:px-8 xl:px-4 z-20 relative">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 lg:gap-10 xl:gap-12">
           <div className="max-w-3xl lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl">
             <motion.div

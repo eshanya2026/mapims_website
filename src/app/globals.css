@@ -51,6 +51,10 @@
   --breakpoint-nav: 1543px;
 }
 
+@theme {
+  --breakpoint-xl: 87.5rem;
+}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
