@@ -14,8 +14,8 @@ const actions = [
 
 export default function QuickActions() {
   return (
-    <section className="relative z-30 bg-slate-50/90 py-8 sm:py-10 lg:py-12 px-3 sm:px-4 border-b border-slate-100/80">
-      <div className="container mx-auto">
+    <section className="relative z-30 bg-slate-50/90 py-8 sm:py-10 lg:py-12 border-b border-slate-100/80">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-4 lg:gap-5">
           {actions.map((action, index) => {
             const cardClass =

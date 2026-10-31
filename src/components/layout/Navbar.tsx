@@ -347,7 +347,7 @@ export default function Navbar() {
           : "bg-white"
       )}
     >
-      <div className="container mx-auto px-4">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center gap-2.5 sm:gap-4 shrink-0 min-w-0">
             <span className="flex items-center gap-2 sm:gap-2.5 shrink-0 min-w-0">
