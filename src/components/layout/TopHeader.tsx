@@ -35,51 +35,9 @@ function SocialIconLinks({ size = "md" }: { size?: "sm" | "md" }) {
 
 export default function TopHeader() {
   return (
-    <div className="relative z-[60] overflow-visible bg-slate-900 text-slate-200 text-xs sm:text-sm">
-      {/* Mobile */}
-      <div className="px-3 py-2.5 md:hidden">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-2">
-          <a
-            href={`tel:${TOLL_FREE_TEL}`}
-            className="flex items-center gap-1.5 font-medium text-white"
-          >
-            <Phone className={iconClass} />
-            <span className="leading-tight">
-              Toll Free: <span className="font-bold">{TOLL_FREE_DISPLAY}</span>
-            </span>
-          </a>
-
-          <a
-            href={`tel:${EMERGENCY_TEL}`}
-            className="flex items-center gap-1.5 font-medium text-white"
-          >
-            <Phone className={iconClass} />
-            <span className="leading-tight">
-              Emergency Call: <span className="font-bold">{EMERGENCY_DISPLAY}</span>
-            </span>
-          </a>
-
-          <a
-            href="mailto:info@adhiparasakthihospitals.com"
-            className="col-span-full flex min-w-0 items-start gap-1.5 text-slate-300"
-          >
-            <Mail className={`${iconClass} mt-0.5`} />
-            <span className="break-all text-[10px] leading-snug sm:text-[11px]">
-              info@adhiparasakthihospitals.com
-            </span>
-          </a>
-        </div>
-
-        <div className="mt-2.5 flex flex-wrap items-center gap-2 border-t border-slate-800 pt-2.5">
-          <span className="text-[10px] font-medium uppercase tracking-wider text-slate-500">
-            Follow us
-          </span>
-          <SocialIconLinks size="sm" />
-        </div>
-      </div>
-
+    <div className="hidden md:block relative z-[60] overflow-visible bg-slate-900 text-slate-200 text-xs sm:text-sm">
       {/* Desktop */}
-      <div className="container mx-auto hidden overflow-visible px-4 py-2 md:block">
+      <div className="container mx-auto overflow-visible px-4 py-2">
         <div className="flex items-center justify-between gap-4">
           <div className="flex min-w-0 flex-wrap items-center gap-x-6 gap-y-1">
             <a
