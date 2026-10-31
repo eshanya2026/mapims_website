@@ -62,14 +62,14 @@ const Counter = ({
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-slate-50 py-8 sm:flex sm:min-h-[90vh] sm:items-center sm:py-12 lg:py-16">
+    <section className="relative overflow-hidden bg-slate-50 py-10 sm:flex sm:min-h-[85vh] lg:min-h-[90vh] sm:items-center sm:py-14 lg:py-20">
       <HeroBackground
         imageSrc="/images/mapims-flow-gwr-poster.jpg"
         videoSrc="/videos/mapims-flow-gwr-video-mvp.mp4"
         videoWebmSrc="/videos/mapims-flow-gwr-video-mvp.webm"
-        overlayClassName="bg-gradient-to-r from-slate-950/95 via-slate-900/85 to-slate-900/40 sm:from-slate-950/92 sm:via-slate-900/80 sm:to-slate-900/30"
-        imageClassName="object-[center_42%] sm:object-[center_45%] contrast-150"
-        videoClassName="object-center contrast-150"
+        overlayClassName="bg-gradient-to-b from-slate-950/95 via-slate-900/90 to-slate-950/95 sm:bg-gradient-to-r sm:from-slate-950/95 sm:via-slate-900/85 sm:to-slate-900/40"
+        imageClassName="object-[center_42%] sm:object-[center_45%] contrast-125"
+        videoClassName="object-center contrast-125"
       />
 
       {/* Animated Heartbeat Line */}
@@ -129,7 +129,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="w-full lg:w-auto lg:max-w-md shrink-0"
           >
-            <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/35 sm:bg-white/45 p-5 sm:p-6 shadow-[0_16px_40px_rgba(0,0,0,0.25)] backdrop-blur-2xl ring-1 ring-white/50">
+            <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/60 bg-white/40 sm:bg-white/50 p-4 sm:p-6 shadow-[0_16px_40px_rgba(0,0,0,0.25)] backdrop-blur-2xl ring-1 ring-white/50">
               {/* Subtle specular reflection glow */}
               <div
                 className="pointer-events-none absolute -left-12 -top-12 h-44 w-44 rounded-full bg-white/30 blur-2xl"
@@ -181,59 +181,59 @@ export default function Hero() {
         </div>
 
         {/* Highlight cards */}
-        <div className="mt-6 flex flex-wrap gap-2.5 sm:mt-10 sm:gap-4 lg:mt-12">
+        <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4 lg:mt-12 lg:gap-5">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex w-full items-center gap-3 rounded-xl border border-white/20 bg-white/90 p-3.5 shadow-xl backdrop-blur-xl sm:w-auto sm:min-w-[240px] sm:gap-4 sm:rounded-2xl sm:p-5"
+            className="flex items-center gap-3.5 rounded-xl border border-white/30 bg-white/95 p-4 shadow-xl backdrop-blur-xl transition-all duration-300 hover:bg-white hover:shadow-2xl sm:gap-4 sm:rounded-2xl sm:p-5"
           >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 sm:h-12 sm:w-12">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-100 text-blue-600 sm:h-12 sm:w-12 shadow-sm">
               <Users className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-medium text-slate-500 sm:text-sm">
+              <p className="text-xs font-semibold text-slate-500 sm:text-sm">
                 Expert Specialists
               </p>
-              <p className="text-sm font-bold text-slate-900 sm:text-lg">
+              <p className="text-sm font-bold text-slate-900 sm:text-base lg:text-lg truncate">
                 Multispeciality Care
               </p>
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex w-full items-center gap-3 rounded-xl border border-white/20 bg-white/90 p-3.5 shadow-xl backdrop-blur-xl sm:w-auto sm:min-w-[240px] sm:gap-4 sm:rounded-2xl sm:p-5"
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex items-center gap-3.5 rounded-xl border border-white/30 bg-white/95 p-4 shadow-xl backdrop-blur-xl transition-all duration-300 hover:bg-white hover:shadow-2xl sm:gap-4 sm:rounded-2xl sm:p-5"
           >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-red-100 text-red-600 sm:h-12 sm:w-12">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-red-100 text-red-600 sm:h-12 sm:w-12 shadow-sm">
               <Ambulance className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-medium text-slate-500 sm:text-sm">
+              <p className="text-xs font-semibold text-slate-500 sm:text-sm">
                 24/7 Emergency Care
               </p>
-              <p className="text-sm font-bold text-slate-900 sm:text-lg">
+              <p className="text-sm font-bold text-slate-900 sm:text-base lg:text-lg truncate">
                 Always Ready
               </p>
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex w-full items-center gap-3 rounded-xl border border-white/20 bg-white/90 p-3.5 shadow-xl backdrop-blur-xl sm:w-auto sm:min-w-[240px] sm:gap-4 sm:rounded-2xl sm:p-5"
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="flex items-center gap-3.5 rounded-xl border border-white/30 bg-white/95 p-4 shadow-xl backdrop-blur-xl transition-all duration-300 hover:bg-white hover:shadow-2xl sm:gap-4 sm:rounded-2xl sm:p-5"
           >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-600 sm:h-12 sm:w-12">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-amber-100 text-amber-600 sm:h-12 sm:w-12 shadow-sm">
               <Microscope className="h-5 w-5 sm:h-6 sm:w-6" />
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-medium text-slate-500 sm:text-sm">
+              <p className="text-xs font-semibold text-slate-500 sm:text-sm">
                 Advanced Diagnostics
               </p>
-              <p className="text-sm font-bold text-slate-900 sm:text-lg">
+              <p className="text-sm font-bold text-slate-900 sm:text-base lg:text-lg truncate">
                 Accurate & Fast Results
               </p>
             </div>

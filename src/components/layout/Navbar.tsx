@@ -354,22 +354,19 @@ export default function Navbar() {
               <img
                 src="/images/adhiparasakthi-hospitals-emblem.png"
                 alt="Adhiparasakthi Hospitals emblem"
-                className="h-[5rem] w-[12rem] max-h-[6rem] max-w-[12rem] object-contain object-center shrink-0 sm:h-16 sm:max-w-[12rem] transform -translate-y-[5px]"
+                className="h-12 w-auto max-w-[8.5rem] sm:h-16 sm:max-w-[12rem] object-contain object-left shrink-0 transform -translate-y-[2px] sm:-translate-y-[5px]"
               />
-              {/* <span className="text-sm sm:text-lg font-bold leading-tight text-slate-900 whitespace-nowrap">
-                Adhiparasakthi Hospitals
-              </span> */}
             </span>
-            <div className="flex items-center gap-2 sm:gap-3.5 shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-3.5 shrink-0">
               <img
                 src="/images/nabl-logo.png"
                 alt="NABL Accredited"
-                className="h-11 sm:h-[64px] w-auto object-contain shrink-0"
+                className="h-8 sm:h-[64px] w-auto object-contain shrink-0"
               />
               <img
                 src="/images/nabh-logo.png"
                 alt="NABH Accredited"
-                className="h-12 sm:h-[66px] w-auto object-contain shrink-0"
+                className="h-9 sm:h-[66px] w-auto object-contain shrink-0"
               />
             </div>
           </Link>

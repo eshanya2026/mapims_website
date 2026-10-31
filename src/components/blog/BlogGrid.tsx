@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Calendar, ArrowRight, Video } from "lucide-react";
+import { Calendar, ArrowRight, Video, Play } from "lucide-react";
 import type { ContentPost } from "@/lib/content";
 
 type BlogGridProps = {
@@ -51,6 +51,13 @@ export default function BlogGrid({ posts }: BlogGridProps) {
                     {post.category}
                   </div>
                 </div>
+                {post.video ? (
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-950/60 text-white backdrop-blur-sm transition-transform duration-300 group-hover:scale-110 group-hover:bg-red-600/90 shadow-xl">
+                      <Play className="h-5 w-5 fill-white translate-x-0.5" />
+                    </div>
+                  </div>
+                ) : null}
               </div>
               <div className="p-6">
                 <div className="mb-3 flex items-center text-sm text-slate-500">
