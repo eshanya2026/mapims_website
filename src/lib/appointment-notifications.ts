@@ -293,7 +293,7 @@ export async function sendAppointmentReplyEmail({
     "APPOINTMENT DETAILS:",
     `Reference ID: ${referenceId}`,
     `Department: ${submission.department || "—"}`,
-    submission.preferredDate ? `Date: ${submission.preferredDate}` : undefined,
+    submission.preferredDate ? `Date: ${formatDisplayDateLong(submission.preferredDate)}` : undefined,
     submission.preferredTime ? `Time: ${submission.preferredTime}` : undefined,
     "--------------------------------------------------",
     "",
@@ -329,7 +329,7 @@ export async function sendAppointmentReplyEmail({
         <div style="margin:20px 0;padding:14px 16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;">
           <p style="margin:0 0 8px;font-weight:700;color:#334155;text-transform:uppercase;letter-spacing:0.5px;font-size:11px;">Appointment Summary</p>
           <p style="margin:0 0 4px;color:#475569;"><strong>Department:</strong> ${escapeHtml(submission.department || "—")}</p>
-          ${submission.preferredDate ? `<p style="margin:0 0 4px;color:#475569;"><strong>Date:</strong> ${escapeHtml(submission.preferredDate)}</p>` : ""}
+          ${submission.preferredDate ? `<p style="margin:0 0 4px;color:#475569;"><strong>Date:</strong> ${escapeHtml(formatDisplayDateLong(submission.preferredDate))}</p>` : ""}
           ${submission.preferredTime ? `<p style="margin:0 0 4px;color:#475569;"><strong>Time:</strong> ${escapeHtml(submission.preferredTime)}</p>` : ""}
         </div>
 
