@@ -84,7 +84,7 @@ export default function Hero() {
         </svg>
       </div>
 
-      <div className="container mx-auto px-4 lg:px-8 xl:px-4 z-20 relative">
+      <div className="container mx-auto max-w-[1200px] 2xl:max-w-none px-4 lg:px-8 xl:px-8 2xl:px-4 z-20 relative">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 lg:gap-10 xl:gap-12">
           <div className="max-w-3xl lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl">
             <motion.div
@@ -95,7 +95,7 @@ export default function Hero() {
               <span className="mb-4 inline-block rounded-full border border-red-600/30 bg-red-600/20 px-3 py-1 text-xs font-semibold text-red-400 backdrop-blur-md sm:mb-6 sm:text-sm">
                 World-Class Healthcare
               </span>
-              <h1 className="mb-4 text-2xl font-bold leading-tight text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
+              <h1 className="mb-4 text-2xl font-bold leading-tight text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl 2xl:text-7xl">
                 Healing Lives, <br />
                 <span className="text-red-600">Building Trust</span>
               </h1>
