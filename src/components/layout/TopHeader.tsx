@@ -79,7 +79,7 @@ export default function TopHeader() {
       </div>
 
       {/* Desktop */}
-      <div className="container mx-auto max-w-[1200px] 2xl:max-w-none hidden overflow-visible px-4 py-2 md:block">
+      <div className="container mx-auto hidden overflow-visible px-4 py-2 md:block">
         <div className="flex items-center justify-between gap-4">
           <div className="flex min-w-0 flex-wrap items-center gap-x-6 gap-y-1">
             <a

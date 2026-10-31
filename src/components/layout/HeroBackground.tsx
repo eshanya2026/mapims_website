@@ -78,6 +78,7 @@ export default function HeroBackground({
           poster={imageSrc}
           aria-hidden="true"
           onError={() => setVideoFailed(true)}
+          style={{ objectFit: "cover" }}
           className={cn(
             "absolute inset-0 h-full w-full object-cover object-center pointer-events-none transition-opacity duration-700",
             videoClassName

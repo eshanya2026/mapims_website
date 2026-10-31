@@ -438,10 +438,3 @@
 .chat-launcher-online-ping {
   animation: chat-launcher-pulse 2.5s ease-out infinite;
 }
-
-/* Constrain container max-width in the 1200px - 1440px laptop range to provide comfortable margins */
-@media (min-width: 1200px) and (max-width: 1440px) {
-  .container {
-    max-width: 1200px !important;
-  }
-}
