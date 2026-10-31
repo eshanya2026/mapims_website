@@ -185,7 +185,7 @@
   }
 
   .page-container {
-    @apply container mx-auto w-full max-w-7xl px-4 sm:px-6;
+    @apply container mx-auto w-full max-w-7xl;
   }
 
   @keyframes accordion-down {
@@ -453,5 +453,55 @@
 
   @media (max-width: 480px) {
     padding-inline: 1rem;
+  }
+}
+
+@utility page-container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 5rem;
+
+  @media (max-width: 1300px) {
+    padding-inline: 6rem;
+  }
+
+  @media (max-width: 768px) {
+    padding-inline: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    padding-inline: 1rem;
+  }
+}
+
+@layer utilities {
+  main section:not(.hero-section) > .container,
+  main > .container,
+  footer > .container {
+    padding-inline: 5rem;
+  }
+
+  @media (max-width: 1300px) {
+    main section:not(.hero-section) > .container,
+    main > .container,
+    footer > .container {
+      padding-inline: 6rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    main section:not(.hero-section) > .container,
+    main > .container,
+    footer > .container {
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    main section:not(.hero-section) > .container,
+    main > .container,
+    footer > .container {
+      padding-inline: 1rem;
+    }
   }
 }
