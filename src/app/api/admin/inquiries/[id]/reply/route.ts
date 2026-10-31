@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { requireApiPermission } from "@/lib/admin-api-auth";
 import { canAccessEnquiryType } from "@/lib/admin-roles";
 import { addInquiryReply, findFormSubmissionById } from "@/lib/db/form-submissions";
+import { sendAppointmentReplyEmail } from "@/lib/appointment-notifications";
 import { sendInsuranceReplyEmail } from "@/lib/inquiry-notifications";
 import { isValidInquiryStatusForType } from "@/lib/inquiry-status";
 
@@ -47,15 +48,28 @@ export async function POST(request: Request, context: RouteContext) {
       ? requestedStatus
       : inquiry.status;
 
-    const senderName = auth.session.name || auth.session.email || "Insurance Desk Coordinator";
+    const defaultSender =
+      inquiry.type === "appointment"
+        ? "Appointment Desk Coordinator"
+        : "Insurance Desk Coordinator";
+    const senderName = auth.session.name || auth.session.email || defaultSender;
 
-    // 1. Send the email directly to the recipient from Insurance@mapims.org
-    await sendInsuranceReplyEmail({
-      submission: inquiry,
-      replyMessage: rawMessage,
-      subject: rawSubject || undefined,
-      senderName,
-    });
+    // 1. Send the email directly to the recipient from the respective department email
+    if (inquiry.type === "appointment") {
+      await sendAppointmentReplyEmail({
+        submission: inquiry,
+        replyMessage: rawMessage,
+        subject: rawSubject || undefined,
+        senderName,
+      });
+    } else {
+      await sendInsuranceReplyEmail({
+        submission: inquiry,
+        replyMessage: rawMessage,
+        subject: rawSubject || undefined,
+        senderName,
+      });
+    }
 
     // 2. Record the reply in MongoDB and update status
     const updated = await addInquiryReply(

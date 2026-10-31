@@ -3,7 +3,10 @@ import {
   ACTIVE_APPOINTMENT_EXISTS_MESSAGE,
   APPOINTMENT_RATE_LIMIT_MESSAGE,
 } from "@/lib/appointment-identity-guard";
-import { notifyPatientOfAppointment } from "@/lib/appointment-notifications";
+import {
+  notifyHospitalOfAppointment,
+  notifyPatientOfAppointment,
+} from "@/lib/appointment-notifications";
 import { createFormSubmission } from "@/lib/form-submissions";
 import {
   notifyCandidateOfJobApplication,
@@ -59,11 +62,17 @@ export async function POST(request: Request) {
       }
 
       if (submission.type === "appointment") {
-        try {
-          await notifyPatientOfAppointment(submission);
-        } catch (emailError) {
-          console.error("[forms POST] appointment confirmation email failed:", emailError);
-        }
+        await Promise.allSettled([
+          notifyPatientOfAppointment(submission).catch((emailError) => {
+            console.error("[forms POST] appointment confirmation email failed:", emailError);
+          }),
+          notifyHospitalOfAppointment(submission).catch((emailError) => {
+            console.error(
+              "[forms POST] appointment notification email to hospital failed:",
+              emailError
+            );
+          }),
+        ]);
       }
 
       if (
