@@ -62,7 +62,7 @@ const Counter = ({
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-slate-50 py-10 sm:flex sm:min-h-[85vh] lg:min-h-[90vh] sm:items-center sm:py-14 lg:py-20">
+    <section className="relative overflow-hidden bg-slate-50 py-8 sm:flex sm:min-h-[90vh] sm:items-center sm:py-12 lg:py-16">
       <HeroBackground
         imageSrc="/images/mapims-flow-gwr-poster.jpg"
         videoSrc="/videos/mapims-flow-gwr-video-mvp.mp4"
@@ -84,9 +84,9 @@ export default function Hero() {
         </svg>
       </div>
 
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 z-20 relative">
+      <div className="container mx-auto px-4 lg:px-8 xl:px-12 2xl:px-4 z-20 relative">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 lg:gap-10 xl:gap-12">
-          <div className="max-w-3xl lg:max-w-lg xl:max-w-xl">
+          <div className="max-w-3xl lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -95,7 +95,7 @@ export default function Hero() {
               <span className="mb-4 inline-block rounded-full border border-red-600/30 bg-red-600/20 px-3 py-1 text-xs font-semibold text-red-400 backdrop-blur-md sm:mb-6 sm:text-sm">
                 World-Class Healthcare
               </span>
-              <h1 className="mb-4 text-2xl font-bold leading-tight text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl">
+              <h1 className="mb-4 text-2xl font-bold leading-tight text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl">
                 Healing Lives, <br />
                 <span className="text-red-600">Building Trust</span>
               </h1>
