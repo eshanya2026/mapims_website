@@ -20,29 +20,32 @@ const HOSPITAL_PHONE = process.env.NEXT_PUBLIC_HOSPITAL_PHONE || "+91 94990 5996
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-950 text-slate-300 border-t border-slate-800">
+    <footer className="bg-slate-900 text-slate-300 border-t border-slate-800/80">
       <div className="container mx-auto px-4 pt-14 pb-10">
         {/* Main link columns */}
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1.6fr)_minmax(0,1fr)] gap-10 lg:gap-8 lg:items-start">
           <div className="space-y-5 min-w-0">
-            <ScrollToTopLink href="/" className="bg-white rounded-md pt-2 inline-flex items-center gap-3 group max-w-full flex-wrap sm:flex-nowrap">
-              <span className="flex items-center gap-1.5 sm:gap-2 shrink-0 min-w-0 transition-transform group-hover:scale-[1.02]">
+            <ScrollToTopLink
+              href="/"
+              className="inline-flex items-center gap-3.5 group max-w-full flex-wrap sm:flex-nowrap transition-opacity hover:opacity-95"
+            >
+              <span className="flex items-center shrink-0 min-w-0 transition-transform group-hover:scale-[1.02]">
                 <img
-                  src="/images/adhiparasakthi-hospitals-emblem.png"
-                  alt="Adhiparasakthi Hospitals emblem"
-                  className="h-[5rem] w-[12rem] max-h-[6rem] max-w-[12rem] object-contain object-center shrink-0 sm:h-16 sm:max-w-[12rem] transform -translate-y-[5px]"
+                  src="/images/adhiparasakthi-hospitals-emblem-vivid-red.png"
+                  alt="Adhiparasakthi Hospitals"
+                  className="h-14 sm:h-16 w-auto max-w-[13rem] object-contain object-left shrink-0"
                 />
               </span>
-              <div className="flex items-center gap-2 sm:gap-3.5 shrink-0">
+              <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 pl-3 sm:pl-3.5 border-l border-slate-700/80">
                 <img
-                  src="/images/nabl-logo.png"
+                  src="/images/nabl-emblem-transparent.png"
                   alt="NABL Accredited"
-                  className="h-11 sm:h-[64px] w-auto object-contain shrink-0"
+                  className="h-11 sm:h-13 w-auto object-contain shrink-0 drop-shadow-sm"
                 />
                 <img
-                  src="/images/nabh-logo.png"
+                  src="/images/nabh-emblem-transparent.png"
                   alt="NABH Accredited"
-                  className="h-12 sm:h-[66px] w-auto object-contain shrink-0"
+                  className="h-11 sm:h-13 w-auto object-contain shrink-0 drop-shadow-sm"
                 />
               </div>
             </ScrollToTopLink>

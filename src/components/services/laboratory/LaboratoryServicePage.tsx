@@ -1,14 +1,16 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FlaskConical,
   ShieldCheck,
   CheckCircle2,
   Phone,
   ArrowRight,
+  ChevronLeft,
   ChevronRight,
   Sparkles,
   HeartHandshake,
@@ -28,6 +30,24 @@ import {
   Zap,
   Droplets,
 } from "lucide-react";
+
+const heroSlides = [
+  {
+    id: 1,
+    src: "/images/services/lab-slide-1.webp",
+    alt: "Automated Clinical Diagnostic Analyzers and Laboratory Technicians at Adhiparasakthi Hospitals",
+  },
+  {
+    id: 2,
+    src: "/images/services/lab-slide-2.webp",
+    alt: "Fully Automated Cell Counter and Central Diagnostic Testing Station at Adhiparasakthi Hospitals",
+  },
+  {
+    id: 3,
+    src: "/images/services/lab-slide-3.webp",
+    alt: "Class II Biological Safety Cabinet and Microbiology Lab at Adhiparasakthi Hospitals",
+  },
+];
 
 const labPillars = [
   {
@@ -159,6 +179,17 @@ const whyChooseLab = [
 ];
 
 export default function LaboratoryServicePage() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [isPaused]);
+
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900 selection:bg-red-500 selection:text-white">
       {/* 1. Hero Section */}
@@ -236,24 +267,73 @@ export default function LaboratoryServicePage() {
               </div>
             </motion.div>
 
-            {/* Right Card / Visual Showcase */}
+            {/* Right Card / Interactive Hero Visual Showcase */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.15 }}
               className="lg:col-span-5"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
             >
-              <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-slate-900/80 p-2 shadow-2xl backdrop-blur-xl">
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl">
-                  <Image
-                    src="/images/services/central-laboratory-hero.jpg"
-                    alt="Central Diagnostic Laboratory at Adhiparasakthi Hospitals"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 550px"
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
+              <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-slate-900/90 p-2 shadow-2xl backdrop-blur-xl">
+                {/* Main Hero Image Slide */}
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-950">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentSlide}
+                      initial={{ opacity: 0, scale: 1.04 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={heroSlides[currentSlide].src}
+                        alt={heroSlides[currentSlide].alt}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 550px"
+                        className="object-cover transition-transform duration-700 hover:scale-105"
+                        priority={currentSlide === 0}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {/* Top Badge: Facility Status & Counter */}
+                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-900/80 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur-md border border-white/10 shadow-sm">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      NABL Accredited Central Lab
+                    </span>
+                    <span className="rounded-full bg-slate-900/80 px-2.5 py-1 text-[11px] font-semibold text-slate-300 backdrop-blur-md border border-white/10">
+                      {currentSlide + 1} / {heroSlides.length}
+                    </span>
+                  </div>
+
+                  {/* Navigation Arrows */}
+                  <div className="absolute inset-y-0 left-2 right-2 flex items-center justify-between pointer-events-none z-10">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+                      }
+                      className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-md transition hover:bg-red-600 hover:scale-110 border border-white/20 cursor-pointer shadow-lg"
+                      aria-label="Previous slide"
+                    >
+                      <ChevronLeft className="h-5 w-5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
+                      }
+                      className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-md transition hover:bg-red-600 hover:scale-110 border border-white/20 cursor-pointer shadow-lg"
+                      aria-label="Next slide"
+                    >
+                      <ChevronRight className="h-5 w-5" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </motion.div>

@@ -47,6 +47,13 @@ const heroSlides = [
     badge: "Procedure Suite",
     tagline: "Specialized Clinical Examination & Care Room",
   },
+  {
+    id: 4,
+    src: "/images/services/opd-procedure-examination-station.webp",
+    alt: "Clinical Examination and Diagnostic Procedure Station at Adhiparasakthi Hospitals OPD",
+    badge: "Examination & Procedure Bay",
+    tagline: "Clinical Examination & Diagnostic Procedure Station",
+  },
 ];
 
 const outpatientPillars = [

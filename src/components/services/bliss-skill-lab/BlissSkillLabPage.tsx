@@ -200,17 +200,17 @@ const heroSlides = [
   {
     id: 1,
     src: "/images/services/bliss-skill-slide-1.webp",
-    alt: "Hands-on Clinical Procedural Simulation at Bliss Skill Lab",
-    badge: "Clinical Procedures",
-    tagline: "Hands-On Clinical Simulation",
+    alt: "High-Fidelity Clinical Simulation ICU Suite and Patient Manikin at Bliss Skill Lab",
+    badge: "Clinical Simulation",
+    tagline: "High-Fidelity Simulation ICU Suite",
     icon: Stethoscope,
   },
   {
     id: 2,
     src: "/images/services/bliss-skill-slide-2.webp",
-    alt: "Smart Simulation Lecture Hall & Classroom at Bliss Skill Lab",
-    badge: "Interactive Training",
-    tagline: "Smart Simulation Lecture Theater",
+    alt: "Smart Simulation Lecture Hall & Training Classroom at Bliss Skill Lab",
+    badge: "Smart Lecture Theater",
+    tagline: "Interactive Smart Classroom & Training Hall",
     icon: GraduationCap,
   },
   {
@@ -377,35 +377,6 @@ export default function BlissSkillLabPage() {
                     >
                       <ChevronRight className="h-5 w-5" />
                     </button>
-                  </div>
-
-                  {/* Bottom Caption Pill & Indicators */}
-                  <div className="absolute bottom-3 left-3 right-3 z-10">
-                    <div className="rounded-xl bg-slate-950/80 p-2.5 backdrop-blur-md border border-white/10 flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-2 min-w-0">
-                        <span className="inline-flex items-center gap-1 rounded-md bg-red-600 px-2 py-0.5 text-[10px] font-bold text-white uppercase tracking-wider shrink-0">
-                          {heroSlides[currentSlide].badge}
-                        </span>
-                        <p className="text-xs font-semibold text-white truncate">
-                          {heroSlides[currentSlide].tagline}
-                        </p>
-                      </div>
-
-                      {/* Slide Indicator Dots */}
-                      <div className="flex items-center gap-1.5 shrink-0">
-                        {heroSlides.map((_, dotIdx) => (
-                          <button
-                            key={dotIdx}
-                            type="button"
-                            onClick={() => setCurrentSlide(dotIdx)}
-                            className={`h-2 rounded-full transition-all cursor-pointer ${
-                              currentSlide === dotIdx ? "w-5 bg-red-600" : "w-2 bg-white/40 hover:bg-white/70"
-                            }`}
-                            aria-label={`Go to slide ${dotIdx + 1}`}
-                          />
-                        ))}
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>

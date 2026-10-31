@@ -46,7 +46,7 @@ export const servicesList: ServiceListItem[] = [
     label: "Blood Bank",
     description:
       "24/7 fully licensed blood transfusion center equipped with advanced component separation for PRBC, platelets, plasma, and cryoprecipitate.",
-    image: "/images/services/blood-bank-lab-hero.jpg",
+    image: "/images/services/blood-bank-slide-1.webp",
     category: "emergency",
   },
   {
@@ -91,7 +91,7 @@ export const servicesList: ServiceListItem[] = [
     label: "Laboratory",
     description:
       "State-of-the-art diagnostic laboratory offering automated biochemistry, clinical pathology, microbiology, hematology, and rapid testing.",
-    image: "/images/services/central-laboratory-hero.jpg",
+    image: "/images/services/lab-slide-1.webp",
     category: "diagnostics",
   },
   {

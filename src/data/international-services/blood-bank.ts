@@ -53,6 +53,6 @@ export const bloodBankService: InternationalServiceData = {
   ],
   closing:
     "Need urgent blood or wish to participate in voluntary blood donation? Contact our 24/7 Blood Bank at Adhiparasakthi Hospitals directly at +91 94990 59966.",
-  image: "/images/services/blood-bank-lab-hero.jpg",
-  heroImage: "/images/services/blood-bank-lab-hero.jpg",
+  image: "/images/services/blood-bank-slide-1.webp",
+  heroImage: "/images/services/blood-bank-slide-1.webp",
 };

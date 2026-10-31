@@ -626,22 +626,22 @@ export default function InpatientServicePage() {
                   </div>
                 </div>
 
-                {/* Right: Official Welfare Banner Visual */}
+                {/* Right: General Ward Facility Photo */}
                 <div className="lg:col-span-5">
                   <div className="relative overflow-hidden rounded-2xl border-2 border-red-200/80 bg-white p-2 shadow-lg">
                     <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
                       <Image
-                        src="/images/about/value-added-inpatient-care-banner.jpg"
-                        alt="Special Benefits for General Ward Inpatients at Adhiparasakthi Hospital"
+                        src="/images/services/inpatient-general-ward.webp"
+                        alt="General Ward Inpatient Care Facility at Adhiparasakthi Hospitals"
                         fill
                         sizes="(max-width: 1024px) 100vw, 450px"
-                        className="object-contain"
+                        className="object-cover transition-transform duration-700 hover:scale-105"
                         priority
                       />
                     </div>
                     <div className="mt-2 text-center py-1 bg-red-50/70 rounded-lg">
                       <p className="text-xs font-bold text-red-700">
-                        General Ward Inpatient Welfare Concessions
+                        General Ward Inpatient Care Facility
                       </p>
                     </div>
                   </div>
