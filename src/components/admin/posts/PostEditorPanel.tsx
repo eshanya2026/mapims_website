@@ -332,7 +332,7 @@ export default function PostEditorPanel({
                   src={form.video}
                   controls
                   playsInline
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div className="flex items-center gap-2">

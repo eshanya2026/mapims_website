@@ -302,7 +302,7 @@ export default function PostForm({ initial, mode }: PostFormProps) {
                 src={form.video}
                 controls
                 playsInline
-                className="w-full h-full object-contain"
+                className="w-full h-full object-cover"
               />
             </div>
           ) : null}

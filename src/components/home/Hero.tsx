@@ -69,7 +69,7 @@ export default function Hero() {
         videoWebmSrc="/videos/mapims-flow-gwr-video-mvp.webm"
         overlayClassName="bg-gradient-to-b from-slate-950/95 via-slate-900/90 to-slate-950/95 sm:bg-gradient-to-r sm:from-slate-950/95 sm:via-slate-900/85 sm:to-slate-900/40"
         imageClassName="object-[center_42%] sm:object-[center_45%] contrast-125"
-        videoClassName="object-center contrast-125"
+        videoClassName="object-cover object-[center_42%] sm:object-[center_45%] contrast-125"
       />
 
       {/* Animated Heartbeat Line */}

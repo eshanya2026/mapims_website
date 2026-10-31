@@ -18,13 +18,13 @@ export default function BlogArticlePreview({ post }: BlogArticlePreviewProps) {
       <div className="container mx-auto px-4 sm:px-6">
         <article className="mx-auto max-w-4xl overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm sm:rounded-3xl">
           {post.video ? (
-            <div className="relative w-full overflow-hidden bg-slate-950 flex items-center justify-center">
+            <div className="relative w-full overflow-hidden bg-slate-950 aspect-video flex items-center justify-center">
               <video
                 src={post.video}
                 controls
                 playsInline
                 poster={post.image || undefined}
-                className="w-full max-h-[72vh] sm:max-h-[580px] object-contain mx-auto aspect-video sm:aspect-auto"
+                className="w-full h-full object-cover object-center mx-auto"
               />
             </div>
           ) : (
