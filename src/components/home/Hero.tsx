@@ -62,7 +62,7 @@ const Counter = ({
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-slate-50 py-16 px-4 sm:px-6 md:px-10 lg:px-16 xl:px-20 sm:flex sm:min-h-[90vh] sm:items-center">
+    <section className="hero-section relative overflow-hidden bg-slate-50 sm:flex sm:min-h-[90vh] sm:items-center">
       <HeroBackground
         imageSrc="/images/mapims-flow-gwr-poster.jpg"
         videoSrc="/videos/mapims-flow-gwr-video-mvp.mp4"

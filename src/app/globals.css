@@ -438,3 +438,20 @@
 .chat-launcher-online-ping {
   animation: chat-launcher-pulse 2.5s ease-out infinite;
 }
+
+@utility hero-section {
+  padding-block: 4rem;
+  padding-inline: 5rem;
+
+  @media (max-width: 1300px) {
+    padding-inline: 6rem;
+  }
+
+  @media (max-width: 768px) {
+    padding-inline: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    padding-inline: 1rem;
+  }
+}
