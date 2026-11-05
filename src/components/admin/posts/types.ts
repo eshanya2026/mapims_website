@@ -15,6 +15,7 @@ export type PostFormData = {
   featured: boolean;
   isIncoming?: boolean;
   eventDate?: string;
+  publishedAt?: string;
 };
 
 export type AdminPostRecord = PostFormData & {
@@ -43,8 +44,13 @@ export function createEmptyPost(section: BlogSection): PostFormData {
     content: "",
     image: "",
     video: "",
-    author: "",
-    category: "",
+    author: "Adhiparasakthi Hospitals",
+    category:
+      section === "hospitals-news"
+        ? "Hospitals News"
+        : section === "hospitals-events"
+        ? "Hospital Event"
+        : "Health Insights",
     section,
     published: false,
     featured: false,

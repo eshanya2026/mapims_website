@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Calendar, ArrowRight, Sparkles, Clock, Video, Play } from "lucide-react";
+import VideoModal from "./VideoModal";
 import type { ContentPost } from "@/lib/content";
 
 type HospitalsEventsGridProps = {
@@ -14,6 +15,7 @@ type EventFilter = "all" | "incoming" | "past";
 
 export default function HospitalsEventsGrid({ posts }: HospitalsEventsGridProps) {
   const [filter, setFilter] = useState<EventFilter>("all");
+  const [selectedVideoPost, setSelectedVideoPost] = useState<ContentPost | null>(null);
 
   const incomingEvents = useMemo(
     () => posts.filter((p) => Boolean(p.isIncoming)),
@@ -154,6 +156,7 @@ export default function HospitalsEventsGrid({ posts }: HospitalsEventsGridProps)
                     post={post}
                     index={index}
                     isIncoming={Boolean(post.isIncoming)}
+                    onPlayVideo={setSelectedVideoPost}
                   />
                 ))}
               </div>
@@ -169,6 +172,12 @@ export default function HospitalsEventsGrid({ posts }: HospitalsEventsGridProps)
           </>
         )}
       </div>
+
+      <VideoModal
+        post={selectedVideoPost}
+        isOpen={Boolean(selectedVideoPost)}
+        onClose={() => setSelectedVideoPost(null)}
+      />
     </section>
   );
 }
@@ -177,10 +186,12 @@ function EventCard({
   post,
   index,
   isIncoming,
+  onPlayVideo,
 }: {
   post: ContentPost;
   index: number;
   isIncoming?: boolean;
+  onPlayVideo?: (post: ContentPost) => void;
 }) {
   return (
     <motion.article
@@ -223,12 +234,23 @@ function EventCard({
           </div>
         </div>
         {post.video ? (
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-slate-950/60 text-white backdrop-blur-sm transition-transform duration-300 group-hover:scale-110 group-hover:bg-red-600/90 shadow-xl">
-              <Play className="h-5 w-5 fill-white translate-x-0.5" />
+          <button
+            type="button"
+            onClick={() => onPlayVideo?.(post)}
+            aria-label={`Play video for ${post.title}`}
+            className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/40 transition-colors cursor-pointer group/btn"
+          >
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-white shadow-2xl transition-all duration-300 group-hover/btn:scale-115 group-hover/btn:bg-red-500 ring-4 ring-white/30">
+              <Play className="h-6 w-6 fill-white translate-x-0.5" />
             </div>
-          </div>
-        ) : null}
+          </button>
+        ) : (
+          <Link
+            href={`/blog/${post.slug}`}
+            className="absolute inset-0"
+            aria-label={post.title}
+          />
+        )}
       </div>
 
       <div className="flex flex-1 flex-col p-6">
@@ -237,17 +259,39 @@ function EventCard({
           {post.date}
         </div>
         <h3 className="mb-3 line-clamp-2 text-xl font-bold text-slate-900 transition-colors group-hover:text-red-600">
-          {post.title}
+          <Link href={`/blog/${post.slug}`} className="hover:underline">
+            {post.title}
+          </Link>
         </h3>
         <p className="mb-6 line-clamp-2 flex-1 text-sm text-slate-600">
           {post.excerpt}
         </p>
-        <Link
-          href={`/blog/${post.slug}`}
-          className="inline-flex items-center text-sm font-semibold text-red-600 group-hover:text-red-700 group-hover:underline"
-        >
-          Read Details & Schedule <ArrowRight className="ml-1.5 h-4 w-4" />
-        </Link>
+        <div className="flex items-center justify-between pt-2">
+          {post.video ? (
+            <button
+              type="button"
+              onClick={() => onPlayVideo?.(post)}
+              className="inline-flex items-center text-sm font-semibold text-red-600 hover:text-red-700 hover:underline cursor-pointer"
+            >
+              <Play className="mr-1.5 h-3.5 w-3.5 fill-red-600" />
+              Watch Video
+            </button>
+          ) : (
+            <Link
+              href={`/blog/${post.slug}`}
+              className="inline-flex items-center text-sm font-semibold text-red-600 group-hover:text-red-700 group-hover:underline"
+            >
+              Read Details & Schedule <ArrowRight className="ml-1.5 h-4 w-4" />
+            </Link>
+          )}
+
+          <Link
+            href={`/blog/${post.slug}`}
+            className="text-xs text-slate-400 hover:text-slate-600 hover:underline"
+          >
+            Full article &rarr;
+          </Link>
+        </div>
       </div>
     </motion.article>
   );

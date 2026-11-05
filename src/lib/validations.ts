@@ -29,26 +29,49 @@ export const updateAdminUserSchema = z.object({
   password: z.string().min(6).optional(),
 });
 
-export const postSchema = z.object({
-  title: z.string().min(3),
-  slug: z.string().min(3),
-  excerpt: z.string().min(10),
-  content: z
-    .string()
-    .refine(
-      (value) => getEditorJsContentLength(value) >= 20,
-      "Content must be at least 20 characters."
-    ),
-  image: z.string().min(1),
-  video: z.string().optional().nullable(),
-  author: z.string().optional(),
-  category: z.string().min(2),
-  section: z.enum(["hospitals-events", "hospitals-news", "health-insights"]),
-  published: z.boolean().default(false),
-  featured: z.boolean().default(false),
-  isIncoming: z.boolean().optional(),
-  eventDate: z.string().optional().nullable(),
-});
+export const postSchema = z
+  .object({
+    title: z.string().min(3, "Title must be at least 3 characters"),
+    slug: z.string().min(3, "Slug must be at least 3 characters"),
+    excerpt: z.string().optional().default(""),
+    content: z.string().optional().default(""),
+    image: z.string().optional().default(""),
+    video: z.string().optional().nullable(),
+    author: z.string().optional().default("Adhiparasakthi Hospitals"),
+    category: z.string().min(2, "Category is required"),
+    section: z.enum(["hospitals-events", "hospitals-news", "health-insights"]),
+    published: z.boolean().default(false),
+    featured: z.boolean().default(false),
+    isIncoming: z.boolean().optional(),
+    eventDate: z.string().optional().nullable(),
+    publishedAt: z.string().optional().nullable(),
+  })
+  .superRefine((data, ctx) => {
+    const hasVideo = Boolean(data.video && data.video.trim().length > 0);
+    if (!hasVideo) {
+      if (!data.excerpt || data.excerpt.trim().length < 10) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["excerpt"],
+          message: "Excerpt must be at least 10 characters for text articles.",
+        });
+      }
+      if (!data.content || getEditorJsContentLength(data.content) < 20) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["content"],
+          message: "Content must be at least 20 characters for text articles.",
+        });
+      }
+      if (!data.image || data.image.trim().length === 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["image"],
+          message: "Featured image is required for text articles.",
+        });
+      }
+    }
+  });
 
 const phoneField = z
   .string()

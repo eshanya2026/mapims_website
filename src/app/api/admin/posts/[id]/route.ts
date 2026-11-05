@@ -4,6 +4,12 @@ import { deletePost, findPostById, updatePost } from "@/lib/db/posts";
 import { isDuplicateKeyError } from "@/lib/db/utils";
 import { scheduleNewsletterAnnouncement } from "@/lib/schedule-newsletter-announcement";
 import { postSchema } from "@/lib/validations";
+import { parseInstagramUrl } from "@/lib/video-embed";
+import {
+  ensureInstagramVideoCached,
+  ensureInstagramThumbnailCached,
+  getInstagramPostDate,
+} from "@/lib/instagram-video";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -41,13 +47,49 @@ export async function PUT(request: Request, context: RouteContext) {
     }
 
     const data = parsed.data;
+    const videoUrl = data.video?.trim() || null;
+    let featuredImage = data.image?.trim() || existing.image;
+
+    if (videoUrl) {
+      const ig = parseInstagramUrl(videoUrl);
+      if (ig?.id) {
+        // Cache Instagram Reel and thumbnail in background
+        void ensureInstagramVideoCached(ig.id).catch((err) =>
+          console.warn("[admin/posts PUT] Failed to cache instagram video:", err)
+        );
+        void ensureInstagramThumbnailCached(ig.id).catch(() => {});
+
+        // If current image is empty or default placeholder, automatically use the reel thumbnail!
+        if (
+          !featuredImage ||
+          featuredImage === "/images/blog/579502f2-f668-42e9-be7a-995936f42cfa.png"
+        ) {
+          featuredImage = `/uploads/videos/ig-${ig.id}-thumb.jpg`;
+        }
+      }
+    }
+
+    let publishedAtDate = data.publishedAt ? new Date(data.publishedAt) : null;
+    if ((!publishedAtDate || isNaN(publishedAtDate.getTime())) && videoUrl) {
+      const ig = parseInstagramUrl(videoUrl);
+      if (ig?.id) {
+        publishedAtDate = getInstagramPostDate(ig.id);
+      }
+    }
+    if (!publishedAtDate || isNaN(publishedAtDate.getTime())) {
+      publishedAtDate =
+        data.published && !existing.published ? new Date() : existing.publishedAt;
+    }
+
     const post = await updatePost(id, {
       ...data,
-      author: data.author || null,
-      video: data.video || null,
+      image: featuredImage || "/images/blog/579502f2-f668-42e9-be7a-995936f42cfa.png",
+      excerpt: data.excerpt?.trim() || data.title || existing.excerpt,
+      content: data.content?.trim() || existing.content || "",
+      author: data.author?.trim() || existing.author || "Adhiparasakthi Hospitals",
+      video: videoUrl,
       eventDate: data.eventDate || null,
-      publishedAt:
-        data.published && !existing.published ? new Date() : existing.publishedAt,
+      publishedAt: publishedAtDate,
     });
 
     if (!post) {

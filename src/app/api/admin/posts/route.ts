@@ -8,6 +8,12 @@ import {
 import { isDuplicateKeyError } from "@/lib/db/utils";
 import { scheduleNewsletterAnnouncement } from "@/lib/schedule-newsletter-announcement";
 import { postSchema } from "@/lib/validations";
+import { parseInstagramUrl } from "@/lib/video-embed";
+import {
+  ensureInstagramVideoCached,
+  ensureInstagramThumbnailCached,
+  getInstagramPostDate,
+} from "@/lib/instagram-video";
 
 export async function GET() {
   const posts = await listPosts();
@@ -35,13 +41,49 @@ export async function POST(request: Request) {
     const data = parsed.data;
     const maxSortOrder = await getMaxSortOrderInSection(data.section);
 
+    const videoUrl = data.video?.trim() || null;
+    let featuredImage = data.image?.trim();
+
+    if (videoUrl) {
+      const ig = parseInstagramUrl(videoUrl);
+      if (ig?.id) {
+        // Cache Instagram Reel and thumbnail in background
+        void ensureInstagramVideoCached(ig.id).catch((err) =>
+          console.warn("[admin/posts POST] Failed to cache instagram video:", err)
+        );
+        void ensureInstagramThumbnailCached(ig.id).catch(() => {});
+
+        // If no custom image or placeholder, automatically use the Instagram thumbnail!
+        if (
+          !featuredImage ||
+          featuredImage === "/images/blog/579502f2-f668-42e9-be7a-995936f42cfa.png"
+        ) {
+          featuredImage = `/uploads/videos/ig-${ig.id}-thumb.jpg`;
+        }
+      }
+    }
+
+    let publishedAtDate = data.publishedAt ? new Date(data.publishedAt) : null;
+    if ((!publishedAtDate || isNaN(publishedAtDate.getTime())) && videoUrl) {
+      const ig = parseInstagramUrl(videoUrl);
+      if (ig?.id) {
+        publishedAtDate = getInstagramPostDate(ig.id);
+      }
+    }
+    if (!publishedAtDate || isNaN(publishedAtDate.getTime())) {
+      publishedAtDate = new Date();
+    }
+
     const post = await createPost({
       ...data,
-      author: data.author || null,
-      video: data.video || null,
+      image: featuredImage || "/images/blog/579502f2-f668-42e9-be7a-995936f42cfa.png",
+      excerpt: data.excerpt?.trim() || data.title,
+      content: data.content?.trim() || "",
+      author: data.author?.trim() || "Adhiparasakthi Hospitals",
+      video: videoUrl,
       eventDate: data.eventDate || null,
       sortOrder: maxSortOrder + 1,
-      publishedAt: new Date(),
+      publishedAt: publishedAtDate,
     });
 
     revalidateBlogPaths(data.section, post.slug);

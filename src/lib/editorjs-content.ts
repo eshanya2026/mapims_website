@@ -116,8 +116,22 @@ function collectListItemText(items: unknown[]): string[] {
 }
 
 export function getEditorJsPlainText(content: string): string {
-  const parsed = parseEditorJsContent(content);
-  if (!parsed) return content.trim();
+  if (!content) return "";
+  const trimmed = content.trim();
+  if (!trimmed || trimmed === "{}" || trimmed === '{"blocks":[]}') return "";
+
+  const parsed = parseEditorJsContent(trimmed);
+  if (!parsed) {
+    if (trimmed.startsWith("{") && trimmed.endsWith("}")) {
+      try {
+        const obj = JSON.parse(trimmed);
+        if (!obj.blocks || obj.blocks.length === 0) return "";
+      } catch {
+        // ignore
+      }
+    }
+    return trimmed;
+  }
 
   const parts: string[] = [];
 

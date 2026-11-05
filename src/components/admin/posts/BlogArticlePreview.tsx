@@ -2,6 +2,8 @@
 
 import { ArrowLeft, Calendar } from "lucide-react";
 import BlogArticleBody from "@/components/blog/BlogArticleBody";
+import VideoPlayer from "@/components/blog/VideoPlayer";
+import { getEditorJsContentLength } from "@/lib/editorjs-content";
 import { getBlogSection } from "@/data/blog-posts";
 import type { ContentPost } from "@/lib/content";
 import { BLOG_PLACEHOLDER_IMAGE } from "./types";
@@ -18,13 +20,11 @@ export default function BlogArticlePreview({ post }: BlogArticlePreviewProps) {
       <div className="container mx-auto px-4 sm:px-6">
         <article className="mx-auto max-w-4xl overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm sm:rounded-3xl">
           {post.video ? (
-            <div className="relative w-full overflow-hidden bg-slate-950 aspect-video flex items-center justify-center">
-              <video
-                src={post.video}
-                controls
-                playsInline
+            <div className="bg-slate-950 overflow-hidden">
+              <VideoPlayer
+                url={post.video}
                 poster={post.image || undefined}
-                className="w-full h-full object-cover object-center mx-auto"
+                title={post.title}
               />
             </div>
           ) : (
@@ -70,8 +70,12 @@ export default function BlogArticlePreview({ post }: BlogArticlePreviewProps) {
             </header>
 
             <div className="mt-6 sm:mt-8">
-              {post.content.trim() ? (
+              {getEditorJsContentLength(post.content) > 0 ? (
                 <BlogArticleBody content={post.content} />
+              ) : post.video ? (
+                <div className="rounded-xl border border-dashed border-slate-200 bg-slate-50/50 p-4 text-center text-xs text-slate-400">
+                  Video-only post · No article text required
+                </div>
               ) : (
                 <p className="text-slate-400">Start writing content to see the article preview.</p>
               )}

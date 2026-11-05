@@ -110,13 +110,45 @@ export async function getMaxSortOrderInSection(section: string) {
   return doc?.sortOrder ?? -1;
 }
 
+export async function getUniquePostSlug(
+  baseSlug: string,
+  excludeId?: string
+): Promise<string> {
+  const collection = await postsCollection();
+  const cleanBase = (baseSlug || "").trim() || "post";
+  let candidate = cleanBase;
+  let counter = 1;
+
+  while (true) {
+    const query: Record<string, unknown> = {
+      slug: candidate,
+      isDeleted: { $ne: true },
+    };
+    if (excludeId) {
+      const objId = toObjectId(excludeId);
+      if (objId) query._id = { $ne: objId };
+    }
+
+    const existing = await collection.findOne(query, { projection: { _id: 1 } });
+    if (!existing) {
+      return candidate;
+    }
+
+    candidate = `${cleanBase}-${counter}`;
+    counter++;
+  }
+}
+
 export async function createPost(
   data: Omit<PostDoc, "createdAt" | "updatedAt">
 ) {
   const collection = await postsCollection();
   const timestamp = now();
+  const uniqueSlug = await getUniquePostSlug(data.slug);
+
   const result = await collection.insertOne({
     ...data,
+    slug: uniqueSlug,
     createdAt: timestamp,
     updatedAt: timestamp,
   });
@@ -137,9 +169,20 @@ export async function updatePost(
   if (!objectId) return null;
 
   const collection = await postsCollection();
+  let uniqueSlug = data.slug;
+  if (data.slug) {
+    uniqueSlug = await getUniquePostSlug(data.slug, id);
+  }
+
   const doc = await collection.findOneAndUpdate(
     mergeNotDeleted({ _id: objectId }),
-    { $set: { ...data, updatedAt: now() } },
+    {
+      $set: {
+        ...data,
+        ...(uniqueSlug ? { slug: uniqueSlug } : {}),
+        updatedAt: now(),
+      },
+    },
     { returnDocument: "after" }
   );
 

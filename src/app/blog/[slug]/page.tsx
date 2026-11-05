@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar } from "lucide-react";
 import { blogSections } from "@/data/blog-posts";
 import BlogArticleBody from "@/components/blog/BlogArticleBody";
+import VideoPlayer from "@/components/blog/VideoPlayer";
+import { getEditorJsContentLength } from "@/lib/editorjs-content";
 import {
   getAllPublishedPostSlugs,
   getPublishedPostBySlug,
@@ -48,17 +50,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <div className="container mx-auto px-4 sm:px-6">
         <article className="mx-auto max-w-4xl overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm sm:rounded-3xl">
           {post.video ? (
-            <div className="relative w-full overflow-hidden bg-slate-950 aspect-video flex items-center justify-center shadow-inner">
-              <video
-                src={post.video}
-                controls
-                playsInline
-                preload="metadata"
+            <div className="bg-slate-950 overflow-hidden">
+              <VideoPlayer
+                url={post.video}
                 poster={post.image || undefined}
-                className="w-full h-full object-cover object-center mx-auto"
-              >
-                Your browser does not support the video tag.
-              </video>
+                title={post.title}
+              />
             </div>
           ) : (
             <div className="overflow-hidden">
@@ -114,9 +111,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </p>
             </header>
 
-            <div className="mt-6 sm:mt-8">
-              <BlogArticleBody content={post.content} />
-            </div>
+            {getEditorJsContentLength(post.content) > 0 ? (
+              <div className="mt-6 sm:mt-8">
+                <BlogArticleBody content={post.content} />
+              </div>
+            ) : null}
           </div>
         </article>
       </div>

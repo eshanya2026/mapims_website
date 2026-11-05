@@ -51,12 +51,30 @@ function PlainTextArticleBody({ content }: { content: string }) {
 }
 
 export default function BlogArticleBody({ content }: { content: string }) {
-  if (isEditorJsContent(content)) {
-    const data = parseEditorJsContent(content);
-    if (data) {
+  if (!content || typeof content !== "string") return null;
+  const trimmed = content.trim();
+  if (!trimmed || trimmed === "{}" || trimmed === '{"blocks":[]}') {
+    return null;
+  }
+
+  if (isEditorJsContent(trimmed)) {
+    const data = parseEditorJsContent(trimmed);
+    if (data && Array.isArray(data.blocks) && data.blocks.length > 0) {
       return <EditorJsRenderer data={data} />;
+    }
+    return null;
+  }
+
+  if (trimmed.startsWith("{") && trimmed.endsWith("}")) {
+    try {
+      const obj = JSON.parse(trimmed);
+      if (!obj.blocks || obj.blocks.length === 0) {
+        return null;
+      }
+    } catch {
+      // not JSON, fall through to plain text
     }
   }
 
-  return <PlainTextArticleBody content={content} />;
+  return <PlainTextArticleBody content={trimmed} />;
 }

@@ -38,11 +38,15 @@ function toContentPost(
     }
   }
 
+  const postDate = data.publishedAt
+    ? formatPreviewDate(new Date(data.publishedAt))
+    : formatPreviewDate();
+
   return {
     id: options?.id ?? data.id ?? "draft",
     slug: data.slug || "preview",
     title: data.title || "Untitled post",
-    date: options?.date ?? formatPreviewDate(),
+    date: options?.date ?? postDate,
     author: data.author || undefined,
     category: data.category || "Category",
     section: data.section,
@@ -72,6 +76,7 @@ function recordToForm(post: AdminPostRecord): PostFormData {
     featured: post.featured,
     isIncoming: Boolean(post.isIncoming),
     eventDate: post.eventDate ?? "",
+    publishedAt: post.publishedAt,
   };
 }
 

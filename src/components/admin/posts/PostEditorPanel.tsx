@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ImagePlus, Loader2, Trash2, Video, X } from "lucide-react";
+import { CheckCircle2, Film, ImagePlus, Loader2, Trash2, Video, X } from "lucide-react";
+import { InstagramIcon } from "@/components/layout/SocialIcons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,8 +11,9 @@ import type { BlogSection } from "@/data/blog-posts";
 import { cn } from "@/lib/utils";
 import DeleteButton from "@/components/admin/DeleteButton";
 import { getEditorJsContentLength } from "@/lib/editorjs-content";
+import VideoPlayer from "@/components/blog/VideoPlayer";
 import EditorJsField from "./EditorJsField";
-import { createEmptyPost, type PostFormData } from "./types";
+import { BLOG_PLACEHOLDER_IMAGE, createEmptyPost, type PostFormData } from "./types";
 
 type PostEditorPanelProps = {
   mode: "create" | "edit";
@@ -42,6 +44,7 @@ export default function PostEditorPanel({
   const [dragging, setDragging] = useState(false);
   const [videoUploading, setVideoUploading] = useState(false);
   const [videoDragging, setVideoDragging] = useState(false);
+  const [resolvingVideo, setResolvingVideo] = useState(false);
 
   const [form, setForm] = useState<PostFormData>(() => ({
     ...createEmptyPost(defaultSection),
@@ -54,6 +57,9 @@ export default function PostEditorPanel({
       setForm({
         ...createEmptyPost(defaultSection),
         ...initial,
+        publishedAt: initial?.publishedAt
+          ? new Date(initial.publishedAt).toISOString().split("T")[0]
+          : undefined,
         section: initial?.section ?? defaultSection,
       });
     }
@@ -71,6 +77,7 @@ export default function PostEditorPanel({
     initial?.content,
     initial?.isIncoming,
     initial?.eventDate,
+    initial?.publishedAt,
     defaultSection,
   ]);
 
@@ -92,6 +99,39 @@ export default function PostEditorPanel({
       });
     },
     [mode]
+  );
+
+  const resolveVideoUrl = useCallback(
+    async (url: string) => {
+      const clean = url.trim();
+      if (!clean || !clean.includes("instagram.com")) return;
+      setResolvingVideo(true);
+      try {
+        const res = await fetch("/api/video/resolve", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: clean }),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setForm((prev) => {
+            const next = { ...prev };
+            if (data.thumbnailUrl && (!prev.image || prev.image === BLOG_PLACEHOLDER_IMAGE)) {
+              next.image = data.thumbnailUrl;
+            }
+            if (data.dateInput && !prev.publishedAt) {
+              next.publishedAt = data.dateInput;
+            }
+            return next;
+          });
+        }
+      } catch (err) {
+        console.warn("[PostEditorPanel] resolve video error:", err);
+      } finally {
+        setResolvingVideo(false);
+      }
+    },
+    []
   );
 
   async function uploadImage(file: File) {
@@ -210,11 +250,28 @@ export default function PostEditorPanel({
     setLoading(true);
     setError("");
 
-    if (getEditorJsContentLength(form.content) < 20) {
-      setError("Content must be at least 20 characters.");
+    const hasVideo = Boolean(form.video && form.video.trim().length > 0);
+
+    if (!hasVideo && getEditorJsContentLength(form.content) < 20) {
+      setError("Content must be at least 20 characters for text articles.");
       setLoading(false);
       return;
     }
+
+    if (!hasVideo && (!form.excerpt || form.excerpt.trim().length < 10)) {
+      setError("Excerpt must be at least 10 characters for text articles.");
+      setLoading(false);
+      return;
+    }
+
+    const payload = {
+      ...form,
+      image: form.image?.trim() || BLOG_PLACEHOLDER_IMAGE,
+      excerpt: form.excerpt?.trim() || form.title,
+      content: form.content?.trim() || "{}",
+      author: form.author?.trim() || "Adhiparasakthi Hospitals",
+      category: form.category?.trim() || "Hospitals News",
+    };
 
     const url =
       mode === "create" ? "/api/admin/posts" : `/api/admin/posts/${initial?.id}`;
@@ -223,7 +280,7 @@ export default function PostEditorPanel({
     const response = await fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
@@ -306,12 +363,12 @@ export default function PostEditorPanel({
           ) : null}
         </div>
 
-        {/* Video Upload Section (for Events & News) */}
-        <div className="space-y-2.5 rounded-xl border border-slate-200 bg-slate-50/80 p-3.5">
+        {/* Video / Instagram Section */}
+        <div className="space-y-3 rounded-xl border border-slate-200 bg-slate-50/80 p-3.5">
           <div className="flex items-center justify-between">
             <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-800">
               <Video className="h-4 w-4 text-red-600" />
-              Event / News Video (Optional)
+              Video / Instagram Reel (Optional)
             </label>
             {form.video ? (
               <button
@@ -326,26 +383,82 @@ export default function PostEditorPanel({
           </div>
 
           {form.video ? (
-            <div className="space-y-2">
-              <div className="relative overflow-hidden rounded-lg bg-black aspect-video flex items-center justify-center border border-slate-200 shadow-inner">
-                <video
-                  src={form.video}
-                  controls
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
+            <div className="space-y-2.5">
+              <div className="overflow-hidden rounded-lg bg-black">
+                <VideoPlayer url={form.video} poster={form.image} />
               </div>
-              <div className="flex items-center gap-2">
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <label className="text-[11px] font-medium text-slate-500">Video Link / Path</label>
+                  {resolvingVideo ? (
+                    <span className="flex items-center gap-1 text-[11px] text-pink-600 font-medium">
+                      <Loader2 className="h-3 w-3 animate-spin" /> Fetching thumbnail & stream...
+                    </span>
+                  ) : null}
+                </div>
                 <Input
                   value={form.video}
-                  onChange={(e) => updateField("video", e.target.value)}
-                  placeholder="https://... or /uploads/..."
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    updateField("video", val);
+                    if (val.includes("instagram.com")) {
+                      void resolveVideoUrl(val);
+                    }
+                  }}
+                  placeholder="https://www.instagram.com/reel/... or video URL"
                   className="h-8 text-xs bg-white font-mono"
                 />
               </div>
+              <div className="flex items-center gap-1.5 text-[11px] text-emerald-800 bg-emerald-50 px-2.5 py-1.5 rounded-lg border border-emerald-200">
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                <span>
+                  <strong>Video Post Active:</strong> Only <strong>Title & Author</strong> are needed. Excerpt and article body are optional.
+                </span>
+              </div>
             </div>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-2.5">
+              {/* Instagram URL Quick Paste Box */}
+              <div className="rounded-lg border border-pink-200 bg-gradient-to-r from-pink-50/80 via-purple-50/40 to-white p-3 space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-800">
+                    <InstagramIcon className="h-4 w-4 text-pink-600" />
+                    Paste Instagram Reel / Post Link
+                  </label>
+                  {resolvingVideo ? (
+                    <span className="flex items-center gap-1 text-[11px] text-pink-600 font-medium">
+                      <Loader2 className="h-3 w-3 animate-spin" /> Fetching thumbnail...
+                    </span>
+                  ) : null}
+                </div>
+                <Input
+                  value={form.video || ""}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    updateField("video", val);
+                    if (val.trim()) {
+                      if (!form.author) updateField("author", "Adhiparasakthi Hospitals");
+                      if (!form.category) updateField("category", "Hospitals News");
+                      void resolveVideoUrl(val);
+                    }
+                  }}
+                  placeholder="https://www.instagram.com/reel/C_xyz... or https://www.instagram.com/p/..."
+                  className="h-8 text-xs bg-white border-pink-200 focus-visible:ring-pink-500 font-mono"
+                />
+                <p className="text-[11px] text-slate-500">
+                  Plays directly on the page and automatically grabs the video thumbnail.
+                </p>
+              </div>
+
+              <div className="relative flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t border-slate-200" />
+                </div>
+                <span className="relative bg-slate-50 px-2 text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+                  Or upload MP4 file / enter direct URL
+                </span>
+              </div>
+
               <div
                 onDragOver={(e) => {
                   e.preventDefault();
@@ -354,18 +467,18 @@ export default function PostEditorPanel({
                 onDragLeave={() => setVideoDragging(false)}
                 onDrop={handleVideoDrop}
                 className={cn(
-                  "relative flex flex-col items-center justify-center gap-1.5 rounded-lg border-2 border-dashed p-4 text-center transition-colors",
+                  "relative flex flex-col items-center justify-center gap-1.5 rounded-lg border-2 border-dashed p-3 text-center transition-colors",
                   videoDragging
                     ? "border-red-500 bg-red-50"
                     : "border-slate-300 bg-white hover:border-red-300"
                 )}
               >
-                <Video className="h-6 w-6 text-slate-400" />
+                <Film className="h-5 w-5 text-slate-400" />
                 <p className="text-xs font-medium text-slate-700">
-                  {videoUploading ? "Uploading video..." : "Upload event / news video"}
+                  {videoUploading ? "Uploading video..." : "Drag & drop MP4 file"}
                 </p>
-                <p className="text-[11px] text-slate-400">
-                  Drag & drop or click to browse (MP4, WebM, MOV, max 100MB)
+                <p className="text-[10px] text-slate-400">
+                  Click to browse (MP4, WebM, MOV, max 100MB)
                 </p>
 
                 <label className="absolute inset-0 cursor-pointer">
@@ -384,21 +497,18 @@ export default function PostEditorPanel({
                     <span className="text-xs font-semibold text-slate-800">
                       Uploading video... Please wait
                     </span>
-                    <span className="text-[10px] text-slate-500">
-                      (Larger files may take a few moments)
-                    </span>
                   </div>
                 ) : null}
               </div>
 
               <div className="flex items-center gap-2">
                 <span className="text-[11px] text-slate-400 font-medium shrink-0">
-                  Or enter video URL:
+                  Or YouTube / URL:
                 </span>
                 <Input
                   value={form.video || ""}
                   onChange={(e) => updateField("video", e.target.value)}
-                  placeholder="https://example.com/video.mp4"
+                  placeholder="https://youtu.be/... or https://example.com/video.mp4"
                   className="h-8 text-xs bg-white"
                 />
               </div>
@@ -440,12 +550,13 @@ export default function PostEditorPanel({
           </div>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-3">
           <div>
             <label className="mb-1.5 block text-sm font-medium">Category</label>
             <Input
               value={form.category}
               onChange={(e) => updateField("category", e.target.value)}
+              placeholder="e.g. Hospitals News"
               required
             />
           </div>
@@ -454,22 +565,63 @@ export default function PostEditorPanel({
             <Input
               value={form.author}
               onChange={(e) => updateField("author", e.target.value)}
+              placeholder="Adhiparasakthi Hospitals"
+            />
+          </div>
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-sm font-medium">Published Date</label>
+              {form.video?.includes("instagram.com") ? (
+                <span className="text-[10px] text-pink-600 font-semibold uppercase tracking-wider">
+                  IG Auto-Date
+                </span>
+              ) : null}
+            </div>
+            <Input
+              type="date"
+              value={form.publishedAt || ""}
+              onChange={(e) => updateField("publishedAt", e.target.value)}
+              className="text-xs"
             />
           </div>
         </div>
 
         <div>
-          <label className="mb-1.5 block text-sm font-medium">Excerpt</label>
+          <label className="mb-1.5 block text-sm font-medium">
+            Excerpt{" "}
+            {form.video ? (
+              <span className="text-xs font-normal text-slate-500">
+                (Optional for video posts)
+              </span>
+            ) : null}
+          </label>
           <Textarea
             value={form.excerpt}
             onChange={(e) => updateField("excerpt", e.target.value)}
-            required
-            className="min-h-[80px]"
+            required={!form.video}
+            placeholder={
+              form.video
+                ? "Optional: Leave empty to auto-use title as summary"
+                : "Brief 1-2 sentence summary..."
+            }
+            className="min-h-[70px]"
           />
         </div>
 
         <div>
-          <label className="mb-1.5 block text-sm font-medium">Content</label>
+          <label className="mb-1.5 block text-sm font-medium">
+            Article Body{" "}
+            {form.video ? (
+              <span className="text-xs font-normal text-slate-500">
+                (Optional for video posts)
+              </span>
+            ) : null}
+          </label>
+          {form.video ? (
+            <p className="mb-2 text-xs text-emerald-800 bg-emerald-50 px-2.5 py-1.5 rounded border border-emerald-200">
+              ✓ Video post active: Writing article body content is optional. Title & Author are enough.
+            </p>
+          ) : null}
           <EditorJsField
             value={form.content}
             onChange={(content) => updateField("content", content)}
