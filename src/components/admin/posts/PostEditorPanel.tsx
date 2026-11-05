@@ -212,6 +212,17 @@ export default function PostEditorPanel({
       if (response.ok) {
         const data = await response.json();
         updateField("video", data.url);
+        if (!form.author) updateField("author", "Adhiparasakthi Hospitals");
+        if (!form.category) {
+          updateField(
+            "category",
+            form.section === "hospitals-events"
+              ? "Hospitals Events"
+              : form.section === "health-insights"
+              ? "Health Insights"
+              : "Hospitals News"
+          );
+        }
       } else {
         let msg = "Video upload failed";
         try {
@@ -270,7 +281,13 @@ export default function PostEditorPanel({
       excerpt: form.excerpt?.trim() || form.title,
       content: form.content?.trim() || "{}",
       author: form.author?.trim() || "Adhiparasakthi Hospitals",
-      category: form.category?.trim() || "Hospitals News",
+      category:
+        form.category?.trim() ||
+        (form.section === "hospitals-events"
+          ? "Hospitals Events"
+          : form.section === "health-insights"
+          ? "Health Insights"
+          : "Hospitals News"),
     };
 
     const url =
@@ -438,7 +455,16 @@ export default function PostEditorPanel({
                     updateField("video", val);
                     if (val.trim()) {
                       if (!form.author) updateField("author", "Adhiparasakthi Hospitals");
-                      if (!form.category) updateField("category", "Hospitals News");
+                      if (!form.category) {
+                        updateField(
+                          "category",
+                          form.section === "hospitals-events"
+                            ? "Hospitals Events"
+                            : form.section === "health-insights"
+                            ? "Health Insights"
+                            : "Hospitals News"
+                        );
+                      }
                       void resolveVideoUrl(val);
                     }
                   }}
@@ -507,7 +533,26 @@ export default function PostEditorPanel({
                 </span>
                 <Input
                   value={form.video || ""}
-                  onChange={(e) => updateField("video", e.target.value)}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    updateField("video", val);
+                    if (val.trim()) {
+                      if (!form.author) updateField("author", "Adhiparasakthi Hospitals");
+                      if (!form.category) {
+                        updateField(
+                          "category",
+                          form.section === "hospitals-events"
+                            ? "Hospitals Events"
+                            : form.section === "health-insights"
+                            ? "Health Insights"
+                            : "Hospitals News"
+                        );
+                      }
+                      if (val.includes("instagram.com")) {
+                        void resolveVideoUrl(val);
+                      }
+                    }
+                  }}
                   placeholder="https://youtu.be/... or https://example.com/video.mp4"
                   className="h-8 text-xs bg-white"
                 />
@@ -538,7 +583,26 @@ export default function PostEditorPanel({
             <label className="mb-1.5 block text-sm font-medium">Section</label>
             <select
               value={form.section}
-              onChange={(e) => updateField("section", e.target.value as BlogSection)}
+              onChange={(e) => {
+                const nextSection = e.target.value as BlogSection;
+                updateField("section", nextSection);
+                if (
+                  !form.category ||
+                  form.category === "Hospitals News" ||
+                  form.category === "Hospitals Events" ||
+                  form.category === "Hospital Event" ||
+                  form.category === "Health Insights"
+                ) {
+                  updateField(
+                    "category",
+                    nextSection === "hospitals-events"
+                      ? "Hospitals Events"
+                      : nextSection === "health-insights"
+                      ? "Health Insights"
+                      : "Hospitals News"
+                  );
+                }
+              }}
               className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 text-sm"
             >
               {sections.map((section) => (
@@ -556,7 +620,13 @@ export default function PostEditorPanel({
             <Input
               value={form.category}
               onChange={(e) => updateField("category", e.target.value)}
-              placeholder="e.g. Hospitals News"
+              placeholder={
+                form.section === "hospitals-events"
+                  ? "e.g. Hospitals Events or Workshop"
+                  : form.section === "health-insights"
+                  ? "e.g. Health Insights"
+                  : "e.g. Hospitals News"
+              }
               required
             />
           </div>

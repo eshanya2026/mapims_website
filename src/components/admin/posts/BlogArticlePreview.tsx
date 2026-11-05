@@ -46,6 +46,15 @@ export default function BlogArticlePreview({ post }: BlogArticlePreviewProps) {
                 <span className="inline-flex max-w-full rounded-full bg-red-50 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-red-600 sm:text-xs">
                   {post.category || "Category"}
                 </span>
+                {post.isIncoming ? (
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white sm:text-xs">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+                    </span>
+                    Incoming Event
+                  </span>
+                ) : null}
                 {post.video ? (
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white sm:text-xs">
                     <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />

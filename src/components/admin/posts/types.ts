@@ -49,7 +49,7 @@ export function createEmptyPost(section: BlogSection): PostFormData {
       section === "hospitals-news"
         ? "Hospitals News"
         : section === "hospitals-events"
-        ? "Hospital Event"
+        ? "Hospitals Events"
         : "Health Insights",
     section,
     published: false,

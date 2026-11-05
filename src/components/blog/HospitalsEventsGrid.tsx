@@ -112,7 +112,13 @@ export default function HospitalsEventsGrid({ posts }: HospitalsEventsGridProps)
 
               <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {incomingEvents.map((post, index) => (
-                  <EventCard key={post.slug} post={post} index={index} isIncoming />
+                  <EventCard
+                    key={post.slug}
+                    post={post}
+                    index={index}
+                    isIncoming
+                    onPlayVideo={setSelectedVideoPost}
+                  />
                 ))}
               </div>
             </div>
@@ -139,7 +145,12 @@ export default function HospitalsEventsGrid({ posts }: HospitalsEventsGridProps)
 
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
                   {pastEvents.map((post, index) => (
-                    <EventCard key={post.slug} post={post} index={index} />
+                    <EventCard
+                      key={post.slug}
+                      post={post}
+                      index={index}
+                      onPlayVideo={setSelectedVideoPost}
+                    />
                   ))}
                 </div>
               </div>
@@ -205,7 +216,7 @@ function EventCard({
           : "border border-slate-100 hover:border-red-100"
       }`}
     >
-      <div className="relative h-56 overflow-hidden bg-slate-100">
+      <div className="relative h-56 overflow-hidden bg-slate-900">
         <img
           src={post.image}
           alt={post.title}
@@ -213,7 +224,7 @@ function EventCard({
           decoding="async"
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        <div className="absolute left-4 top-4 flex flex-wrap gap-2">
+        <div className="absolute left-4 top-4 flex flex-wrap gap-2 z-10 pointer-events-none">
           {isIncoming ? (
             <span className="flex items-center gap-1.5 rounded-full bg-emerald-600 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-md">
               <span className="relative flex h-2 w-2">
