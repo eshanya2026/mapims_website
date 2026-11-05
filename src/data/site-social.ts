@@ -21,7 +21,7 @@ export const socialLinks: SocialLink[] = [
   },
   {
     name: "Instagram",
-    href: "https://www.instagram.com/adhiparasakthihospitalss",
+    href: "https://www.instagram.com/adhiparasakthihospitals/?hl=en",
     icon: InstagramIcon,
   },
   {
