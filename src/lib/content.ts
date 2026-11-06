@@ -7,6 +7,7 @@ export type ContentPost = {
   slug: string;
   title: string;
   date: string;
+  publishedAt?: string;
   author?: string;
   category: string;
   section: BlogSection;
@@ -87,6 +88,10 @@ function mapPost(post: {
     slug: post.slug,
     title: post.title,
     date: formatDate(post.publishedAt),
+    publishedAt:
+      post.publishedAt instanceof Date
+        ? post.publishedAt.toISOString()
+        : new Date(post.publishedAt).toISOString(),
     author: post.author ?? undefined,
     category: post.category,
     section: normalizeBlogSection(post.section),
@@ -134,11 +139,33 @@ export async function getPublishedPosts(
     const mapped = posts.map(mapPost);
     if (section === "hospitals-events") {
       return mapped.sort((a, b) => {
+        // 1. Incoming events come first
         if (a.isIncoming && !b.isIncoming) return -1;
         if (!a.isIncoming && b.isIncoming) return 1;
-        return 0;
+
+        // 2. If both are incoming events: sort by upcoming eventDate (earliest upcoming first) or newest publishedAt
+        if (a.isIncoming && b.isIncoming) {
+          const dateA = a.eventDate
+            ? new Date(a.eventDate).getTime()
+            : a.publishedAt
+            ? new Date(a.publishedAt).getTime()
+            : 0;
+          const dateB = b.eventDate
+            ? new Date(b.eventDate).getTime()
+            : b.publishedAt
+            ? new Date(b.publishedAt).getTime()
+            : 0;
+          return dateA - dateB;
+        }
+
+        // 3. For past events: strictly LATEST TO OLDER (newest published date first)
+        const timeA = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
+        const timeB = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
+        return timeB - timeA;
       });
     }
+
+    // For other sections (like hospitals-news): preserve sortOrder if explicitly defined, otherwise latest to older
     return mapped;
   }, []);
 }

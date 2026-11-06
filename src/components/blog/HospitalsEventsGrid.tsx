@@ -17,13 +17,37 @@ export default function HospitalsEventsGrid({ posts }: HospitalsEventsGridProps)
   const [filter, setFilter] = useState<EventFilter>("all");
   const [selectedVideoPost, setSelectedVideoPost] = useState<ContentPost | null>(null);
 
+  const parsePostTime = (p: ContentPost) => {
+    if (p.publishedAt) {
+      const t = new Date(p.publishedAt).getTime();
+      if (!isNaN(t)) return t;
+    }
+    if (p.eventDate) {
+      const t = new Date(p.eventDate).getTime();
+      if (!isNaN(t)) return t;
+    }
+    const t = new Date(p.date).getTime();
+    return isNaN(t) ? 0 : t;
+  };
+
   const incomingEvents = useMemo(
-    () => posts.filter((p) => Boolean(p.isIncoming)),
+    () =>
+      posts
+        .filter((p) => Boolean(p.isIncoming))
+        .sort((a, b) => {
+          if (a.eventDate && b.eventDate) {
+            return new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime();
+          }
+          return parsePostTime(b) - parsePostTime(a);
+        }),
     [posts]
   );
 
   const pastEvents = useMemo(
-    () => posts.filter((p) => !p.isIncoming),
+    () =>
+      posts
+        .filter((p) => !p.isIncoming)
+        .sort((a, b) => parsePostTime(b) - parsePostTime(a)), // Latest to older (newest first)
     [posts]
   );
 

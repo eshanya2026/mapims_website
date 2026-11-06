@@ -47,6 +47,7 @@ function toContentPost(
     slug: data.slug || "preview",
     title: data.title || "Untitled post",
     date: options?.date ?? postDate,
+    publishedAt: data.publishedAt,
     author: data.author || undefined,
     category: data.category || "Category",
     section: data.section,
