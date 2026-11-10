@@ -6,6 +6,7 @@ const TOLL_FREE_DISPLAY = "1800 599 0999";
 const TOLL_FREE_TEL = "18005990999";
 const EMERGENCY_DISPLAY = "+91 94990 59966";
 const EMERGENCY_TEL = "+919499059966";
+const HOSPITAL_EMAIL = process.env.NEXT_PUBLIC_HOSPITAL_EMAIL || "contact@mapims.edu.in";
 
 function SocialIconLinks({ size = "md" }: { size?: "sm" | "md" }) {
   const buttonClass =
@@ -61,11 +62,11 @@ export default function TopHeader() {
               </span>
             </a>
             <a
-              href="mailto:info@adhiparasakthihospitals.com"
+              href={`mailto:${HOSPITAL_EMAIL}`}
               className="flex min-w-0 items-center space-x-2 transition-colors hover:text-white"
             >
               <Mail className="h-4 w-4 shrink-0 text-red-600" />
-              <span className="truncate">info@adhiparasakthihospitals.com</span>
+              <span className="truncate">{HOSPITAL_EMAIL}</span>
             </a>
           </div>
 
