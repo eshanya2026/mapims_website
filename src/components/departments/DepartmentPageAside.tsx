@@ -6,10 +6,10 @@ import { usePathname } from "next/navigation";
 import { ArrowRight, Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
-  departmentAsideIcons,
   getDepartmentHref,
   getDepartmentsForAside,
 } from "@/data/departments";
+import { DepartmentIcon } from "@/components/departments/DepartmentIcons";
 
 export default function DepartmentPageAside() {
   const pathname = usePathname();
@@ -57,30 +57,29 @@ export default function DepartmentPageAside() {
                 activeDepartmentSlug === dept.slug ||
                 (activeDepartmentSlug === "radiology-imaging-science" && dept.slug === "radiology") ||
                 (activeDepartmentSlug === "radiology" && dept.slug === "radiology-imaging-science");
-              const icon = departmentAsideIcons[dept.slug];
               return (
                 <Link
                   key={dept.slug}
                   ref={isActive ? activeItemRef : undefined}
                   href={getDepartmentHref(dept.slug)}
                   className={cn(
-                    "flex items-center gap-3 border-b border-slate-50 px-5 py-3.5 text-sm font-semibold transition-all duration-200 last:border-0",
+                    "group flex items-center gap-3 border-b border-slate-50 px-5 py-3.5 text-sm font-semibold transition-all duration-200 last:border-0",
                     isActive
                       ? "bg-red-600 text-white shadow-inner"
                       : "text-slate-700 hover:bg-red-50 hover:text-red-700"
                   )}
                 >
-                  {icon ? (
-                    <span
-                      className={cn(
-                        "flex h-8 w-8 items-center justify-center rounded-lg text-base leading-none",
-                        isActive ? "bg-white/15" : "bg-slate-100"
-                      )}
-                      aria-hidden="true"
-                    >
-                      {icon}
-                    </span>
-                  ) : null}
+                  <span
+                    className={cn(
+                      "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors",
+                      isActive
+                        ? "bg-white/15 text-white"
+                        : "bg-slate-100 text-slate-600 group-hover:bg-red-100 group-hover:text-red-700"
+                    )}
+                    aria-hidden="true"
+                  >
+                    <DepartmentIcon slug={dept.slug} className="h-4 w-4" />
+                  </span>
                   <span className="min-w-0 flex-1 leading-snug">{dept.name}</span>
                   {isActive ? (
                     <span className="h-2 w-2 rounded-full bg-white" aria-hidden />
