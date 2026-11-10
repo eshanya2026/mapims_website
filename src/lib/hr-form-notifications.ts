@@ -180,7 +180,7 @@ function buildHrEmailContent(submission: FormSubmissionRecord) {
 }
 
 const HR_CONTACT_EMAIL =
-  process.env.HR_CONTACT_EMAIL?.trim() || "contact@mapims.online";
+  process.env.HR_CONTACT_EMAIL?.trim() || "contact@mapims.edu.in";
 const HR_CONTACT_PHONE =
   process.env.HR_CONTACT_PHONE?.trim() || "+91 94990 59959";
 

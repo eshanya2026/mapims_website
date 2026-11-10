@@ -14,7 +14,7 @@ function FooterHeading({ children }: { children: React.ReactNode }) {
   );
 }
 
-const HOSPITAL_EMAIL = process.env.NEXT_PUBLIC_HOSPITAL_EMAIL || "contact@mapims.online";
+const HOSPITAL_EMAIL = process.env.NEXT_PUBLIC_HOSPITAL_EMAIL || "contact@mapims.edu.in";
 const TOLL_FREE_PHONE = process.env.NEXT_PUBLIC_TOLL_FREE_PHONE || "1800 599 0999";
 const HOSPITAL_PHONE = process.env.NEXT_PUBLIC_HOSPITAL_PHONE || "+91 94990 59966";
 

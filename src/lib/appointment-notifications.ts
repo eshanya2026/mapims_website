@@ -5,10 +5,10 @@ import { sendMail } from "@/lib/mail";
 const APPOINTMENT_CONTACT_EMAIL =
   process.env.APPOINTMENT_CONTACT_EMAIL?.trim() ||
   process.env.APPOINTMENT_NOTIFICATION_EMAIL?.trim() ||
-  "contact@mapims.online";
+  "contact@mapims.edu.in";
 const APPOINTMENT_NOTIFICATION_EMAIL =
   process.env.APPOINTMENT_NOTIFICATION_EMAIL?.trim() ||
-  "contact@mapims.online";
+  "contact@mapims.edu.in";
 const HOSPITAL_CONTACT_PHONE =
   process.env.HOSPITAL_CONTACT_PHONE?.trim() || "+91 94990 59966";
 

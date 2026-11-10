@@ -21,7 +21,7 @@ import JobApplyButton from "@/components/careers/JobApplyButton";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-const HR_CONTACT_EMAIL = process.env.HR_CONTACT_EMAIL?.trim() || "contact@mapims.online";
+const HR_CONTACT_EMAIL = process.env.HR_CONTACT_EMAIL?.trim() || "contact@mapims.edu.in";
 
 type CareerDetailPageProps = {
   params: Promise<{ slug: string }>;

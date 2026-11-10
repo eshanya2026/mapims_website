@@ -4,15 +4,15 @@ import { getHrNotificationEmail, getSiteUrl, sendMail } from "@/lib/mail";
 const HOSPITAL_CONTACT_EMAIL =
   process.env.HOSPITAL_CONTACT_EMAIL?.trim() ||
   process.env.INQUIRY_NOTIFICATION_EMAIL?.trim() ||
-  "contact@mapims.online";
+  "contact@mapims.edu.in";
 const INTERNATIONAL_CONTACT_EMAIL =
   process.env.INTERNATIONAL_CONTACT_EMAIL?.trim() ||
   process.env.HOSPITAL_CONTACT_EMAIL?.trim() ||
-  "contact@mapims.online";
+  "contact@mapims.edu.in";
 const INTERNATIONAL_NOTIFICATION_EMAIL =
   process.env.INTERNATIONAL_NOTIFICATION_EMAIL?.trim() ||
   process.env.INQUIRY_NOTIFICATION_EMAIL?.trim() ||
-  "contact@mapims.online";
+  "contact@mapims.edu.in";
 const HOSPITAL_CONTACT_PHONE =
   process.env.HOSPITAL_CONTACT_PHONE?.trim() || "+91 94990 59966";
 const INTERNATIONAL_DESK_PHONE =

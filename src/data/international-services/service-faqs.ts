@@ -86,7 +86,7 @@ export const serviceFaqsBySlug: Record<string, InternationalServiceFaq[]> = {
     {
       question: "How do I schedule a lab test?",
       answer:
-        "Tests are usually ordered by your treating doctor at MAPIMS. For more information or scheduling, contact the hospitals at +91 94990 59966 or contact@mapims.online.",
+        "Tests are usually ordered by your treating doctor at MAPIMS. For more information or scheduling, contact the hospitals at +91 94990 59966 or contact@mapims.edu.in.",
     },
   ],
   dermatology: [
@@ -108,7 +108,7 @@ export const serviceFaqsBySlug: Record<string, InternationalServiceFaq[]> = {
     {
       question: "How do I book a dermatology appointment?",
       answer:
-        "You can book through our website appointment section, call +91 94990 59966, or email contact@mapims.online. We accept various insurance plans and offer flexible scheduling where possible.",
+        "You can book through our website appointment section, call +91 94990 59966, or email contact@mapims.edu.in. We accept various insurance plans and offer flexible scheduling where possible.",
     },
   ],
   "general-surgery": [

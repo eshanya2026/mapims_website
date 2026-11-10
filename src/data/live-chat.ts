@@ -46,7 +46,7 @@ export const liveChatFaqs: LiveChatFaq[] = [
     id: "book-appointment",
     question: "How do I book an appointment?",
     answer:
-      "You can book online on our website — scroll to Book Appointment on the home page, choose your department, date, and time, then submit your details. You can also call +91 94990 59966 or email contact@mapims.online.",
+      "You can book online on our website — scroll to Book Appointment on the home page, choose your department, date, and time, then submit your details. You can also call +91 94990 59966 or email contact@mapims.edu.in.",
   },
   {
     id: "opd-timings",
@@ -88,7 +88,7 @@ export const liveChatFaqs: LiveChatFaq[] = [
     id: "helpline",
     question: "What is the patient helpline number?",
     answer:
-      "Call our patient helpline at 1800 599 0999 (Toll Free, Mon–Sat 8 AM – 8 PM) or +91 94990 59966. For general enquiries email contact@mapims.online.",
+      "Call our patient helpline at 1800 599 0999 (Toll Free, Mon–Sat 8 AM – 8 PM) or +91 94990 59966. For general enquiries email contact@mapims.edu.in.",
   },
   {
     id: "location",
@@ -112,7 +112,7 @@ export const liveChatFaqs: LiveChatFaq[] = [
     id: "international",
     question: "Do you treat international patients?",
     answer:
-      "Yes. Our dedicated International Patient Desk assists overseas patients with pre-arrival medical opinions, cost estimates, visa assistance letters, airport pickups, language translation, and personalized hospital coordination. Call +91 94990 59966 or email contact@mapims.online.",
+      "Yes. Our dedicated International Patient Desk assists overseas patients with pre-arrival medical opinions, cost estimates, visa assistance letters, airport pickups, language translation, and personalized hospital coordination. Call +91 94990 59966 or email contact@mapims.edu.in.",
   },
   {
     id: "health-packages",
@@ -133,8 +133,8 @@ export const liveChatContact = {
   phoneHref: "tel:+919499059966",
   helpline: "1800 599 0999",
   helplineHref: "tel:18005990999",
-  email: "contact@mapims.online",
-  emailHref: "mailto:contact@mapims.online",
+  email: "contact@mapims.edu.in",
+  emailHref: "mailto:contact@mapims.edu.in",
   emergency: "+91 94990 59966",
   emergencyHref: "tel:+919499059966",
   insurancePhone: "9499059970",

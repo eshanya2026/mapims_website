@@ -20,7 +20,7 @@ const HELPLINE =
 const CONTACT_EMAIL =
   process.env.NEWSLETTER_CONTACT_EMAIL?.trim() ||
   process.env.HOSPITAL_CONTACT_EMAIL?.trim() ||
-  "contact@mapims.online";
+  "contact@mapims.edu.in";
 
 function escapeHtml(value: string) {
   return value
