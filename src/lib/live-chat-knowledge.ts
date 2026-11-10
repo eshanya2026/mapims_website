@@ -59,22 +59,48 @@ SPECIAL CONCESSION SURGERY PACKAGES:
    - Laparoscopic & Open Hernia Repair (Inguinal, Umbilical, Ventral, Incisional)
    - Advanced Proctology (Stapled Hemorrhoidopexy/MIPH for piles, Anal Fissure, Fistula-in-Ano, Pilonidal Sinus)
 
-UPCOMING HOSPITAL EVENTS & WORKSHOPS:
-1. "ECG Ignited and Echocardiogram Primer Workshop" (Incoming Event):
+UPCOMING HOSPITAL EVENTS, WORKSHOPS & COMMUNITY PROGRAMS:
+1. "Cancer Sahayak Bus Inauguration" (Mobile Cancer Screening):
+   - Partnership: Adhiparasakthi Hospitals & Tata Voltas
+   - Purpose: State-of-the-art mobile cancer screening bus equipped with diagnostics to detect oral, cervical, and breast cancer early in rural and semi-urban communities.
+2. "Free Eye Medical Camp 2026":
+   - Venue: Adhiparasakthi Hospital Ophthalmology Department & Community Outreach
+   - Offerings: Free vision testing, free cataract screening with free intraocular lenses (IOL), and free spectacles distribution for patients in need.
+3. "FERTISPARK 2026" (Symposium on Reproductive Health):
+   - Focus: Landmark symposium on Progressive Assisted Reproductive Technology (ART) and Reproductive Medicine.
+   - Organized by: Department of Obstetrics, Gynaecology & Reproductive Health, MAPIMS.
+4. "Surgical Skills Series 2026: Hands-On Workshop on Inguinal Hernia":
+   - Hands-on surgical training on modern laparoscopic and open mesh repair of inguinal hernia for surgical residents and practitioners.
+5. "POCUS: Probe to Diagnosis – Workshop 2026":
+   - Intensive bedside Point-of-Care Ultrasound (POCUS) training for emergency, ICU, and acute care clinicians at BLISS Skill Lab.
+6. "ECG Ignited and Echocardiogram Primer Workshop":
    - Dates: October 30 & 31, 2026 (2-Day Intensive Hands-on Workshop)
    - Theme: "Learn | Interpret | Improve"
    - Course Director: Dr. M. Chenninappan
    - Organized by: Department of Internal Medicine, MAPIMS (Endorsed by API Chengalpattu Branch)
    - Venue: Diamond Jubilee Auditorium, Adhiparasakthi Hospital, Melmaruvathur – 603319
-   - Target: Strengthening practical ECG and echocardiography interpretation skills for medical officers, residents, and clinicians.
-2. "AACE 2026 – ECHOSMART":
+7. "AACE 2026 – ECHOSMART":
    - Date: November 15, 2026 (Sunday)
-   - Theme: "Focus | Practice | Precision | Better Outcomes" (Enhancing Cardiac Imaging & Hemodynamic Outcomes)
+   - Theme: "Focus | Practice | Precision | Better Outcomes" (Cardiac Imaging & Hemodynamics)
    - Organized by: Department of Anaesthesia and Critical Care, MAPIMS
    - Organizing Chairperson: Prof. and Head Dr. Kumaresan S
    - Venue: BLISS Skill Lab, 4th Floor, Adhiparasakthi Hospital
-   - Registration Fee: ₹1,500/- (Limited to 50 participants; CME credits applied for TNMC & The Tamil Nadu Dr. M.G.R. Medical University)
    - Contacts: Dr. Thiruvarangaprasath G (+91 81485 28890), Dr. Kavya (+91 63790 75140)
+
+SENIOR CLINICAL LEADERSHIP & CONSULTANTS:
+- Dr. T. Ramesh – Medical Director
+- Dr. Kapali Neelamekam – Advisor, Multi Organ Transplant
+- Dr. T.R. Rajkumar – Transplant Surgeon & Consultant Urologist
+- Dr. R. Rama Krishnan – Consultant Urologist
+- Dr. S. Kumaresan – Deputy Medical Superintendent, HOD Anaesthesia & Critical Care
+- Dr. Umesh Raj Somasundaram – Deputy Medical Superintendent
+- Dr. Mahendra Varman L – Lead Consultant Transplant Sciences & Nephrology
+- Dr. S. Bhaskaran – Senior Consultant Nephrology & Renal Transplant
+- Dr. Appanraj – HOD General Medicine
+- Dr. Manju Meena – Consultant Dermatologist
+- Dr. Elakkiya S. – Consultant Ophthalmologist
+- Dr. Karthik – Specialist Pediatrician
+- Dr. Padma – Specialist Pediatrician & Lactation Consultant
 
 HEALTH INSURANCE & CASHLESS HOSPITALIZATION:
 - Dedicated Insurance Desk: Email ${liveChatContact.insuranceEmail} | Phone: ${liveChatContact.insurancePhone}

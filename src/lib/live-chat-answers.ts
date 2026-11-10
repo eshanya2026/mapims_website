@@ -145,24 +145,30 @@ MAPIMS provides special packages for selected surgical procedures to ensure affo
 }
 
 export function buildUpcomingEventsChatAnswer(): string {
-  return `✨ Upcoming Events & Medical Programs
+  return `✨ Hospital Events, Medical Workshops & Outreach
 
-1. ECG Ignited and Echocardiogram Primer Workshop (Incoming Event):
-• Dates: October 30 & 31, 2026 (2-day workshop)
-• Theme: “Learn | Interpret | Improve”
-• Course Director: Dr. M. Chenninappan
-• Venue: Diamond Jubilee Auditorium, Adhiparasakthi Hospital
-• Organized by: Dept. of Internal Medicine (endorsed by API Chengalpattu Branch)
+• Cancer Sahayak Bus Mobile Cancer Screening:
+  Mobile cancer screening in partnership with Tata Voltas for oral, breast, and cervical cancer.
 
-2. AACE 2026 – ECHOSMART:
-• Date: November 15, 2026 (Sunday)
-• Focus: Cardiac Ultrasound Basics & Hemodynamic Assessment
-• Venue: BLISS Skill Lab, 4th Floor
-• Chairperson: Prof. Dr. Kumaresan S (Dept. of Anaesthesia & Critical Care)
-• Registration Fee: ₹1,500/- (Max 50 seats, CME credits applied)
-• Contacts: +91 81485 28890 / +91 63790 75140
+• Free Eye Medical Camp:
+  Free eye examinations, free cataract surgery with IOL lenses, and free spectacles distribution.
 
-Check our Hospitals Events page on the website for schedules and registration.`;
+• FERTISPARK 2026:
+  Symposium on Progressive Assisted Reproductive Technology (ART) and Reproductive Medicine.
+
+• Surgical Skills Series:
+  Hands-on workshop on Inguinal Hernia repair for surgeons.
+
+• POCUS (Point-of-Care Ultrasound) Workshop:
+  Bedside clinical ultrasound training: “Probe to Diagnosis”.
+
+• ECG Ignited and Echocardiogram Primer Workshop:
+  2-day workshop directed by Dr. M. Chenninappan.
+
+• AACE 2026 – ECHOSMART:
+  Cardiac imaging & hemodynamics workshop (Nov 15, 2026, BLISS Skill Lab).
+
+Check our Hospitals Events page on the website for schedules, videos, and registration.`;
 }
 
 export function buildInsuranceChatAnswer(): string {

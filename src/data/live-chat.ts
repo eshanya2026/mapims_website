@@ -70,7 +70,13 @@ export const liveChatFaqs: LiveChatFaq[] = [
     id: "upcoming-hospital-events",
     question: "What are the upcoming hospital events and medical workshops?",
     answer:
-      "Our upcoming academic events and medical programs include:\n1. “ECG Ignited and Echocardiogram Primer Workshop” (Incoming Event):\n   • Date: October 30 & 31, 2026 (2-day hands-on workshop)\n   • Theme: “Learn | Interpret | Improve”\n   • Course Director: Dr. M. Chenninappan\n   • Venue: Diamond Jubilee Auditorium, Adhiparasakthi Hospital, Melmaruvathur\n   • Organized by: Dept. of Internal Medicine (endorsed by API Chengalpattu Branch).\n2. “AACE 2026 – ECHOSMART”:\n   • Date: November 15, 2026 (Sunday)\n   • Focus: Enhancing Cardiac Imaging and Hemodynamic Outcomes\n   • Venue: BLISS Skill Lab, 4th Floor\n   • Organizing Chairperson: Prof. and Head Dr. Kumaresan S (Dept. of Anaesthesia & Critical Care)\n   • Registration Fee: ₹1,500/- (Max 50 participants, CME credits applied)\nVisit the Hospitals Events section on our website for details and schedules.",
+      "Our hospital events, academic workshops, and outreach programs include:\n1. Cancer Sahayak Bus: Mobile Cancer Screening bus launched with Tata Voltas for early oral, breast, and cervical cancer screening in communities.\n2. Free Eye Medical Camp: Free cataract screening, free intraocular lenses, and free spectacles distribution.\n3. FERTISPARK 2026: Landmark symposium on Progressive ART & Reproductive Health.\n4. Surgical Skills Series 2026: Hands-on Inguinal Hernia workshop for surgeons.\n5. POCUS Workshop: Point-of-Care Ultrasound bedside diagnostics.\n6. ECG Ignited & Echocardiogram Primer Workshop: Directed by Dr. M. Chenninappan.\n7. AACE 2026 – ECHOSMART: Cardiac imaging and hemodynamic care (BLISS Skill Lab, Nov 15, 2026).\nVisit the Hospitals Events section on our website for full details and schedules.",
+  },
+  {
+    id: "doctors-specialists",
+    question: "Who are the senior doctors and specialists at MAPIMS?",
+    answer:
+      "Our senior clinical leadership and specialist consultants include:\n• Dr. T. Ramesh – Medical Director\n• Dr. Kapali Neelamekam – Advisor, Multi Organ Transplant\n• Dr. T.R. Rajkumar – Transplant Surgeon & Consultant Urologist\n• Dr. R. Rama Krishnan – Consultant Urologist\n• Dr. S. Kumaresan – Deputy Medical Superintendent, HOD Anaesthesia & Critical Care\n• Dr. Umesh Raj Somasundaram – Deputy Medical Superintendent\n• Dr. Mahendra Varman L – Lead Consultant Transplant Sciences & Nephrology\n• Dr. S. Bhaskaran – Senior Consultant Nephrology & Renal Transplant\n• Dr. Appanraj – HOD General Medicine\n• Dr. Manju Meena – Consultant Dermatologist\n• Dr. Elakkiya S. – Consultant Ophthalmologist\n• Dr. Karthik – Specialist Pediatrician\nTo consult with any doctor, book online or call +91 94990 59966.",
   },
   {
     id: "insurance-cashless",

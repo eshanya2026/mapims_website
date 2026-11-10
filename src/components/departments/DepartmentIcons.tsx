@@ -425,3 +425,4 @@ export function DepartmentIcon({ slug, className, ...props }: DepartmentIconProp
   const IconComponent = DEPARTMENT_ICON_MAP[slug] || Activity;
   return <IconComponent className={className} {...props} />;
 }
+
