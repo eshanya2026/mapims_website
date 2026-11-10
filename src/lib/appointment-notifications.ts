@@ -230,9 +230,11 @@ export async function notifyPatientOfAppointment(submission: FormSubmissionRecor
   }
 
   const { subject, text, html } = buildAppointmentConfirmationEmail(submission);
+  const fromAddress = `"MAPIMS Appointment Desk" <${process.env.SMTP_USER || APPOINTMENT_CONTACT_EMAIL}>`;
 
   await sendMail({
     to: patientEmail,
+    from: fromAddress,
     subject,
     text,
     html,

@@ -337,17 +337,25 @@ export async function notifyPatientOfInquiry(submission: FormSubmissionRecord) {
   const isInsurance = submission.type === "insurance";
   const isInternational = submission.type === "international";
   const { subject, text, html } = buildInquiryConfirmationEmail(submission);
+  const replyEmail = isInsurance
+    ? INSURANCE_CONTACT_EMAIL
+    : isInternational
+      ? INTERNATIONAL_CONTACT_EMAIL
+      : HOSPITAL_CONTACT_EMAIL;
+  const fromName = isInsurance
+    ? "MAPIMS Insurance Desk"
+    : isInternational
+      ? "MAPIMS International Patient Desk"
+      : "Adhiparasakthi Hospitals";
+  const fromAddress = `"${fromName}" <${process.env.SMTP_USER || replyEmail}>`;
 
   await sendMail({
     to: patientEmail,
+    from: fromAddress,
     subject,
     text,
     html,
-    replyTo: isInsurance
-      ? INSURANCE_CONTACT_EMAIL
-      : isInternational
-        ? INTERNATIONAL_CONTACT_EMAIL
-        : HOSPITAL_CONTACT_EMAIL,
+    replyTo: replyEmail,
   });
 }
 
