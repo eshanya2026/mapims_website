@@ -36,9 +36,9 @@ const outreachPillars = [
     desc: "Early detection screening for diabetes, hypertension, cardiac risk factors, and chronic illnesses before complications arise.",
   },
   {
-    icon: Eye,
-    title: "Community Eye Care",
-    desc: "Free community eye screening camps, visual acuity tests, cataract identification, and specialized ophthalmology referrals.",
+    icon: Users,
+    title: "Rural Health Outreach",
+    desc: "Delivering specialist consultations, essential health evaluations, and preventive clinical care directly in local villages and communities.",
   },
   {
     icon: FileText,
@@ -71,10 +71,10 @@ const communityServices = [
   },
   {
     number: "04",
-    title: "Eye Screening & Community Eye Camps",
-    desc: "Dedicated vision evaluation camps providing preliminary refractive error assessments, cataract screenings, and guidance for elderly community members.",
-    icon: Eye,
-    badge: "Vision Care",
+    title: "Maternal & Child Health Camps",
+    desc: "Dedicated community sessions providing antenatal wellness advice, pediatric assessments, infant nutrition guidance, and immunization awareness.",
+    icon: Users,
+    badge: "Maternal & Child Care",
   },
   {
     number: "05",
@@ -113,21 +113,21 @@ const schemeHighlights = [
 const heroSlides = [
   {
     id: 1,
-    src: "/images/services/community-outreach-camp-1.webp",
-    alt: "Free Community Eye Care & Medical Camp 2026 at Adhiparasakthi Hospitals",
-    badge: "Free Eye Care Camp",
-    tagline: "Specialist Eye Screening & Treatment Drive",
-    icon: Eye,
-    objectPosition: "object-center",
-  },
-  {
-    id: 2,
     src: "/images/services/community-outreach-camp-2.webp",
     alt: "Doctors Conducting Rural Medical Consultations & Health Checkups",
     badge: "Rural Medical Outreach",
     tagline: "Free Clinical Consultations & Health Checks",
     icon: HeartHandshake,
     objectPosition: "object-[center_28%]",
+  },
+  {
+    id: 2,
+    src: "/images/services/community-outreach-hero.jpg",
+    alt: "Community Healthcare Camp & Preventive Medical Outreach",
+    badge: "Community Health Camp",
+    tagline: "Comprehensive Preventive Care & Health Guidance",
+    icon: Heart,
+    objectPosition: "object-center",
   },
 ];
 
