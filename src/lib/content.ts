@@ -165,8 +165,12 @@ export async function getPublishedPosts(
       });
     }
 
-    // For other sections (like hospitals-news): preserve sortOrder if explicitly defined, otherwise latest to older
-    return mapped;
+    // For hospitals-news and all other sections: sort from Latest to Older (newest published date first)
+    return mapped.sort((a, b) => {
+      const timeA = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
+      const timeB = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
+      return timeB - timeA;
+    });
   }, []);
 }
 
@@ -191,6 +195,7 @@ export async function getFeaturedNewsAndEvents(limit = 3) {
       published: true,
       featured: true,
       sections: ["hospitals-news", "hospital-news", "hospitals-events", "hospital-events"],
+      sort: { publishedAt: -1, sortOrder: 1 },
       limit,
     });
     return posts.map(mapPost);

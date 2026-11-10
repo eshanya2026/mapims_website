@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import {
   createPost,
-  getMaxSortOrderInSection,
   listPosts,
+  shiftSortOrderInSection,
 } from "@/lib/db/posts";
 import { isDuplicateKeyError } from "@/lib/db/utils";
 import { scheduleNewsletterAnnouncement } from "@/lib/schedule-newsletter-announcement";
@@ -39,7 +39,8 @@ export async function POST(request: Request) {
     }
 
     const data = parsed.data;
-    const maxSortOrder = await getMaxSortOrderInSection(data.section);
+    // Shift existing posts down so this newly published post takes top position (sortOrder: 0)
+    await shiftSortOrderInSection(data.section);
 
     const videoUrl = data.video?.trim() || null;
     let featuredImage = data.image?.trim();
@@ -82,7 +83,7 @@ export async function POST(request: Request) {
       author: data.author?.trim() || "Adhiparasakthi Hospitals",
       video: videoUrl,
       eventDate: data.eventDate || null,
-      sortOrder: maxSortOrder + 1,
+      sortOrder: 0,
       publishedAt: publishedAtDate,
     });
 

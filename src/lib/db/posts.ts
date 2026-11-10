@@ -64,6 +64,7 @@ export async function findPosts(filter: {
   section?: string;
   sections?: string[];
   limit?: number;
+  sort?: Record<string, 1 | -1>;
 }) {
   const collection = await postsCollection();
   const query = mergeNotDeleted(
@@ -82,7 +83,7 @@ export async function findPosts(filter: {
 
   let cursor = collection
     .find(query)
-    .sort({ sortOrder: 1, publishedAt: -1 });
+    .sort(filter.sort ?? { sortOrder: 1, publishedAt: -1 });
 
   if (filter.limit) {
     cursor = cursor.limit(filter.limit);
@@ -108,6 +109,14 @@ export async function getMaxSortOrderInSection(section: string) {
     .limit(1)
     .next();
   return doc?.sortOrder ?? -1;
+}
+
+export async function shiftSortOrderInSection(section: string) {
+  const collection = await postsCollection();
+  await collection.updateMany(
+    mergeNotDeleted({ section }),
+    { $inc: { sortOrder: 1 }, $set: { updatedAt: now() } }
+  );
 }
 
 export async function getUniquePostSlug(
