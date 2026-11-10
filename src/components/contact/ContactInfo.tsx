@@ -73,6 +73,8 @@ function ContactCard({
   hint: string;
   external?: boolean;
 }) {
+  const isLong = value.length > 18;
+
   return (
     <a
       href={href}
@@ -92,7 +94,14 @@ function ContactCard({
         <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
           {label}
         </p>
-        <p className="mt-1 break-all text-base font-bold text-slate-900 group-hover:text-red-600 sm:text-lg">
+        <p
+          className={cn(
+            "mt-1 font-bold text-slate-900 transition-colors group-hover:text-red-600",
+            isLong
+              ? "text-sm leading-snug sm:text-[15px] break-all sm:break-normal"
+              : "text-base sm:text-lg break-words"
+          )}
+        >
           {value}
         </p>
         <p className="mt-1 text-xs text-slate-500">{hint}</p>

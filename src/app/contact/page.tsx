@@ -17,7 +17,7 @@ export default function ContactPage() {
       <ContactHero />
 
       <section id="contact-form" className="section-padding bg-slate-50 scroll-mt-20">
-        <div className="page-container">
+        <div className="page-container max-w-6xl mx-auto">
           <div className="grid grid-cols-1 items-stretch gap-8 lg:grid-cols-2 lg:gap-10 xl:gap-12">
             <ContactInfo />
             <ContactForm className="lg:sticky lg:top-24 lg:self-start" />
