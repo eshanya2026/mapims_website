@@ -18,6 +18,7 @@ export type ContentPost = {
   featured: boolean;
   isIncoming?: boolean;
   eventDate?: string;
+  sortOrder?: number;
 };
 
 export type ContentJob = {
@@ -72,6 +73,7 @@ function mapPost(post: {
   featured: boolean;
   isIncoming?: boolean;
   eventDate?: string | null;
+  sortOrder?: number;
 }): ContentPost {
   let isIncoming = Boolean(post.isIncoming);
   if (isIncoming && post.eventDate) {
@@ -102,6 +104,7 @@ function mapPost(post: {
     featured: post.featured,
     isIncoming,
     eventDate: post.eventDate || undefined,
+    sortOrder: post.sortOrder,
   };
 }
 
@@ -165,7 +168,39 @@ export async function getPublishedPosts(
       });
     }
 
-    // For hospitals-news and all other sections: sort from Latest to Older (newest published date first)
+    if (section === "hospitals-news") {
+      // 1. Pinned hospital announcement articles (non-video posts) remain strictly at the top (top 3 posts)
+      const preferredArticleOrder = [
+        "special-benefits-for-general-ward-inpatients-at-adhiparasakthi-hospital",
+        "ent-surgery-special-concession-packages",
+        "special-concession-packages-for-ent-surgical-procedures",
+        "special-concession-packages-for-general-surgery-procedures",
+      ];
+
+      const articles = mapped
+        .filter((p) => !p.video)
+        .sort((a, b) => {
+          const idxA = preferredArticleOrder.indexOf(a.slug);
+          const idxB = preferredArticleOrder.indexOf(b.slug);
+          if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+          if (idxA !== -1) return -1;
+          if (idxB !== -1) return 1;
+          return (a.sortOrder ?? 0) - (b.sortOrder ?? 0);
+        });
+
+      // 2. Immediately after those 3 posts, ALL video posts are arranged strictly from LATEST TO OLDER
+      const videos = mapped
+        .filter((p) => Boolean(p.video))
+        .sort((a, b) => {
+          const timeA = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
+          const timeB = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
+          return timeB - timeA;
+        });
+
+      return [...articles, ...videos];
+    }
+
+    // For all other sections: strictly latest to older by publishedAt
     return mapped.sort((a, b) => {
       const timeA = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
       const timeB = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;

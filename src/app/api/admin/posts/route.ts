@@ -39,11 +39,15 @@ export async function POST(request: Request) {
     }
 
     const data = parsed.data;
-    // Shift existing posts down so this newly published post takes top position (sortOrder: 0)
-    await shiftSortOrderInSection(data.section);
-
     const videoUrl = data.video?.trim() || null;
     let featuredImage = data.image?.trim();
+
+    // In Hospitals News, the 3 key announcement articles stay pinned at sortOrder 0, 1, 2.
+    // New video posts start right after them at sortOrder 3.
+    const isHospitalNewsVideo =
+      data.section === "hospitals-news" && Boolean(videoUrl);
+    const targetSortOrder = isHospitalNewsVideo ? 3 : 0;
+    await shiftSortOrderInSection(data.section, targetSortOrder);
 
     if (videoUrl) {
       const ig = parseInstagramUrl(videoUrl);
@@ -83,7 +87,7 @@ export async function POST(request: Request) {
       author: data.author?.trim() || "Adhiparasakthi Hospitals",
       video: videoUrl,
       eventDate: data.eventDate || null,
-      sortOrder: 0,
+      sortOrder: targetSortOrder,
       publishedAt: publishedAtDate,
     });
 

@@ -111,10 +111,13 @@ export async function getMaxSortOrderInSection(section: string) {
   return doc?.sortOrder ?? -1;
 }
 
-export async function shiftSortOrderInSection(section: string) {
+export async function shiftSortOrderInSection(section: string, fromSortOrder = 0) {
   const collection = await postsCollection();
   await collection.updateMany(
-    mergeNotDeleted({ section }),
+    mergeNotDeleted({
+      section,
+      sortOrder: { $gte: fromSortOrder },
+    }),
     { $inc: { sortOrder: 1 }, $set: { updatedAt: now() } }
   );
 }

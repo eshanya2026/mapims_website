@@ -28,6 +28,27 @@ export type AdminPostRecord = PostFormData & {
 export function sortAdminPosts(posts: AdminPostRecord[]) {
   return [...posts].sort((a, b) => {
     if (a.section !== b.section) return a.section.localeCompare(b.section);
+
+    if (a.section === "hospitals-news") {
+      const aIsVideo = Boolean(a.video?.trim());
+      const bIsVideo = Boolean(b.video?.trim());
+
+      // Pinned non-video announcement articles come first
+      if (!aIsVideo && bIsVideo) return -1;
+      if (aIsVideo && !bIsVideo) return 1;
+
+      // Between articles: preserve sortOrder
+      if (!aIsVideo && !bIsVideo) {
+        if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
+      }
+
+      // Between videos: strictly latest to older (newest published date first)
+      const timeA = a.publishedAt ? new Date(a.publishedAt).getTime() : 0;
+      const timeB = b.publishedAt ? new Date(b.publishedAt).getTime() : 0;
+      if (timeA !== timeB) return timeB - timeA;
+      return a.sortOrder - b.sortOrder;
+    }
+
     if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
     return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
   });
