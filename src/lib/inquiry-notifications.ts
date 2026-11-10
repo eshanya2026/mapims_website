@@ -518,8 +518,14 @@ export async function sendInquiryReplyEmail({
     </div>
   `.trim();
 
+  const fromName = isInternational
+    ? "MAPIMS International Patient Desk"
+    : "Adhiparasakthi Hospitals";
+  const fromAddress = `"${fromName}" <${process.env.SMTP_USER || replyEmail}>`;
+
   await sendMail({
     to: recipientEmail,
+    from: fromAddress,
     replyTo: replyEmail,
     subject,
     text: textLines,

@@ -347,8 +347,11 @@ export async function sendAppointmentReplyEmail({
     </div>
   `.trim();
 
+  const fromAddress = `"MAPIMS Appointment Desk" <${process.env.SMTP_USER || APPOINTMENT_CONTACT_EMAIL}>`;
+
   await sendMail({
     to: recipientEmail,
+    from: fromAddress,
     subject,
     text: textLines,
     html,

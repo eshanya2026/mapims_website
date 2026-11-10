@@ -73,7 +73,7 @@ function ContactCard({
   hint: string;
   external?: boolean;
 }) {
-  const isLong = value.length > 18;
+  const isLong = value.length > 16;
 
   return (
     <a
@@ -81,13 +81,13 @@ function ContactCard({
       target={external ? "_blank" : undefined}
       rel={external ? "noopener noreferrer" : undefined}
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200/80",
+        "group relative flex h-full flex-col overflow-hidden rounded-2xl bg-white p-4.5 sm:p-5 shadow-sm ring-1 ring-slate-200/80",
         "transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:ring-red-200"
       )}
     >
       <span className="absolute inset-y-0 left-0 w-1 bg-red-600 transition-all group-hover:w-1.5" />
-      <ArrowUpRight className="absolute right-4 top-4 h-4 w-4 text-slate-300 transition-colors group-hover:text-red-500" />
-      <div className="pl-2">
+      <ArrowUpRight className="absolute right-3.5 top-3.5 h-4 w-4 text-slate-300 transition-colors group-hover:text-red-500" />
+      <div className="pl-1 sm:pl-1.5">
         <span className="flex h-10 w-10 items-center justify-center rounded-full bg-red-50 text-red-600">
           <Icon className="h-4 w-4" aria-hidden />
         </span>
@@ -95,10 +95,11 @@ function ContactCard({
           {label}
         </p>
         <p
+          title={value}
           className={cn(
             "mt-1 font-bold text-slate-900 transition-colors group-hover:text-red-600",
             isLong
-              ? "text-sm leading-snug sm:text-[15px] break-all sm:break-normal"
+              ? "text-[13px] sm:text-[13px] lg:text-[12.5px] xl:text-[14px] leading-snug tracking-tight whitespace-nowrap overflow-hidden text-ellipsis"
               : "text-base sm:text-lg break-words"
           )}
         >
