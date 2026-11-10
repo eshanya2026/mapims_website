@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 const heroButtonBase =
   "inline-flex h-12 items-center justify-center rounded-full px-8 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 active:translate-y-px";
 
-const HOSPITAL_EMAIL = process.env.NEXT_PUBLIC_HOSPITAL_EMAIL || "contact@mapims.edu.in";
+const HOSPITAL_EMAIL = process.env.NEXT_PUBLIC_HOSPITAL_EMAIL || "contact@mapims.online";
 const TOLL_FREE_PHONE = process.env.NEXT_PUBLIC_TOLL_FREE_PHONE || "1800 599 0999";
 
 export default function ContactHero() {

@@ -15,7 +15,7 @@ import { ScrollReveal } from "@/components/ui/scroll-reveal";
 const ADDRESS =
   "Adhiparasakthi Hospitals, Melmaruvathur, Kancheepuram District, Tamil Nadu, India 603319";
 
-const HOSPITAL_EMAIL = process.env.NEXT_PUBLIC_HOSPITAL_EMAIL || "contact@mapims.edu.in";
+const HOSPITAL_EMAIL = process.env.NEXT_PUBLIC_HOSPITAL_EMAIL || "contact@mapims.online";
 const TOLL_FREE_PHONE = process.env.NEXT_PUBLIC_TOLL_FREE_PHONE || "1800 599 0999";
 
 const primaryContacts = [

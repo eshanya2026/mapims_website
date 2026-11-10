@@ -3,7 +3,7 @@ import { requireApiPermission } from "@/lib/admin-api-auth";
 import { canAccessEnquiryType } from "@/lib/admin-roles";
 import { addInquiryReply, findFormSubmissionById } from "@/lib/db/form-submissions";
 import { sendAppointmentReplyEmail } from "@/lib/appointment-notifications";
-import { sendInsuranceReplyEmail } from "@/lib/inquiry-notifications";
+import { sendInquiryReplyEmail, sendInsuranceReplyEmail } from "@/lib/inquiry-notifications";
 import { isValidInquiryStatusForType } from "@/lib/inquiry-status";
 
 type RouteContext = { params: Promise<{ id: string }> };
@@ -51,7 +51,11 @@ export async function POST(request: Request, context: RouteContext) {
     const defaultSender =
       inquiry.type === "appointment"
         ? "Appointment Desk Coordinator"
-        : "Insurance Desk Coordinator";
+        : inquiry.type === "international"
+        ? "International Patient Coordinator"
+        : inquiry.type === "insurance"
+        ? "Insurance Desk Coordinator"
+        : "Patient Services Coordinator";
     const senderName = auth.session.name || auth.session.email || defaultSender;
 
     // 1. Send the email directly to the recipient from the respective department email
@@ -62,8 +66,15 @@ export async function POST(request: Request, context: RouteContext) {
         subject: rawSubject || undefined,
         senderName,
       });
-    } else {
+    } else if (inquiry.type === "insurance") {
       await sendInsuranceReplyEmail({
+        submission: inquiry,
+        replyMessage: rawMessage,
+        subject: rawSubject || undefined,
+        senderName,
+      });
+    } else {
+      await sendInquiryReplyEmail({
         submission: inquiry,
         replyMessage: rawMessage,
         subject: rawSubject || undefined,

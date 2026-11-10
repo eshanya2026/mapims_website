@@ -69,7 +69,7 @@ export function newsletterOneClickUnsubscribeUrl(email: string) {
 const NEWSLETTER_CONTACT_EMAIL =
   process.env.NEWSLETTER_CONTACT_EMAIL?.trim() ||
   process.env.HOSPITAL_CONTACT_EMAIL?.trim() ||
-  "contact@mapims.edu.in";
+  "contact@mapims.online";
 
 export function buildNewsletterListHeaders(email: string) {
   const oneClickUrl = newsletterOneClickUnsubscribeUrl(email);

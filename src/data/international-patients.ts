@@ -102,8 +102,8 @@ export const internationalDesk = {
   phoneTel: "tel:+919499059966",
   phoneDisplay: "+91 94990 59966",
   whatsappUrl: "https://wa.me/919499059966",
-  email: "contact@mapims.edu.in",
-  mailto: "mailto:contact@mapims.edu.in",
+  email: "contact@mapims.online",
+  mailto: "mailto:contact@mapims.online",
   address:
     "Adhiparasakthi Hospitals, Melmaruvathur, Kancheepuram District, Tamil Nadu 603319, India",
   mapsUrl:
@@ -333,7 +333,7 @@ export const internationalFaqs = [
   {
     question: "How do I register as an international patient?",
     answer:
-      "Contact our International Patient Department by calling 1800 599 0999, +91 94990 59966, or emailing contact@mapims.edu.in. Share your medical reports and travel details — a dedicated coordinator will guide you through registration, specialist assignment, and treatment planning.",
+      "Contact our International Patient Department by calling 1800 599 0999, +91 94990 59966, or emailing contact@mapims.online. Share your medical reports and travel details — a dedicated coordinator will guide you through registration, specialist assignment, and treatment planning.",
   },
   {
     question: "Do you provide airport pick-up and drop-off?",

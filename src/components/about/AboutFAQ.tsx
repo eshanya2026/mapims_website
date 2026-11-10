@@ -22,7 +22,7 @@ const faqs: FaqItem[] = [
   {
     question: "How can I book an appointment or reach emergency care?",
     answer:
-      "You can book an appointment online through our website, call +91 94990 59966, or email contact@mapims.edu.in. For emergencies, our 24/7 emergency and trauma teams are available around the clock.",
+      "You can book an appointment online through our website, call +91 94990 59966, or email contact@mapims.online. For emergencies, our 24/7 emergency and trauma teams are available around the clock.",
   },
 ];
 

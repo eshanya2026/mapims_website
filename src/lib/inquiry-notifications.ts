@@ -2,7 +2,17 @@ import type { FormSubmissionRecord } from "@/lib/db/types";
 import { getHrNotificationEmail, getSiteUrl, sendMail } from "@/lib/mail";
 
 const HOSPITAL_CONTACT_EMAIL =
-  process.env.HOSPITAL_CONTACT_EMAIL?.trim() || "contact@mapims.edu.in";
+  process.env.HOSPITAL_CONTACT_EMAIL?.trim() ||
+  process.env.INQUIRY_NOTIFICATION_EMAIL?.trim() ||
+  "contact@mapims.online";
+const INTERNATIONAL_CONTACT_EMAIL =
+  process.env.INTERNATIONAL_CONTACT_EMAIL?.trim() ||
+  process.env.HOSPITAL_CONTACT_EMAIL?.trim() ||
+  "contact@mapims.online";
+const INTERNATIONAL_NOTIFICATION_EMAIL =
+  process.env.INTERNATIONAL_NOTIFICATION_EMAIL?.trim() ||
+  process.env.INQUIRY_NOTIFICATION_EMAIL?.trim() ||
+  "contact@mapims.online";
 const HOSPITAL_CONTACT_PHONE =
   process.env.HOSPITAL_CONTACT_PHONE?.trim() || "+91 94990 59966";
 const INTERNATIONAL_DESK_PHONE =
@@ -77,8 +87,12 @@ export function buildInquiryConfirmationEmail(submission: FormSubmissionRecord) 
       : undefined,
     submission.message?.trim() ? `Message:\n${submission.message.trim()}` : undefined,
     "",
-    isInsurance ? "Insurance Desk Contact" : "Hospitals Contact",
-    `Email: ${isInsurance ? INSURANCE_CONTACT_EMAIL : HOSPITAL_CONTACT_EMAIL}`,
+    isInsurance
+      ? "Insurance Desk Contact"
+      : isInternational
+        ? "International Patient Desk Contact"
+        : "Hospital Contact",
+    `Email: ${isInsurance ? INSURANCE_CONTACT_EMAIL : isInternational ? INTERNATIONAL_CONTACT_EMAIL : HOSPITAL_CONTACT_EMAIL}`,
     ...(isInsurance
       ? [
           `Direct Insurance Helpline: ${INSURANCE_CONTACT_PHONE}`,
@@ -143,10 +157,10 @@ export function buildInquiryConfirmationEmail(submission: FormSubmissionRecord) 
 
       <div style="margin:0 0 24px;padding:16px;background:#fef2f2;border:1px solid #fecaca;border-radius:12px;">
         <p style="margin:0 0 8px;font-size:14px;font-weight:700;color:#991b1b;">
-          ${isInsurance ? "Insurance Desk Contact Details" : "Hospital Contact Details"}
+          ${isInsurance ? "Insurance Desk Contact Details" : isInternational ? "International Patient Desk Contact Details" : "Hospital Contact Details"}
         </p>
         <p style="margin:0;font-size:13px;color:#7f1d1d;line-height:1.6;">
-          Email: <a href="mailto:${isInsurance ? INSURANCE_CONTACT_EMAIL : HOSPITAL_CONTACT_EMAIL}" style="color:#dc2626;text-decoration:none;font-weight:600;">${isInsurance ? INSURANCE_CONTACT_EMAIL : HOSPITAL_CONTACT_EMAIL}</a><br />
+          Email: <a href="mailto:${isInsurance ? INSURANCE_CONTACT_EMAIL : isInternational ? INTERNATIONAL_CONTACT_EMAIL : HOSPITAL_CONTACT_EMAIL}" style="color:#dc2626;text-decoration:none;font-weight:600;">${isInsurance ? INSURANCE_CONTACT_EMAIL : isInternational ? INTERNATIONAL_CONTACT_EMAIL : HOSPITAL_CONTACT_EMAIL}</a><br />
           ${
             isInsurance
               ? `Direct Insurance Helpline: <strong>${INSURANCE_CONTACT_PHONE}</strong><br />Hospital General Phone: <strong>${HOSPITAL_CONTACT_PHONE}</strong>`
@@ -321,6 +335,7 @@ export async function notifyPatientOfInquiry(submission: FormSubmissionRecord) {
   }
 
   const isInsurance = submission.type === "insurance";
+  const isInternational = submission.type === "international";
   const { subject, text, html } = buildInquiryConfirmationEmail(submission);
 
   await sendMail({
@@ -328,15 +343,28 @@ export async function notifyPatientOfInquiry(submission: FormSubmissionRecord) {
     subject,
     text,
     html,
-    replyTo: isInsurance ? INSURANCE_CONTACT_EMAIL : HOSPITAL_CONTACT_EMAIL,
+    replyTo: isInsurance
+      ? INSURANCE_CONTACT_EMAIL
+      : isInternational
+        ? INTERNATIONAL_CONTACT_EMAIL
+        : HOSPITAL_CONTACT_EMAIL,
   });
 }
 
 export async function notifyHospitalOfInquiry(submission: FormSubmissionRecord) {
   const isInsurance = submission.type === "insurance";
+  const isInternational = submission.type === "international";
+
   const notificationEmail = isInsurance
     ? process.env.INSURANCE_NOTIFICATION_EMAIL?.trim() || INSURANCE_CONTACT_EMAIL
-    : process.env.INQUIRY_NOTIFICATION_EMAIL?.trim() || getHrNotificationEmail();
+    : isInternational
+      ? process.env.INTERNATIONAL_NOTIFICATION_EMAIL?.trim() ||
+        process.env.INQUIRY_NOTIFICATION_EMAIL?.trim() ||
+        INTERNATIONAL_NOTIFICATION_EMAIL
+      : process.env.INQUIRY_NOTIFICATION_EMAIL?.trim() ||
+        process.env.HOSPITAL_CONTACT_EMAIL?.trim() ||
+        HOSPITAL_CONTACT_EMAIL;
+
   if (!notificationEmail) {
     return;
   }
@@ -350,6 +378,155 @@ export async function notifyHospitalOfInquiry(submission: FormSubmissionRecord) 
     html,
     replyTo: submission.email?.trim() || undefined,
   });
+}
+
+export async function sendInquiryReplyEmail({
+  submission,
+  replyMessage,
+  subject: customSubject,
+  senderName,
+}: {
+  submission: FormSubmissionRecord;
+  replyMessage: string;
+  subject?: string;
+  senderName?: string;
+}) {
+  const recipientEmail = submission.email?.trim();
+  if (!recipientEmail) {
+    throw new Error("Inquiry submission does not have a recipient email address.");
+  }
+
+  const patientName = submission.name.trim();
+  const isInternational = submission.type === "international";
+  const deskTitle = isInternational
+    ? "International Patient Desk"
+    : "Patient Services & Hospital Desk";
+  const replyEmail = isInternational
+    ? INTERNATIONAL_CONTACT_EMAIL
+    : HOSPITAL_CONTACT_EMAIL;
+
+  const subject =
+    customSubject?.trim() ||
+    `Re: MAPIMS ${deskTitle} - ${patientName} [${submission.referenceId || submission.id}]`;
+
+  const cleanReply = replyMessage.trim();
+  const cleanOriginal = submission.message?.trim() || "";
+  const hospitalPhone =
+    process.env.HOSPITAL_CONTACT_PHONE?.trim() || "+91 94990 59966";
+  const tollFreePhone =
+    process.env.INTERNATIONAL_DESK_PHONE?.trim() || "1800 599 0999";
+
+  const textLines = [
+    `Dear ${patientName},`,
+    "",
+    cleanReply,
+    "",
+    "--------------------------------------------------",
+    "ORIGINAL QUERY DETAILS:",
+    `Name: ${patientName}`,
+    isInternational && submission.country ? `Country: ${submission.country}` : undefined,
+    isInternational && submission.medicalCondition
+      ? `Medical Condition: ${submission.medicalCondition}`
+      : undefined,
+    submission.phone ? `Contact Phone: ${submission.phone}` : undefined,
+    submission.referenceId ? `Reference ID: ${submission.referenceId}` : undefined,
+    cleanOriginal ? `Your Message:\n${cleanOriginal}` : undefined,
+    "--------------------------------------------------",
+    "",
+    "Need further assistance?",
+    `Official Email: ${replyEmail}`,
+    isInternational ? `International Toll Free: ${tollFreePhone}` : undefined,
+    `Hospital General Phone: ${hospitalPhone}`,
+    "",
+    "Warm regards,",
+    senderName ? `${senderName} (${deskTitle})` : deskTitle,
+    "Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research (MAPIMS)",
+    "GST Road, Melmaruvathur, Tamil Nadu 603319",
+  ]
+    .filter((line) => line !== undefined)
+    .join("\n");
+
+  const html = `
+    <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;max-width:620px;margin:0 auto;padding:0;background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;color:#1e293b;line-height:1.6;">
+      <div style="background:linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);padding:24px 28px;color:#ffffff;">
+        <p style="margin:0;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fecaca;">Melmaruvathur Adhiparasakthi Institute of Medical Sciences (MAPIMS)</p>
+        <h1 style="margin:6px 0 0;font-size:20px;font-weight:700;color:#ffffff;">
+          ${deskTitle} Update
+        </h1>
+        ${
+          submission.referenceId
+            ? `<p style="margin:6px 0 0;font-size:13px;color:#fecaca;">Reference ID: <strong style="color:#ffffff;">${escapeHtml(submission.referenceId)}</strong></p>`
+            : ""
+        }
+      </div>
+
+      <div style="padding:28px;">
+        <p style="margin:0 0 16px;font-size:15px;color:#0f172a;font-weight:600;">Dear ${escapeHtml(patientName)},</p>
+
+        <div style="margin:0 0 24px;padding:18px 20px;background:#f8fafc;border-left:4px solid #dc2626;border-radius:6px;font-size:14px;color:#1e293b;line-height:1.7;white-space:pre-wrap;">${escapeHtml(cleanReply)}</div>
+
+        <div style="margin:0 0 24px;padding:16px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;">
+          <p style="margin:0 0 8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#475569;">
+            Your Original Inquiry
+          </p>
+          <table style="width:100%;border-collapse:collapse;font-size:13px;color:#334155;">
+            <tbody>
+              ${
+                isInternational && submission.country
+                  ? `<tr><td style="padding:4px 0;width:140px;color:#64748b;font-weight:600;">Country:</td><td style="padding:4px 0;">${escapeHtml(submission.country)}</td></tr>`
+                  : ""
+              }
+              ${
+                isInternational && submission.medicalCondition
+                  ? `<tr><td style="padding:4px 0;width:140px;color:#64748b;font-weight:600;">Condition:</td><td style="padding:4px 0;">${escapeHtml(submission.medicalCondition)}</td></tr>`
+                  : ""
+              }
+              ${
+                submission.phone
+                  ? `<tr><td style="padding:4px 0;width:140px;color:#64748b;font-weight:600;">Contact Phone:</td><td style="padding:4px 0;">${escapeHtml(submission.phone)}</td></tr>`
+                  : ""
+              }
+              ${
+                cleanOriginal
+                  ? `<tr><td style="padding:4px 0;width:140px;color:#64748b;font-weight:600;vertical-align:top;">Query Message:</td><td style="padding:4px 0;white-space:pre-wrap;">${escapeHtml(cleanOriginal)}</td></tr>`
+                  : ""
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div style="margin:0 0 24px;padding:16px 20px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;">
+          <p style="margin:0 0 8px;font-size:13px;font-weight:700;color:#991b1b;">
+            ${deskTitle} Contact
+          </p>
+          <p style="margin:0;font-size:13px;color:#7f1d1d;line-height:1.6;">
+            <strong>Email:</strong> <a href="mailto:${escapeHtml(replyEmail)}" style="color:#dc2626;text-decoration:none;font-weight:700;">${escapeHtml(replyEmail)}</a><br />
+            ${isInternational ? `<strong>Toll Free:</strong> ${escapeHtml(tollFreePhone)}<br />` : ""}
+            <strong>Hospital Main Line:</strong> ${escapeHtml(hospitalPhone)}
+          </p>
+        </div>
+
+        <div style="border-top:1px solid #e2e8f0;padding-top:16px;font-size:13px;color:#475569;line-height:1.6;">
+          <p style="margin:0 0 4px;font-weight:700;color:#0f172a;">${escapeHtml(senderName || deskTitle)}</p>
+          <p style="margin:0;color:#64748b;">
+            ${deskTitle}<br />
+            Melmaruvathur Adhiparasakthi Institute of Medical Sciences and Research (MAPIMS)<br />
+            GST Road, Melmaruvathur, Tamil Nadu 603319
+          </p>
+        </div>
+      </div>
+    </div>
+  `.trim();
+
+  await sendMail({
+    to: recipientEmail,
+    replyTo: replyEmail,
+    subject,
+    text: textLines,
+    html,
+  });
+
+  return { success: true };
 }
 
 export async function sendInsuranceReplyEmail({
