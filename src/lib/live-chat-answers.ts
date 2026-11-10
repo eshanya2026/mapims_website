@@ -1,5 +1,6 @@
 import { liveChatContact } from "@/data/live-chat";
 import { internationalDesk } from "@/data/international-patients";
+import { healthPackages } from "@/data/health-packages";
 import { mapimsHealthCheckupUrl } from "@/data/site-links";
 
 const CANNED_REPLY_DELAY_MS = 900;
@@ -26,23 +27,26 @@ If you need help choosing a department or doctor, let me know your symptoms or m
 }
 
 export function buildHealthCheckupChatAnswer(): string {
-  return `🩺 Health Checkup Packages
+  const packageList = healthPackages
+    .map(
+      (pkg, i) =>
+        `${i + 1}. ${pkg.name} — ${pkg.priceLabel}\n   Includes ${pkg.tests.length} tests: ${pkg.tests.slice(0, 4).join(", ")} & specialist consultation.`
+    )
+    .join("\n\n");
 
-MAPIMS offers preventive health screening packages including:
+  return `🩺 Master Health Checkup Packages
 
-• Master Health Checkup
-• Complete Health Checkup
-• Cardio Health Checkup
-• Well Women Executive Checkup
+MAPIMS offers 6 comprehensive preventive health checkup packages:
 
-📅 Book Online:
+${packageList}
+
+📅 Book Online & AI Health Assessment:
 ${mapimsHealthCheckupUrl}
 
-📞 Phone:
-${liveChatContact.phone}
+📞 General Enquiries: ${liveChatContact.phone}
+📧 Email: ${liveChatContact.email}
 
-📧 Email:
-${liveChatContact.email}`;
+Would you like the full test breakdown for any specific package?`;
 }
 
 export function buildInternationalPatientChatAnswer(): string {

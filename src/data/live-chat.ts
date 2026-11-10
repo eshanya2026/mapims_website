@@ -124,7 +124,7 @@ export const liveChatFaqs: LiveChatFaq[] = [
     id: "health-packages",
     question: "What master health checkup packages are available?",
     answer:
-      "We offer comprehensive preventive health checkup packages including Master Health Checkup, Executive Whole Body Checkup, Cardio Health Checkup, Diabetic Checkup, and Well-Women Checkup with same-day report consultations. Inquire at the front desk or book online via our Master Health Checkup portal.",
+      "MAPIMS offers 6 comprehensive preventive health checkup packages:\n1. Master Health Check Up Package – ₹999 (14 tests: CBC, Lipid, Sugars, Renal, TSH, Urine, ECG, Chest X-Ray, Abdomen USG, Physician & Dietician Consultation)\n2. Complete Health Check Up Package – ₹1,999 (16 tests: adds Liver Function Test LFT, detailed profile, Physician & Dietician Consultation)\n3. Cardio Health Check Up Package – ₹2,499 (22 tests: ECHO, Pulmonary Function Test, Audiogram, TFT, LFT, Cardiologist & Dietician Consultation)\n4. Diabetic Health Check Package – ₹2,499 (20 tests: HbA1c, ECHO, Retinal Fundus Photograph, Diabetic Foot Examination, Diabetologist & Diet Counselling)\n5. Well Women Checkup Executive Package – ₹2,999 (22 tests: Mammogram / Breast USG, Pap Smear, Pelvis USG, ECHO, Gynecologist & Cardiologist Consultation)\n6. Premium Diabetic Health Check Package – ₹4,999 (24 tests: adds Doppler foot arteries, Vitamin D, Amylase, ECHO, Diabetologist & Cardiologist Consultation)\nBook online via our Master Health Checkup portal (https://mh.mapims.edu.in/) or call +91 94990 59966.",
   },
   {
     id: "blood-bank-pharmacy",

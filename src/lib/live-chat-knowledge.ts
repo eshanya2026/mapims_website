@@ -1,4 +1,5 @@
 import { departments } from "@/data/departments";
+import { healthPackages } from "@/data/health-packages";
 import { liveChatContact, liveChatFaqs } from "@/data/live-chat";
 import { buildUnknownQuestionFallback } from "@/lib/live-chat-answers";
 import { mapimsHealthCheckupUrl, patientFeedbackUrl } from "@/data/site-links";
@@ -7,6 +8,13 @@ export function buildLiveChatKnowledgeBase(): string {
   const departmentLines = departments
     .map((dept) => `- ${dept.name}: ${dept.description}`)
     .join("\n");
+
+  const healthPackageLines = healthPackages
+    .map(
+      (pkg, idx) =>
+        `${idx + 1}. ${pkg.name} — ${pkg.priceLabel}\n   Tests & Consultations (${pkg.tests.length} tests): ${pkg.tests.join(", ")}`
+    )
+    .join("\n\n");
 
   const faqLines = liveChatFaqs
     .map((faq) => `Q: ${faq.question}\nA: ${faq.answer}`)
@@ -113,11 +121,14 @@ HOSPITAL SERVICES (24/7 & SPECIALIZED):
 - 24/7 Blood Bank with licensed component separation (PRBC, Platelets, FFP, Cryoprecipitate)
 - 24/7 Pharmacy stocking emergency and critical care drugs
 - 24/7 Advanced Life Support (ALS) Ambulance with ventilators and resuscitation units
-- Master Health Checkup & Executive Preventive Screening packages
 - Central Diagnostic Laboratory with automated biochemistry, pathology, and microbiology
 - Dialysis Center with modern hemodialysis stations
 - Physiotherapy & Neuro-Rehabilitation Center
 - BLISS Skill Lab simulation training center
+
+MASTER HEALTH CHECKUP PACKAGES (6 AVAILABLE PACKAGES):
+${healthPackageLines}
+Online Booking & AI Health Assessment Link: ${mapimsHealthCheckupUrl}
 
 DEPARTMENTS / SPECIALITIES:
 ${departmentLines}
@@ -207,12 +218,14 @@ HEALTH INSURANCE & CASHLESS:
 📧 Email: ${liveChatContact.insuranceEmail}
 
 HEALTH CHECKUP PACKAGES:
-🩺 Health Checkup Packages
-• Master Health Checkup
-• Complete Health Checkup
-• Cardio Health Checkup
-• Well Women Executive Checkup
-📅 Book Online: ${mapimsHealthCheckupUrl}
+🩺 Master Health Checkup Packages (6 Available):
+1. Master Health Check Up Package (₹999): 14 tests (CBC, Lipid, Blood Sugar, Renal, TSH, Urine, ECG, Chest X-Ray, Abdomen USG, Physician & Dietician)
+2. Complete Health Check Up Package (₹1,999): 16 tests (adds Liver Function Test LFT, Renal, USG Abdomen, Chest X-Ray, ECG, Physician Advice)
+3. Cardio Health Check Up Package (₹2,499): 22 tests (ECHO, Pulmonary Function Test PFT, Audiogram, TFT, LFT, CBC, Lipid, Cardiologist Consultation)
+4. Diabetic Health Check Package (₹2,499): 20 tests (HbA1c, ECHO, Retinal Fundus Eye Exam, Foot Exam, Diabetologist Consultation)
+5. Well Women Checkup Executive Package (₹2,999): 22 tests (Mammogram / Breast USG, Pap Smear, Pelvis USG, ECHO, Gynecologist & Cardiologist)
+6. Premium Diabetic Health Check Package (₹4,999): 24 tests (adds Doppler foot arteries, Vitamin D, Amylase, ECHO, Diabetologist & Cardiologist)
+📅 Book Online / AI Assessment: ${mapimsHealthCheckupUrl}
 📞 Phone: ${liveChatContact.phone}
 📧 Email: ${liveChatContact.email}
 
