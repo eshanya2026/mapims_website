@@ -25,6 +25,14 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/uploads/videos/ig-:id-thumb.jpg",
+        destination: "/api/video/thumbnail?id=:id",
+      },
+    ];
+  },
   // Allow phone/tablet on your LAN to load dev assets (use Network URL from `npm run dev`)
   allowedDevOrigins: ["192.168.101.45"],
   turbopack: {

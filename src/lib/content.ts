@@ -1,6 +1,7 @@
 import { findJobs } from "@/lib/db/jobs";
 import { findPosts } from "@/lib/db/posts";
 import type { BlogSection } from "@/data/blog-posts";
+import { decodeHtmlEntities } from "@/lib/html-utils";
 
 export type ContentPost = {
   id: string;
@@ -88,18 +89,18 @@ function mapPost(post: {
   return {
     id: post.id,
     slug: post.slug,
-    title: post.title,
+    title: decodeHtmlEntities(post.title),
     date: formatDate(post.publishedAt),
     publishedAt:
       post.publishedAt instanceof Date
         ? post.publishedAt.toISOString()
         : new Date(post.publishedAt).toISOString(),
-    author: post.author ?? undefined,
+    author: post.author ? decodeHtmlEntities(post.author) : undefined,
     category: post.category,
     section: normalizeBlogSection(post.section),
     image: post.image,
     video: post.video || undefined,
-    excerpt: post.excerpt,
+    excerpt: decodeHtmlEntities(post.excerpt),
     content: post.content,
     featured: post.featured,
     isIncoming,

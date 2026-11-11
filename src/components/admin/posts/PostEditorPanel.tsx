@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { CheckCircle2, Film, ImagePlus, Loader2, Trash2, Video, X } from "lucide-react";
+import { CheckCircle2, Film, ImagePlus, Loader2, Sparkles, Trash2, Video, X } from "lucide-react";
 import { InstagramIcon } from "@/components/layout/SocialIcons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -45,6 +45,9 @@ export default function PostEditorPanel({
   const [videoUploading, setVideoUploading] = useState(false);
   const [videoDragging, setVideoDragging] = useState(false);
   const [resolvingVideo, setResolvingVideo] = useState(false);
+  const [igCoverUrl, setIgCoverUrl] = useState("");
+  const [fetchingIgCover, setFetchingIgCover] = useState(false);
+  const [igCoverSuccess, setIgCoverSuccess] = useState(false);
 
   const [form, setForm] = useState<PostFormData>(() => ({
     ...createEmptyPost(defaultSection),
@@ -132,6 +135,46 @@ export default function PostEditorPanel({
       }
     },
     []
+  );
+
+  const handleFetchIgCover = useCallback(
+    async (inputUrl?: string) => {
+      const targetUrl = (inputUrl ?? igCoverUrl).trim();
+      if (!targetUrl) return;
+      setFetchingIgCover(true);
+      setError("");
+      setIgCoverSuccess(false);
+
+      try {
+        const res = await fetch("/api/admin/instagram-thumbnail", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: targetUrl }),
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          setError(data.error || "Failed to fetch Instagram cover image");
+          return;
+        }
+
+        if (data.url) {
+          updateField("image", data.url);
+          setIgCoverSuccess(true);
+          setTimeout(() => setIgCoverSuccess(false), 3000);
+        }
+
+        if (data.dateInput && !form.publishedAt) {
+          updateField("publishedAt", data.dateInput);
+        }
+      } catch (err) {
+        console.error("[PostEditorPanel] ig cover error:", err);
+        setError("Network error while fetching Instagram cover image");
+      } finally {
+        setFetchingIgCover(false);
+      }
+    },
+    [igCoverUrl, updateField, form.publishedAt]
   );
 
   async function uploadImage(file: File) {
@@ -334,50 +377,128 @@ export default function PostEditorPanel({
       </div>
 
       <div className="flex-1 space-y-4 overflow-y-auto px-5 py-4">
-        <div
-          onDragOver={(event) => {
-            event.preventDefault();
-            setDragging(true);
-          }}
-          onDragLeave={() => setDragging(false)}
-          onDrop={handleDrop}
-          className={cn(
-            "relative overflow-hidden rounded-xl border-2 border-dashed transition-colors",
-            dragging
-              ? "border-red-500 bg-red-50"
-              : "border-slate-200 bg-slate-50 hover:border-red-200"
-          )}
-        >
-          {form.image ? (
-            <img
-              src={form.image}
-              alt="Cover preview"
-              className="h-40 w-full object-cover"
-            />
-          ) : (
-            <div className="flex h-40 flex-col items-center justify-center gap-2 px-4 text-center">
-              <ImagePlus className="h-8 w-8 text-slate-400" />
-              <p className="text-sm font-medium text-slate-600">
-                Drag & drop cover image here
-              </p>
-              <p className="text-xs text-slate-400">or click to browse</p>
-            </div>
-          )}
+        {/* Cover Image Section */}
+        <div className="space-y-2.5">
+          <div className="flex items-center justify-between">
+            <label className="text-xs font-semibold text-slate-800">
+              Cover Image / Thumbnail *
+            </label>
+            {form.image ? (
+              <button
+                type="button"
+                onClick={() => updateField("image", "")}
+                className="inline-flex items-center gap-1 text-xs font-medium text-red-600 hover:text-red-700 hover:underline"
+              >
+                <Trash2 className="h-3 w-3" />
+                Remove image
+              </button>
+            ) : null}
+          </div>
 
-          <label className="absolute inset-0 cursor-pointer">
-            <input
-              type="file"
-              accept="image/*"
-              className="sr-only"
-              onChange={handleImageInput}
-            />
-          </label>
+          <div
+            onDragOver={(event) => {
+              event.preventDefault();
+              setDragging(true);
+            }}
+            onDragLeave={() => setDragging(false)}
+            onDrop={handleDrop}
+            className={cn(
+              "relative overflow-hidden rounded-xl border-2 border-dashed transition-colors",
+              dragging
+                ? "border-red-500 bg-red-50"
+                : "border-slate-200 bg-slate-50 hover:border-red-200"
+            )}
+          >
+            {form.image ? (
+              <div className="relative group">
+                <img
+                  src={form.image}
+                  alt="Cover preview"
+                  className="h-44 w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                  <label className="cursor-pointer px-3 py-1.5 rounded-lg bg-white/95 text-slate-800 text-xs font-semibold hover:bg-white shadow">
+                    Replace File
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="sr-only"
+                      onChange={handleImageInput}
+                    />
+                  </label>
+                </div>
+              </div>
+            ) : (
+              <label className="flex h-36 flex-col items-center justify-center gap-2 px-4 text-center cursor-pointer">
+                <ImagePlus className="h-8 w-8 text-slate-400" />
+                <p className="text-sm font-medium text-slate-600">
+                  Drag & drop cover image here
+                </p>
+                <p className="text-xs text-slate-400">or click to browse from device</p>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="sr-only"
+                  onChange={handleImageInput}
+                />
+              </label>
+            )}
 
-          {uploading ? (
-            <div className="absolute inset-0 flex items-center justify-center bg-white/80">
-              <Loader2 className="h-6 w-6 animate-spin text-red-600" />
+            {uploading ? (
+              <div className="absolute inset-0 flex items-center justify-center bg-white/80">
+                <Loader2 className="h-6 w-6 animate-spin text-red-600" />
+              </div>
+            ) : null}
+          </div>
+
+          {/* Quick Instagram / Video URL Thumbnail Fetcher */}
+          <div className="rounded-xl border border-pink-200 bg-gradient-to-r from-pink-50/70 via-purple-50/40 to-white p-3 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-800">
+                <InstagramIcon className="h-4 w-4 text-pink-600" />
+                Get Cover from Instagram URL
+              </span>
+              {igCoverSuccess ? (
+                <span className="flex items-center gap-1 text-[11px] font-medium text-emerald-600">
+                  <CheckCircle2 className="h-3.5 w-3.5" /> Cover updated!
+                </span>
+              ) : null}
             </div>
-          ) : null}
+            <div className="flex gap-2">
+              <Input
+                value={igCoverUrl}
+                onChange={(e) => setIgCoverUrl(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    void handleFetchIgCover();
+                  }
+                }}
+                placeholder="https://www.instagram.com/reel/... or /p/..."
+                className="h-8 text-xs bg-white border-pink-200 focus-visible:ring-pink-500 font-mono flex-1"
+              />
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                disabled={fetchingIgCover || !igCoverUrl.trim()}
+                onClick={() => void handleFetchIgCover()}
+                className="h-8 px-3 text-xs border-pink-300 text-pink-700 hover:bg-pink-100 hover:text-pink-800 shrink-0 font-medium"
+              >
+                {fetchingIgCover ? (
+                  <>
+                    <Loader2 className="h-3 w-3 animate-spin mr-1" />
+                    Fetching...
+                  </>
+                ) : (
+                  "Fetch Cover"
+                )}
+              </Button>
+            </div>
+            <p className="text-[11px] text-slate-500">
+              Paste any Instagram post or reel link to automatically grab and set its cover image thumbnail.
+            </p>
+          </div>
         </div>
 
         {/* Video / Instagram Section */}
@@ -407,11 +528,24 @@ export default function PostEditorPanel({
               <div className="space-y-1">
                 <div className="flex items-center justify-between">
                   <label className="text-[11px] font-medium text-slate-500">Video Link / Path</label>
-                  {resolvingVideo ? (
-                    <span className="flex items-center gap-1 text-[11px] text-pink-600 font-medium">
-                      <Loader2 className="h-3 w-3 animate-spin" /> Fetching thumbnail & stream...
-                    </span>
-                  ) : null}
+                  <div className="flex items-center gap-2">
+                    {resolvingVideo ? (
+                      <span className="flex items-center gap-1 text-[11px] text-pink-600 font-medium">
+                        <Loader2 className="h-3 w-3 animate-spin" /> Fetching stream...
+                      </span>
+                    ) : null}
+                    {form.video && form.video.includes("instagram.com") ? (
+                      <button
+                        type="button"
+                        onClick={() => void handleFetchIgCover(form.video)}
+                        disabled={fetchingIgCover}
+                        className="inline-flex items-center gap-1 text-[11px] font-medium text-pink-700 hover:text-pink-800 hover:underline"
+                      >
+                        <InstagramIcon className="h-3 w-3" />
+                        {fetchingIgCover ? "Setting..." : "Sync as Cover"}
+                      </button>
+                    ) : null}
+                  </div>
                 </div>
                 <Input
                   value={form.video}

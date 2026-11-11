@@ -114,6 +114,9 @@ export async function ensureInstagramThumbnailCached(
 
   const urls = [
     `https://www.eeinstagram.com/images/${cleanId}/1`,
+    `https://www.eeinstagram.com/images/${cleanId}/0`,
+    `https://eeinstagram.com/images/${cleanId}/1`,
+    `https://eeinstagram.com/images/${cleanId}/0`,
   ];
 
   for (const url of urls) {

@@ -48,6 +48,19 @@ export function parseInstagramUrl(input: string): { id: string; embedUrl: string
   return null;
 }
 
+export function extractInstagramShortcode(input: string): string | null {
+  if (!input || typeof input !== "string") return null;
+  const trimmed = input.trim();
+  const parsed = parseInstagramUrl(trimmed);
+  if (parsed?.id) return parsed.id;
+  const thumbMatch = trimmed.match(/\/uploads\/videos\/ig-([a-zA-Z0-9_-]+)-thumb\.jpg/i);
+  if (thumbMatch && thumbMatch[1]) return thumbMatch[1];
+  if (/^[a-zA-Z0-9_-]{9,15}$/.test(trimmed)) {
+    return trimmed;
+  }
+  return null;
+}
+
 export function parseYouTubeUrl(input: string): { id: string; embedUrl: string } | null {
   if (!input || typeof input !== "string") return null;
   const match = input.trim().match(YT_REGEX);

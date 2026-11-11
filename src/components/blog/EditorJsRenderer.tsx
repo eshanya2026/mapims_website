@@ -1,4 +1,5 @@
 import type { EditorJsBlock, EditorJsOutput } from "@/lib/editorjs-content";
+import { sanitizeInlineHtml } from "@/lib/html-utils";
 
 function renderListItems(items: unknown[], ordered: boolean, keyPrefix: string) {
   const Tag = ordered ? "ol" : "ul";
@@ -8,7 +9,12 @@ function renderListItems(items: unknown[], ordered: boolean, keyPrefix: string) 
     <Tag key={keyPrefix} className={`${listClass} space-y-2 pl-5 sm:pl-6`}>
       {items.map((item, index) => {
         if (typeof item === "string") {
-          return <li key={`${keyPrefix}-${index}`}>{item}</li>;
+          return (
+            <li
+              key={`${keyPrefix}-${index}`}
+              dangerouslySetInnerHTML={{ __html: sanitizeInlineHtml(item) }}
+            />
+          );
         }
 
         if (item && typeof item === "object" && "content" in item) {
@@ -17,7 +23,11 @@ function renderListItems(items: unknown[], ordered: boolean, keyPrefix: string) 
 
           return (
             <li key={`${keyPrefix}-${index}`}>
-              {record.content}
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: sanitizeInlineHtml(record.content || ""),
+                }}
+              />
               {nested.length > 0
                 ? renderListItems(nested, ordered, `${keyPrefix}-${index}-nested`)
                 : null}
@@ -43,33 +53,46 @@ function renderBlock(block: EditorJsBlock, index: number) {
             ? "pt-2 text-base font-semibold text-slate-900 sm:text-lg"
             : "pt-1 text-sm font-semibold text-slate-900 sm:text-base";
 
+      const cleanHtml = sanitizeInlineHtml(text);
+
       if (level <= 2) {
         return (
-          <h2 key={index} className={className}>
-            {text}
-          </h2>
+          <h2
+            key={index}
+            className={className}
+            dangerouslySetInnerHTML={{ __html: cleanHtml }}
+          />
         );
       }
 
       if (level === 3) {
         return (
-          <h3 key={index} className={className}>
-            {text}
-          </h3>
+          <h3
+            key={index}
+            className={className}
+            dangerouslySetInnerHTML={{ __html: cleanHtml }}
+          />
         );
       }
 
       return (
-        <h4 key={index} className={className}>
-          {text}
-        </h4>
+        <h4
+          key={index}
+          className={className}
+          dangerouslySetInnerHTML={{ __html: cleanHtml }}
+        />
       );
     }
 
     case "paragraph": {
       const text = String(block.data.text ?? "").trim();
       if (!text) return null;
-      return <p key={index}>{text}</p>;
+      return (
+        <p
+          key={index}
+          dangerouslySetInnerHTML={{ __html: sanitizeInlineHtml(text) }}
+        />
+      );
     }
 
     case "list": {
@@ -89,8 +112,16 @@ function renderBlock(block: EditorJsBlock, index: number) {
           key={index}
           className="border-l-4 border-red-200 bg-red-50/40 px-4 py-3 text-slate-700"
         >
-          <p className="italic">{text}</p>
-          {caption ? <footer className="mt-2 text-sm text-slate-500">— {caption}</footer> : null}
+          <p
+            className="italic"
+            dangerouslySetInnerHTML={{ __html: sanitizeInlineHtml(text) }}
+          />
+          {caption ? (
+            <footer
+              className="mt-2 text-sm text-slate-500"
+              dangerouslySetInnerHTML={{ __html: sanitizeInlineHtml(`— ${caption}`) }}
+            />
+          ) : null}
         </blockquote>
       );
     }

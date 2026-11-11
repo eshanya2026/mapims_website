@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { CheckCircle2, Loader2 } from "lucide-react";
+import { InstagramIcon } from "@/components/layout/SocialIcons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -44,6 +46,9 @@ export default function PostForm({ initial, mode }: PostFormProps) {
   const [error, setError] = useState("");
   const [uploading, setUploading] = useState(false);
   const [videoUploading, setVideoUploading] = useState(false);
+  const [igCoverUrl, setIgCoverUrl] = useState("");
+  const [fetchingIgCover, setFetchingIgCover] = useState(false);
+  const [igCoverSuccess, setIgCoverSuccess] = useState(false);
 
   const [form, setForm] = useState<PostFormData>({
     title: initial?.title ?? "",
@@ -91,6 +96,38 @@ export default function PostForm({ initial, mode }: PostFormProps) {
       setError("Image upload failed");
     }
     setUploading(false);
+  }
+
+  async function handleFetchIgCover(inputUrl?: string) {
+    const targetUrl = (inputUrl ?? igCoverUrl).trim();
+    if (!targetUrl) return;
+    setFetchingIgCover(true);
+    setError("");
+    setIgCoverSuccess(false);
+
+    try {
+      const res = await fetch("/api/admin/instagram-thumbnail", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: targetUrl }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setError(data.error || "Failed to fetch Instagram cover image");
+        return;
+      }
+
+      if (data.url) {
+        updateField("image", data.url);
+        setIgCoverSuccess(true);
+        setTimeout(() => setIgCoverSuccess(false), 3000);
+      }
+    } catch {
+      setError("Network error while fetching Instagram cover image");
+    } finally {
+      setFetchingIgCover(false);
+    }
   }
 
   async function handleVideoUpload(event: React.ChangeEvent<HTMLInputElement>) {
@@ -250,8 +287,8 @@ export default function PostForm({ initial, mode }: PostFormProps) {
             onChange={(content) => updateField("content", content)}
           />
         </div>
-        <div className="sm:col-span-2">
-          <label className="mb-1.5 block text-sm font-medium">Cover image</label>
+        <div className="sm:col-span-2 space-y-3">
+          <label className="block text-sm font-medium">Cover image</label>
           <Input type="file" accept="image/*" onChange={handleImageUpload} />
           {uploading ? (
             <p className="mt-2 text-sm text-slate-500">Uploading...</p>
@@ -260,16 +297,62 @@ export default function PostForm({ initial, mode }: PostFormProps) {
             <img
               src={form.image}
               alt="Preview"
-              className="mt-3 h-40 w-full max-w-sm rounded-lg object-cover"
+              className="mt-2 h-40 w-full max-w-sm rounded-lg object-cover"
             />
           ) : null}
           <Input
-            className="mt-3"
+            className="mt-2"
             value={form.image}
             onChange={(e) => updateField("image", e.target.value)}
             placeholder="/uploads/image.jpg"
             required
           />
+
+          {/* Quick Instagram URL Cover Fetcher */}
+          <div className="rounded-xl border border-pink-200 bg-gradient-to-r from-pink-50/70 via-purple-50/40 to-white p-3 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-800">
+                <InstagramIcon className="h-4 w-4 text-pink-600" />
+                Or get Cover from Instagram URL
+              </span>
+              {igCoverSuccess ? (
+                <span className="flex items-center gap-1 text-[11px] font-medium text-emerald-600">
+                  <CheckCircle2 className="h-3.5 w-3.5" /> Cover updated!
+                </span>
+              ) : null}
+            </div>
+            <div className="flex gap-2">
+              <Input
+                value={igCoverUrl}
+                onChange={(e) => setIgCoverUrl(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    void handleFetchIgCover();
+                  }
+                }}
+                placeholder="https://www.instagram.com/reel/... or /p/..."
+                className="h-8 text-xs bg-white border-pink-200 focus-visible:ring-pink-500 font-mono flex-1"
+              />
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                disabled={fetchingIgCover || !igCoverUrl.trim()}
+                onClick={() => void handleFetchIgCover()}
+                className="h-8 px-3 text-xs border-pink-300 text-pink-700 hover:bg-pink-100 shrink-0 font-medium"
+              >
+                {fetchingIgCover ? (
+                  <>
+                    <Loader2 className="h-3 w-3 animate-spin mr-1" />
+                    Fetching...
+                  </>
+                ) : (
+                  "Fetch Cover"
+                )}
+              </Button>
+            </div>
+          </div>
         </div>
         <div className="sm:col-span-2 rounded-xl border border-slate-200 bg-slate-50/70 p-4 space-y-3">
           <div className="flex items-center justify-between">

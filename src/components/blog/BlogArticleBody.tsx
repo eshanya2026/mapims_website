@@ -1,5 +1,6 @@
 import { isEditorJsContent, parseEditorJsContent } from "@/lib/editorjs-content";
 import EditorJsRenderer from "@/components/blog/EditorJsRenderer";
+import { decodeHtmlEntities } from "@/lib/html-utils";
 
 function isSectionHeading(block: string) {
   const trimmed = block.trim();
@@ -21,7 +22,7 @@ function PlainTextArticleBody({ content }: { content: string }) {
   return (
     <div className="space-y-4 break-words text-[15px] leading-relaxed text-slate-700 sm:text-base">
       {blocks.map((block, index) => {
-        const trimmed = block.trim();
+        const trimmed = decodeHtmlEntities(block.trim());
 
         if (isSectionHeading(trimmed)) {
           return (
@@ -38,7 +39,7 @@ function PlainTextArticleBody({ content }: { content: string }) {
           return (
             <ul key={index} className="list-disc space-y-2 pl-5 sm:pl-6">
               {trimmed.split("\n").map((line, lineIndex) => (
-                <li key={lineIndex}>{line.trim()}</li>
+                <li key={lineIndex}>{decodeHtmlEntities(line.trim())}</li>
               ))}
             </ul>
           );
