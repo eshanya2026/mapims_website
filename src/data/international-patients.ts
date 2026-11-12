@@ -105,7 +105,7 @@ export const internationalDesk = {
   email: "contact@mapims.edu.in",
   mailto: "mailto:contact@mapims.edu.in",
   address:
-    "Adhiparasakthi Hospitals, Melmaruvathur, Kancheepuram District, Tamil Nadu 603319, India",
+    "Adhiparasakthi Hospitals, Melmaruvathur, Chengalpattu District, Tamil Nadu 603319, India",
   mapsUrl:
     "https://www.google.com/maps/dir/?api=1&destination=Melmaruvathur+Adhiparasakthi+Institute+of+Medical+Sciences+and+Research,+Melmaruvathur,+Tamil+Nadu+603319",
 } as const;

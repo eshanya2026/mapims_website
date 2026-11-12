@@ -59,7 +59,7 @@ const certificates = [
     titlePrefix: "Certificate of",
     titleHighlight: "Appreciation (2024)",
     description:
-      "Awarded to Melmaruvathur Adhiparasakthi Institute, Kancheepuram for significant contribution and exemplary performance in the 6 Years of CMCHIS - ABPMJAY implementation by the District Collector, Chengalpattu District.",
+      "Awarded to Melmaruvathur Adhiparasakthi Institute, Chengalpattu for significant contribution and exemplary performance in the 6 Years of CMCHIS - ABPMJAY implementation by the District Collector, Chengalpattu District.",
     badges: ["6 Years CMCHIS-ABPMJAY", "National Health Agency", "Govt. of Tamil Nadu"],
     image: "/doc/best-performance-2024.webp",
     pdf: "/doc/BEST PERFOMANCE 2024.pdf",

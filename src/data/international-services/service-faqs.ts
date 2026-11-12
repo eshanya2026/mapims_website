@@ -147,7 +147,7 @@ export const serviceFaqsBySlug: Record<string, InternationalServiceFaq[]> = {
     {
       question: "What facilities does the dialysis centre offer?",
       answer:
-        "We have 26 modern dialyzers, advanced dia-filtration machines, a separate unit for positive patients, and dedicated nursing and specialist support — one of the largest dialysis centres in Kanchipuram District.",
+        "We have 26 modern dialyzers, advanced dia-filtration machines, a separate unit for positive patients, and dedicated nursing and specialist support — one of the largest dialysis centres in Chengalpattu District.",
     },
     {
       question: "How do I start dialysis at MAPIMS?",

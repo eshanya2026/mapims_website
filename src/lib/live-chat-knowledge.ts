@@ -22,7 +22,7 @@ export function buildLiveChatKnowledgeBase(): string {
 
   return `
 HOSPITAL: Adhiparasakthi Hospitals (MAPIMS)
-LOCATION: GST Road, Melmaruvathur, Kancheepuram / Chengalpattu District, Tamil Nadu, India 603319
+LOCATION: GST Road, Melmaruvathur, Chengalpattu District, Tamil Nadu, India 603319
 WEBSITE: Home, About, Contact, Specialities (Departments), Services, Blog, Master Health Checkup, Insurance, Careers, International Patients
 
 CONTACT & HELPLINES:

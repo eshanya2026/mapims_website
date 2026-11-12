@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 const ADDRESS =
-  "Adhiparasakthi Hospitals, Melmaruvathur, Kancheepuram District, Tamil Nadu, India 603319";
+  "Adhiparasakthi Hospitals, Melmaruvathur, Chengalpattu District, Tamil Nadu, India 603319";
 
 const HOSPITAL_EMAIL = process.env.NEXT_PUBLIC_HOSPITAL_EMAIL || "contact@mapims.edu.in";
 const TOLL_FREE_PHONE = process.env.NEXT_PUBLIC_TOLL_FREE_PHONE || "1800 599 0999";

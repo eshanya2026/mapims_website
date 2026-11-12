@@ -12,9 +12,9 @@ export const hemodialysisService: InternationalServiceData = {
   breadcrumbLabel: "Hemodialysis",
   heroBadge: "24/7 Hemodialysis",
   heroSubtitle:
-    "One of the largest dialysis centres in Kanchipuram District — 24/7 advanced hemodialysis, ICU dialysis, and dedicated renal care at MAPIMS, Melmaruvathur.",
+    "One of the largest dialysis centres in Chengalpattu District — 24/7 advanced hemodialysis, ICU dialysis, and dedicated renal care at MAPIMS, Melmaruvathur.",
   intro:
-    "The Dialysis Centre at Adhiparasakthi Hospitals is one of the largest dialysis centres in Kanchipuram District, equipped with 26+ modern dialyzers and 24/7 specialist support for patients with acute and chronic kidney failure.",
+    "The Dialysis Centre at Adhiparasakthi Hospitals is one of the largest dialysis centres in Chengalpattu District, equipped with 26+ modern dialyzers and 24/7 specialist support for patients with acute and chronic kidney failure.",
   sections: [
     {
       title: "24/7 Hemodialysis & Centre Highlights",
@@ -44,7 +44,7 @@ export const hemodialysisService: InternationalServiceData = {
     "Compassionate nursing and seamless nephrology hospital backup",
   ],
   closing:
-    "Trust Adhiparasakthi Hospitals for comprehensive 24/7 hemodialysis and renal support in Chennai and Kanchipuram — combining capacity, technology, and compassionate nursing care for every dialysis patient.",
+    "Trust Adhiparasakthi Hospitals for comprehensive 24/7 hemodialysis and renal support in Chennai and Chengalpattu — combining capacity, technology, and compassionate nursing care for every dialysis patient.",
   image: "/images/services/dialysis-hemodialysis-hero.png",
   heroImage: "/images/services/dialysis-hemodialysis-hero.png",
 };

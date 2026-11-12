@@ -263,7 +263,7 @@ export function buildPromoNewsletterEmail(
                       MAPIMS Hospitals
                     </p>
                     <p style="margin:0 0 18px;font-size:14px;line-height:1.6;color:#94a3b8;">
-                      Melmaruvathur, Kancheepuram District<br />
+                      Melmaruvathur, Chengalpattu District<br />
                       Tamil Nadu, India 603319
                     </p>
                     <p style="margin:0 0 6px;font-size:14px;color:#cbd5e1;">

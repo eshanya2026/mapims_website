@@ -46,6 +46,6 @@ export const spinalSurgeriesService: InternationalServiceData = {
     },
   ],
   closing:
-    "Choose Adhiparasakthi Hospitals for expert spine surgery in Chennai and Kanchipuram — where advanced technology, skilled surgeons, and personalized rehabilitation support help you return to an active, pain-free life.",
+    "Choose Adhiparasakthi Hospitals for expert spine surgery in Chennai and Chengalpattu — where advanced technology, skilled surgeons, and personalized rehabilitation support help you return to an active, pain-free life.",
   image: "/images/international/spiral.png",
 };

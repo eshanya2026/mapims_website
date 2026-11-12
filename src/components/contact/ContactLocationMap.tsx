@@ -26,7 +26,7 @@ export default function ContactLocationMap() {
             </h2>
             <p className="mt-3 flex max-w-xl gap-2 text-sm text-slate-600 sm:text-base">
               <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-red-600" />
-              Adhiparasakthi Hospitals, Melmaruvathur, Kancheepuram District,
+              Adhiparasakthi Hospitals, Melmaruvathur, Chengalpattu District,
               Tamil Nadu, India 603319
             </p>
           </div>

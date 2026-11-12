@@ -40,7 +40,7 @@ type FormState = {
 };
 
 const DEFAULT_OFFLINE_ADDRESS =
-  "Adhiparasakthi Hospitals, Melmaruvathur, Kancheepuram District, Tamilnadu, India 603319";
+  "Adhiparasakthi Hospitals, Melmaruvathur, Chengalpattu District, Tamil Nadu, India 603319";
 
 const INITIAL_STATE: FormState = {
   date: "",

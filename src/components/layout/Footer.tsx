@@ -54,8 +54,8 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
                 <span className="text-sm text-slate-400 leading-relaxed">
-                  Adhiparasakthi Hospitals, Melmaruvathur, Kancheepuram
-                  District, Tamilnadu, India 603319
+                  Adhiparasakthi Hospitals, Melmaruvathur, Chengalpattu
+                  District, Tamil Nadu, India 603319
                 </span>
               </li>
               <li className="flex items-start gap-3">
