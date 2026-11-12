@@ -62,14 +62,15 @@ const Counter = ({
 
 export default function Hero() {
   return (
-    <section className="hero-section relative overflow-hidden bg-slate-50 sm:flex sm:min-h-[90vh] sm:items-center">
+    <section className="hero-section relative overflow-hidden bg-slate-50 py-10 sm:py-16 sm:flex sm:min-h-[90vh] sm:items-center">
       <HeroBackground
         imageSrc="/images/mapims-flow-gwr-poster.jpg"
         videoSrc="/videos/mapims-flow-gwr-video-mvp.mp4"
+        videoMobileSrc="/videos/mapims-flow-gwr-video-mobile.mp4"
         videoWebmSrc="/videos/mapims-flow-gwr-video-mvp.webm"
-        overlayClassName="bg-gradient-to-b from-slate-950/95 via-slate-900/90 to-slate-950/95 sm:bg-gradient-to-r sm:from-slate-950/95 sm:via-slate-900/85 sm:to-slate-900/40"
-        imageClassName="object-cover object-[center_42%] sm:object-[center_45%] contrast-125"
-        videoClassName="object-cover object-[center_42%] sm:object-[center_45%] contrast-125"
+        overlayClassName="bg-gradient-to-b from-slate-950/80 via-slate-900/60 to-slate-950/85 sm:bg-gradient-to-r sm:from-slate-950/95 sm:via-slate-900/85 sm:to-slate-900/40"
+        imageClassName="object-cover object-[center_35%] sm:object-[center_45%] contrast-110"
+        videoClassName="object-cover object-[center_35%] sm:object-[center_45%] contrast-110"
       />
 
       {/* Animated Heartbeat Line */}

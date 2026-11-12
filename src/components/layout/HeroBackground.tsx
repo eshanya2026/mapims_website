@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 type HeroBackgroundProps = {
   imageSrc?: string;
   videoSrc?: string;
+  videoMobileSrc?: string;
   videoWebmSrc?: string;
   className?: string;
   overlayClassName?: string;
@@ -18,6 +19,7 @@ type HeroBackgroundProps = {
 export default function HeroBackground({
   imageSrc,
   videoSrc,
+  videoMobileSrc,
   videoWebmSrc,
   className,
   overlayClassName,
@@ -27,35 +29,63 @@ export default function HeroBackground({
 }: HeroBackgroundProps) {
   const [imageFailed, setImageFailed] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const showImage = Boolean(imageSrc) && !imageFailed;
-  const hasVideo = (Boolean(videoSrc) || Boolean(videoWebmSrc)) && !videoFailed;
+  const hasVideo = (Boolean(videoSrc) || Boolean(videoMobileSrc) || Boolean(videoWebmSrc)) && !videoFailed;
   const splitRight = imageLayout === "split-right";
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Browsers strictly require DOM property muted = true for autoplay
+    // Strict requirements for iOS Safari & Android mobile browser autoplay:
     video.defaultMuted = true;
     video.muted = true;
+    video.playsInline = true;
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "true");
 
     const playVideo = () => {
       const promise = video.play();
       if (promise !== undefined) {
-        promise.catch(() => {
-          // Autoplay blocked by browser policy until interaction
-        });
+        promise
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch(() => {
+            // Autoplay blocked by battery saver / browser policy until user interacts
+          });
       }
     };
 
     playVideo();
     video.addEventListener("canplay", playVideo, { once: true });
     video.addEventListener("loadeddata", playVideo, { once: true });
+    video.addEventListener("playing", () => setIsPlaying(true));
+
+    // Mobile fallback: start playback on first touch/scroll if blocked by Low Power Mode
+    const onUserInteraction = () => {
+      video
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => {});
+      window.removeEventListener("touchstart", onUserInteraction);
+      window.removeEventListener("scroll", onUserInteraction);
+      window.removeEventListener("click", onUserInteraction);
+    };
+
+    window.addEventListener("touchstart", onUserInteraction, { passive: true, once: true });
+    window.addEventListener("scroll", onUserInteraction, { passive: true, once: true });
+    window.addEventListener("click", onUserInteraction, { once: true });
 
     return () => {
       video.removeEventListener("canplay", playVideo);
       video.removeEventListener("loadeddata", playVideo);
+      window.removeEventListener("touchstart", onUserInteraction);
+      window.removeEventListener("scroll", onUserInteraction);
+      window.removeEventListener("click", onUserInteraction);
     };
   }, [hasVideo]);
 
@@ -66,33 +96,13 @@ export default function HeroBackground({
         className
       )}
     >
-      {/* Video Background with Poster Image */}
-      {hasVideo ? (
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          poster={imageSrc}
-          aria-hidden="true"
-          onError={() => setVideoFailed(true)}
-          style={{ objectFit: "cover" }}
-          className={cn(
-            "absolute inset-0 h-full w-full object-cover object-center pointer-events-none transition-opacity duration-700",
-            videoClassName
-          )}
-        >
-          {videoWebmSrc && <source src={videoWebmSrc} type="video/webm" />}
-          {videoSrc && <source src={videoSrc} type="video/mp4" />}
-        </video>
-      ) : showImage &&
+      {/* 1. Base Poster Image: Always rendered first for instant zero-latency paint */}
+      {showImage &&
         (splitRight ? (
           <img
             src={imageSrc}
             alt=""
-            aria-hidden
+            aria-hidden="true"
             className={cn(
               "absolute top-0 right-0 h-full w-[min(58%,920px)] max-w-[1024px] object-cover object-right",
               imageClassName
@@ -104,7 +114,7 @@ export default function HeroBackground({
           <img
             src={imageSrc}
             alt=""
-            aria-hidden
+            aria-hidden="true"
             className={cn(
               "absolute inset-0 h-full w-full object-cover object-center",
               imageClassName
@@ -114,7 +124,39 @@ export default function HeroBackground({
           />
         ))}
 
-      {/* Contrast Overlay */}
+      {/* 2. Video Background: Layered on top, fades in once playing */}
+      {hasVideo ? (
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          webkit-playsinline="true"
+          preload="auto"
+          poster={imageSrc}
+          aria-hidden="true"
+          onError={() => setVideoFailed(true)}
+          style={{ objectFit: "cover" }}
+          className={cn(
+            "absolute inset-0 h-full w-full object-cover object-center pointer-events-none transition-opacity duration-700",
+            isPlaying ? "opacity-100" : "opacity-0 sm:opacity-80",
+            videoClassName
+          )}
+        >
+          {videoWebmSrc && <source src={videoWebmSrc} type="video/webm" />}
+          {videoMobileSrc && (
+            <source
+              src={videoMobileSrc}
+              media="(max-width: 768px)"
+              type="video/mp4"
+            />
+          )}
+          {videoSrc && <source src={videoSrc} type="video/mp4" />}
+        </video>
+      ) : null}
+
+      {/* 3. Contrast Overlay */}
       <div
         className={cn(
           "absolute inset-0 z-10",
