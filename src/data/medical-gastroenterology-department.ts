@@ -135,7 +135,6 @@ export const medicalGastroenterologyConditions = [
 
 export const medicalGastroenterologyInfrastructure = [
   "High-Definition Endoscopy Systems",
-  "Capsule Endoscopy Technology",
   "Advanced Diagnostic Imaging",
   "Dedicated Endoscopy Suites",
   "Comfortable Recovery Areas",
