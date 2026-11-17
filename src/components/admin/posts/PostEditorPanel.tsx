@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { CheckCircle2, Film, ImagePlus, Loader2, Sparkles, Trash2, Video, X } from "lucide-react";
+import { AlertCircle, CheckCircle2, Film, ImagePlus, Loader2, Sparkles, Trash2, Video, X } from "lucide-react";
 import { InstagramIcon } from "@/components/layout/SocialIcons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,6 +48,7 @@ export default function PostEditorPanel({
   const [igCoverUrl, setIgCoverUrl] = useState("");
   const [fetchingIgCover, setFetchingIgCover] = useState(false);
   const [igCoverSuccess, setIgCoverSuccess] = useState(false);
+  const [igCoverError, setIgCoverError] = useState("");
 
   const [form, setForm] = useState<PostFormData>(() => ({
     ...createEmptyPost(defaultSection),
@@ -107,7 +108,7 @@ export default function PostEditorPanel({
   const resolveVideoUrl = useCallback(
     async (url: string) => {
       const clean = url.trim();
-      if (!clean || !clean.includes("instagram.com")) return;
+      if (!clean || (!clean.includes("instagram.com") && !clean.includes("instagr.am"))) return;
       setResolvingVideo(true);
       try {
         const res = await fetch("/api/video/resolve", {
@@ -143,6 +144,7 @@ export default function PostEditorPanel({
       if (!targetUrl) return;
       setFetchingIgCover(true);
       setError("");
+      setIgCoverError("");
       setIgCoverSuccess(false);
 
       try {
@@ -154,14 +156,16 @@ export default function PostEditorPanel({
 
         const data = await res.json();
         if (!res.ok || !data.success) {
-          setError(data.error || "Failed to fetch Instagram cover image");
+          const errText = data.error || "Unable to fetch Instagram image";
+          setIgCoverError(errText);
+          setError(errText);
           return;
         }
 
         if (data.url) {
           updateField("image", data.url);
           setIgCoverSuccess(true);
-          setTimeout(() => setIgCoverSuccess(false), 3000);
+          setTimeout(() => setIgCoverSuccess(false), 4000);
         }
 
         if (data.dateInput && !form.publishedAt) {
@@ -169,7 +173,9 @@ export default function PostEditorPanel({
         }
       } catch (err) {
         console.error("[PostEditorPanel] ig cover error:", err);
-        setError("Network error while fetching Instagram cover image");
+        const errText = "Network error while fetching Instagram cover image";
+        setIgCoverError(errText);
+        setError(errText);
       } finally {
         setFetchingIgCover(false);
       }
@@ -380,8 +386,11 @@ export default function PostEditorPanel({
         {/* Cover Image Section */}
         <div className="space-y-2.5">
           <div className="flex items-center justify-between">
-            <label className="text-xs font-semibold text-slate-800">
-              Cover Image / Thumbnail *
+            <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-800">
+              <span>Cover Image / Thumbnail</span>
+              <span className="text-[11px] font-normal text-slate-400">
+                (Optional — upload photo or use default)
+              </span>
             </label>
             {form.image ? (
               <button
@@ -456,18 +465,36 @@ export default function PostEditorPanel({
             <div className="flex items-center justify-between">
               <span className="flex items-center gap-1.5 text-xs font-semibold text-slate-800">
                 <InstagramIcon className="h-4 w-4 text-pink-600" />
-                Get Cover from Instagram URL
+                Get Cover from Instagram URL (Optional)
               </span>
               {igCoverSuccess ? (
                 <span className="flex items-center gap-1 text-[11px] font-medium text-emerald-600">
                   <CheckCircle2 className="h-3.5 w-3.5" /> Cover updated!
+                </span>
+              ) : igCoverError ? (
+                <span className="flex items-center gap-1 text-[11px] font-medium text-red-600">
+                  <AlertCircle className="h-3.5 w-3.5" /> {igCoverError}
                 </span>
               ) : null}
             </div>
             <div className="flex gap-2">
               <Input
                 value={igCoverUrl}
-                onChange={(e) => setIgCoverUrl(e.target.value)}
+                onChange={(e) => {
+                  setIgCoverUrl(e.target.value);
+                  if (igCoverError) setIgCoverError("");
+                }}
+                onPaste={(e) => {
+                  const pasted = e.clipboardData.getData("text")?.trim();
+                  if (
+                    pasted &&
+                    (pasted.includes("instagram.com") || pasted.includes("instagr.am"))
+                  ) {
+                    setIgCoverUrl(pasted);
+                    if (igCoverError) setIgCoverError("");
+                    void handleFetchIgCover(pasted);
+                  }
+                }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     e.preventDefault();
@@ -496,7 +523,7 @@ export default function PostEditorPanel({
               </Button>
             </div>
             <p className="text-[11px] text-slate-500">
-              Paste any Instagram post or reel link to automatically grab and set its cover image thumbnail.
+              Optional shortcut: Paste any Instagram link to auto-fetch its photo, or just upload a photo from your computer above.
             </p>
           </div>
         </div>

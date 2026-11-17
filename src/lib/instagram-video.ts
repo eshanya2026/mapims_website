@@ -96,6 +96,17 @@ export function isInstagramThumbnailCached(shortcode: string): boolean {
   }
 }
 
+function isValidImageBuffer(buf: Buffer): boolean {
+  if (!buf || buf.length < 1000) return false;
+  // JPEG: FF D8
+  if (buf[0] === 0xff && buf[1] === 0xd8) return true;
+  // PNG: 89 50 4E 47
+  if (buf[0] === 0x89 && buf[1] === 0x50 && buf[2] === 0x4e && buf[3] === 0x47) return true;
+  // WebP: RIFF ... WEBP
+  if (buf.toString("ascii", 0, 4) === "RIFF" && buf.toString("ascii", 8, 12) === "WEBP") return true;
+  return false;
+}
+
 /**
  * Downloads and caches the Instagram reel thumbnail as a JPG file.
  */
@@ -109,10 +120,20 @@ export async function ensureInstagramThumbnailCached(
   const localUrl = getInstagramThumbnailLocalUrl(cleanId);
 
   if (isInstagramThumbnailCached(cleanId)) {
-    return localUrl;
+    try {
+      const existingBuf = fs.readFileSync(targetFile);
+      if (isValidImageBuffer(existingBuf)) {
+        return localUrl;
+      }
+      fs.unlinkSync(targetFile);
+    } catch {
+      // re-fetch
+    }
   }
 
   const urls = [
+    `https://www.instagram.com/p/${cleanId}/media/?size=l`,
+    `https://www.instagram.com/reel/${cleanId}/media/?size=l`,
     `https://www.eeinstagram.com/images/${cleanId}/1`,
     `https://www.eeinstagram.com/images/${cleanId}/0`,
     `https://eeinstagram.com/images/${cleanId}/1`,
@@ -125,19 +146,18 @@ export async function ensureInstagramThumbnailCached(
         headers: {
           "User-Agent":
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-          Accept: "image/*,*/*",
+          Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
         },
         redirect: "follow",
-        signal: AbortSignal.timeout(15000),
+        signal: AbortSignal.timeout(10000),
       });
 
       if (!response.ok) {
-        console.warn(`[instagram-thumb] Failed fetching ${url}: HTTP ${response.status}`);
         continue;
       }
 
       const buffer = Buffer.from(await response.arrayBuffer());
-      if (buffer.length < 1000) {
+      if (!isValidImageBuffer(buffer)) {
         continue;
       }
 
@@ -145,10 +165,10 @@ export async function ensureInstagramThumbnailCached(
       fs.writeFileSync(tempFile, buffer);
       fs.renameSync(tempFile, targetFile);
 
-      console.log(`[instagram-thumb] Cached thumbnail for ${cleanId} (${buffer.length} bytes)`);
+      console.log(`[instagram-thumb] Cached thumbnail for ${cleanId} (${buffer.length} bytes) via ${url}`);
       return localUrl;
     } catch (err) {
-      console.error(`[instagram-thumb] Error downloading thumbnail from ${url}:`, err);
+      console.warn(`[instagram-thumb] Error downloading thumbnail from ${url}:`, err);
     }
   }
 

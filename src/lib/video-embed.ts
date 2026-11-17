@@ -11,7 +11,7 @@ export interface VideoInfo {
 }
 
 const IG_REGEX =
-  /(?:https?:\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/(?:reel|p|tv)\/([a-zA-Z0-9_-]+)/i;
+  /(?:https?:\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/(?:(?:share\/)?(?:reels?|p|tv))\/([a-zA-Z0-9_-]+)/i;
 
 const IG_LOCAL_REGEX =
   /\/uploads\/videos\/ig-([a-zA-Z0-9_-]+)\.mp4/i;

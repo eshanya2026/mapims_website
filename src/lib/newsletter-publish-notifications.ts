@@ -17,7 +17,10 @@ const NEWSLETTER_SECTIONS = new Set<BlogSection>([
 type PublishedPost = Pick<
   PostRecord,
   "slug" | "title" | "excerpt" | "section" | "category" | "image" | "publishedAt"
->;
+> & {
+  isIncoming?: boolean;
+  eventDate?: string | null;
+};
 
 export function shouldAnnouncePostToNewsletter(section: string) {
   return NEWSLETTER_SECTIONS.has(section as BlogSection);

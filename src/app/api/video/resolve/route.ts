@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
         cleanUrl: info.cleanUrl,
         localUrl: localUrl || `/uploads/videos/ig-${info.id}.mp4`,
         streamUrl: `/api/video/stream?id=${info.id}`,
-        thumbnailUrl: thumbUrl || `/uploads/videos/ig-${info.id}-thumb.jpg`,
+        thumbnailUrl: thumbUrl || null,
         publishedDate: postDate ? postDate.toISOString() : null,
         formattedDate,
         dateInput,

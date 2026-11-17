@@ -6,10 +6,14 @@ import {
   newsletterUnsubscribeUrl,
 } from "@/lib/newsletter-token";
 
-type PromoPost = Pick<
+export type PromoPost = Pick<
   PostRecord,
   "slug" | "title" | "excerpt" | "section" | "image" | "publishedAt"
->;
+> & {
+  isIncoming?: boolean;
+  eventDate?: string | null;
+  category?: string | null;
+};
 
 const BRAND_RED = "#b91c1c";
 const BRAND_RED_DARK = "#991b1b";
@@ -30,14 +34,50 @@ function escapeHtml(value: string) {
     .replace(/"/g, "&quot;");
 }
 
-function sectionConfig(section: string) {
-  if (section === "hospitals-events") {
+export function isEventUpcoming(post: PromoPost): boolean {
+  if (post.section !== "hospitals-events") return false;
+
+  // 1. If explicit eventDate is provided (e.g. YYYY-MM-DD), check if it has passed
+  if (post.eventDate) {
+    const eventTime = new Date(post.eventDate);
+    eventTime.setHours(23, 59, 59, 999);
+    if (!isNaN(eventTime.getTime())) {
+      return Date.now() <= eventTime.getTime();
+    }
+  }
+
+  // 2. Otherwise respect the isIncoming flag (only true if explicitly marked incoming)
+  return Boolean(post.isIncoming);
+}
+
+function sectionConfig(post: PromoPost) {
+  if (post.section === "hospitals-events") {
+    if (isEventUpcoming(post)) {
+      return {
+        badge: "Upcoming Event",
+        heading: "MAPIMS UPCOMING EVENT",
+        kicker:
+          "You're invited — discover what's happening at Adhiparasakthi Hospitals.",
+        cta: "View Event Details",
+      };
+    }
+
     return {
-      badge: "Upcoming Event",
+      badge: "Hospital Event",
       heading: "MAPIMS HOSPITAL EVENTS",
       kicker:
-        "You're invited — discover what's happening at Adhiparasakthi Hospitals.",
+        "Discover the latest event highlights and community initiatives from Adhiparasakthi Hospitals.",
       cta: "View Event Details",
+    };
+  }
+
+  if (post.section === "health-insights") {
+    return {
+      badge: "Health Insights",
+      heading: "MAPIMS HEALTH INSIGHTS",
+      kicker:
+        "Helpful medical advice and wellness insights from our specialists.",
+      cta: "Read Full Article",
     };
   }
 
@@ -51,9 +91,14 @@ function sectionConfig(section: string) {
 }
 
 export function promoEmailSubject(post: PromoPost) {
-  const config = sectionConfig(post.section);
   if (post.section === "hospitals-events") {
-    return `Join Us at MAPIMS — ${post.title}`;
+    if (isEventUpcoming(post)) {
+      return `Join Us at MAPIMS — ${post.title}`;
+    }
+    return `Hospital Event — ${post.title}`;
+  }
+  if (post.section === "health-insights") {
+    return `Health Insights — ${post.title}`;
   }
   return `New at MAPIMS — ${post.title}`;
 }
@@ -62,7 +107,7 @@ export function buildPromoNewsletterEmail(
   post: PromoPost,
   subscriberEmail: string
 ) {
-  const config = sectionConfig(post.section);
+  const config = sectionConfig(post);
   const siteUrl = getSiteUrl();
   const articleUrl = toAbsoluteUrl(`/blog/${post.slug}`);
   const appointmentUrl = toAbsoluteUrl("/contact");

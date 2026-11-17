@@ -29,7 +29,13 @@ export function getHrNotificationEmail() {
 function isLocalhostUrl(url: string) {
   try {
     const parsed = new URL(url.includes("://") ? url : `http://${url}`);
-    return parsed.hostname === "localhost" || parsed.hostname === "127.0.0.1";
+    const host = parsed.hostname.toLowerCase();
+    return (
+      host === "localhost" ||
+      host === "127.0.0.1" ||
+      host === "0.0.0.0" ||
+      host.endsWith(".local")
+    );
   } catch {
     return false;
   }
@@ -42,14 +48,16 @@ function normalizeSiteUrl(url: string) {
 }
 
 export function getSiteUrl() {
-  const explicit = process.env.SITE_URL?.trim();
-  const onVercel = process.env.VERCEL === "1";
-
-  // Ignore localhost SITE_URL on Vercel — common when env was copied from .env.example
-  if (explicit && !(onVercel && isLocalhostUrl(explicit))) {
-    return normalizeSiteUrl(explicit);
+  // 1. Explicit deployed / production site URL override
+  const deployed =
+    process.env.DEPLOYED_SITE_URL?.trim() ||
+    process.env.PRODUCTION_SITE_URL?.trim() ||
+    process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (deployed && !isLocalhostUrl(deployed)) {
+    return normalizeSiteUrl(deployed);
   }
 
+  // 2. Hosting platform production URLs (Vercel, Netlify)
   const productionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
   if (productionUrl) {
     return normalizeSiteUrl(productionUrl);
@@ -65,11 +73,15 @@ export function getSiteUrl() {
     return normalizeSiteUrl(netlify);
   }
 
-  if (explicit) {
+  // 3. Explicit SITE_URL (only if it is a real public / non-localhost URL)
+  const explicit = process.env.SITE_URL?.trim();
+  if (explicit && !isLocalhostUrl(explicit)) {
     return normalizeSiteUrl(explicit);
   }
 
-  return "http://localhost:1004";
+  // 4. Default fallback for outgoing emails / notifications:
+  // Outgoing emails to patients and subscribers must NEVER contain dead localhost links.
+  return "https://adhiparasakthihospitals.com";
 }
 
 export function toAbsoluteUrl(path: string) {
