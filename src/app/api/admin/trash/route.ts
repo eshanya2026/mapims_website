@@ -30,6 +30,38 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const action = body.action;
+
+    // Bulk operation:
+    if (Array.isArray(body.items)) {
+      const items = body.items as Array<{ resource: string; id: string }>;
+      let successCount = 0;
+
+      for (const item of items) {
+        if (!item || typeof item.id !== "string" || !isTrashResource(item.resource)) {
+          continue;
+        }
+
+        if (!canManageTrashItem(auth.session.role, item.resource)) {
+          continue;
+        }
+
+        if (action === "restore") {
+          const restored = await restoreTrashItem(item.resource, item.id);
+          if (restored) {
+            revalidateAfterTrashRestore(item.resource, restored);
+            successCount++;
+          }
+        } else if (action === "purge") {
+          const purged = await purgeTrashItem(item.resource, item.id);
+          if (purged) {
+            successCount++;
+          }
+        }
+      }
+
+      return NextResponse.json({ ok: true, count: successCount });
+    }
+
     const resource = body.resource;
     const id = typeof body.id === "string" ? body.id : "";
 
