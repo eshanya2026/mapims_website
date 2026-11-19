@@ -23,14 +23,19 @@ export async function POST(request: NextRequest) {
     const info = getVideoInfo(url);
 
     if (info.platform === "instagram" && info.id) {
+      // 1. Ensure thumbnail is cached first (fast and reliable)
+      const thumbUrl = await ensureInstagramThumbnailCached(info.id);
+
+      // 2. Check if video file is already cached; if not, kick off download in background
       const isCached = isInstagramVideoCached(info.id);
       let localUrl = isCached ? getInstagramVideoLocalUrl(info.id) : null;
 
       if (!isCached) {
-        localUrl = await ensureInstagramVideoCached(info.id);
+        void ensureInstagramVideoCached(info.id).catch((err) =>
+          console.warn("[api/video/resolve] Background video caching error:", err)
+        );
       }
 
-      const thumbUrl = await ensureInstagramThumbnailCached(info.id);
       const postDate = getInstagramPostDate(info.id);
       const dateInput = postDate ? postDate.toISOString().split("T")[0] : null;
       const formattedDate = postDate

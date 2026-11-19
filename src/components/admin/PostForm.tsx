@@ -325,6 +325,18 @@ export default function PostForm({ initial, mode }: PostFormProps) {
               <Input
                 value={igCoverUrl}
                 onChange={(e) => setIgCoverUrl(e.target.value)}
+                onPaste={(e) => {
+                  const pasted = e.clipboardData.getData("text")?.trim();
+                  if (
+                    pasted &&
+                    (pasted.includes("instagram.com") ||
+                      pasted.includes("instagr.am") ||
+                      pasted.includes("youtu"))
+                  ) {
+                    setIgCoverUrl(pasted);
+                    void handleFetchIgCover(pasted);
+                  }
+                }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     e.preventDefault();

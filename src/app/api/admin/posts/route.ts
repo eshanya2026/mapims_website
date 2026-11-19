@@ -52,18 +52,28 @@ export async function POST(request: Request) {
     if (videoUrl) {
       const ig = parseInstagramUrl(videoUrl);
       if (ig?.id) {
-        // Cache Instagram Reel and thumbnail in background
+        // Cache Instagram Reel in background
         void ensureInstagramVideoCached(ig.id).catch((err) =>
           console.warn("[admin/posts POST] Failed to cache instagram video:", err)
         );
-        void ensureInstagramThumbnailCached(ig.id).catch(() => {});
+        const thumbUrl = await ensureInstagramThumbnailCached(ig.id);
 
         // If no custom image or placeholder, automatically use the Instagram thumbnail!
         if (
           !featuredImage ||
           featuredImage === "/images/blog/579502f2-f668-42e9-be7a-995936f42cfa.png"
         ) {
-          featuredImage = `/uploads/videos/ig-${ig.id}-thumb.jpg`;
+          featuredImage = thumbUrl || `/uploads/videos/ig-${ig.id}-thumb.jpg`;
+        }
+      }
+    }
+
+    if (featuredImage && (featuredImage.includes("instagram.com") || featuredImage.includes("instagr.am"))) {
+      const ig = parseInstagramUrl(featuredImage);
+      if (ig?.id) {
+        const thumbUrl = await ensureInstagramThumbnailCached(ig.id);
+        if (thumbUrl) {
+          featuredImage = thumbUrl;
         }
       }
     }

@@ -108,7 +108,7 @@ function isValidImageBuffer(buf: Buffer): boolean {
 }
 
 /**
- * Downloads and caches the Instagram reel thumbnail as a JPG file.
+ * Downloads and caches the Instagram reel or post thumbnail as a JPG file.
  */
 export async function ensureInstagramThumbnailCached(
   shortcode: string
@@ -131,16 +131,114 @@ export async function ensureInstagramThumbnailCached(
     }
   }
 
-  const urls = [
-    `https://www.instagram.com/p/${cleanId}/media/?size=l`,
-    `https://www.instagram.com/reel/${cleanId}/media/?size=l`,
-    `https://www.eeinstagram.com/images/${cleanId}/1`,
-    `https://www.eeinstagram.com/images/${cleanId}/0`,
-    `https://eeinstagram.com/images/${cleanId}/1`,
-    `https://eeinstagram.com/images/${cleanId}/0`,
-  ];
+  const saveBuffer = (buf: Buffer) => {
+    if (!isValidImageBuffer(buf)) return false;
+    const tempFile = `${targetFile}.${Date.now()}.${Math.random().toString(36).slice(2)}.tmp`;
+    fs.writeFileSync(tempFile, buf);
+    fs.renameSync(tempFile, targetFile);
+    console.log(`[instagram-thumb] Successfully cached thumbnail for ${cleanId} (${buf.length} bytes)`);
+    return true;
+  };
 
-  for (const url of urls) {
+  // 1. Primary Strategy: OpenGraph scraper with Bot User-Agent (Official Meta CDN)
+  for (const botAgent of [
+    "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)",
+    "Twitterbot/1.0",
+    "WhatsApp/2.21.12.21 A",
+  ]) {
+    for (const pathType of ["p", "reel"]) {
+      try {
+        const ogRes = await fetch(`https://www.instagram.com/${pathType}/${cleanId}/`, {
+          headers: {
+            "User-Agent": botAgent,
+            Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
+          },
+          redirect: "follow",
+          signal: AbortSignal.timeout(6000),
+        });
+
+        if (ogRes.ok) {
+          const html = await ogRes.text();
+          const ogMatch =
+            html.match(/content=["']([^"']+)["']\s+(?:property|name)=["']og:image["']/i) ||
+            html.match(/<meta\s+(?:property|name)=["']og:image["']\s+content=["']([^"']+)["']/i);
+
+          if (ogMatch && ogMatch[1]) {
+            const imgUrl = ogMatch[1].replace(/&amp;/g, "&");
+            const imgRes = await fetch(imgUrl, {
+              headers: {
+                "User-Agent":
+                  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+              },
+              signal: AbortSignal.timeout(6000),
+            });
+
+            if (imgRes.ok) {
+              const buf = Buffer.from(await imgRes.arrayBuffer());
+              if (saveBuffer(buf)) {
+                return localUrl;
+              }
+            }
+          }
+        }
+      } catch {
+        // try next
+      }
+    }
+  }
+
+  // 2. Secondary Strategy: Instagram Embed scraper
+  try {
+    const embedRes = await fetch(`https://www.instagram.com/p/${cleanId}/embed/captioned/`, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+      },
+      redirect: "follow",
+      signal: AbortSignal.timeout(6000),
+    });
+
+    if (embedRes.ok) {
+      const html = await embedRes.text();
+      const embedMatch =
+        html.match(/class=["']EmbeddedMediaImage["'][^>]*src=["']([^"']+)["']/i) ||
+        html.match(/src=["']([^"']+)["'][^>]*class=["']EmbeddedMediaImage["']/i) ||
+        html.match(/"display_url":"([^"]+)"/) ||
+        html.match(/"thumbnail_src":"([^"]+)"/);
+
+      if (embedMatch && embedMatch[1]) {
+        const rawImgUrl = embedMatch[1].replace(/&amp;/g, "&").replace(/\\\//g, "/");
+        const imgRes = await fetch(rawImgUrl, {
+          headers: {
+            "User-Agent":
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+          },
+          signal: AbortSignal.timeout(6000),
+        });
+
+        if (imgRes.ok) {
+          const buf = Buffer.from(await imgRes.arrayBuffer());
+          if (saveBuffer(buf)) {
+            return localUrl;
+          }
+        }
+      }
+    }
+  } catch {
+    // try next
+  }
+
+  // 3. Tertiary Strategy: Direct media endpoint
+  const directUrls = [
+    `https://www.instagram.com/p/${cleanId}/media/?size=l`,
+    `https://www.instagram.com/p/${cleanId}/media/?size=m`,
+  ];
+  for (const url of directUrls) {
     try {
       const response = await fetch(url, {
         headers: {
@@ -149,26 +247,47 @@ export async function ensureInstagramThumbnailCached(
           Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
         },
         redirect: "follow",
-        signal: AbortSignal.timeout(10000),
+        signal: AbortSignal.timeout(6000),
       });
 
-      if (!response.ok) {
-        continue;
-      }
+      if (!response.ok) continue;
 
       const buffer = Buffer.from(await response.arrayBuffer());
-      if (!isValidImageBuffer(buffer)) {
-        continue;
+      if (saveBuffer(buffer)) {
+        return localUrl;
       }
+    } catch {
+      // try next
+    }
+  }
 
-      const tempFile = `${targetFile}.${Date.now()}.tmp`;
-      fs.writeFileSync(tempFile, buffer);
-      fs.renameSync(tempFile, targetFile);
+  // 4. Fallback: Mirror endpoints
+  const mirrorUrls = [
+    `https://www.eeinstagram.com/images/${cleanId}/1`,
+    `https://www.eeinstagram.com/images/${cleanId}/0`,
+    `https://eeinstagram.com/images/${cleanId}/1`,
+    `https://eeinstagram.com/images/${cleanId}/0`,
+  ];
+  for (const url of mirrorUrls) {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+        },
+        redirect: "follow",
+        signal: AbortSignal.timeout(6000),
+      });
 
-      console.log(`[instagram-thumb] Cached thumbnail for ${cleanId} (${buffer.length} bytes) via ${url}`);
-      return localUrl;
-    } catch (err) {
-      console.warn(`[instagram-thumb] Error downloading thumbnail from ${url}:`, err);
+      if (!response.ok) continue;
+
+      const buffer = Buffer.from(await response.arrayBuffer());
+      if (saveBuffer(buffer)) {
+        return localUrl;
+      }
+    } catch {
+      // try next
     }
   }
 

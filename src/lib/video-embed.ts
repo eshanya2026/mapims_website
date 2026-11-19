@@ -10,11 +10,15 @@ export interface VideoInfo {
   isPortrait?: boolean;
 }
 
-const IG_REGEX =
-  /(?:https?:\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/(?:(?:share\/)?(?:reels?|p|tv))\/([a-zA-Z0-9_-]+)/i;
-
-const IG_LOCAL_REGEX =
-  /\/uploads\/videos\/ig-([a-zA-Z0-9_-]+)\.mp4/i;
+const IG_PATTERNS = [
+  // Web URLs with optional username, share prefix, etc.:
+  // e.g. instagram.com/adhiparasakthihospitals/reel/ABC, instagram.com/reel/ABC, instagram.com/share/reel/ABC
+  /(?:https?:\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/(?:(?:[a-zA-Z0-9_.]+\/)?(?:reels?|p|tv)|share(?:\/(?:reels?|p|tv))?)\/([a-zA-Z0-9_-]+)/i,
+  // Any Instagram URL containing /(?:reel|reels|p|tv)/<shortcode> anywhere in path
+  /(?:https?:\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/.*?[\/?](?:reels?|p|tv)\/([a-zA-Z0-9_-]+)/i,
+  // Direct local file match: /uploads/videos/ig-<shortcode>.mp4 or -thumb.jpg
+  /\/uploads\/videos\/ig-([a-zA-Z0-9_-]+)(?:\.mp4|-thumb\.jpg)/i,
+];
 
 const YT_REGEX =
   /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/i;
@@ -23,25 +27,24 @@ export function parseInstagramUrl(input: string): { id: string; embedUrl: string
   if (!input || typeof input !== "string") return null;
   const trimmed = input.trim();
 
-  // Check standard web URL
-  const match = trimmed.match(IG_REGEX);
-  if (match && match[1]) {
-    const id = match[1];
-    return {
-      id,
-      cleanUrl: `https://www.instagram.com/reel/${id}/`,
-      embedUrl: `https://www.instagram.com/p/${id}/embed/`,
-    };
+  for (const re of IG_PATTERNS) {
+    const match = trimmed.match(re);
+    if (match && match[1]) {
+      const id = match[1];
+      return {
+        id,
+        cleanUrl: `https://www.instagram.com/reel/${id}/`,
+        embedUrl: `https://www.instagram.com/p/${id}/embed/`,
+      };
+    }
   }
 
-  // Check local cached Instagram URL
-  const localMatch = trimmed.match(IG_LOCAL_REGEX);
-  if (localMatch && localMatch[1]) {
-    const id = localMatch[1];
+  // Bare shortcode check (typical Instagram shortcodes are 9-15 chars, alphanumeric with _ and -)
+  if (/^[a-zA-Z0-9_-]{9,15}$/.test(trimmed)) {
     return {
-      id,
-      cleanUrl: `https://www.instagram.com/reel/${id}/`,
-      embedUrl: `https://www.instagram.com/p/${id}/embed/`,
+      id: trimmed,
+      cleanUrl: `https://www.instagram.com/reel/${trimmed}/`,
+      embedUrl: `https://www.instagram.com/p/${trimmed}/embed/`,
     };
   }
 
@@ -55,6 +58,8 @@ export function extractInstagramShortcode(input: string): string | null {
   if (parsed?.id) return parsed.id;
   const thumbMatch = trimmed.match(/\/uploads\/videos\/ig-([a-zA-Z0-9_-]+)-thumb\.jpg/i);
   if (thumbMatch && thumbMatch[1]) return thumbMatch[1];
+  const videoMatch = trimmed.match(/\/uploads\/videos\/ig-([a-zA-Z0-9_-]+)\.mp4/i);
+  if (videoMatch && videoMatch[1]) return videoMatch[1];
   if (/^[a-zA-Z0-9_-]{9,15}$/.test(trimmed)) {
     return trimmed;
   }

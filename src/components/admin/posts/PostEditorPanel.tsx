@@ -108,7 +108,13 @@ export default function PostEditorPanel({
   const resolveVideoUrl = useCallback(
     async (url: string) => {
       const clean = url.trim();
-      if (!clean || (!clean.includes("instagram.com") && !clean.includes("instagr.am"))) return;
+      if (
+        !clean ||
+        (!clean.includes("instagram.com") &&
+          !clean.includes("instagr.am") &&
+          !clean.includes("youtu"))
+      )
+        return;
       setResolvingVideo(true);
       try {
         const res = await fetch("/api/video/resolve", {
@@ -120,8 +126,14 @@ export default function PostEditorPanel({
           const data = await res.json();
           setForm((prev) => {
             const next = { ...prev };
-            if (data.thumbnailUrl && (!prev.image || prev.image === BLOG_PLACEHOLDER_IMAGE)) {
-              next.image = data.thumbnailUrl;
+            if (data.thumbnailUrl) {
+              if (
+                !prev.image ||
+                prev.image === BLOG_PLACEHOLDER_IMAGE ||
+                prev.image.includes("/uploads/videos/")
+              ) {
+                next.image = data.thumbnailUrl;
+              }
             }
             if (data.dateInput && !prev.publishedAt) {
               next.publishedAt = data.dateInput;
@@ -324,9 +336,18 @@ export default function PostEditorPanel({
       return;
     }
 
+    const hasIgVideo =
+      form.video &&
+      (form.video.includes("instagram.com") ||
+        form.video.includes("instagr.am"));
+    let imageToSave = form.image?.trim();
+    if (!imageToSave && !hasIgVideo) {
+      imageToSave = BLOG_PLACEHOLDER_IMAGE;
+    }
+
     const payload = {
       ...form,
-      image: form.image?.trim() || BLOG_PLACEHOLDER_IMAGE,
+      image: imageToSave || "",
       excerpt: form.excerpt?.trim() || form.title,
       content: form.content?.trim() || "{}",
       author: form.author?.trim() || "Adhiparasakthi Hospitals",
@@ -488,7 +509,9 @@ export default function PostEditorPanel({
                   const pasted = e.clipboardData.getData("text")?.trim();
                   if (
                     pasted &&
-                    (pasted.includes("instagram.com") || pasted.includes("instagr.am"))
+                    (pasted.includes("instagram.com") ||
+                      pasted.includes("instagr.am") ||
+                      pasted.includes("youtu"))
                   ) {
                     setIgCoverUrl(pasted);
                     if (igCoverError) setIgCoverError("");
@@ -627,6 +650,24 @@ export default function PostEditorPanel({
                         );
                       }
                       void resolveVideoUrl(val);
+                    }
+                  }}
+                  onPaste={(e) => {
+                    const pasted = e.clipboardData.getData("text")?.trim();
+                    if (pasted) {
+                      updateField("video", pasted);
+                      if (!form.author) updateField("author", "Adhiparasakthi Hospitals");
+                      if (!form.category) {
+                        updateField(
+                          "category",
+                          form.section === "hospitals-events"
+                            ? "Hospitals Events"
+                            : form.section === "health-insights"
+                            ? "Health Insights"
+                            : "Hospitals News"
+                        );
+                      }
+                      void resolveVideoUrl(pasted);
                     }
                   }}
                   placeholder="https://www.instagram.com/reel/C_xyz... or https://www.instagram.com/p/..."
