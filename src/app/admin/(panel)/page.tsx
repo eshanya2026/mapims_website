@@ -9,6 +9,8 @@ import { ADMIN_ROLES, hasPermission } from "@/lib/admin-roles";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { Newspaper, Briefcase, Inbox, Plus, Stethoscope } from "lucide-react";
+import { getAnalyticsSummary } from "@/lib/db/analytics";
+import AnalyticsDashboard from "@/components/admin/AnalyticsDashboard";
 
 export default async function AdminDashboardPage() {
   const session = await getSession();
@@ -19,16 +21,25 @@ export default async function AdminDashboardPage() {
   const canJobs = hasPermission(session.role, "jobs");
   const canInquiries = hasPermission(session.role, "inquiries");
 
-  const [postCount, publishedPosts, doctorCount, publishedDoctors, jobCount, publishedJobs, inquiryCounts] =
-    await Promise.all([
-      canPosts ? countPosts() : Promise.resolve(0),
-      canPosts ? countPosts({ published: true }) : Promise.resolve(0),
-      canDoctors ? countDoctors() : Promise.resolve(0),
-      canDoctors ? countDoctors({ published: true }) : Promise.resolve(0),
-      canJobs ? countJobs() : Promise.resolve(0),
-      canJobs ? countJobs({ published: true }) : Promise.resolve(0),
-      canInquiries ? getInquiryCounts(session.role) : Promise.resolve({ total: 0, new: 0 }),
-    ]);
+  const [
+    postCount,
+    publishedPosts,
+    doctorCount,
+    publishedDoctors,
+    jobCount,
+    publishedJobs,
+    inquiryCounts,
+    analyticsSummary,
+  ] = await Promise.all([
+    canPosts ? countPosts() : Promise.resolve(0),
+    canPosts ? countPosts({ published: true }) : Promise.resolve(0),
+    canDoctors ? countDoctors() : Promise.resolve(0),
+    canDoctors ? countDoctors({ published: true }) : Promise.resolve(0),
+    canJobs ? countJobs() : Promise.resolve(0),
+    canJobs ? countJobs({ published: true }) : Promise.resolve(0),
+    canInquiries ? getInquiryCounts(session.role) : Promise.resolve({ total: 0, new: 0 }),
+    getAnalyticsSummary(14),
+  ]);
 
   const { total: inquiryCount, new: newInquiries } = inquiryCounts;
 
@@ -40,128 +51,147 @@ export default async function AdminDashboardPage() {
         : "/admin/inquiries";
 
   return (
-    <div className="p-8">
-      <div className="mb-8">
+    <div className="p-6 sm:p-8 space-y-10 max-w-7xl mx-auto">
+      {/* Dashboard Top Header */}
+      <div>
         <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
         <p className="mt-1 text-sm text-slate-500">
           Signed in as {ADMIN_ROLES[session.role]}.
         </p>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {canPosts ? (
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-slate-500">
-                Total posts
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-bold text-slate-900">{postCount}</p>
-              <p className="mt-1 text-xs text-slate-500">{publishedPosts} published</p>
-            </CardContent>
-          </Card>
-        ) : null}
+      {/* Website Traffic & Page Analytics */}
+      <section>
+        <AnalyticsDashboard initialSummary={analyticsSummary} />
+      </section>
 
-        {canDoctors ? (
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-slate-500">
-                Doctors
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-bold text-slate-900">{doctorCount}</p>
-              <p className="mt-1 text-xs text-slate-500">{publishedDoctors} published</p>
-            </CardContent>
-          </Card>
-        ) : null}
+      {/* Hospital CMS Content & Form Overview */}
+      <section className="space-y-4 pt-4 border-t border-slate-200">
+        <div>
+          <h2 className="text-lg font-bold text-slate-900">
+            CMS Content & Submissions Overview
+          </h2>
+          <p className="text-xs text-slate-500">
+            Current records, published status, and pending inquiries.
+          </p>
+        </div>
 
-        {canJobs ? (
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-slate-500">
-                Career openings
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-bold text-slate-900">{jobCount}</p>
-              <p className="mt-1 text-xs text-slate-500">{publishedJobs} published</p>
-            </CardContent>
-          </Card>
-        ) : null}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {canPosts ? (
+            <Card className="border-slate-200 bg-white shadow-sm">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  Total posts
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold text-slate-900">{postCount}</p>
+                <p className="mt-1 text-xs text-slate-500">{publishedPosts} published</p>
+              </CardContent>
+            </Card>
+          ) : null}
 
-        {canInquiries ? (
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-slate-500">
-                Enquiries
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-bold text-slate-900">{inquiryCount}</p>
-              <p className="mt-1 text-xs text-slate-500">{newInquiries} new</p>
-            </CardContent>
-          </Card>
-        ) : null}
-      </div>
+          {canDoctors ? (
+            <Card className="border-slate-200 bg-white shadow-sm">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  Doctors
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold text-slate-900">{doctorCount}</p>
+                <p className="mt-1 text-xs text-slate-500">{publishedDoctors} published</p>
+              </CardContent>
+            </Card>
+          ) : null}
 
-      <div className="mt-8 flex flex-wrap gap-3">
-        {canPosts ? (
-          <Link
-            href="/admin/posts/new"
-            className={buttonVariants({ variant: "default" })}
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            New post
-          </Link>
-        ) : null}
-        {canDoctors ? (
-          <Link
-            href="/admin/doctors/new"
-            className={buttonVariants({ variant: "default" })}
-          >
-            <Stethoscope className="mr-2 h-4 w-4" />
-            New doctor
-          </Link>
-        ) : null}
-        {canJobs ? (
-          <Link
-            href="/admin/jobs/new"
-            className={buttonVariants({ variant: "default" })}
-          >
-            <Briefcase className="mr-2 h-4 w-4" />
-            New job
-          </Link>
-        ) : null}
-        {canInquiries ? (
-          <Link
-            href={enquiriesHref}
-            className={buttonVariants({ variant: "outline" })}
-          >
-            <Inbox className="mr-2 h-4 w-4" />
-            View enquiries
-          </Link>
-        ) : null}
-        {canPosts ? (
-          <Link
-            href="/admin/posts"
-            className={buttonVariants({ variant: "outline" })}
-          >
-            <Newspaper className="mr-2 h-4 w-4" />
-            Manage posts
-          </Link>
-        ) : null}
-        {canDoctors ? (
-          <Link
-            href="/admin/doctors"
-            className={buttonVariants({ variant: "outline" })}
-          >
-            <Stethoscope className="mr-2 h-4 w-4" />
-            Manage doctors
-          </Link>
-        ) : null}
-      </div>
+          {canJobs ? (
+            <Card className="border-slate-200 bg-white shadow-sm">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  Career openings
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold text-slate-900">{jobCount}</p>
+                <p className="mt-1 text-xs text-slate-500">{publishedJobs} published</p>
+              </CardContent>
+            </Card>
+          ) : null}
+
+          {canInquiries ? (
+            <Card className="border-slate-200 bg-white shadow-sm">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+                  Enquiries
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-2xl font-bold text-slate-900">{inquiryCount}</p>
+                <p className="mt-1 text-xs text-slate-500">{newInquiries} new</p>
+              </CardContent>
+            </Card>
+          ) : null}
+        </div>
+
+        {/* Quick action buttons */}
+        <div className="flex flex-wrap gap-2.5 pt-2">
+          {canPosts ? (
+            <Link
+              href="/admin/posts/new"
+              className={buttonVariants({ variant: "default" })}
+            >
+              <Plus className="mr-1.5 h-4 w-4" />
+              New post
+            </Link>
+          ) : null}
+          {canDoctors ? (
+            <Link
+              href="/admin/doctors/new"
+              className={buttonVariants({ variant: "default" })}
+            >
+              <Stethoscope className="mr-1.5 h-4 w-4" />
+              New doctor
+            </Link>
+          ) : null}
+          {canJobs ? (
+            <Link
+              href="/admin/jobs/new"
+              className={buttonVariants({ variant: "default" })}
+            >
+              <Briefcase className="mr-1.5 h-4 w-4" />
+              New job
+            </Link>
+          ) : null}
+          {canInquiries ? (
+            <Link
+              href={enquiriesHref}
+              className={buttonVariants({ variant: "outline" })}
+            >
+              <Inbox className="mr-1.5 h-4 w-4" />
+              View enquiries
+            </Link>
+          ) : null}
+          {canPosts ? (
+            <Link
+              href="/admin/posts"
+              className={buttonVariants({ variant: "outline" })}
+            >
+              <Newspaper className="mr-1.5 h-4 w-4" />
+              Manage posts
+            </Link>
+          ) : null}
+          {canDoctors ? (
+            <Link
+              href="/admin/doctors"
+              className={buttonVariants({ variant: "outline" })}
+            >
+              <Stethoscope className="mr-1.5 h-4 w-4" />
+              Manage doctors
+            </Link>
+          ) : null}
+        </div>
+      </section>
     </div>
   );
 }

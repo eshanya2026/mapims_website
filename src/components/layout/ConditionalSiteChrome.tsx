@@ -5,6 +5,7 @@ import TopHeader from "@/components/layout/TopHeader";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import LiveChatWidget from "@/components/layout/LiveChatWidget";
+import PageTrafficTracker from "@/components/analytics/PageTrafficTracker";
 
 export default function ConditionalSiteChrome({
   children,
@@ -20,6 +21,7 @@ export default function ConditionalSiteChrome({
 
   return (
     <>
+      <PageTrafficTracker />
       <TopHeader />
       <Navbar />
       {children}
