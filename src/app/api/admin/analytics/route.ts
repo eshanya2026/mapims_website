@@ -5,7 +5,7 @@ import { getAnalyticsSummary } from "@/lib/db/analytics";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
-  const auth = await requireApiPermission("dashboard");
+  const auth = await requireApiPermission("analytics");
   if (auth.error) return auth.error;
 
   try {

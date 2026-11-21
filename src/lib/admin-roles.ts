@@ -10,6 +10,7 @@ export type AdminRole = keyof typeof ADMIN_ROLES;
 
 export type AdminPermission =
   | "dashboard"
+  | "analytics"
   | "posts"
   | "jobs"
   | "doctors"
@@ -40,6 +41,7 @@ export const ENQUIRY_TYPES_BY_FILTER: Record<
 export const ROLE_PERMISSIONS: Record<AdminRole, readonly AdminPermission[]> = {
   super_admin: [
     "dashboard",
+    "analytics",
     "posts",
     "jobs",
     "doctors",
@@ -178,6 +180,7 @@ export function getPathPermission(pathname: string): AdminPermission | null {
 }
 
 export function getApiPermission(pathname: string): AdminPermission | null {
+  if (pathname.startsWith("/api/admin/analytics")) return "analytics";
   if (pathname.startsWith("/api/admin/posts")) return "posts";
   if (pathname.startsWith("/api/admin/jobs")) return "jobs";
   if (pathname.startsWith("/api/admin/doctors")) return "doctors";

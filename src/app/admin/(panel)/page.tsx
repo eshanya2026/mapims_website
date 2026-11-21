@@ -6,6 +6,7 @@ import { countPosts } from "@/lib/db/posts";
 import { getInquiryCounts } from "@/lib/form-submissions";
 import { getSession } from "@/lib/auth";
 import { ADMIN_ROLES, hasPermission } from "@/lib/admin-roles";
+import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { Newspaper, Briefcase, Inbox, Plus, Stethoscope } from "lucide-react";
@@ -20,6 +21,7 @@ export default async function AdminDashboardPage() {
   const canDoctors = hasPermission(session.role, "doctors");
   const canJobs = hasPermission(session.role, "jobs");
   const canInquiries = hasPermission(session.role, "inquiries");
+  const canAnalytics = hasPermission(session.role, "analytics");
 
   const [
     postCount,
@@ -38,7 +40,7 @@ export default async function AdminDashboardPage() {
     canJobs ? countJobs() : Promise.resolve(0),
     canJobs ? countJobs({ published: true }) : Promise.resolve(0),
     canInquiries ? getInquiryCounts(session.role) : Promise.resolve({ total: 0, new: 0 }),
-    getAnalyticsSummary(14),
+    canAnalytics ? getAnalyticsSummary(14) : Promise.resolve(null),
   ]);
 
   const { total: inquiryCount, new: newInquiries } = inquiryCounts;
@@ -60,13 +62,15 @@ export default async function AdminDashboardPage() {
         </p>
       </div>
 
-      {/* Website Traffic & Page Analytics */}
-      <section>
-        <AnalyticsDashboard initialSummary={analyticsSummary} />
-      </section>
+      {/* Website Traffic & Page Analytics (Admin Login Only) */}
+      {canAnalytics && analyticsSummary ? (
+        <section>
+          <AnalyticsDashboard initialSummary={analyticsSummary} />
+        </section>
+      ) : null}
 
       {/* Hospital CMS Content & Form Overview */}
-      <section className="space-y-4 pt-4 border-t border-slate-200">
+      <section className={cn("space-y-4", canAnalytics && "pt-4 border-t border-slate-200")}>
         <div>
           <h2 className="text-lg font-bold text-slate-900">
             CMS Content & Submissions Overview
